@@ -15,7 +15,7 @@ namespace ProyectoCompiladores2020
     {
         public Dictionary<int, string> lineas = new Dictionary<int, string>();
         public List<string> reservadas = new List<string>();
-        analizador palala = new analizador();
+        analizador iraAnalizador = new analizador();
         public Form1()
         {
             InitializeComponent();
@@ -27,7 +27,7 @@ namespace ProyectoCompiladores2020
                         reservadas.Add(linea);
                 }
             }
-            palala.guardarReservadas(reservadas);
+            iraAnalizador.guardarReservadas(reservadas);
 
         }
         
@@ -48,8 +48,8 @@ namespace ProyectoCompiladores2020
                     }
                 }
             }
-            palala.guardarArchivo(lineas);
-            var mostrar = palala.Reconocedor();
+            iraAnalizador.guardarArchivo(lineas);
+            var mostrar = iraAnalizador.Reconocedor();
             foreach (var item in mostrar)
             {
                 listBox1.Items.Add(item);
