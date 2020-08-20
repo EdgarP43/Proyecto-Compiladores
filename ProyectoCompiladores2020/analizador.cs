@@ -58,6 +58,100 @@ namespace ProyectoCompiladores2020
         Regex booleano = new Regex("true|false");
         Regex reservadas = new Regex("void|int|double|bool|string|class|const|interface|null|this|for|while|foreach|if|else|return|break|New|NewArray|Console|WriteLine");
 
+        public List<string> Reconocedor()
+        {
+            int llave = 1;
+            string concatpalabra = String.Empty;
+            var salida = new List<string>();
+            do
+            {
+                var linea = new Queue<char>();
+                foreach (var item in archivo[llave].ToCharArray())
+                {
+                    linea.Enqueue(item);
+                }
+                string cadena = "";
+                for (int i = linea.Count; i > 0; i++)
+                {
+                    if (linea.Count == 0 && cadena == "")
+                    {
+                        break;
+                    }
+                    else if (linea.Count == 0 && cadena != "")
+                    {
+                        salida.Add(validarCadena(cadena, llave));
+                        cadena = "";
+                        if (linea.Count != 0)
+                        {
+                            if (linea.Peek() == ' ' || linea.Peek() == '\t')
+                            {
+                                linea.Dequeue();
+                            }
+                        }
+                    }
+                    else
+                    {
+
+                        if (linea.Peek() != '\n' && linea.Peek() != '\t' && linea.Peek() != ' ' && !simbolosOtros.Contains(linea.Peek().ToString()))
+                        {
+                            cadena += linea.Dequeue().ToString();
+                        }
+                        else if (simbolosOtros.Contains(linea.Peek().ToString()) || linea.Peek() == '+' || linea.Peek() == '-' || linea.Peek() == '.')
+                        {
+                            if (cadena != "")
+                            {
+                                salida.Add(validarCadena(cadena, llave));
+                                cadena = "";
+
+                            }
+                            string cadenaSimbolos = "";
+                            cadenaSimbolos = linea.Dequeue().ToString();
+                            if (linea.Count == 0)
+                            {
+                                salida.Add("simbolo : " + cadenaSimbolos + " en linea " + llave.ToString());
+                            }
+                            else if (simbolosOtros.Contains(cadenaSimbolos + linea.Peek().ToString()))
+                            {
+                                cadenaSimbolos += linea.Dequeue().ToString();
+                                salida.Add("simbolo : " + cadenaSimbolos + " en linea " + llave.ToString());
+                            }
+                            else
+                            {
+                                salida.Add("simbolo : " + cadenaSimbolos + " en linea " + llave.ToString());
+                            }
+                            if (linea.Count != 0)
+                            {
+                                if (linea.Peek() == ' ' || linea.Peek() == '\t')
+                                {
+                                    linea.Dequeue();
+                                }
+                            }
+                        }
+                        else if (cadena != "")
+                        {
+                            salida.Add(validarCadena(cadena, llave));
+                            cadena = "";
+                            if (linea.Count != 0)
+                            {
+                                if (linea.Peek() == ' ' || linea.Peek() == '\t')
+                                {
+                                    linea.Dequeue();
+                                }
+                            }
+                        }
+                        else if (linea.Peek() == ' ' || linea.Peek() == '\t')
+                        {
+                            linea.Dequeue();
+                        }
+
+
+
+                    }
+                }
+                llave++;
+            } while (archivo.ContainsKey(llave));
+            return salida;
+        }
         private string validarCadena(string cadena, int llave)
         {
             if (reservadas.IsMatch(cadena))
@@ -91,14 +185,8 @@ namespace ProyectoCompiladores2020
             }
             else
             {
-                //La cago en todo
                 return "Error : " + cadena + " en linea " + llave.ToString();
             }
-        }
-
-        public List<string> Reconocedor()
-        {
-
         }
     }
 }
