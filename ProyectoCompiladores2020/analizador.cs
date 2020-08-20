@@ -51,12 +51,15 @@ namespace ProyectoCompiladores2020
             simbolosOtros.Add("}");
             simbolosOtros.Add("{}");
         }
-        Regex id = new Regex("^[a-z|A-Z]+([_]|[0-9]|[a-z|A-Z])*");
+        Regex id = new Regex("(^[a-z|A-Z]+([_]|[0-9]|[a-z|A-Z])*)");
         Regex enterosB10 = new Regex("^[0-9]+$");
         Regex decimales = new Regex("[0-9]+[.]([0-9]*)([eE][+-]?)?[0-9]*$");
         Regex enterosB16 = new Regex("^([0][xX])([0-9]|[abcdefABCDEF])*$");
         Regex booleano = new Regex("true|false");
         Regex reservadas = new Regex("void|int|double|bool|string|class|const|interface|null|this|for|while|foreach|if|else|return|break|New|NewArray|Console|WriteLine");
+       // Regex cadenas = new Regex("^[a-z|A-Z|0-9|!@#$%^&*()_+=/.,;'><:{}|]$");
+        //Regex operadores = new Regex("^[+]|[-]|[/]|[%]|[<]|([>][=])|([<][=])|[<]|[=]|([=][=])|[&&]|[||]|[!]|[;]|[,]|[.]|[(]|[)]|([(][)])|[{]|[}]|([{][}])|[[] |[]]| ([[][]])$");
+        // [+]|[-]|[/]|[%]|[<]|([>][=])|([<][=])|[<]|[=]|([=][=])|[&&]|[||]|[!]|[;]|[,]|[.]|[(]|[)]|([(][)])|[{]|[}]|([{][}])|[[] |[]]| ([[][]]
 
         public List<string> Reconocedor()
         {
@@ -90,35 +93,68 @@ namespace ProyectoCompiladores2020
                         }
                     }
                     else
-                    {
-
-                        if (linea.Peek() != '\n' && linea.Peek() != '\t' && linea.Peek() != ' ' && !simbolosOtros.Contains(linea.Peek().ToString()))
+                    { //["](cualquier cosa)["]
+                        //Identificar comentarios
+                        //if(linea.Peek() == '/')
+                        //{
+                        //    cadena += linea.().ToString();
+                        //}
+                        if (linea.Peek() == '"')
+                        {
+                            bool correcto = true;
+                            do
+                            {
+                                cadena += linea.Dequeue().ToString();
+                                if(linea.Count == 0)
+                                {
+                                    salida.Add("cadena sin terminar " + cadena + " en linea " + llave);
+                                    break;
+                                    correcto = false;
+                                }
+                            }while (linea.Peek() != '"');
+                            if(correcto && linea.Count >0)
+                            { 
+                                cadena += linea.Dequeue().ToString();
+                                salida.Add("string "+ cadena + " en linea "+ llave);
+                                cadena = "";
+                            }
+                            cadena = "";
+                        }//[]
+                        else if (linea.Peek() != '\n' && linea.Peek() != '\t' && linea.Peek() != ' ' && !simbolosOtros.Contains(linea.Peek().ToString()))
                         {
                             cadena += linea.Dequeue().ToString();
                         }
-                        else if (simbolosOtros.Contains(linea.Peek().ToString()) || linea.Peek() == '+' || linea.Peek() == '-' || linea.Peek() == '.')
+                        else if (simbolosOtros.Contains(linea.Peek().ToString()) || simbolosOtros.Contains(cadena))
                         {
-                            if (cadena != "")
-                            {
-                                salida.Add(validarCadena(cadena, llave));
-                                cadena = "";
-
-                            }
                             string cadenaSimbolos = "";
                             cadenaSimbolos = linea.Dequeue().ToString();
                             if (linea.Count == 0)
                             {
                                 salida.Add("simbolo : " + cadenaSimbolos + " en linea " + llave.ToString());
                             }
-                            else if (simbolosOtros.Contains(cadenaSimbolos + linea.Peek().ToString()))
+                            else if (simbolosOtros.Contains(cadenaSimbolos + linea.Peek().ToString()) || simbolosOtros.Contains(cadena))
                             {
-                                cadenaSimbolos += linea.Dequeue().ToString();
-                                salida.Add("simbolo : " + cadenaSimbolos + " en linea " + llave.ToString());
+                                if (cadena == "")
+                                {
+                                    cadenaSimbolos += linea.Dequeue().ToString();
+                                    salida.Add("simbolo : " + cadenaSimbolos + " en linea " + llave.ToString());
+                                }
+                                else
+                                {
+                                    salida.Add("simbolo : " + cadena + " en linea " + llave.ToString());
+                                    cadena = "";
+                                }
+                            }
+                            else if (cadena != "")
+                            {
+                                salida.Add(validarCadena(cadena, llave));
+                                cadena = "";
                             }
                             else
                             {
                                 salida.Add("simbolo : " + cadenaSimbolos + " en linea " + llave.ToString());
                             }
+                            
                             if (linea.Count != 0)
                             {
                                 if (linea.Peek() == ' ' || linea.Peek() == '\t')
