@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -13,7 +14,6 @@ namespace ProyectoCompiladores2020
         {
             simbolos();
         }
-        private List<string> reservadas = new List<string>();
         private Dictionary<int, string> archivo = new Dictionary<int, string>();
         public void guardarArchivo(Dictionary<int, string> lineas)
         {
