@@ -25,7 +25,7 @@ namespace ProyectoCompiladores2020
         {
             int contlineas = 0;
             OpenFileDialog o = new OpenFileDialog();
-            o.Filter = "Text files(*.txt)|*.txt|Todos los archivos(*.*)|*.*";
+            o.Filter = "Todos los archivos(*.*)|*.*";
             if (o.ShowDialog() == DialogResult.OK)
             {
                 using (StreamReader sr = new StreamReader(o.FileName)) 
