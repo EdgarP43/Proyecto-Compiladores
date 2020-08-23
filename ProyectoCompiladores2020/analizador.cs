@@ -58,11 +58,13 @@ namespace ProyectoCompiladores2020
         Regex enterosB16 = new Regex("^([0][xX])([0-9]|[abcdefABCDEF])*$");
         Regex booleano = new Regex("true|false");
         Regex reservadas = new Regex("void|int|double|bool|string|class|const|interface|null|this|for|while|foreach|if|else|return|break|New|NewArray|Console|WriteLine");
-
+        bool comment = false;
         public List<string> Reconocedor()
         {
 
             int llave = 1;
+            bool sumaF = true;
+            char suma = 's';
             string concatpalabra = String.Empty;
             var salida = new List<string>();
             do
@@ -75,22 +77,26 @@ namespace ProyectoCompiladores2020
                 int inicio = 1;
                 int fin = 1;
                 string cadena = "";
+                string inicioComments = "";
                 int tamanio = linea.Count;
                 for (int i = linea.Count; i > 0; i++)
                 {
-                    //if (iniciaPalabra == true)
-                    //{
-                    //    posInicio = i;
-
-                    //}
                     if(fin>tamanio)
                     {
                         fin--;
                     }
-                    if (linea.Count == 0 && cadena == "")
+                    if (linea.Count == 0 && cadena == "" /*&& comment == false*/)
                     {
                         break;
                     }
+                    //else if(linea.Count ==0 && )
+                    //{
+
+                    //}
+                    //else if (comment == true)
+                    //{
+                    //    inicioComments += linea.Peek().ToString();
+                    //}
                     else if (linea.Count == 0 && cadena != "")
                     {
 
@@ -110,29 +116,34 @@ namespace ProyectoCompiladores2020
                     {
                         if( linea.Peek()=='/')
                         {
-                            string inicioComments = linea.Dequeue().ToString();
-                            fin++;///
-                            if(linea.Peek() == '/')
+                            inicioComments += linea.Dequeue().ToString();
+                            if (linea.Peek() == '/')
                             {
                                 do
                                 {
                                     inicioComments += linea.Dequeue().ToString();
                                     fin++;
-                                } while (linea.Count >0);
+                                } while (linea.Count > 0);
                                 salida.Add("Comentario :" + inicioComments + ". En linea " + llave.ToString() + " cols:" + inicio + " - " + fin);
                                 inicio = fin;
+                            }
+                            else if (linea.Peek() == '*')
+                            {
+                                inicioComments += linea.Peek().ToString();
+                                comment = true;
                             }
                             else
                             {
                                 if (cadena != "")
                                 {
-                                    salida.Add(validarCadena( cadena,llave, inicio, fin));
-                                    fin++;
+                                    salida.Add(validarCadena(cadena, llave, inicio, fin));
                                     cadena = "";
                                     inicio = fin;
                                 }
-                                salida.Add("simbolo : " + inicioComments + " en linea " + llave.ToString() + "cols " + inicio + " - " + fin);
+                                salida.Add("simbolo : " + inicioComments + " en linea " + llave.ToString() + " cols " + inicio + " - " + fin);
+                                fin++;
                                 inicio = fin;
+                                suma = 'n';
                             }
                         }
                         else if (linea.Peek() == '"')
@@ -141,15 +152,15 @@ namespace ProyectoCompiladores2020
                             do
                             {
                                 cadena += linea.Dequeue().ToString();
-                                fin++;//////
+                                fin++;
                                 if(linea.Count == 0)
                                 {
-                                    salida.Add("cadena sin terminar " + cadena + " en linea " + llave + "cols " + inicio + " - " + fin);
+                                    salida.Add("cadena sin terminar " + cadena + " en linea " + llave + " cols " + inicio + " - " + fin);
                                     inicio = fin;
                                     break;
                                     correcto = false;
                                 }
-                               // fin++;
+                               
                             }while (linea.Peek() != '"');
                             if(correcto && linea.Count >0)
                             { 
@@ -173,6 +184,7 @@ namespace ProyectoCompiladores2020
                                 
                                 salida.Add(validarCadena(cadena, llave, inicio, fin));
                                 inicio = fin;
+                                suma = 'n';
                                 cadena = "";
 
                             }
@@ -180,20 +192,23 @@ namespace ProyectoCompiladores2020
                             cadenaSimbolos = linea.Dequeue().ToString();
                             if (linea.Count == 0)
                             {
-                                salida.Add("simbolo : " + cadenaSimbolos + " en linea " + llave+"cols "+inicio+" - "+fin);
+                                salida.Add("simbolo : " + cadenaSimbolos + " en linea " + llave+" cols "+inicio+" - "+fin);
                                 inicio = fin;
+                                suma = 'n';
                             }
                             else if (simbolosOtros.Contains(cadenaSimbolos + linea.Peek().ToString()) && cadenaSimbolos != "")
                             {
                                 cadenaSimbolos += linea.Dequeue().ToString();
-                                //fin--;
-                                salida.Add("simbolo : " + cadenaSimbolos + " en linea " + llave.ToString() + "cols " + inicio + " - " + (fin++));
+                                salida.Add("simbolo : " + cadenaSimbolos + " en linea " + llave.ToString() + " cols " + inicio + " - " + (fin++));
                                 inicio = fin;
+                                suma = 'n';
                             }
                             else
                             {
-                                salida.Add("simbolo : " + cadenaSimbolos + " en linea " + llave.ToString() + "cols " + (inicio++) + " - " + fin);
+                                salida.Add("simbolo : " + cadenaSimbolos + " en linea " + llave.ToString() + " cols " + (inicio++) + " - " + fin);
+                                fin++;
                                 inicio = fin;
+                                suma = 'n';
                             }
                             if (linea.Count != 0)
                             {
@@ -208,6 +223,7 @@ namespace ProyectoCompiladores2020
                         {
                             salida.Add(validarCadena(cadena, llave, inicio, fin));
                             inicio = fin;
+                            suma = 'n';
 
                             cadena = "";
                             if (linea.Count != 0)
@@ -225,12 +241,21 @@ namespace ProyectoCompiladores2020
                             linea.Dequeue();
                             inicio++;
                             fin = inicio;
+                            suma = 'n';
                         }
 
 
 
                     }
-                    fin++;
+                    if (suma == 's')
+                    {
+                        fin++;
+                    }
+                    else
+                    {
+                        suma = 's';
+                    }
+                    
                 }
 
               
@@ -240,6 +265,11 @@ namespace ProyectoCompiladores2020
         }
         private string validarCadena(string cadena, int llave, int inicio, int final)
         {
+            //final--;
+            if(inicio != final)
+            {
+                final--;
+            }
             if (reservadas.IsMatch(cadena))
             {
 
@@ -258,19 +288,19 @@ namespace ProyectoCompiladores2020
             else if (enterosB10.IsMatch(cadena))
             {
                 //Agregar palabra correcta
-                return "Entero base 10: " + cadena + " en linea " + llave.ToString()+"(valor = "+cadena+")" + " Cols " + inicio + " - " + final; ;
+                return "Entero base 10: " + cadena + " en linea " + llave.ToString()+" (valor = "+cadena+")" + " Cols " + inicio + " - " + final; ;
             }
             else if (enterosB16.IsMatch(cadena))
             {
                 //Agregar palabra correcta
                 decimal numerohexa = new decimal(Convert.ToInt32(cadena,16));
-                return "Entero base 16 : " + cadena + " en linea " + llave.ToString() + "(valor = " + numerohexa.ToString() + ")" + " Cols " + inicio + " - " + final; ; ;
+                return "Entero base 16 : " + cadena + " en linea " + llave.ToString() + " (valor = " + numerohexa.ToString() + ")" + " Cols " + inicio + " - " + final; ; ;
             }
             else if (decimales.IsMatch(cadena))
             {
                 //Agregar palabra correcta
                 decimal numeroDouble = new decimal(Convert.ToDouble(cadena));
-                return "Decimal: " + cadena + " en linea " + llave.ToString()+"(valore = "+numeroDouble.ToString()+")" + " Cols " + inicio + " - " + final; ;
+                return "Decimal: " + cadena + " en linea " + llave.ToString()+" (valor = "+numeroDouble.ToString()+")" + " Cols " + inicio + " - " + final; ;
             }
             else
             {
