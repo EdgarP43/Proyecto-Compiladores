@@ -52,13 +52,13 @@ namespace ProyectoCompiladores2020
             simbolosOtros.Add("}");
             simbolosOtros.Add("{}");
         }
-        Regex id = new Regex("^([a-z|A-Z]+([0-9]|[a-z|A-Z])*)$");
+        Regex id = new Regex("^([a-z|A-Z]+([_]|[0-9]|[a-z|A-Z])*)$");
         Regex enterosB10 = new Regex("^[0-9]+$");
         Regex decimales = new Regex("^[0-9]+[.]([0-9]*)([eE][+-]?)?[0-9]*$");
         Regex enterosB16 = new Regex("^([0][xX])([0-9]|[abcdefABCDEF])*$");
         Regex booleano = new Regex("true|false");
         Regex reservadas = new Regex(@"^(void|int|double|bool|string|class|const|interface|null|this|for|while|foreach|if|else|return|break|New|NewArray|Console|WriteLine)$");
-        Regex caracterNoValido = new Regex("^[a-z|A-Z|0-9|&]+$");
+        Regex caracterNoValido = new Regex("^[a-z|A-Z|0-9|&|_]+$");
         bool comment = false;
         public List<string> Reconocedor()
         {
@@ -97,7 +97,7 @@ namespace ProyectoCompiladores2020
                             if (inicioComments.Contains("*/"))
                             {
                                 comment = false;
-                                salida.Add("Comentario : " + inicioComments);
+                                //salida.Add("Comentario : " + inicioComments);
                                 break;
                             }
                             else if (linea.Count > 0)
@@ -121,12 +121,17 @@ namespace ProyectoCompiladores2020
                             }
 
                         }
+                        comment = false;
                         //salida.Add(comentariosMuchasLineas());
                     }
                     else if (linea.Count == 0 && cadena != "")
                     {
-
+                        if (fin < tamanio)
+                            fin--;
+                        else if (fin == tamanio && linea.Count != 0)
+                        { fin--; }
                         salida.Add(validarCadena(cadena, llave, inicio, fin));
+
                         inicio = fin;
                         cadena = "";
                         if (linea.Count != 0)
@@ -134,7 +139,13 @@ namespace ProyectoCompiladores2020
                             if (linea.Peek() == ' ' || linea.Peek() == '\t')
                             {
                                 linea.Dequeue();
-                                inicio++;
+                                inicio += 2;
+                                fin = inicio;
+                            }
+                            else
+                            {
+                                inicio ++;
+                                fin = inicio;
                             }
                         }
                     }
@@ -142,6 +153,19 @@ namespace ProyectoCompiladores2020
                     {
                         if (linea.Peek() == '/')
                         {
+                            if (cadena != "")
+                            {
+                                if (fin < tamanio)
+                                    fin--;
+                                else if(fin == tamanio && linea.Count != 0)
+                                { fin--; }
+                                salida.Add(validarCadena(cadena, llave, inicio, fin));
+                                fin++;
+                                inicio = fin;
+                                suma = 'n';
+                                cadena = "";
+
+                            }
                             inicioComments += linea.Dequeue().ToString();
                             if (linea.Peek() == '/')
                             {
@@ -150,7 +174,7 @@ namespace ProyectoCompiladores2020
                                     inicioComments += linea.Dequeue().ToString();
                                     fin++;
                                 } while (linea.Count > 0);
-                                salida.Add("Comentario :" + inicioComments + ". En linea " + llave.ToString() + " cols:" + inicio + " - " + fin);
+                                //salida.Add("Comentario :" + inicioComments + ". En linea " + llave.ToString() + " cols:" + inicio + " - " + fin);
                                 inicio = fin;
                             }
                             else if (linea.Peek() == '*')
@@ -184,7 +208,7 @@ namespace ProyectoCompiladores2020
                                 }
                                 else
                                 {
-                                    salida.Add("simbolo : " + linea.Dequeue().ToString() + " en linea " + llave.ToString() + " cols " + inicio + " - " + fin);
+                                    salida.Add("simbolo : " + "*" + " en linea " + llave.ToString() + " cols " + inicio + " - " + fin);
                                     fin++;
                                     inicio = fin;
                                 }
@@ -209,9 +233,9 @@ namespace ProyectoCompiladores2020
                             if (correcto && linea.Count > 0)
                             {
                                 cadena += linea.Dequeue().ToString();
-                                fin++;
+                                
                                 salida.Add("string " + cadena + " en linea " + llave + " cols " + inicio + " - " + fin);
-
+                                fin++;
                                 inicio = fin;
                                 cadena = "";
                             }
@@ -222,17 +246,19 @@ namespace ProyectoCompiladores2020
                             cadena += linea.Dequeue().ToString();
                             if (linea.Count == 0)
                             {
+                                //if (fin < tamanio)
+                                //    fin--;
                                 salida.Add(validarCadena(cadena, llave, inicio, fin));
+
                                 inicio = fin;
                                 suma = 'n';
                                 cadena = "";
                             }
                             else
                             {
-                                while (linea.Peek() != ' ')
+                                while (linea.Peek() != ' ' && linea.Peek() != '.')
                                 {
                                     cadena += linea.Dequeue().ToString();
-                                    //salida.Add(validarCadena(cadena, llave, inicio, fin));
                                     fin++;
                                     if (linea.Count == 0)
                                     {
@@ -240,23 +266,34 @@ namespace ProyectoCompiladores2020
                                     }
 
                                 }
+                                //if (fin < tamanio)
+                                //    fin--;
+                                //else if (fin == tamanio && linea.Count != 0)
+                                //{ fin--; }
                                 salida.Add(validarCadena(cadena, llave, inicio, fin));
+
                                 inicio = fin;
                                 suma = 'n';
                                 cadena = "";
 
                             }
                         }
-                        else if (linea.Peek() != '\n' && linea.Peek() != '\t' && linea.Peek() != ' ' && !simbolosOtros.Contains(linea.Peek().ToString()) && (caracterNoValido.IsMatch(linea.Peek().ToString()) || (linea.Peek() == '|')) && cadena.Length < 31)
+                        else if (linea.Peek() != '\n' && linea.Peek() != '\t' && linea.Peek() != ' ' && !simbolosOtros.Contains(linea.Peek().ToString()) && (caracterNoValido.IsMatch(linea.Peek().ToString()) || (linea.Peek() == '|' )) && cadena.Length < 31)
                         {
                             cadena += linea.Dequeue().ToString();
+                            fin++;
                         }
                         else if (simbolosOtros.Contains(linea.Peek().ToString()) || linea.Peek() == '+' || linea.Peek() == '-' || linea.Peek() == '.')
                         {
                             if (cadena != "")
                             {
+                                if (fin < tamanio)
+                                    fin--;
+                                else if( fin==tamanio && linea.Count != 0)
+                                { fin--; }
 
                                 salida.Add(validarCadena(cadena, llave, inicio, fin));
+                                fin++;
                                 inicio = fin;
                                 suma = 'n';
                                 cadena = "";
@@ -280,8 +317,8 @@ namespace ProyectoCompiladores2020
                             }
                             else
                             {
-                                salida.Add("simbolo : " + cadenaSimbolos + " en linea " + llave.ToString() + " cols " + (inicio++) + " - " + fin);
-                                fin++;
+                                
+                                salida.Add("simbolo : " + cadenaSimbolos + " en linea " + llave.ToString() + " cols " + (inicio) + " - " + fin);
                                 inicio = fin;
                                 suma = 'n';
                             }
@@ -289,14 +326,26 @@ namespace ProyectoCompiladores2020
                             {
                                 if (linea.Peek() == ' ' || linea.Peek() == '\t')
                                 {
-                                    inicio++;
+                                    inicio += 2;
+                                    fin = inicio;
                                     linea.Dequeue();
+                                }
+                                else
+                                {
+                                    inicio++;
+                                    fin = inicio;
                                 }
                             }
                         }
                         else if (cadena != "")
                         {
+                            if (fin < tamanio)
+                                fin--;
+                            else if (fin == tamanio && linea.Count != 0)
+                            { fin--; }
+
                             salida.Add(validarCadena(cadena, llave, inicio, fin));
+
                             inicio = fin;
                             suma = 'n';
 
@@ -306,36 +355,36 @@ namespace ProyectoCompiladores2020
                                 if (linea.Peek() == ' ' || linea.Peek() == '\t')
                                 {
                                     linea.Dequeue();
+                                    inicio += 2;
+                                    fin = inicio;
+                                }
+                                else
+                                {
                                     inicio++;
-                                    inicio = fin;
+                                    fin = inicio;
                                 }
                             }
                         }
-                        else if (linea.Peek() == ' ' || linea.Peek() == '\t')
+                        else if (linea.Peek() == ' ' || linea.Peek() == '\t')///////
                         {
+                                
                             linea.Dequeue();
                             inicio++;
-                            inicio = fin;
+                            fin = inicio;
                             suma = 'n';
                         }
                         else
                         {
                             salida.Add("Caracter no válido " + linea.Dequeue().ToString() + "en linea " + llave);
-                            inicio++;
+                            fin++;
                             inicio = fin;
+                            suma = 'n';
                         }
 
 
 
                     }
-                    if (suma == 's')
-                    {
-                        fin++;
-                    }
-                    else
-                    {
-                        suma = 's';
-                    }
+
 
                 }
 
@@ -349,10 +398,10 @@ namespace ProyectoCompiladores2020
             //final--;
             if (cadena.Length < 31)
             {
-                if (inicio != final)
-                {
-                    final--;
-                }
+                //if (inicio != final)
+                //{
+                //    final--;
+                //}
                 if (reservadas.IsMatch(cadena))
                 {
 
@@ -387,8 +436,8 @@ namespace ProyectoCompiladores2020
                 else if (decimales.IsMatch(cadena))
                 {
                     //Agregar palabra correcta
-                    decimal numeroDouble = new decimal(Convert.ToDouble(cadena));
-                    return "Decimal: " + cadena + " en linea " + llave.ToString() + " (valor = " + numeroDouble.ToString() + ")" + " Cols " + inicio + " - " + final; ;
+                    //decimal numeroDouble = new decimal(Convert.ToDouble(cadena));
+                    return "Decimal: " + cadena + " en linea " + llave.ToString() + " (valor = " + cadena + ")" + " Cols " + inicio + " - " + final; ;
                 }
 
                 else
