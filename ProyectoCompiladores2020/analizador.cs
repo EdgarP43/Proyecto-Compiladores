@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Windows.Forms;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
-using System.Windows.Forms;
 using System.Runtime;
 
 namespace ProyectoCompiladores2020
@@ -20,7 +20,7 @@ namespace ProyectoCompiladores2020
         {
             archivo = lineas;
         }
-
+        public bool correcto = true;
         List<string> simbolosOtros = new List<string>();
         public void simbolos()
         {
@@ -52,6 +52,8 @@ namespace ProyectoCompiladores2020
             simbolosOtros.Add("}");
             simbolosOtros.Add("{}");
         }
+        public List<string> errores = new List<string>();
+        
         Regex id = new Regex("^([a-z|A-Z]+([_]|[0-9]|[a-z|A-Z])*)$");
         Regex enterosB10 = new Regex("^[0-9]+$");
         Regex decimales = new Regex("^[0-9]+[.]([0-9]*)([eE][+-]?)?[0-9]*$");
@@ -64,7 +66,6 @@ namespace ProyectoCompiladores2020
         {
 
             int llave = 1;
-            char suma = 's';
             string concatpalabra = String.Empty;
             var salida = new List<string>();
             do
@@ -106,7 +107,9 @@ namespace ProyectoCompiladores2020
                             }
                             else if (linea.Count == 0 && archivo.Count == llave)
                             {
-                                salida.Add("EOF en Comentario");
+                                salida.Add("*** EOF en Comentario");
+                                errores.Add("*** EOF en Comentario");
+                                correcto = false;
                                 break;
                             }
                             else if (linea.Count == 0)
@@ -131,7 +134,11 @@ namespace ProyectoCompiladores2020
                         else if (fin == tamanio && linea.Count != 0)
                         { fin--; }
                         salida.Add(validarCadena(cadena, llave, inicio, fin));
-
+                        if (validarCadena(cadena, llave, inicio, fin).Contains("Error"))
+                        {
+                            errores.Add(validarCadena(cadena, llave, inicio, fin));
+                            correcto = false;
+                        }
                         inicio = fin;
                         cadena = "";
                         if (linea.Count != 0)
@@ -151,7 +158,17 @@ namespace ProyectoCompiladores2020
                     }
                     else
                     {
-                        if (linea.Peek() == '/')
+                        if(cadena == "_")
+                        {
+                            // la cagaste es un error
+                            salida.Add("*** Error en linea " + llave + "caracter no reconocido: " + "'" + cadena + "'");
+                            errores.Add("*** Error en linea " + llave + "caracter no reconocido: " + "'" + cadena + "'");
+                            correcto = false;
+                            inicio = fin;
+                            cadena = "";
+
+                        }
+                        else if (linea.Peek() == '/')
                         {
                             if (cadena != "")
                             {
@@ -160,9 +177,13 @@ namespace ProyectoCompiladores2020
                                 else if(fin == tamanio && linea.Count != 0)
                                 { fin--; }
                                 salida.Add(validarCadena(cadena, llave, inicio, fin));
+                                if (validarCadena(cadena, llave, inicio, fin).Contains("Error"))
+                                {
+                                    errores.Add(validarCadena(cadena, llave, inicio, fin));
+                                    correcto = false;
+                                }
                                 fin++;
                                 inicio = fin;
-                                suma = 'n';
                                 cadena = "";
 
                             }
@@ -190,10 +211,10 @@ namespace ProyectoCompiladores2020
                                     cadena = "";
                                     inicio = fin;
                                 }
-                                salida.Add("simbolo : " + inicioComments + " en linea " + llave.ToString() + " cols " + inicio + " - " + fin);
+                                salida.Add(inicioComments + " en linea " + llave.ToString() + " cols " + inicio + " - " + fin +" es T_Operador");
+
                                 fin++;
                                 inicio = fin;
-                                suma = 'n';
                             }
                         }
                         else if (linea.Peek() == '*')
@@ -204,7 +225,9 @@ namespace ProyectoCompiladores2020
                                 if (linea.Peek() == '/')
                                 {
                                     linea.Dequeue();
-                                    salida.Add("Salida de comentario sin emparejar" + " en linea " + llave.ToString());
+                                    salida.Add("***Salida de comentario sin emparejar" + " en linea " + llave.ToString());
+                                    errores.Add("***Salida de comentario sin emparejar" + " en linea " + llave.ToString());
+                                    correcto = false;
                                 }
                                 else
                                 {
@@ -223,7 +246,10 @@ namespace ProyectoCompiladores2020
                                 fin++;
                                 if (linea.Count == 0)
                                 {
-                                    salida.Add("EOF en una cadena en linea: " + llave); ;
+                                    salida.Add("EOF en una cadena en linea: " + llave); ///arreglar impresion
+                                    errores.Add("EOF en una cadena en linea: " + llave);
+                                    correcto = false;
+
                                     inicio = fin;
                                     break;
                                     correcto = false;
@@ -234,7 +260,7 @@ namespace ProyectoCompiladores2020
                             {
                                 cadena += linea.Dequeue().ToString();
                                 
-                                salida.Add("string " + cadena + " en linea " + llave + " cols " + inicio + " - " + fin);
+                                salida.Add( cadena + " en linea " + llave + " cols " + inicio + " - " + fin + " es T_ConstanteString" + " (valor = " +cadena+")");
                                 fin++;
                                 inicio = fin;
                                 cadena = "";
@@ -249,9 +275,13 @@ namespace ProyectoCompiladores2020
                                 //if (fin < tamanio)
                                 //    fin--;
                                 salida.Add(validarCadena(cadena, llave, inicio, fin));
+                                if (validarCadena(cadena, llave, inicio, fin).Contains("Error"))
+                                {
+                                    errores.Add(validarCadena(cadena, llave, inicio, fin));
+                                    correcto = false;
+                                }
 
                                 inicio = fin;
-                                suma = 'n';
                                 cadena = "";
                             }
                             else
@@ -271,9 +301,12 @@ namespace ProyectoCompiladores2020
                                 //else if (fin == tamanio && linea.Count != 0)
                                 //{ fin--; }
                                 salida.Add(validarCadena(cadena, llave, inicio, fin));
-
+                                if (validarCadena(cadena, llave, inicio, fin).Contains("Error"))
+                                {
+                                    errores.Add(validarCadena(cadena, llave, inicio, fin));
+                                    correcto = false;
+                                }
                                 inicio = fin;
-                                suma = 'n';
                                 cadena = "";
 
                             }
@@ -293,9 +326,13 @@ namespace ProyectoCompiladores2020
                                 { fin--; }
 
                                 salida.Add(validarCadena(cadena, llave, inicio, fin));
+                                if (validarCadena(cadena, llave, inicio, fin).Contains("Error"))
+                                {
+                                    errores.Add(validarCadena(cadena, llave, inicio, fin));
+                                    correcto = false;
+                                }
                                 fin++;
                                 inicio = fin;
-                                suma = 'n';
                                 cadena = "";
 
                             }
@@ -303,24 +340,21 @@ namespace ProyectoCompiladores2020
                             cadenaSimbolos = linea.Dequeue().ToString();
                             if (linea.Count == 0)
                             {
-                                salida.Add("simbolo : " + cadenaSimbolos + " en linea " + llave + " cols " + inicio + " - " + fin);
+                                salida.Add(cadenaSimbolos + " en linea " + llave + " cols " + inicio + " - " + fin + " es T_Operador");
                                 inicio = fin;
-                                suma = 'n';
                             }
                             else if (simbolosOtros.Contains(cadenaSimbolos + linea.Peek().ToString()) && cadenaSimbolos != "")
                             {
                                 cadenaSimbolos += linea.Dequeue().ToString();
                                 fin++;
-                                salida.Add("simbolo : " + cadenaSimbolos + " en linea " + llave.ToString() + " cols " + inicio + " - " + (fin).ToString());
+                                salida.Add(cadenaSimbolos + " en linea " + llave.ToString() + " cols " + inicio + " - " + (fin).ToString() + " es T_Operador");
                                 inicio = fin;
-                                suma = 'n';
                             }
                             else
                             {
                                 
-                                salida.Add("simbolo : " + cadenaSimbolos + " en linea " + llave.ToString() + " cols " + (inicio) + " - " + fin);
+                                salida.Add(cadenaSimbolos + " en linea " + llave.ToString() + " cols " + (inicio) + " - " + fin +" es T_Operador");
                                 inicio = fin;
-                                suma = 'n';
                             }
                             if (linea.Count != 0)
                             {
@@ -345,9 +379,13 @@ namespace ProyectoCompiladores2020
                             { fin--; }
 
                             salida.Add(validarCadena(cadena, llave, inicio, fin));
+                            if(validarCadena(cadena, llave, inicio, fin).Contains("Error") )
+                            {
+                                errores.Add(validarCadena(cadena, llave, inicio, fin));
+                                correcto = false; 
+                            }
 
                             inicio = fin;
-                            suma = 'n';
 
                             cadena = "";
                             if (linea.Count != 0)
@@ -371,14 +409,15 @@ namespace ProyectoCompiladores2020
                             linea.Dequeue();
                             inicio++;
                             fin = inicio;
-                            suma = 'n';
                         }
                         else
                         {
-                            salida.Add("Caracter no válido " + linea.Dequeue().ToString() + "en linea " + llave);
+                            string caracter = linea.Dequeue().ToString();
+                            salida.Add("*** Error en linea " +  llave + "caracter no reconocido: "+ "'"+ caracter +"'");
+                            errores.Add("*** Error en linea " + llave + "caracter no reconocido: " + "'" + caracter + "'");
+                            correcto = false;
                             fin++;
                             inicio = fin;
-                            suma = 'n';
                         }
 
 
@@ -405,49 +444,49 @@ namespace ProyectoCompiladores2020
                 if (reservadas.IsMatch(cadena))
                 {
 
-                    return "reservada : " + cadena + " en linea " + llave.ToString() + " Cols " + inicio + " - " + final;
+                    return   cadena + " en linea " + llave.ToString() + " Cols " + inicio + " - " + final + " es T_reservada";
                 }
                 else if (booleano.IsMatch(cadena))
                 {
-                    //Agregar palabra correcta
-                    return "Constante Booleana: " + cadena + " en linea " + llave.ToString() + " Cols " + inicio + " - " + final; ;
+                    return   cadena + " en linea " + llave.ToString() + " Cols " + inicio + " - " + final + "es T_ConstanteBooleana";
                 }
                 else if (cadena == "&&" || cadena == "||")
                 {
-                    //Error para arreglar en caso de que esta en una linea sola
-                    return "Simbolo: " + cadena + " en linea " + llave.ToString() + " Cols " + inicio + " - " + final;
+                    return cadena + " en linea " + llave.ToString() + " Cols " + inicio + " - " + final + "es T_Operador";
                 }
                 else if (id.IsMatch(cadena))
                 {
-                    //Agregar palabra correcta
-                    return "Identificador: " + cadena + " en linea " + llave.ToString() + " Cols " + inicio + " - " + final;
+
+                    return  cadena + " en linea " + llave.ToString() + " Cols " + inicio + " - " + final + " es T_identificador";
                 }
                 else if (enterosB10.IsMatch(cadena))
                 {
-                    //Agregar palabra correcta
-                    return "Entero base 10: " + cadena + " en linea " + llave.ToString() + " (valor = " + cadena + ")" + " Cols " + inicio + " - " + final; ;
+
+                    return  cadena + " en linea " + llave.ToString()  +" Cols " + inicio + " - " + final+" es T_ConstanteIntB10"+" (valor = " + cadena + ")";
                 }
                 else if (enterosB16.IsMatch(cadena))
                 {
-                    //Agregar palabra correcta
+                    
                     decimal numerohexa = new decimal(Convert.ToInt32(cadena, 16));
-                    return "Entero base 16 : " + cadena + " en linea " + llave.ToString() + " (valor = " + numerohexa.ToString() + ")" + " Cols " + inicio + " - " + final; ; ;
+                    return cadena + " en linea " + llave.ToString() + " Cols " + inicio + " - " + final +" es T_ConstanteIntB16"+ " (valor = " + numerohexa.ToString() + ")";
                 }
                 else if (decimales.IsMatch(cadena))
                 {
-                    //Agregar palabra correcta
+                    
                     //decimal numeroDouble = new decimal(Convert.ToDouble(cadena));
-                    return "Decimal: " + cadena + " en linea " + llave.ToString() + " (valor = " + cadena + ")" + " Cols " + inicio + " - " + final; ;
+                    return cadena + " en linea " + llave.ToString() + " Cols " + inicio + " - " + final +" es T_ConstanteDouble" +" (valor = " + cadena + ")";
                 }
 
                 else
                 {
-                    return "Error : " + cadena + " en linea " + llave.ToString();
+                  
+
+                    return "***Error Identificador no reconocido: " + cadena + " en linea " + llave.ToString() + "\n";//identificar de que error es
                 }
             }
             else
             {
-                return "Error : " + cadena + " en linea " + llave.ToString();
+                return "****Error T_identificador muy largo: " + cadena + " en linea " + llave.ToString() + "\n";// identificar que error es
             }
         }
     }

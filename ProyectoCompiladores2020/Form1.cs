@@ -28,23 +28,54 @@ namespace ProyectoCompiladores2020
             o.Filter = "Todos los archivos(*.*)|*.*";
             if (o.ShowDialog() == DialogResult.OK)
             {
+                if (listBox1.Items != null)
+                {
+                    listBox1.Items.Clear();
+                    lineas.Clear();
+                }
                 using (StreamReader sr = new StreamReader(o.FileName)) 
                 {
                     string linea = "";
                     while ((linea = sr.ReadLine()) != null)
                     {
                         contlineas++;
-                        lineas.Add(contlineas,linea);
+                        lineas.Add(contlineas, linea);
                     }
+
+                   
                 }
                 iraAnalizador.guardarArchivo(lineas);
                 var mostrar = iraAnalizador.Reconocedor();
-                foreach (var item in mostrar)
+                if (iraAnalizador.correcto == false)
                 {
-                    listBox1.Items.Add(item);
+                    foreach (var item in iraAnalizador.errores)
+                    {
+                        listBox1.Items.Add(item);
+                        listBox1.Items.Add("\n");
+
+                    }
+                }
+                else
+                {
+                    listBox1.Items.Add("Archivo correcto");
+                }       
+                string nombreArchivo = Path.ChangeExtension(o.FileName,".out");
+                using (StreamWriter sw = new StreamWriter(nombreArchivo))
+                {
+                    foreach (var item in mostrar)
+                    {
+                        sw.WriteLine(item);
+                        sw.WriteLine("\n");
+                    }
                 }
             }
-           
+            
+
+
+
+
+
+
         }
     }
 }

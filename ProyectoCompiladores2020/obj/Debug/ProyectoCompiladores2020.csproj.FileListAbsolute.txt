@@ -36,3 +36,7 @@ C:\Users\usuario\Desktop\proyecto compis\Proyecto-Compiladores\ProyectoCompilado
 C:\Users\usuario\Desktop\proyecto compis\Proyecto-Compiladores\ProyectoCompiladores2020\obj\Debug\ProyectoCompiladores2020.csproj.CoreCompileInputs.cache
 C:\Users\usuario\Desktop\proyecto compis\Proyecto-Compiladores\ProyectoCompiladores2020\obj\Debug\ProyectoCompiladores2020.exe
 C:\Users\usuario\Desktop\proyecto compis\Proyecto-Compiladores\ProyectoCompiladores2020\obj\Debug\ProyectoCompiladores2020.pdb
+C:\Users\usuario\Desktop\PROYECTO COMPIS\Proyecto-Compiladores\ProyectoCompiladores2020\bin\Debug\ProyectoCompiladores2020.exe.manifest
+C:\Users\usuario\Desktop\PROYECTO COMPIS\Proyecto-Compiladores\ProyectoCompiladores2020\bin\Debug\ProyectoCompiladores2020.application
+C:\Users\usuario\Desktop\PROYECTO COMPIS\Proyecto-Compiladores\ProyectoCompiladores2020\obj\Debug\ProyectoCompiladores2020.exe.manifest
+C:\Users\usuario\Desktop\PROYECTO COMPIS\Proyecto-Compiladores\ProyectoCompiladores2020\obj\Debug\ProyectoCompiladores2020.application

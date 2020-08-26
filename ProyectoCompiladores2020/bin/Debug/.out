@@ -1,0 +1,56 @@
+0x31ab en linea 1 Cols 1 - 6 es T_ConstanteIntB16 (valor = 12715)
+/ en linea 1 cols 7 - 7 es T_Operador
+2 en linea 1 Cols 8 - 8 es T_ConstanteIntB10 (valor = 2)
+4.4e+112 en linea 2 Cols 1 - 8 es T_ConstanteDouble (valor = 4.4e+112)
+. en linea 2 cols 8 - 8 es T_Operador
+***Error Identificador no reconocido: 2e10 en linea 2
+
+int en linea 3 Cols 1 - 3 es T_reservada
+. en linea 3 cols 4 - 4 es T_Operador
+double"Hello World!" en linea 3 cols 5 - 24 es T_ConstanteString (valor = double"Hello World!")
+) en linea 3 cols 25 - 25 es T_Operador
+; en linea 3 cols 26 - 26 es T_Operador
+0X32abe en linea 4 Cols 1 - 7 es T_ConstanteIntB16 (valor = 207550)
+12.2E+2 en linea 5 Cols 1 - 7 es T_ConstanteDouble (valor = 12.2E+2)
+using en linea 6 Cols 1 - 5 es T_identificador
+System en linea 6 Cols 7 - 12 es T_identificador
+; en linea 6 cols 13 - 13 es T_Operador
+namespace en linea 8 Cols 1 - 9 es T_identificador
+paraPrueba en linea 8 Cols 11 - 20 es T_identificador
+{ en linea 9 cols 1 - 1 es T_Operador
+class en linea 10 Cols 5 - 9 es T_reservada
+Program en linea 10 Cols 11 - 17 es T_identificador
+{ en linea 11 cols 5 - 5 es T_Operador
+static en linea 12 Cols 9 - 14 es T_identificador
+void en linea 12 Cols 16 - 19 es T_reservada
+Main en linea 12 Cols 21 - 24 es T_identificador
+( en linea 12 cols 25 - 25 es T_Operador
+string en linea 12 Cols 26 - 31 es T_reservada
+[] en linea 12 cols 32 - 33 es T_Operador
+args en linea 12 Cols 35 - 38 es T_identificador
+) en linea 12 cols 39 - 39 es T_Operador
+{ en linea 13 cols 9 - 9 es T_Operador
+Console en linea 14 Cols 13 - 19 es T_reservada
+. en linea 14 cols 20 - 20 es T_Operador
+WriteLine en linea 14 Cols 21 - 29 es T_reservada
+( en linea 14 cols 30 - 30 es T_Operador
+"Hello World!" en linea 14 cols 31 - 44 es T_ConstanteString (valor = "Hello World!")
+) en linea 14 cols 45 - 45 es T_Operador
+; en linea 14 cols 46 - 46 es T_Operador
+} en linea 15 cols 9 - 9 es T_Operador
+} en linea 16 cols 5 - 5 es T_Operador
+} en linea 17 cols 1 - 1 es T_Operador
+c en linea 19 Cols 1 - 1 es T_identificador
+1 en linea 19 Cols 3 - 3 es T_ConstanteIntB10 (valor = 1)
+o en linea 20 Cols 1 - 1 es T_identificador
+2 en linea 20 Cols 3 - 3 es T_ConstanteIntB10 (valor = 2)
+n en linea 21 Cols 1 - 1 es T_identificador
+3 en linea 21 Cols 3 - 3 es T_ConstanteIntB10 (valor = 3)
+s en linea 22 Cols 1 - 1 es T_identificador
+4 en linea 22 Cols 3 - 3 es T_ConstanteIntB10 (valor = 4)
+o en linea 23 Cols 1 - 1 es T_identificador
+5 en linea 23 Cols 3 - 3 es T_ConstanteIntB10 (valor = 5)
+l en linea 24 Cols 1 - 1 es T_identificador
+6 en linea 24 Cols 3 - 3 es T_ConstanteIntB10 (valor = 6)
+e en linea 25 Cols 1 - 1 es T_identificador
+7 en linea 25 Cols 3 - 3 es T_ConstanteIntB10 (valor = 7)
