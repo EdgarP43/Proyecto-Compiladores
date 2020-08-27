@@ -86,7 +86,7 @@ namespace ProyectoCompiladores2020
                     {
                         fin--;
                     }
-                    if (linea.Count == 0 && cadena == "" /*&& comment == false*/)
+                    if (linea.Count == 0 && cadena == "")
                     {
                         break;
                     }
@@ -98,7 +98,6 @@ namespace ProyectoCompiladores2020
                             if (inicioComments.Contains("*/"))
                             {
                                 comment = false;
-                                //salida.Add("Comentario : " + inicioComments);
                                 break;
                             }
                             else if (linea.Count > 0)
@@ -125,7 +124,6 @@ namespace ProyectoCompiladores2020
 
                         }
                         comment = false;
-                        //salida.Add(comentariosMuchasLineas());
                     }
                     else if (linea.Count == 0 && cadena != "")
                     {
@@ -160,7 +158,6 @@ namespace ProyectoCompiladores2020
                     {
                         if(cadena == "_")
                         {
-                            // la cagaste es un error
                             salida.Add("*** Error en linea " + llave + "caracter no reconocido: " + "'" + cadena + "'");
                             errores.Add("*** Error en linea " + llave + "caracter no reconocido: " + "'" + cadena + "'");
                             correcto = false;
@@ -195,7 +192,6 @@ namespace ProyectoCompiladores2020
                                     inicioComments += linea.Dequeue().ToString();
                                     fin++;
                                 } while (linea.Count > 0);
-                                //salida.Add("Comentario :" + inicioComments + ". En linea " + llave.ToString() + " cols:" + inicio + " - " + fin);
                                 inicio = fin;
                             }
                             else if (linea.Peek() == '*')
@@ -246,8 +242,8 @@ namespace ProyectoCompiladores2020
                                 fin++;
                                 if (linea.Count == 0)
                                 {
-                                    salida.Add("EOF en una cadena en linea: " + llave); ///arreglar impresion
-                                    errores.Add("EOF en una cadena en linea: " + llave);
+                                    salida.Add("Constante string sin terminar" + llave); 
+                                    errores.Add("Constante string sin terminar" + llave);
                                     correcto = false;
 
                                     inicio = fin;
@@ -296,10 +292,6 @@ namespace ProyectoCompiladores2020
                                     }
 
                                 }
-                                //if (fin < tamanio)
-                                //    fin--;
-                                //else if (fin == tamanio && linea.Count != 0)
-                                //{ fin--; }
                                 salida.Add(validarCadena(cadena, llave, inicio, fin));
                                 if (validarCadena(cadena, llave, inicio, fin).Contains("Error"))
                                 {
@@ -479,9 +471,9 @@ namespace ProyectoCompiladores2020
 
                 else
                 {
-                  
 
-                    return "***Error Identificador no reconocido: " + cadena + " en linea " + llave.ToString() + "\n";//identificar de que error es
+
+                    return "";
                 }
             }
             else
