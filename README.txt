@@ -27,6 +27,7 @@ x Cadenas con formato distintos a los de un identificador válido (concatenacion
 error.
 x De salidas cuenta con un salida visual en un Form donde al se analizado por completo el archivo de entrada, es posible verificar si fue exitoso todo el archivo, en caso de errores, se motrarán en pantalla, así también este programa al momento de examinar el código de entrada genera un archivo .out el cual contiene cada token encontrado, con su correspondiente número de línea y sus columnas según la línea en la que pertenezca.
 Este archivo .out se guarda automáticamente donde se encuentra el archivo utilizado como entrada al inicio de la ejecución 
+x El proyecto lo único que lo hacer perder su robustez total, es una separación demasiado específica en los tokens de los doubles y en la pantalla del Form, no limpia el archivo anterior, lo que causa una salida con todos los archivos subidos en la ejecución de lo contrario realiza todo bien tanto sus columnas de los tokens, número de línea, direccionamiento de cada token igual que las salidas en archivos y su entradas.
 
 # Modo de Uso
 #_______________________________________________________________________________________________________________________________________________________________________
