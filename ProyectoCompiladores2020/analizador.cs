@@ -123,6 +123,7 @@ namespace ProyectoCompiladores2020
                             }
 
                         }
+                        inicioComments = "";
                         comment = false;
                     }
                     else if (linea.Count == 0 && cadena != "")
@@ -131,13 +132,56 @@ namespace ProyectoCompiladores2020
                             fin--;
                         else if (fin == tamanio && linea.Count != 0)
                         { fin--; }
-                        salida.Add(validarCadena(cadena, llave, inicio, fin));
-                        if (validarCadena(cadena, llave, inicio, fin).Contains("Error"))
+                        ////////////////////////////////////////
+                        if (validarCadena(cadena, llave, inicio, fin) == "")
                         {
-                            errores.Add(validarCadena(cadena, llave, inicio, fin));
-                            correcto = false;
+                            string dividir = cadena;
+                            var error = dividir.ToCharArray();
+                            int finError = inicio;
+                            string palabras = "";
+                            var colaPalabraDivirdir = new Queue<string>();
+                            foreach (var item in error)
+                            {
+                                colaPalabraDivirdir.Enqueue(item.ToString());
+                            }
+                            do
+                            {
+
+                                if (validarCadena(palabras + colaPalabraDivirdir.Peek().ToString(), llave, inicio, fin) != "")
+                                {
+                                    palabras += colaPalabraDivirdir.Dequeue().ToString();
+                                    finError++;
+                                }
+                                else
+                                {
+                                    if (finError < fin)
+                                        finError--;
+                                    else if (fin == finError)
+                                    { finError--; }
+                                    salida.Add(validarCadena(palabras, llave, inicio, finError));
+                                    finError++;
+                                    inicio = finError;
+                                    palabras = "";
+                                }
+                            } while (colaPalabraDivirdir.Count != 0);
+                            if (palabras != "")
+                            {
+                                if (finError > fin)
+                                    finError--;
+                                else if (fin == finError)
+                                { finError--; }
+                                salida.Add(validarCadena(palabras, llave, inicio, finError));
+                                finError++;
+                                inicio = finError;
+                                fin = inicio;
+                                palabras = "";
+                            }
                         }
-                        inicio = fin;
+                        else
+                        {
+                            salida.Add(validarCadena(cadena, llave, inicio, fin));
+                            fin = inicio;
+                        }
                         cadena = "";
                         if (linea.Count != 0)
                         {
@@ -156,7 +200,7 @@ namespace ProyectoCompiladores2020
                     }
                     else
                     {
-                        if(cadena == "_")
+                        if (cadena == "_")
                         {
                             salida.Add("*** Error en linea " + llave + "caracter no reconocido: " + "'" + cadena + "'");
                             errores.Add("*** Error en linea " + llave + "caracter no reconocido: " + "'" + cadena + "'");
@@ -171,56 +215,113 @@ namespace ProyectoCompiladores2020
                             {
                                 if (fin < tamanio)
                                     fin--;
-                                else if(fin == tamanio && linea.Count != 0)
+                                else if (fin == tamanio && linea.Count != 0)
                                 { fin--; }
-                                salida.Add(validarCadena(cadena, llave, inicio, fin));
-                                if (validarCadena(cadena, llave, inicio, fin).Contains("Error"))
+                                /////////////////////////////////////////////////////
+                                if (validarCadena(cadena, llave, inicio, fin) == "")
                                 {
-                                    errores.Add(validarCadena(cadena, llave, inicio, fin));
-                                    correcto = false;
+                                    string dividir = cadena;
+                                    var error = dividir.ToCharArray();
+                                    int finError = inicio;
+                                    string palabras = "";
+                                    var colaPalabraDivirdir = new Queue<string>();
+                                    foreach (var item in error)
+                                    {
+                                        colaPalabraDivirdir.Enqueue(item.ToString());
+                                    }
+                                    do
+                                    {
+
+                                        if (validarCadena(palabras + colaPalabraDivirdir.Peek().ToString(), llave, inicio, fin) != "")
+                                        {
+                                            palabras += colaPalabraDivirdir.Dequeue().ToString();
+                                            finError++;
+                                        }
+                                        else
+                                        {
+                                            if (finError < fin)
+                                                finError--;
+                                            else if (fin == finError)
+                                            { finError--; }
+                                            salida.Add(validarCadena(palabras, llave, inicio, finError));
+                                            finError++;
+                                            inicio = finError;
+                                            palabras = "";
+                                        }
+                                    } while (colaPalabraDivirdir.Count != 0);
+                                    if (palabras != "")
+                                    {
+                                        if (finError > fin)
+                                            finError--;
+                                        else if (fin == finError)
+                                        { finError--; }
+                                        salida.Add(validarCadena(palabras, llave, inicio, finError));
+                                        finError++;
+                                        inicio = finError;
+                                        fin = inicio;
+                                        palabras = "";
+                                    }
                                 }
-                                fin++;
-                                inicio = fin;
+                                else
+                                {
+                                    salida.Add(validarCadena(cadena, llave, inicio, fin));
+                                    fin++;
+                                    inicio = fin;
+                                    //fin = inicio;
+                                }
+                                //fin++;
+                                //inicio = fin;
                                 cadena = "";
 
                             }
                             inicioComments += linea.Dequeue().ToString();
-                            if (linea.Peek() == '/')
-                            {
-                                do
+                            if(linea.Count != 0)
+                            { 
+                                if (linea.Peek() == '/')
+                                {
+                                    do
+                                    {
+                                        inicioComments += linea.Dequeue().ToString();
+                                        fin++;
+                                    } while (linea.Count > 0);
+                                    inicio = fin;
+                                }
+                                else if (linea.Peek() == '*')
                                 {
                                     inicioComments += linea.Dequeue().ToString();
+                                    comment = true;
+                                }
+                                else
+                                {
+                                    if (cadena != "")
+                                    {
+                                        salida.Add(validarCadena(cadena, llave, inicio, fin));
+                                        cadena = "";
+                                        inicio = fin;
+                                    }
+                                    salida.Add(inicioComments + " en linea " + llave.ToString() + " cols " + inicio + " - " + fin + " es T_Operador");
+
                                     fin++;
-                                } while (linea.Count > 0);
-                                inicio = fin;
-                            }
-                            else if (linea.Peek() == '*')
-                            {
-                                inicioComments += linea.Dequeue().ToString();
-                                comment = true;
+                                    inicio = fin;
+                                }
                             }
                             else
                             {
-                                if (cadena != "")
-                                {
-                                    salida.Add(validarCadena(cadena, llave, inicio, fin));
-                                    cadena = "";
-                                    inicio = fin;
-                                }
-                                salida.Add(inicioComments + " en linea " + llave.ToString() + " cols " + inicio + " - " + fin +" es T_Operador");
-
-                                fin++;
-                                inicio = fin;
+                                salida.Add(inicioComments +" en linea "+ llave +"cols "+inicio+" - "+fin+ "es T_operador");
                             }
                         }
                         else if (linea.Peek() == '*')
                         {
                             linea.Dequeue();
+                            fin++;
+                            inicio++;
                             if (linea.Count > 0)
                             {
                                 if (linea.Peek() == '/')
                                 {
                                     linea.Dequeue();
+                                    fin++;
+                                    inicio++;
                                     salida.Add("***Salida de comentario sin emparejar" + " en linea " + llave.ToString());
                                     errores.Add("***Salida de comentario sin emparejar" + " en linea " + llave.ToString());
                                     correcto = false;
@@ -271,18 +372,12 @@ namespace ProyectoCompiladores2020
                                 //if (fin < tamanio)
                                 //    fin--;
                                 salida.Add(validarCadena(cadena, llave, inicio, fin));
-                                if (validarCadena(cadena, llave, inicio, fin).Contains("Error"))
-                                {
-                                    errores.Add(validarCadena(cadena, llave, inicio, fin));
-                                    correcto = false;
-                                }
-
                                 inicio = fin;
                                 cadena = "";
                             }
                             else
                             {
-                                while (linea.Peek() != ' ' && linea.Peek() != '.')
+                                while (linea.Peek() != ' ' && linea.Peek() != '.' && decimales.IsMatch(cadena + linea.Peek().ToString()))
                                 {
                                     cadena += linea.Dequeue().ToString();
                                     fin++;
@@ -292,13 +387,57 @@ namespace ProyectoCompiladores2020
                                     }
 
                                 }
-                                salida.Add(validarCadena(cadena, llave, inicio, fin));
-                                if (validarCadena(cadena, llave, inicio, fin).Contains("Error"))
+                                /////////////////////////////////////////
+                                if (validarCadena(cadena, llave, inicio, fin) == "")
                                 {
-                                    errores.Add(validarCadena(cadena, llave, inicio, fin));
-                                    correcto = false;
+                                    string dividir = cadena;
+                                    var error = dividir.ToCharArray();
+                                    int finError = inicio;
+                                    string palabras = "";
+                                    var colaPalabraDivirdir = new Queue<string>();
+                                    foreach (var item in error)
+                                    {
+                                        colaPalabraDivirdir.Enqueue(item.ToString());
+                                    }
+                                    do
+                                    {
+
+                                        if (validarCadena(palabras + colaPalabraDivirdir.Peek().ToString(), llave, inicio, fin) != "")
+                                        {
+                                            palabras += colaPalabraDivirdir.Dequeue().ToString();
+                                            finError++;
+                                        }
+                                        else
+                                        {
+                                            if (finError < fin)
+                                                finError--;
+                                            else if (fin == finError)
+                                            { finError--; }
+                                            salida.Add(validarCadena(palabras, llave, inicio, finError));
+                                            finError++;
+                                            inicio = finError;
+                                            palabras = "";
+                                        }
+                                    } while (colaPalabraDivirdir.Count != 0);
+                                    if (palabras != "")
+                                    {
+                                        if (finError > fin)
+                                            finError--;
+                                        else if (fin == finError)
+                                        { finError--; }
+                                        salida.Add(validarCadena(palabras, llave, inicio, finError));
+                                        finError++;
+                                        inicio = finError;
+                                        fin = inicio;
+                                        palabras = "";
+                                    }
                                 }
-                                inicio = fin;
+                                else
+                                {
+                                    salida.Add(validarCadena(cadena, llave, inicio, fin));
+                                    inicio = fin;
+                                }
+                                //inicio = fin;
                                 cadena = "";
 
                             }
@@ -316,15 +455,60 @@ namespace ProyectoCompiladores2020
                                     fin--;
                                 else if( fin==tamanio && linea.Count != 0)
                                 { fin--; }
-
-                                salida.Add(validarCadena(cadena, llave, inicio, fin));
-                                if (validarCadena(cadena, llave, inicio, fin).Contains("Error"))
+                                ///////////////////////////////////////
+                                if (validarCadena(cadena, llave, inicio, fin) == "")
                                 {
-                                    errores.Add(validarCadena(cadena, llave, inicio, fin));
-                                    correcto = false;
+                                    string dividir = cadena;
+                                    var error = dividir.ToCharArray();
+                                    int finError = inicio;
+                                    string palabras = "";
+                                    var colaPalabraDivirdir = new Queue<string>();
+                                    foreach (var item in error)
+                                    {
+                                        colaPalabraDivirdir.Enqueue(item.ToString());
+                                    }
+                                    do
+                                    {
+
+                                        if (validarCadena(palabras + colaPalabraDivirdir.Peek().ToString(), llave, inicio, fin) != "")
+                                        {
+                                            palabras += colaPalabraDivirdir.Dequeue().ToString();
+                                            finError++;
+                                        }
+                                        else
+                                        {
+                                            if (finError < fin)
+                                                finError--;
+                                            else if (fin == finError)
+                                            { finError--; }
+                                            salida.Add(validarCadena(palabras, llave, inicio, finError));
+                                            finError++;
+                                            inicio = finError;
+                                            palabras = "";
+                                        }
+                                    } while (colaPalabraDivirdir.Count != 0);
+                                    if (palabras != "")
+                                    {
+                                        if (finError > fin)
+                                            finError--;
+                                        else if (fin == finError)
+                                        { finError--; }
+                                        salida.Add(validarCadena(palabras, llave, inicio, finError));
+                                        finError++;
+                                        inicio = finError;
+                                        fin = inicio;
+                                        palabras = "";
+                                    }
                                 }
-                                fin++;
-                                inicio = fin;
+                                else
+                                {
+                                    salida.Add(validarCadena(cadena, llave, inicio, fin));
+                                    fin++;
+                                    inicio = fin;
+                                    //fin = inicio;
+                                }
+                                //fin++;
+                                //inicio = fin;
                                 cadena = "";
 
                             }
@@ -369,15 +553,58 @@ namespace ProyectoCompiladores2020
                                 fin--;
                             else if (fin == tamanio && linea.Count != 0)
                             { fin--; }
-
-                            salida.Add(validarCadena(cadena, llave, inicio, fin));
-                            if(validarCadena(cadena, llave, inicio, fin).Contains("Error") )
+                            //////////////////////////////////////
+                            if (validarCadena(cadena, llave, inicio, fin) == "")
                             {
-                                errores.Add(validarCadena(cadena, llave, inicio, fin));
-                                correcto = false; 
-                            }
+                                string dividir = cadena;
+                                var error = dividir.ToCharArray();
+                                int finError = inicio;
+                                string palabras = "";
+                                var colaPalabraDivirdir = new Queue<string>();
+                                foreach (var item in error)
+                                {
+                                    colaPalabraDivirdir.Enqueue(item.ToString());
+                                }
+                                do
+                                {
 
-                            inicio = fin;
+                                    if (validarCadena(palabras + colaPalabraDivirdir.Peek().ToString(), llave, inicio, fin) != "")
+                                    {
+                                        palabras += colaPalabraDivirdir.Dequeue().ToString();
+                                        finError++;
+                                    }
+                                    else
+                                    {
+                                        if (finError < fin)
+                                            finError--;
+                                        else if (fin == finError)
+                                        { finError--; }
+                                        salida.Add(validarCadena(palabras, llave, inicio, finError));
+                                        finError++;
+                                        inicio = finError;
+                                        palabras = "";
+                                    }
+                                } while (colaPalabraDivirdir.Count != 0);
+                                if (palabras != "")
+                                {
+                                    if (finError > fin)
+                                        finError--;
+                                    else if (fin == finError)
+                                    { finError--; }
+                                    salida.Add(validarCadena(palabras, llave, inicio, finError));
+                                    finError++;
+                                    inicio = finError;
+                                    fin = inicio;
+                                    palabras = "";
+                                }
+                            }
+                            else
+                            {
+                                salida.Add(validarCadena(cadena, llave, inicio, fin));
+                                //fin++;
+                                inicio = fin;
+                                //fin = inicio;
+                            }
 
                             cadena = "";
                             if (linea.Count != 0)
@@ -395,7 +622,7 @@ namespace ProyectoCompiladores2020
                                 }
                             }
                         }
-                        else if (linea.Peek() == ' ' || linea.Peek() == '\t')///////
+                        else if (linea.Peek() == ' ' || linea.Peek() == '\t')
                         {
                                 
                             linea.Dequeue();
@@ -426,13 +653,9 @@ namespace ProyectoCompiladores2020
         }
         private string validarCadena(string cadena, int llave, int inicio, int final)
         {
-            //final--;
             if (cadena.Length < 31)
             {
-                //if (inicio != final)
-                //{
-                //    final--;
-                //}
+
                 if (reservadas.IsMatch(cadena))
                 {
 
@@ -459,8 +682,8 @@ namespace ProyectoCompiladores2020
                 else if (enterosB16.IsMatch(cadena))
                 {
                     
-                    decimal numerohexa = new decimal(Convert.ToInt32(cadena, 16));
-                    return cadena + " en linea " + llave.ToString() + " Cols " + inicio + " - " + final +" es T_ConstanteIntB16"+ " (valor = " + numerohexa.ToString() + ")";
+                    //decimal numerohexa = new decimal(Convert.ToInt32(cadena, 16));
+                    return cadena + " en linea " + llave.ToString() + " Cols " + inicio + " - " + final +" es T_ConstanteIntB16"+ " (valor = " + cadena + ")";
                 }
                 else if (decimales.IsMatch(cadena))
                 {
@@ -478,7 +701,10 @@ namespace ProyectoCompiladores2020
             }
             else
             {
-                return "****Error T_identificador muy largo: " + cadena + " en linea " + llave.ToString() + "\n";// identificar que error es
+                //errores.Add("***Error T_identificador muy largo: " + cadena + " en linea " + llave.ToString() + "\n");
+                //correcto = false;
+                return "****Error T_identificador muy largo: " + cadena + " en linea " + llave.ToString() + "\n";
+
             }
         }
     }
