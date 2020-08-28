@@ -1,0 +1,84 @@
+C:\Users\epare\source\repos\ProyectoCompiladores2020\ProyectoCompiladores2020\obj\Debug\ProyectoCompiladores2020.csprojAssemblyReference.cache
+C:\Users\epare\source\repos\ProyectoCompiladores2020\ProyectoCompiladores2020\obj\Debug\ProyectoCompiladores2020.Form1.resources
+C:\Users\epare\source\repos\ProyectoCompiladores2020\ProyectoCompiladores2020\obj\Debug\ProyectoCompiladores2020.Properties.Resources.resources
+C:\Users\epare\source\repos\ProyectoCompiladores2020\ProyectoCompiladores2020\obj\Debug\ProyectoCompiladores2020.csproj.GenerateResource.cache
+C:\Users\epare\source\repos\ProyectoCompiladores2020\ProyectoCompiladores2020\obj\Debug\ProyectoCompiladores2020.csproj.CoreCompileInputs.cache
+C:\Users\epare\source\repos\ProyectoCompiladores2020\ProyectoCompiladores2020\bin\Debug\ProyectoCompiladores2020.exe.config
+C:\Users\epare\source\repos\ProyectoCompiladores2020\ProyectoCompiladores2020\bin\Debug\ProyectoCompiladores2020.exe
+C:\Users\epare\source\repos\ProyectoCompiladores2020\ProyectoCompiladores2020\bin\Debug\ProyectoCompiladores2020.pdb
+C:\Users\epare\source\repos\ProyectoCompiladores2020\ProyectoCompiladores2020\obj\Debug\ProyectoCompiladores2020.exe
+C:\Users\epare\source\repos\ProyectoCompiladores2020\ProyectoCompiladores2020\obj\Debug\ProyectoCompiladores2020.pdb
+C:\Users\Andrea Cámara\Desktop\COMPULADORES -PROYECTO\Proyecto-Compiladores\ProyectoCompiladores2020\bin\Debug\ProyectoCompiladores2020.exe.config
+C:\Users\Andrea Cámara\Desktop\COMPULADORES -PROYECTO\Proyecto-Compiladores\ProyectoCompiladores2020\bin\Debug\ProyectoCompiladores2020.exe
+C:\Users\Andrea Cámara\Desktop\COMPULADORES -PROYECTO\Proyecto-Compiladores\ProyectoCompiladores2020\bin\Debug\ProyectoCompiladores2020.pdb
+C:\Users\Andrea Cámara\Desktop\COMPULADORES -PROYECTO\Proyecto-Compiladores\ProyectoCompiladores2020\obj\Debug\ProyectoCompiladores2020.csprojAssemblyReference.cache
+C:\Users\Andrea Cámara\Desktop\COMPULADORES -PROYECTO\Proyecto-Compiladores\ProyectoCompiladores2020\obj\Debug\ProyectoCompiladores2020.Form1.resources
+C:\Users\Andrea Cámara\Desktop\COMPULADORES -PROYECTO\Proyecto-Compiladores\ProyectoCompiladores2020\obj\Debug\ProyectoCompiladores2020.Properties.Resources.resources
+C:\Users\Andrea Cámara\Desktop\COMPULADORES -PROYECTO\Proyecto-Compiladores\ProyectoCompiladores2020\obj\Debug\ProyectoCompiladores2020.csproj.GenerateResource.cache
+C:\Users\Andrea Cámara\Desktop\COMPULADORES -PROYECTO\Proyecto-Compiladores\ProyectoCompiladores2020\obj\Debug\ProyectoCompiladores2020.exe
+C:\Users\Andrea Cámara\Desktop\COMPULADORES -PROYECTO\Proyecto-Compiladores\ProyectoCompiladores2020\obj\Debug\ProyectoCompiladores2020.pdb
+C:\Users\Andrea Cámara\Desktop\proyecto compis\Proyecto-Compiladores\ProyectoCompiladores2020\bin\Debug\ProyectoCompiladores2020.exe.config
+C:\Users\Andrea Cámara\Desktop\proyecto compis\Proyecto-Compiladores\ProyectoCompiladores2020\bin\Debug\ProyectoCompiladores2020.exe
+C:\Users\Andrea Cámara\Desktop\proyecto compis\Proyecto-Compiladores\ProyectoCompiladores2020\bin\Debug\ProyectoCompiladores2020.pdb
+C:\Users\Andrea Cámara\Desktop\proyecto compis\Proyecto-Compiladores\ProyectoCompiladores2020\obj\Debug\ProyectoCompiladores2020.csprojAssemblyReference.cache
+C:\Users\Andrea Cámara\Desktop\proyecto compis\Proyecto-Compiladores\ProyectoCompiladores2020\obj\Debug\ProyectoCompiladores2020.Form1.resources
+C:\Users\Andrea Cámara\Desktop\proyecto compis\Proyecto-Compiladores\ProyectoCompiladores2020\obj\Debug\ProyectoCompiladores2020.Properties.Resources.resources
+C:\Users\Andrea Cámara\Desktop\proyecto compis\Proyecto-Compiladores\ProyectoCompiladores2020\obj\Debug\ProyectoCompiladores2020.csproj.GenerateResource.cache
+C:\Users\Andrea Cámara\Desktop\proyecto compis\Proyecto-Compiladores\ProyectoCompiladores2020\obj\Debug\ProyectoCompiladores2020.exe
+C:\Users\Andrea Cámara\Desktop\proyecto compis\Proyecto-Compiladores\ProyectoCompiladores2020\obj\Debug\ProyectoCompiladores2020.pdb
+C:\Users\usuario\Desktop\proyecto compis\Proyecto-Compiladores\ProyectoCompiladores2020\bin\Debug\ProyectoCompiladores2020.exe.config
+C:\Users\usuario\Desktop\proyecto compis\Proyecto-Compiladores\ProyectoCompiladores2020\bin\Debug\ProyectoCompiladores2020.exe
+C:\Users\usuario\Desktop\proyecto compis\Proyecto-Compiladores\ProyectoCompiladores2020\bin\Debug\ProyectoCompiladores2020.pdb
+C:\Users\usuario\Desktop\proyecto compis\Proyecto-Compiladores\ProyectoCompiladores2020\obj\Debug\ProyectoCompiladores2020.csprojAssemblyReference.cache
+C:\Users\usuario\Desktop\proyecto compis\Proyecto-Compiladores\ProyectoCompiladores2020\obj\Debug\ProyectoCompiladores2020.Form1.resources
+C:\Users\usuario\Desktop\proyecto compis\Proyecto-Compiladores\ProyectoCompiladores2020\obj\Debug\ProyectoCompiladores2020.Properties.Resources.resources
+C:\Users\usuario\Desktop\proyecto compis\Proyecto-Compiladores\ProyectoCompiladores2020\obj\Debug\ProyectoCompiladores2020.csproj.GenerateResource.cache
+C:\Users\usuario\Desktop\proyecto compis\Proyecto-Compiladores\ProyectoCompiladores2020\obj\Debug\ProyectoCompiladores2020.csproj.CoreCompileInputs.cache
+C:\Users\usuario\Desktop\proyecto compis\Proyecto-Compiladores\ProyectoCompiladores2020\obj\Debug\ProyectoCompiladores2020.exe
+C:\Users\usuario\Desktop\proyecto compis\Proyecto-Compiladores\ProyectoCompiladores2020\obj\Debug\ProyectoCompiladores2020.pdb
+C:\Users\usuario\Desktop\PROYECTO COMPIS\Proyecto-Compiladores\ProyectoCompiladores2020\bin\Debug\ProyectoCompiladores2020.exe.manifest
+C:\Users\usuario\Desktop\PROYECTO COMPIS\Proyecto-Compiladores\ProyectoCompiladores2020\bin\Debug\ProyectoCompiladores2020.application
+C:\Users\usuario\Desktop\PROYECTO COMPIS\Proyecto-Compiladores\ProyectoCompiladores2020\obj\Debug\ProyectoCompiladores2020.exe.manifest
+C:\Users\usuario\Desktop\PROYECTO COMPIS\Proyecto-Compiladores\ProyectoCompiladores2020\obj\Debug\ProyectoCompiladores2020.application
+C:\Users\epare\source\repos\MiniC\ProyectoCompiladores2020\bin\Debug\ProyectoCompiladores2020.exe.config
+C:\Users\epare\source\repos\MiniC\ProyectoCompiladores2020\bin\Debug\ProyectoCompiladores2020.exe.manifest
+C:\Users\epare\source\repos\MiniC\ProyectoCompiladores2020\bin\Debug\ProyectoCompiladores2020.application
+C:\Users\epare\source\repos\MiniC\ProyectoCompiladores2020\bin\Debug\ProyectoCompiladores2020.exe
+C:\Users\epare\source\repos\MiniC\ProyectoCompiladores2020\bin\Debug\ProyectoCompiladores2020.pdb
+C:\Users\epare\source\repos\MiniC\ProyectoCompiladores2020\obj\Debug\ProyectoCompiladores2020.csprojAssemblyReference.cache
+C:\Users\epare\source\repos\MiniC\ProyectoCompiladores2020\obj\Debug\ProyectoCompiladores2020.Form1.resources
+C:\Users\epare\source\repos\MiniC\ProyectoCompiladores2020\obj\Debug\ProyectoCompiladores2020.Properties.Resources.resources
+C:\Users\epare\source\repos\MiniC\ProyectoCompiladores2020\obj\Debug\ProyectoCompiladores2020.csproj.GenerateResource.cache
+C:\Users\epare\source\repos\MiniC\ProyectoCompiladores2020\obj\Debug\ProyectoCompiladores2020.csproj.CoreCompileInputs.cache
+C:\Users\epare\source\repos\MiniC\ProyectoCompiladores2020\obj\Debug\ProyectoCompiladores2020.exe.manifest
+C:\Users\epare\source\repos\MiniC\ProyectoCompiladores2020\obj\Debug\ProyectoCompiladores2020.application
+C:\Users\epare\source\repos\MiniC\ProyectoCompiladores2020\obj\Debug\ProyectoCompiladores2020.exe
+C:\Users\epare\source\repos\MiniC\ProyectoCompiladores2020\obj\Debug\ProyectoCompiladores2020.pdb
+C:\Users\usuario\Desktop\minicCasiFina\Proyecto-Compiladores\ProyectoCompiladores2020\bin\Debug\ProyectoCompiladores2020.exe.config
+C:\Users\usuario\Desktop\minicCasiFina\Proyecto-Compiladores\ProyectoCompiladores2020\bin\Debug\ProyectoCompiladores2020.exe.manifest
+C:\Users\usuario\Desktop\minicCasiFina\Proyecto-Compiladores\ProyectoCompiladores2020\bin\Debug\ProyectoCompiladores2020.application
+C:\Users\usuario\Desktop\minicCasiFina\Proyecto-Compiladores\ProyectoCompiladores2020\bin\Debug\ProyectoCompiladores2020.exe
+C:\Users\usuario\Desktop\minicCasiFina\Proyecto-Compiladores\ProyectoCompiladores2020\bin\Debug\ProyectoCompiladores2020.pdb
+C:\Users\usuario\Desktop\minicCasiFina\Proyecto-Compiladores\ProyectoCompiladores2020\obj\Debug\ProyectoCompiladores2020.csprojAssemblyReference.cache
+C:\Users\usuario\Desktop\minicCasiFina\Proyecto-Compiladores\ProyectoCompiladores2020\obj\Debug\ProyectoCompiladores2020.Form1.resources
+C:\Users\usuario\Desktop\minicCasiFina\Proyecto-Compiladores\ProyectoCompiladores2020\obj\Debug\ProyectoCompiladores2020.Properties.Resources.resources
+C:\Users\usuario\Desktop\minicCasiFina\Proyecto-Compiladores\ProyectoCompiladores2020\obj\Debug\ProyectoCompiladores2020.csproj.GenerateResource.cache
+C:\Users\usuario\Desktop\minicCasiFina\Proyecto-Compiladores\ProyectoCompiladores2020\obj\Debug\ProyectoCompiladores2020.csproj.CoreCompileInputs.cache
+C:\Users\usuario\Desktop\minicCasiFina\Proyecto-Compiladores\ProyectoCompiladores2020\obj\Debug\ProyectoCompiladores2020.exe.manifest
+C:\Users\usuario\Desktop\minicCasiFina\Proyecto-Compiladores\ProyectoCompiladores2020\obj\Debug\ProyectoCompiladores2020.application
+C:\Users\usuario\Desktop\minicCasiFina\Proyecto-Compiladores\ProyectoCompiladores2020\obj\Debug\ProyectoCompiladores2020.exe
+C:\Users\usuario\Desktop\minicCasiFina\Proyecto-Compiladores\ProyectoCompiladores2020\obj\Debug\ProyectoCompiladores2020.pdb
+C:\Users\epare\source\repos\prueba\ProyectoCompiladores2020\bin\Debug\ProyectoCompiladores2020.exe.config
+C:\Users\epare\source\repos\prueba\ProyectoCompiladores2020\bin\Debug\ProyectoCompiladores2020.exe.manifest
+C:\Users\epare\source\repos\prueba\ProyectoCompiladores2020\bin\Debug\ProyectoCompiladores2020.application
+C:\Users\epare\source\repos\prueba\ProyectoCompiladores2020\bin\Debug\ProyectoCompiladores2020.exe
+C:\Users\epare\source\repos\prueba\ProyectoCompiladores2020\bin\Debug\ProyectoCompiladores2020.pdb
+C:\Users\epare\source\repos\prueba\ProyectoCompiladores2020\obj\Debug\ProyectoCompiladores2020.csprojAssemblyReference.cache
+C:\Users\epare\source\repos\prueba\ProyectoCompiladores2020\obj\Debug\ProyectoCompiladores2020.Form1.resources
+C:\Users\epare\source\repos\prueba\ProyectoCompiladores2020\obj\Debug\ProyectoCompiladores2020.Properties.Resources.resources
+C:\Users\epare\source\repos\prueba\ProyectoCompiladores2020\obj\Debug\ProyectoCompiladores2020.csproj.GenerateResource.cache
+C:\Users\epare\source\repos\prueba\ProyectoCompiladores2020\obj\Debug\ProyectoCompiladores2020.csproj.CoreCompileInputs.cache
+C:\Users\epare\source\repos\prueba\ProyectoCompiladores2020\obj\Debug\ProyectoCompiladores2020.exe.manifest
+C:\Users\epare\source\repos\prueba\ProyectoCompiladores2020\obj\Debug\ProyectoCompiladores2020.application
+C:\Users\epare\source\repos\prueba\ProyectoCompiladores2020\obj\Debug\ProyectoCompiladores2020.exe
+C:\Users\epare\source\repos\prueba\ProyectoCompiladores2020\obj\Debug\ProyectoCompiladores2020.pdb
