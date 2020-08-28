@@ -328,6 +328,11 @@ namespace ProyectoCompiladores2020
                                 }
                                 else
                                 {
+                                    if (fin < tamanio)
+                                        fin--;
+                                    else if (fin == tamanio && linea.Count != 0)
+                                    { fin--; }
+                                    inicio = fin;
                                     salida.Add("simbolo : " + "*" + " en linea " + llave.ToString() + " cols " + inicio + " - " + fin);
                                     fin++;
                                     inicio = fin;
@@ -435,10 +440,17 @@ namespace ProyectoCompiladores2020
                                 else
                                 {
                                     salida.Add(validarCadena(cadena, llave, inicio, fin));
+                                    //fin++;
                                     inicio = fin;
                                 }
                                 //inicio = fin;
                                 cadena = "";
+                                if (linea.Count != 0)
+                                {
+                                    inicio++;
+                                    fin = inicio;
+                                }
+
 
                             }
                         }
@@ -528,9 +540,11 @@ namespace ProyectoCompiladores2020
                             }
                             else
                             {
-                                
+                                //fin++;
+                                //inicio = fin;
                                 salida.Add(cadenaSimbolos + " en linea " + llave.ToString() + " cols " + (inicio) + " - " + fin +" es T_Operador");
-                                inicio = fin;
+                                //fin++;
+                                //inicio = fin;
                             }
                             if (linea.Count != 0)
                             {
