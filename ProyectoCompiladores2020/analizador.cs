@@ -6,10 +6,11 @@ using System.Windows.Forms;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Runtime;
+using System.Collections.Generic;
 
 namespace ProyectoCompiladores2020
 {
-    class analizador
+    public class analizador
     {
         public analizador()
         {
@@ -21,6 +22,8 @@ namespace ProyectoCompiladores2020
             archivo = lineas;
         }
         public bool correcto = true;
+        public Queue<string> tokens = new Queue<string>();
+        //Dictionary<string, string> Tokens = new Dictionary<string, string>();
         List<string> simbolosOtros = new List<string>();
         public void simbolos()
         {
@@ -51,6 +54,7 @@ namespace ProyectoCompiladores2020
             simbolosOtros.Add("{");
             simbolosOtros.Add("}");
             simbolosOtros.Add("{}");
+            simbolosOtros.Add(":");
         }
         public List<string> errores = new List<string>();
         //Expresiones regulares para tokens
@@ -60,7 +64,7 @@ namespace ProyectoCompiladores2020
         Regex decimales2 = new Regex("^[0-9]+[.]([0-9]*)([eE][+-]?[0-9]+)?$");
         Regex enterosB16 = new Regex("^([0][xX])([0-9]|[abcdefABCDEF])*$");
         Regex booleano = new Regex("true|false");
-        Regex reservadas = new Regex(@"^(void|int|double|bool|string|class|const|interface|null|this|for|while|foreach|if|else|return|break|New|NewArray|Console|WriteLine)$");
+        Regex reservadas = new Regex(@"^(void|int|double|bool|string|class|const|interface|null|this|for|while|foreach|if|else|return|break|New|NewArray|Console|WriteLine|Print)$");
         Regex caracterNoValido = new Regex("^[a-z|A-Z|0-9|&|_]+$");
         bool comment = false;
         public List<string> Reconocedor()
@@ -160,6 +164,7 @@ namespace ProyectoCompiladores2020
                                     else if (fin == finError)
                                     { finError--; }
                                     salida.Add(validarCadena(palabras, llave, inicio, finError));//se manda a imprimir el error encontrado 
+                                    tokens.Enqueue(palabras);
                                     finError++;
                                     inicio = finError;
                                     palabras = "";
@@ -172,6 +177,7 @@ namespace ProyectoCompiladores2020
                                 else if (fin == finError)
                                 { finError--; }
                                 salida.Add(validarCadena(palabras, llave, inicio, finError));//se manda a imprimir el error encontrado 
+                                tokens.Enqueue(palabras);
                                 finError++;
                                 inicio = finError;
                                 fin = inicio;
@@ -181,6 +187,7 @@ namespace ProyectoCompiladores2020
                         else// en caso de no tener error la cadena se agrega a la salida
                         {
                             salida.Add(validarCadena(cadena, llave, inicio, fin));
+                            tokens.Enqueue(cadena);
                             fin = inicio;
                         }
                         cadena = "";
@@ -246,6 +253,7 @@ namespace ProyectoCompiladores2020
                                             else if (fin == finError)
                                             { finError--; }
                                             salida.Add(validarCadena(palabras, llave, inicio, finError));
+                                            tokens.Enqueue(palabras);
                                             finError++;
                                             inicio = finError;
                                             palabras = "";
@@ -258,6 +266,7 @@ namespace ProyectoCompiladores2020
                                         else if (fin == finError) //si el fin que llevamos es igual al que tenia el error validado
                                         { finError--; }///le restamos el valor del final de cols de el error
                                         salida.Add(validarCadena(palabras, llave, inicio, finError));
+                                        tokens.Enqueue(palabras);
                                         finError++;
                                         inicio = finError;
                                         fin = inicio;
@@ -267,6 +276,7 @@ namespace ProyectoCompiladores2020
                                 else//agregamos palabra para validar
                                 {
                                     salida.Add(validarCadena(cadena, llave, inicio, fin));
+                                    tokens.Enqueue(cadena);
                                     fin++;
                                     inicio = fin;
                                 }
@@ -295,6 +305,7 @@ namespace ProyectoCompiladores2020
                                     if (cadena != "")
                                     {
                                         salida.Add(validarCadena(cadena, llave, inicio, fin));
+                                        tokens.Enqueue(cadena);
                                         cadena = "";
                                         inicio = fin;
                                     }
@@ -333,6 +344,7 @@ namespace ProyectoCompiladores2020
                                     { fin--; }
                                     inicio = fin;
                                     salida.Add("simbolo : " + "*" + " en linea " + llave.ToString() + " cols " + inicio + " - " + fin); //mandamos operador a la salida
+                                    tokens.Enqueue("*");
                                     fin++;
                                     inicio = fin;
                                 }
@@ -362,6 +374,7 @@ namespace ProyectoCompiladores2020
                                 cadena += linea.Dequeue().ToString();//contiamos concatenando el string
                                 
                                 salida.Add( cadena + " en linea " + llave + " cols " + inicio + " - " + fin + " es T_ConstanteString" + " (valor = " +cadena+")"); //mandamos string a la salida de archivo
+                                tokens.Enqueue(cadena);
                                 fin++;
                                 inicio = fin;
                                 cadena = "";
@@ -374,6 +387,7 @@ namespace ProyectoCompiladores2020
                             if (linea.Count == 0)//si la linea ya terminó
                             {
                                 salida.Add(validarCadena(cadena, llave, inicio, fin));//se manda a validar el double que se tiene
+                                tokens.Enqueue(cadena);
                                 inicio = fin;
                                 cadena = "";//vaciamos la cadena
                             }
@@ -416,6 +430,7 @@ namespace ProyectoCompiladores2020
                                             else if (fin == finError)
                                             { finError--; }
                                             salida.Add(validarCadena(palabras, llave, inicio, finError));
+                                            tokens.Enqueue(palabras);
                                             finError++;
                                             inicio = finError;
                                             palabras = "";
@@ -428,6 +443,7 @@ namespace ProyectoCompiladores2020
                                         else if (fin == finError) //si el fin que llevamos es igual al que tenia el error validado
                                         { finError--; }///le restamos el valor del final de cols de el error
                                         salida.Add(validarCadena(palabras, llave, inicio, finError));
+                                        tokens.Enqueue(palabras);
                                         finError++;
                                         inicio = finError;
                                         fin = inicio;
@@ -437,6 +453,7 @@ namespace ProyectoCompiladores2020
                                 else
                                 {
                                     salida.Add(validarCadena(cadena, llave, inicio, fin));
+                                    tokens.Enqueue(cadena);
                                     inicio = fin;
                                 }
                                 cadena = "";
@@ -500,6 +517,7 @@ namespace ProyectoCompiladores2020
                                             else if (fin == finError)
                                             { finError--; }
                                             salida.Add(validarCadena(palabras, llave, inicio, finError));
+                                            tokens.Enqueue(palabras);
                                             finError++;
                                             inicio = finError;
                                             palabras = "";
@@ -513,6 +531,7 @@ namespace ProyectoCompiladores2020
                                         else if (fin == finError)
                                         { finError--; }
                                         salida.Add(validarCadena(palabras, llave, inicio, finError));
+                                        tokens.Enqueue(palabras);
                                         finError++;
                                         inicio = finError;
                                         fin = inicio;
@@ -522,6 +541,7 @@ namespace ProyectoCompiladores2020
                                 else// i no hay error agrega a la lista
                                 {
                                     salida.Add(validarCadena(cadena, llave, inicio, fin));
+                                    tokens.Enqueue(cadena);
                                     fin++;
                                     inicio = fin;
                                 }
@@ -535,6 +555,7 @@ namespace ProyectoCompiladores2020
                             if (linea.Count == 0)
                             {
                                 salida.Add(cadenaSimbolos + " en linea " + llave + " cols " + inicio + " - " + fin + " es T_Operador");
+                                tokens.Enqueue(cadenaSimbolos);
                                 inicio = fin;
                             }
                             //Si el simbolo lo persigue otro simbolo lo concatena 
@@ -543,12 +564,14 @@ namespace ProyectoCompiladores2020
                                 cadenaSimbolos += linea.Dequeue().ToString();
                                 fin++;
                                 salida.Add(cadenaSimbolos + " en linea " + llave.ToString() + " cols " + inicio + " - " + (fin).ToString() + " es T_Operador");
+                                tokens.Enqueue(cadenaSimbolos);
                                 inicio = fin;
                             }
                             //saca el cimbolo
                             else
                             {
                                 salida.Add(cadenaSimbolos + " en linea " + llave.ToString() + " cols " + (inicio) + " - " + fin +" es T_Operador");
+                                tokens.Enqueue(cadenaSimbolos);
                             }
                             //Sacar espacios y calibrar columnas 
                             if (linea.Count != 0)
@@ -600,6 +623,7 @@ namespace ProyectoCompiladores2020
                                         else if (fin == finError)
                                         { finError--; }
                                         salida.Add(validarCadena(palabras, llave, inicio, finError));
+                                        tokens.Enqueue(palabras);
                                         finError++;
                                         inicio = finError;
                                         palabras = "";
@@ -612,6 +636,7 @@ namespace ProyectoCompiladores2020
                                     else if (fin == finError)
                                     { finError--; }
                                     salida.Add(validarCadena(palabras, llave, inicio, finError));
+                                    tokens.Enqueue(palabras);
                                     finError++;
                                     inicio = finError;
                                     fin = inicio;
@@ -621,6 +646,7 @@ namespace ProyectoCompiladores2020
                             else
                             {
                                 salida.Add(validarCadena(cadena, llave, inicio, fin));
+                                tokens.Enqueue(cadena);
                                 inicio = fin;
                             }
 

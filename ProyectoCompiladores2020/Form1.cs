@@ -15,6 +15,8 @@ namespace ProyectoCompiladores2020
     {
         public Dictionary<int, string> lineas = new Dictionary<int, string>();
         analizador iraAnalizador = new analizador();
+        SintacticoRecursivo sintactico = new SintacticoRecursivo();
+        public Queue<string> tokensT = new Queue<string>();
         public Form1()
         {
             InitializeComponent();
@@ -46,6 +48,7 @@ namespace ProyectoCompiladores2020
                 }
                 iraAnalizador.guardarArchivo(lineas);
                 var mostrar = iraAnalizador.Reconocedor();
+                sintactico.Tokens = iraAnalizador.tokens;
                 if (iraAnalizador.correcto == false)
                 {
                     foreach (var item in iraAnalizador.errores)

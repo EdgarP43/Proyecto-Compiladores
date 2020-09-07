@@ -42,14 +42,14 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="ProyectoCompiladores2020.exe" size="20936">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="ProyectoCompiladores2020.exe" size="21448">
       <assemblyIdentity name="ProyectoCompiladores2020" version="1.0.0.0" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>ptc/mnEgOx7HLApI5n855TEULhnOSWhguKWD/DiANa4=</dsig:DigestValue>
+        <dsig:DigestValue>hSMVi78XXNDsc81gFcrvYo5/nne5oNz/X4WK51rM+z0=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
