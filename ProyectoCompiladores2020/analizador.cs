@@ -53,10 +53,11 @@ namespace ProyectoCompiladores2020
             simbolosOtros.Add("{}");
         }
         public List<string> errores = new List<string>();
-        
+        //Expresiones regulares para tokens
         Regex id = new Regex("^([a-z|A-Z]+([_]|[0-9]|[a-z|A-Z])*)$");
         Regex enterosB10 = new Regex("^[0-9]+$");
-        Regex decimales = new Regex("^[0-9]+[.]([0-9]*)([eE][+-]?)?[0-9]*$");
+        Regex decimales1 = new Regex("^[0-9]+[.]([0-9]*)([eE][+-]?)?[0-9]*$");
+        Regex decimales2 = new Regex("^[0-9]+[.]([0-9]*)([eE][+-]?[0-9]+)?$");
         Regex enterosB16 = new Regex("^([0][xX])([0-9]|[abcdefABCDEF])*$");
         Regex booleano = new Regex("true|false");
         Regex reservadas = new Regex(@"^(void|int|double|bool|string|class|const|interface|null|this|for|while|foreach|if|else|return|break|New|NewArray|Console|WriteLine)$");
@@ -71,7 +72,7 @@ namespace ProyectoCompiladores2020
             do
             {
                 var linea = new Queue<char>();
-                foreach (var item in archivo[llave].ToCharArray())
+                foreach (var item in archivo[llave].ToCharArray())//carga de caracteres de linea de archivo a la cola
                 {
                     linea.Enqueue(item);
                 }
@@ -80,42 +81,42 @@ namespace ProyectoCompiladores2020
                 string cadena = "";
                 string inicioComments = "";
                 int tamanio = linea.Count;
-                for (int i = linea.Count; i > 0; i++)
+                for (int i = linea.Count; i > 0; i++)//analisis de linea
                 {
-                    if (fin > tamanio)
+                    if (fin > tamanio)// en caso de que fin sea mayor a tamaño
                     {
                         fin--;
                     }
-                    if (linea.Count == 0 && cadena == "")
+                    if (linea.Count == 0 && cadena == "")// en caso de la cola estar vacia y no haya nada mas que analizar 
                     {
                         break;
                     }
-                    else if (comment == true)
+                    else if (comment == true)// en caso de que un comentario de varias lineas se haya iniciado
                     {
                         inicioComments += linea.Dequeue().ToString();
                         while (comment == true)
                         {
-                            if (inicioComments.Contains("*/"))
+                            if (inicioComments.Contains("*/"))//validación de cierre de comentarios de mcuhas lineas
                             {
                                 comment = false;
                                 break;
                             }
-                            else if (linea.Count > 0)
+                            else if (linea.Count > 0)//Concantener al comentario todos los caracteres
                             {
                                 inicioComments += linea.Dequeue().ToString();
                             }
-                            else if (linea.Count == 0 && archivo.Count == llave)
+                            else if (linea.Count == 0 && archivo.Count == llave)//En caso de no encontrar cierre de comentario, desplegara un error
                             {
                                 salida.Add("*** EOF en Comentario");
                                 errores.Add("*** EOF en Comentario");
                                 correcto = false;
                                 break;
                             }
-                            else if (linea.Count == 0)
+                            else if (linea.Count == 0)// en caso de que la cola se haya vaciado y haya que hacer un cambio de linea
                             {
                                 inicioComments += "\n";
                                 llave++;
-                                foreach (var item in archivo[llave].ToCharArray())
+                                foreach (var item in archivo[llave].ToCharArray())//Cargar nueva luena en el comentario
                                 {
                                     linea.Enqueue(item);
                                 }
@@ -126,58 +127,58 @@ namespace ProyectoCompiladores2020
                         inicioComments = "";
                         comment = false;
                     }
-                    else if (linea.Count == 0 && cadena != "")
+                    else if (linea.Count == 0 && cadena != "") //en caso que la linea termine de ser leída y que la cadena en la que se concatena ya este vacia
                     {
-                        if (fin < tamanio)
+                        if (fin < tamanio) //validación para tamaño de columnas
                             fin--;
                         else if (fin == tamanio && linea.Count != 0)
                         { fin--; }
                         ////////////////////////////////////////
-                        if (validarCadena(cadena, llave, inicio, fin) == "")
+                        if (validarCadena(cadena, llave, inicio, fin) == "")// validación en caso que al ir al metodo de validar lo que lleva cadena sea vacío
                         {
                             string dividir = cadena;
                             var error = dividir.ToCharArray();
                             int finError = inicio;
                             string palabras = "";
                             var colaPalabraDivirdir = new Queue<string>();
-                            foreach (var item in error)
+                            foreach (var item in error)// en caso que la cadena no haya sido analizada y cuente como error, se separa para su analisis en una cola
                             {
                                 colaPalabraDivirdir.Enqueue(item.ToString());
                             }
                             do
                             {
 
-                                if (validarCadena(palabras + colaPalabraDivirdir.Peek().ToString(), llave, inicio, fin) != "")
+                                if (validarCadena(palabras + colaPalabraDivirdir.Peek().ToString(), llave, inicio, fin) != "")//si la cadena a validar en qué token pertenece no es vacío y contiene algo
                                 {
-                                    palabras += colaPalabraDivirdir.Dequeue().ToString();
+                                    palabras += colaPalabraDivirdir.Dequeue().ToString();// concatenamos la palabra
                                     finError++;
                                 }
                                 else
                                 {
-                                    if (finError < fin)
+                                    if (finError < fin)//validación de columnas
                                         finError--;
                                     else if (fin == finError)
                                     { finError--; }
-                                    salida.Add(validarCadena(palabras, llave, inicio, finError));
+                                    salida.Add(validarCadena(palabras, llave, inicio, finError));//se manda a imprimir el error encontrado 
                                     finError++;
                                     inicio = finError;
                                     palabras = "";
                                 }
-                            } while (colaPalabraDivirdir.Count != 0);
-                            if (palabras != "")
+                            } while (colaPalabraDivirdir.Count != 0); 
+                            if (palabras != "")//En caso de no haber vaciado palabra, se evalua
                             {
-                                if (finError > fin)
+                                if (finError > fin)//validación de columnas
                                     finError--;
                                 else if (fin == finError)
                                 { finError--; }
-                                salida.Add(validarCadena(palabras, llave, inicio, finError));
+                                salida.Add(validarCadena(palabras, llave, inicio, finError));//se manda a imprimir el error encontrado 
                                 finError++;
                                 inicio = finError;
                                 fin = inicio;
                                 palabras = "";
                             }
                         }
-                        else
+                        else// en caso de no tener error la cadena se agrega a la salida
                         {
                             salida.Add(validarCadena(cadena, llave, inicio, fin));
                             fin = inicio;
@@ -185,7 +186,7 @@ namespace ProyectoCompiladores2020
                         cadena = "";
                         if (linea.Count != 0)
                         {
-                            if (linea.Peek() == ' ' || linea.Peek() == '\t')
+                            if (linea.Peek() == ' ' || linea.Peek() == '\t')// en caso de encontrar un espacio evalua las columnas y saca el caracter
                             {
                                 linea.Dequeue();
                                 inicio += 2;
@@ -193,46 +194,47 @@ namespace ProyectoCompiladores2020
                             }
                             else
                             {
-                                inicio ++;
+                                //validación de columnas
+                                inicio++;
                                 fin = inicio;
                             }
                         }
                     }
                     else
                     {
-                        if (cadena == "_")
+                        if (cadena == "_") //reconoce caracter no valido en caso que no estuviera concatenado con letras al prinicipio como id
                         {
-                            salida.Add("*** Error en linea " + llave + "caracter no reconocido: " + "'" + cadena + "'");
-                            errores.Add("*** Error en linea " + llave + "caracter no reconocido: " + "'" + cadena + "'");
+                            salida.Add("*** Error en linea " + llave + "caracter no reconocido: " + "'" + cadena + "'");//imprime error
+                            errores.Add("*** Error en linea " + llave + "caracter no reconocido: " + "'" + cadena + "'");//se manda a errores
                             correcto = false;
                             inicio = fin;
                             cadena = "";
 
                         }
-                        else if (linea.Peek() == '/')
+                        else if (linea.Peek() == '/')//encuentra al inicio de la cola si empieza con / para saber si es comentario lo que viene
                         {
-                            if (cadena != "")
+                            if (cadena != "")//si cadena no es vacía para poder segui validando
                             {
-                                if (fin < tamanio)
+                                if (fin < tamanio)//validacion de conteo de columnas
                                     fin--;
                                 else if (fin == tamanio && linea.Count != 0)
                                 { fin--; }
                                 /////////////////////////////////////////////////////
-                                if (validarCadena(cadena, llave, inicio, fin) == "")
+                                if (validarCadena(cadena, llave, inicio, fin) == "")//se valida si lo que se envia a validar como token no está vacío
                                 {
                                     string dividir = cadena;
                                     var error = dividir.ToCharArray();
                                     int finError = inicio;
                                     string palabras = "";
                                     var colaPalabraDivirdir = new Queue<string>();
-                                    foreach (var item in error)
+                                    foreach (var item in error)//agregamos lo que esta en error para validar que error corresponde
                                     {
                                         colaPalabraDivirdir.Enqueue(item.ToString());
                                     }
                                     do
                                     {
 
-                                        if (validarCadena(palabras + colaPalabraDivirdir.Peek().ToString(), llave, inicio, fin) != "")
+                                        if (validarCadena(palabras + colaPalabraDivirdir.Peek().ToString(), llave, inicio, fin) != "")//validar  que palabra venga concatenado con lo que se dividió sea != null
                                         {
                                             palabras += colaPalabraDivirdir.Dequeue().ToString();
                                             finError++;
@@ -248,13 +250,13 @@ namespace ProyectoCompiladores2020
                                             inicio = finError;
                                             palabras = "";
                                         }
-                                    } while (colaPalabraDivirdir.Count != 0);
-                                    if (palabras != "")
+                                    } while (colaPalabraDivirdir.Count != 0); //proceso que se  termina mientras no sea fin de linea
+                                    if (palabras != "") // si palabra donde concatenamos no es nula
                                     {
-                                        if (finError > fin)
+                                        if (finError > fin)//validamos conteo de cols
                                             finError--;
-                                        else if (fin == finError)
-                                        { finError--; }
+                                        else if (fin == finError) //si el fin que llevamos es igual al que tenia el error validado
+                                        { finError--; }///le restamos el valor del final de cols de el error
                                         salida.Add(validarCadena(palabras, llave, inicio, finError));
                                         finError++;
                                         inicio = finError;
@@ -262,33 +264,30 @@ namespace ProyectoCompiladores2020
                                         palabras = "";
                                     }
                                 }
-                                else
+                                else//agregamos palabra para validar
                                 {
                                     salida.Add(validarCadena(cadena, llave, inicio, fin));
                                     fin++;
                                     inicio = fin;
-                                    //fin = inicio;
                                 }
-                                //fin++;
-                                //inicio = fin;
                                 cadena = "";
 
                             }
-                            inicioComments += linea.Dequeue().ToString();
+                            inicioComments += linea.Dequeue().ToString(); //concatenamos lo que vemos desde inicio de comentarios
                             if(linea.Count != 0)
                             { 
-                                if (linea.Peek() == '/')
+                                if (linea.Peek() == '/') //si empezamos a validar un comentario
                                 {
-                                    do
+                                    do //mintras no sea fin de linea
                                     {
-                                        inicioComments += linea.Dequeue().ToString();
+                                        inicioComments += linea.Dequeue().ToString(); //cpncatenamos el comentario
                                         fin++;
                                     } while (linea.Count > 0);
-                                    inicio = fin;
+                                    inicio = fin; //igualamos cols para emepzar la siguiente palabra
                                 }
-                                else if (linea.Peek() == '*')
+                                else if (linea.Peek() == '*')//si miramos que viene un comentario de muchas lineas
                                 {
-                                    inicioComments += linea.Dequeue().ToString();
+                                    inicioComments += linea.Dequeue().ToString(); //continuamos concatenando comentario de varias lineas
                                     comment = true;
                                 }
                                 else
@@ -310,14 +309,14 @@ namespace ProyectoCompiladores2020
                                 salida.Add(inicioComments +" en linea "+ llave +"cols "+inicio+" - "+fin+ "es T_operador");
                             }
                         }
-                        else if (linea.Peek() == '*')
+                        else if (linea.Peek() == '*')// si encontramos  un inidicio de fin de comentario de fin de comentario de varias lineas
                         {
                             linea.Dequeue();
                             fin++;
                             inicio++;
                             if (linea.Count > 0)
                             {
-                                if (linea.Peek() == '/')
+                                if (linea.Peek() == '/') //aca encontramos que efectivamente es cierre de comentairo de varias lineas
                                 {
                                     linea.Dequeue();
                                     fin++;
@@ -326,25 +325,25 @@ namespace ProyectoCompiladores2020
                                     errores.Add("***Salida de comentario sin emparejar" + " en linea " + llave.ToString());
                                     correcto = false;
                                 }
-                                else
+                                else //como no es cierre de comentario de vaarias lineas se toma como operador aparte
                                 {
-                                    if (fin < tamanio)
+                                    if (fin < tamanio)//validamos cols
                                         fin--;
                                     else if (fin == tamanio && linea.Count != 0)
                                     { fin--; }
                                     inicio = fin;
-                                    salida.Add("simbolo : " + "*" + " en linea " + llave.ToString() + " cols " + inicio + " - " + fin);
+                                    salida.Add("simbolo : " + "*" + " en linea " + llave.ToString() + " cols " + inicio + " - " + fin); //mandamos operador a la salida
                                     fin++;
                                     inicio = fin;
                                 }
                             }
                         }
-                        else if (linea.Peek() == '"')
+                        else if (linea.Peek() == '"') //empezamos a validar si viene un string
                         {
                             bool correcto = true;
                             do
                             {
-                                cadena += linea.Dequeue().ToString();
+                                cadena += linea.Dequeue().ToString();//concatenamos los strings
                                 fin++;
                                 if (linea.Count == 0)
                                 {
@@ -357,32 +356,30 @@ namespace ProyectoCompiladores2020
                                     correcto = false;
                                 }
 
-                            } while (linea.Peek() != '"');
-                            if (correcto && linea.Count > 0)
+                            } while (linea.Peek() != '"'); //mientras no encuentre un cierre de string
+                            if (correcto && linea.Count > 0) //mientras  el string no abarque mas de una linea
                             {
-                                cadena += linea.Dequeue().ToString();
+                                cadena += linea.Dequeue().ToString();//contiamos concatenando el string
                                 
-                                salida.Add( cadena + " en linea " + llave + " cols " + inicio + " - " + fin + " es T_ConstanteString" + " (valor = " +cadena+")");
+                                salida.Add( cadena + " en linea " + llave + " cols " + inicio + " - " + fin + " es T_ConstanteString" + " (valor = " +cadena+")"); //mandamos string a la salida de archivo
                                 fin++;
                                 inicio = fin;
                                 cadena = "";
                             }
                             cadena = "";
                         }
-                        else if (enterosB10.IsMatch(cadena) && linea.Peek() == '.')
+                        else if (enterosB10.IsMatch(cadena) && linea.Peek() == '.')//si viene 2.
                         {
-                            cadena += linea.Dequeue().ToString();
-                            if (linea.Count == 0)
+                            cadena += linea.Dequeue().ToString();//continaumos concatenando el double
+                            if (linea.Count == 0)//si la linea ya terminó
                             {
-                                //if (fin < tamanio)
-                                //    fin--;
-                                salida.Add(validarCadena(cadena, llave, inicio, fin));
+                                salida.Add(validarCadena(cadena, llave, inicio, fin));//se manda a validar el double que se tiene
                                 inicio = fin;
-                                cadena = "";
+                                cadena = "";//vaciamos la cadena
                             }
                             else
                             {
-                                while (linea.Peek() != ' ' && linea.Peek() != '.' && decimales.IsMatch(cadena + linea.Peek().ToString()))
+                                while (linea.Peek() != ' ' && linea.Peek() != '.' && decimales1.IsMatch(cadena + linea.Peek().ToString()))//si cumple con la er permisiva se iran concatenando 
                                 {
                                     cadena += linea.Dequeue().ToString();
                                     fin++;
@@ -393,21 +390,21 @@ namespace ProyectoCompiladores2020
 
                                 }
                                 /////////////////////////////////////////
-                                if (validarCadena(cadena, llave, inicio, fin) == "")
+                                if (validarCadena(cadena, llave, inicio, fin) == "")//se valida si lo que se envia a validar como token no está vacío
                                 {
                                     string dividir = cadena;
                                     var error = dividir.ToCharArray();
                                     int finError = inicio;
                                     string palabras = "";
                                     var colaPalabraDivirdir = new Queue<string>();
-                                    foreach (var item in error)
+                                    foreach (var item in error)//agregamos lo que esta en error para validar que error corresponde
                                     {
                                         colaPalabraDivirdir.Enqueue(item.ToString());
                                     }
                                     do
                                     {
 
-                                        if (validarCadena(palabras + colaPalabraDivirdir.Peek().ToString(), llave, inicio, fin) != "")
+                                        if (validarCadena(palabras + colaPalabraDivirdir.Peek().ToString(), llave, inicio, fin) != "")//validar  que palabra venga concatenado con lo que se dividió sea != null
                                         {
                                             palabras += colaPalabraDivirdir.Dequeue().ToString();
                                             finError++;
@@ -423,13 +420,13 @@ namespace ProyectoCompiladores2020
                                             inicio = finError;
                                             palabras = "";
                                         }
-                                    } while (colaPalabraDivirdir.Count != 0);
-                                    if (palabras != "")
+                                    } while (colaPalabraDivirdir.Count != 0); //proceso que se  termina mientras no sea fin de linea
+                                    if (palabras != "") // si palabra donde concatenamos no es nula
                                     {
-                                        if (finError > fin)
+                                        if (finError > fin)//validamos conteo de cols
                                             finError--;
-                                        else if (fin == finError)
-                                        { finError--; }
+                                        else if (fin == finError) //si el fin que llevamos es igual al que tenia el error validado
+                                        { finError--; }///le restamos el valor del final de cols de el error
                                         salida.Add(validarCadena(palabras, llave, inicio, finError));
                                         finError++;
                                         inicio = finError;
@@ -440,10 +437,8 @@ namespace ProyectoCompiladores2020
                                 else
                                 {
                                     salida.Add(validarCadena(cadena, llave, inicio, fin));
-                                    //fin++;
                                     inicio = fin;
                                 }
-                                //inicio = fin;
                                 cadena = "";
                                 if (linea.Count != 0)
                                 {
@@ -454,11 +449,19 @@ namespace ProyectoCompiladores2020
 
                             }
                         }
-                        else if (linea.Peek() != '\n' && linea.Peek() != '\t' && linea.Peek() != ' ' && !simbolosOtros.Contains(linea.Peek().ToString()) && (caracterNoValido.IsMatch(linea.Peek().ToString()) || (linea.Peek() == '|' )) && cadena.Length < 31)
+                        //sacar caracter y concatenar en cadena
+                        else if (linea.Peek() != '\n' && linea.Peek() != '\t' && linea.Peek() != ' ' && !simbolosOtros.Contains(linea.Peek().ToString()) && (caracterNoValido.IsMatch(linea.Peek().ToString()) || (linea.Peek() == '|' )) && cadena.Length <= 31)
                         {
                             cadena += linea.Dequeue().ToString();
                             fin++;
                         }
+                        //Descartar caracteres en caso de ser identificadores muy largos (<31)
+                        else if (linea.Peek() != '\n' && linea.Peek() != '\t' && linea.Peek() != ' ' && !simbolosOtros.Contains(linea.Peek().ToString()) && (caracterNoValido.IsMatch(linea.Peek().ToString()) || (linea.Peek() == '|')) && cadena.Length > 31)
+                        {
+                            linea.Dequeue();
+                            fin++;
+                        }
+                        //en caso de que en la cola venga un simbolo
                         else if (simbolosOtros.Contains(linea.Peek().ToString()) || linea.Peek() == '+' || linea.Peek() == '-' || linea.Peek() == '.')
                         {
                             if (cadena != "")
@@ -468,6 +471,7 @@ namespace ProyectoCompiladores2020
                                 else if( fin==tamanio && linea.Count != 0)
                                 { fin--; }
                                 ///////////////////////////////////////
+                                //validar en caso de que tenga error
                                 if (validarCadena(cadena, llave, inicio, fin) == "")
                                 {
                                     string dividir = cadena;
@@ -475,18 +479,20 @@ namespace ProyectoCompiladores2020
                                     int finError = inicio;
                                     string palabras = "";
                                     var colaPalabraDivirdir = new Queue<string>();
+                                    //Caragar la cadena en caso de que tenga una cadena antes de un simbolo
                                     foreach (var item in error)
                                     {
                                         colaPalabraDivirdir.Enqueue(item.ToString());
                                     }
                                     do
                                     {
-
+                                        //Si tiene error concatena
                                         if (validarCadena(palabras + colaPalabraDivirdir.Peek().ToString(), llave, inicio, fin) != "")
                                         {
                                             palabras += colaPalabraDivirdir.Dequeue().ToString();
                                             finError++;
                                         }
+                                        //Si no tiene error agrega a la salida 
                                         else
                                         {
                                             if (finError < fin)
@@ -499,6 +505,7 @@ namespace ProyectoCompiladores2020
                                             palabras = "";
                                         }
                                     } while (colaPalabraDivirdir.Count != 0);
+                                    //si palabra no esta vacia lo agreaga a la lista
                                     if (palabras != "")
                                     {
                                         if (finError > fin)
@@ -512,25 +519,25 @@ namespace ProyectoCompiladores2020
                                         palabras = "";
                                     }
                                 }
-                                else
+                                else// i no hay error agrega a la lista
                                 {
                                     salida.Add(validarCadena(cadena, llave, inicio, fin));
                                     fin++;
                                     inicio = fin;
-                                    //fin = inicio;
                                 }
-                                //fin++;
-                                //inicio = fin;
                                 cadena = "";
 
                             }
                             string cadenaSimbolos = "";
+                            //saca el primer caracter al ser un  simbolo
                             cadenaSimbolos = linea.Dequeue().ToString();
+                            //La pila al estar vacia no agregara mas por lo que mostrara el simbolo
                             if (linea.Count == 0)
                             {
                                 salida.Add(cadenaSimbolos + " en linea " + llave + " cols " + inicio + " - " + fin + " es T_Operador");
                                 inicio = fin;
                             }
+                            //Si el simbolo lo persigue otro simbolo lo concatena 
                             else if (simbolosOtros.Contains(cadenaSimbolos + linea.Peek().ToString()) && cadenaSimbolos != "")
                             {
                                 cadenaSimbolos += linea.Dequeue().ToString();
@@ -538,14 +545,12 @@ namespace ProyectoCompiladores2020
                                 salida.Add(cadenaSimbolos + " en linea " + llave.ToString() + " cols " + inicio + " - " + (fin).ToString() + " es T_Operador");
                                 inicio = fin;
                             }
+                            //saca el cimbolo
                             else
                             {
-                                //fin++;
-                                //inicio = fin;
                                 salida.Add(cadenaSimbolos + " en linea " + llave.ToString() + " cols " + (inicio) + " - " + fin +" es T_Operador");
-                                //fin++;
-                                //inicio = fin;
                             }
+                            //Sacar espacios y calibrar columnas 
                             if (linea.Count != 0)
                             {
                                 if (linea.Peek() == ' ' || linea.Peek() == '\t')
@@ -561,6 +566,7 @@ namespace ProyectoCompiladores2020
                                 }
                             }
                         }
+                        //Si cadena No esta vacia lo evalua
                         else if (cadena != "")
                         {
                             if (fin < tamanio)
@@ -615,9 +621,7 @@ namespace ProyectoCompiladores2020
                             else
                             {
                                 salida.Add(validarCadena(cadena, llave, inicio, fin));
-                                //fin++;
                                 inicio = fin;
-                                //fin = inicio;
                             }
 
                             cadena = "";
@@ -636,6 +640,7 @@ namespace ProyectoCompiladores2020
                                 }
                             }
                         }
+                        //Saco los espacios en caso y calibra las columnas
                         else if (linea.Peek() == ' ' || linea.Peek() == '\t')
                         {
                                 
@@ -643,6 +648,7 @@ namespace ProyectoCompiladores2020
                             inicio++;
                             fin = inicio;
                         }
+                        //Caracter no valido en caso de no cumplir nada
                         else
                         {
                             string caracter = linea.Dequeue().ToString();
@@ -660,11 +666,13 @@ namespace ProyectoCompiladores2020
 
                 }
 
-
+                //Cambia de linea
                 llave++;
-            } while (archivo.ContainsKey(llave));
+            } while (archivo.ContainsKey(llave));//En caso de que la linea exista en el archivo
+            //Saca la salida de los tokens 
             return salida;
         }
+        
         private string validarCadena(string cadena, int llave, int inicio, int final)
         {
             if (cadena.Length < 31)
@@ -673,11 +681,11 @@ namespace ProyectoCompiladores2020
                 if (reservadas.IsMatch(cadena))
                 {
 
-                    return   cadena + " en linea " + llave.ToString() + " Cols " + inicio + " - " + final + " es T_reservada";
+                    return cadena + " en linea " + llave.ToString() + " Cols " + inicio + " - " + final + " es T_reservada";
                 }
                 else if (booleano.IsMatch(cadena))
                 {
-                    return   cadena + " en linea " + llave.ToString() + " Cols " + inicio + " - " + final + "es T_ConstanteBooleana";
+                    return cadena + " en linea " + llave.ToString() + " Cols " + inicio + " - " + final + "es T_ConstanteBooleana";
                 }
                 else if (cadena == "&&" || cadena == "||")
                 {
@@ -686,26 +694,25 @@ namespace ProyectoCompiladores2020
                 else if (id.IsMatch(cadena))
                 {
 
-                    return  cadena + " en linea " + llave.ToString() + " Cols " + inicio + " - " + final + " es T_identificador";
+                    return cadena + " en linea " + llave.ToString() + " Cols " + inicio + " - " + final + " es T_identificador";
                 }
                 else if (enterosB10.IsMatch(cadena))
                 {
 
-                    return  cadena + " en linea " + llave.ToString()  +" Cols " + inicio + " - " + final+" es T_ConstanteIntB10"+" (valor = " + cadena + ")";
+                    return cadena + " en linea " + llave.ToString() + " Cols " + inicio + " - " + final + " es T_ConstanteIntB10" + " (valor = " + cadena + ")";
                 }
                 else if (enterosB16.IsMatch(cadena))
                 {
-                    
-                    //decimal numerohexa = new decimal(Convert.ToInt32(cadena, 16));
-                    return cadena + " en linea " + llave.ToString() + " Cols " + inicio + " - " + final +" es T_ConstanteIntB16"+ " (valor = " + cadena + ")";
+                    return cadena + " en linea " + llave.ToString() + " Cols " + inicio + " - " + final + " es T_ConstanteIntB16" + " (valor = " + cadena + ")";
                 }
-                else if (decimales.IsMatch(cadena))
+                else if (decimales2.IsMatch(cadena))
                 {
-                    
-                    //decimal numeroDouble = new decimal(Convert.ToDouble(cadena));
-                    return cadena + " en linea " + llave.ToString() + " Cols " + inicio + " - " + final +" es T_ConstanteDouble" +" (valor = " + cadena + ")";
+                    return cadena + " en linea " + llave.ToString() + " Cols " + inicio + " - " + final + " es T_ConstanteDouble" + " (valor = " + cadena + ")";
                 }
-
+                else if (simbolosOtros.Contains(cadena))
+                {
+                    return cadena+ " en linea " + llave.ToString() + " cols " + inicio + " - " + final + " es T_Operador";
+                }
                 else
                 {
 
@@ -715,11 +722,9 @@ namespace ProyectoCompiladores2020
             }
             else
             {
-                //errores.Add("***Error T_identificador muy largo: " + cadena + " en linea " + llave.ToString() + "\n");
-                //correcto = false;
                 return "****Error T_identificador muy largo: " + cadena + " en linea " + llave.ToString() + "\n";
 
             }
-        }
+        }//Valida si la cadena pertenece a reservadas, identificadores, enterosB10, Enteros B16, simbolos, o si e
     }
 }
