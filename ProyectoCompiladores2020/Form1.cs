@@ -16,7 +16,6 @@ namespace ProyectoCompiladores2020
         public Dictionary<int, string> lineas = new Dictionary<int, string>();
         analizador iraAnalizador = new analizador();
         SintacticoRecursivo sintactico = new SintacticoRecursivo();
-        public Queue<string> tokensT = new Queue<string>();
         public Form1()
         {
             InitializeComponent();
@@ -48,7 +47,8 @@ namespace ProyectoCompiladores2020
                 }
                 iraAnalizador.guardarArchivo(lineas);
                 var mostrar = iraAnalizador.Reconocedor();
-                sintactico.Tokens = iraAnalizador.tokens;
+                sintactico.tokens = iraAnalizador.tokens;
+                
                 if (iraAnalizador.correcto == false)
                 {
                     foreach (var item in iraAnalizador.errores)
@@ -61,6 +61,8 @@ namespace ProyectoCompiladores2020
                 else
                 {
                     listBox1.Items.Add("Archivo correcto");
+                    button2.Enabled = true ;
+
                 }       
                 string nombreArchivo = Path.ChangeExtension(o.FileName,".out");
                 using (StreamWriter sw = new StreamWriter(nombreArchivo))
@@ -84,6 +86,12 @@ namespace ProyectoCompiladores2020
         private void label2_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            sintactico.tokens = iraAnalizador.tokens;
+            sintactico.parse_Program();
         }
     }
 }

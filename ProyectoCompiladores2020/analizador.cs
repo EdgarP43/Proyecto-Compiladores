@@ -22,7 +22,7 @@ namespace ProyectoCompiladores2020
             archivo = lineas;
         }
         public bool correcto = true;
-        public Queue<string> tokens = new Queue<string>();
+        public Queue<Token> tokens = new Queue<Token>();
         //Dictionary<string, string> Tokens = new Dictionary<string, string>();
         List<string> simbolosOtros = new List<string>();
         public void simbolos()
@@ -163,8 +163,44 @@ namespace ProyectoCompiladores2020
                                         finError--;
                                     else if (fin == finError)
                                     { finError--; }
-                                    salida.Add(validarCadena(palabras, llave, inicio, finError));//se manda a imprimir el error encontrado 
-                                    tokens.Enqueue(palabras);
+                                    salida.Add(validarCadena(palabras, llave, inicio, finError));//se manda a imprimir el error encontrado
+
+                                    if (validarCadena(palabras, llave, inicio, finError).Contains("reservada"))
+                                    {
+                                        var temp = new Token();
+                                        temp.contenido = cadena;
+                                        temp.tipo = "reservada";
+                                        tokens.Enqueue(temp);
+                                    }
+                                    else if (validarCadena(palabras, llave, inicio, finError).Contains("ident"))
+                                    {
+                                        var temp = new Token();
+                                        temp.contenido = palabras;
+                                        temp.tipo = "ident";
+                                        tokens.Enqueue(temp);
+                                    }
+                                    else if (validarCadena(palabras, llave, inicio, finError).Contains("Operador"))
+                                    {
+                                        var temp = new Token();
+                                        temp.contenido = palabras;
+                                        temp.tipo = "operador";
+                                        tokens.Enqueue(temp);
+                                    }
+                                    else if (validarCadena(palabras, llave, inicio, finError).Contains("Int"))
+                                    {
+                                        var temp = new Token();
+                                        temp.contenido = palabras;
+                                        temp.tipo = "int";
+                                        tokens.Enqueue(temp);
+                                    }
+                                    else if (validarCadena(palabras, llave, inicio, finError).Contains("Double"))
+                                    {
+                                        var temp = new Token();
+                                        temp.contenido = palabras;
+                                        temp.tipo = "double";
+                                        tokens.Enqueue(temp);
+                                    }
+                                    //tipoToken.Enqueue();
                                     finError++;
                                     inicio = finError;
                                     palabras = "";
@@ -177,7 +213,42 @@ namespace ProyectoCompiladores2020
                                 else if (fin == finError)
                                 { finError--; }
                                 salida.Add(validarCadena(palabras, llave, inicio, finError));//se manda a imprimir el error encontrado 
-                                tokens.Enqueue(palabras);
+
+                                if (validarCadena(palabras, llave, inicio, finError).Contains("reservada"))
+                                {
+                                    var temp = new Token();
+                                    temp.contenido = cadena;
+                                    temp.tipo = "reservada";
+                                    tokens.Enqueue(temp);
+                                }
+                                else if (validarCadena(palabras, llave, inicio, finError).Contains("ident"))
+                                {
+                                    var temp = new Token();
+                                    temp.contenido = palabras;
+                                    temp.tipo = "ident";
+                                    tokens.Enqueue(temp);
+                                }
+                                else if (validarCadena(palabras, llave, inicio, finError).Contains("Operador"))
+                                {
+                                    var temp = new Token();
+                                    temp.contenido = palabras;
+                                    temp.tipo = "operador";
+                                    tokens.Enqueue(temp);
+                                }
+                                else if (validarCadena(palabras, llave, inicio, finError).Contains("Int"))
+                                {
+                                    var temp = new Token();
+                                    temp.contenido = palabras;
+                                    temp.tipo = "int";
+                                    tokens.Enqueue(temp);
+                                }
+                                else if (validarCadena(palabras, llave, inicio, finError).Contains("Double"))
+                                {
+                                    var temp = new Token();
+                                    temp.contenido = palabras;
+                                    temp.tipo = "double";
+                                    tokens.Enqueue(temp);
+                                }
                                 finError++;
                                 inicio = finError;
                                 fin = inicio;
@@ -187,7 +258,42 @@ namespace ProyectoCompiladores2020
                         else// en caso de no tener error la cadena se agrega a la salida
                         {
                             salida.Add(validarCadena(cadena, llave, inicio, fin));
-                            tokens.Enqueue(cadena);
+
+                            if (validarCadena(cadena, llave, inicio, fin).Contains("reservada"))
+                            {
+                                var temp = new Token();
+                                temp.contenido = cadena;
+                                temp.tipo = "reservada";
+                                tokens.Enqueue(temp);
+                            }
+                            else if (validarCadena(cadena, llave, inicio, fin).Contains("ident"))
+                            {
+                                var temp = new Token();
+                                temp.contenido = cadena;
+                                temp.tipo = "ident";
+                                tokens.Enqueue(temp);
+                            }
+                            else if (validarCadena(cadena, llave, inicio, fin).Contains("Operador"))
+                            {
+                                var temp = new Token();
+                                temp.contenido = cadena;
+                                temp.tipo = "operador";
+                                tokens.Enqueue(temp);
+                            }
+                            else if (validarCadena(cadena, llave, inicio, fin).Contains("Int"))
+                            {
+                                var temp = new Token();
+                                temp.contenido = cadena;
+                                temp.tipo = "int";
+                                tokens.Enqueue(temp);
+                            }
+                            else if (validarCadena(cadena, llave, inicio, fin).Contains("Double"))
+                            {
+                                var temp = new Token();
+                                temp.contenido = cadena;
+                                temp.tipo = "double";
+                                tokens.Enqueue(temp);
+                            }
                             fin = inicio;
                         }
                         cadena = "";
@@ -253,7 +359,42 @@ namespace ProyectoCompiladores2020
                                             else if (fin == finError)
                                             { finError--; }
                                             salida.Add(validarCadena(palabras, llave, inicio, finError));
-                                            tokens.Enqueue(palabras);
+
+                                            if (validarCadena(palabras, llave, inicio, finError).Contains("reservada"))
+                                            {
+                                                var temp = new Token();
+                                                temp.contenido = cadena;
+                                                temp.tipo = "reservada";
+                                                tokens.Enqueue(temp);
+                                            }
+                                            else if (validarCadena(palabras, llave, inicio, finError).Contains("ident"))
+                                            {
+                                                var temp = new Token();
+                                                temp.contenido = palabras;
+                                                temp.tipo = "ident";
+                                                tokens.Enqueue(temp);
+                                            }
+                                            else if (validarCadena(palabras, llave, inicio, finError).Contains("Operador"))
+                                            {
+                                                var temp = new Token();
+                                                temp.contenido = palabras;
+                                                temp.tipo = "operador";
+                                                tokens.Enqueue(temp);
+                                            }
+                                            else if (validarCadena(palabras, llave, inicio, finError).Contains("Int"))
+                                            {
+                                                var temp = new Token();
+                                                temp.contenido = palabras;
+                                                temp.tipo = "int";
+                                                tokens.Enqueue(temp);
+                                            }
+                                            else if (validarCadena(palabras, llave, inicio, finError).Contains("Double"))
+                                            {
+                                                var temp = new Token();
+                                                temp.contenido = palabras;
+                                                temp.tipo = "double";
+                                                tokens.Enqueue(temp);
+                                            }
                                             finError++;
                                             inicio = finError;
                                             palabras = "";
@@ -266,7 +407,42 @@ namespace ProyectoCompiladores2020
                                         else if (fin == finError) //si el fin que llevamos es igual al que tenia el error validado
                                         { finError--; }///le restamos el valor del final de cols de el error
                                         salida.Add(validarCadena(palabras, llave, inicio, finError));
-                                        tokens.Enqueue(palabras);
+
+                                        if (validarCadena(palabras, llave, inicio, finError).Contains("reservada"))
+                                        {
+                                            var temp = new Token();
+                                            temp.contenido = cadena;
+                                            temp.tipo = "reservada";
+                                            tokens.Enqueue(temp);
+                                        }
+                                        else if (validarCadena(palabras, llave, inicio, finError).Contains("ident"))
+                                        {
+                                            var temp = new Token();
+                                            temp.contenido = palabras;
+                                            temp.tipo = "ident";
+                                            tokens.Enqueue(temp);
+                                        }
+                                        else if (validarCadena(palabras, llave, inicio, finError).Contains("Operador"))
+                                        {
+                                            var temp = new Token();
+                                            temp.contenido = palabras;
+                                            temp.tipo = "operador";
+                                            tokens.Enqueue(temp);
+                                        }
+                                        else if (validarCadena(palabras, llave, inicio, finError).Contains("Int"))
+                                        {
+                                            var temp = new Token();
+                                            temp.contenido = palabras;
+                                            temp.tipo = "int";
+                                            tokens.Enqueue(temp);
+                                        }
+                                        else if (validarCadena(palabras, llave, inicio, finError).Contains("Double"))
+                                        {
+                                            var temp = new Token();
+                                            temp.contenido = palabras;
+                                            temp.tipo = "double";
+                                            tokens.Enqueue(temp);
+                                        }
                                         finError++;
                                         inicio = finError;
                                         fin = inicio;
@@ -276,7 +452,42 @@ namespace ProyectoCompiladores2020
                                 else//agregamos palabra para validar
                                 {
                                     salida.Add(validarCadena(cadena, llave, inicio, fin));
-                                    tokens.Enqueue(cadena);
+
+                                    if (validarCadena(cadena, llave, inicio, fin).Contains("reservada"))
+                                    {
+                                        var temp = new Token();
+                                        temp.contenido = cadena;
+                                        temp.tipo = "reservada";
+                                        tokens.Enqueue(temp);
+                                    }
+                                    else if (validarCadena(cadena, llave, inicio, fin).Contains("ident"))
+                                    {
+                                        var temp = new Token();
+                                        temp.contenido = cadena;
+                                        temp.tipo = "ident";
+                                        tokens.Enqueue(temp);
+                                    }
+                                    else if (validarCadena(cadena, llave, inicio, fin).Contains("Operador"))
+                                    {
+                                        var temp = new Token();
+                                        temp.contenido = cadena;
+                                        temp.tipo = "operador";
+                                        tokens.Enqueue(temp);
+                                    }
+                                    else if (validarCadena(cadena, llave, inicio, fin).Contains("Int"))
+                                    {
+                                        var temp = new Token();
+                                        temp.contenido = cadena;
+                                        temp.tipo = "int";
+                                        tokens.Enqueue(temp);
+                                    }
+                                    else if (validarCadena(cadena, llave, inicio, fin).Contains("Double"))
+                                    {
+                                        var temp = new Token();
+                                        temp.contenido = cadena;
+                                        temp.tipo = "double";
+                                        tokens.Enqueue(temp);
+                                    }
                                     fin++;
                                     inicio = fin;
                                 }
@@ -305,12 +516,10 @@ namespace ProyectoCompiladores2020
                                     if (cadena != "")
                                     {
                                         salida.Add(validarCadena(cadena, llave, inicio, fin));
-                                        tokens.Enqueue(cadena);
                                         cadena = "";
                                         inicio = fin;
                                     }
                                     salida.Add(inicioComments + " en linea " + llave.ToString() + " cols " + inicio + " - " + fin + " es T_Operador");
-
                                     fin++;
                                     inicio = fin;
                                 }
@@ -344,7 +553,10 @@ namespace ProyectoCompiladores2020
                                     { fin--; }
                                     inicio = fin;
                                     salida.Add("simbolo : " + "*" + " en linea " + llave.ToString() + " cols " + inicio + " - " + fin); //mandamos operador a la salida
-                                    tokens.Enqueue("*");
+                                    var temp = new Token();
+                                    temp.contenido = "*";
+                                    temp.tipo = "operador";
+                                    tokens.Enqueue(temp);
                                     fin++;
                                     inicio = fin;
                                 }
@@ -374,7 +586,10 @@ namespace ProyectoCompiladores2020
                                 cadena += linea.Dequeue().ToString();//contiamos concatenando el string
                                 
                                 salida.Add( cadena + " en linea " + llave + " cols " + inicio + " - " + fin + " es T_ConstanteString" + " (valor = " +cadena+")"); //mandamos string a la salida de archivo
-                                tokens.Enqueue(cadena);
+                                var temp = new Token();
+                                temp.contenido = cadena;
+                                temp.tipo = "string";
+                                tokens.Enqueue(temp);
                                 fin++;
                                 inicio = fin;
                                 cadena = "";
@@ -387,7 +602,42 @@ namespace ProyectoCompiladores2020
                             if (linea.Count == 0)//si la linea ya terminó
                             {
                                 salida.Add(validarCadena(cadena, llave, inicio, fin));//se manda a validar el double que se tiene
-                                tokens.Enqueue(cadena);
+
+                                if (validarCadena(cadena, llave, inicio, fin).Contains("reservada"))
+                                {
+                                    var temp = new Token();
+                                    temp.contenido = cadena;
+                                    temp.tipo = "reservada";
+                                    tokens.Enqueue(temp);
+                                }
+                                else if (validarCadena(cadena, llave, inicio, fin).Contains("ident"))
+                                {
+                                    var temp = new Token();
+                                    temp.contenido = cadena;
+                                    temp.tipo = "ident";
+                                    tokens.Enqueue(temp);
+                                }
+                                else if (validarCadena(cadena, llave, inicio, fin).Contains("Operador"))
+                                {
+                                    var temp = new Token();
+                                    temp.contenido = cadena;
+                                    temp.tipo = "operador";
+                                    tokens.Enqueue(temp);
+                                }
+                                else if (validarCadena(cadena, llave, inicio, fin).Contains("Int"))
+                                {
+                                    var temp = new Token();
+                                    temp.contenido = cadena;
+                                    temp.tipo = "int";
+                                    tokens.Enqueue(temp);
+                                }
+                                else if (validarCadena(cadena, llave, inicio, fin).Contains("Double"))
+                                {
+                                    var temp = new Token();
+                                    temp.contenido = cadena;
+                                    temp.tipo = "double";
+                                    tokens.Enqueue(temp);
+                                }
                                 inicio = fin;
                                 cadena = "";//vaciamos la cadena
                             }
@@ -430,7 +680,42 @@ namespace ProyectoCompiladores2020
                                             else if (fin == finError)
                                             { finError--; }
                                             salida.Add(validarCadena(palabras, llave, inicio, finError));
-                                            tokens.Enqueue(palabras);
+
+                                            if (validarCadena(palabras, llave, inicio, finError).Contains("reservada"))
+                                            {
+                                                var temp = new Token();
+                                                temp.contenido = cadena;
+                                                temp.tipo = "reservada";
+                                                tokens.Enqueue(temp);
+                                            }
+                                            else if (validarCadena(palabras, llave, inicio, finError).Contains("ident"))
+                                            {
+                                                var temp = new Token();
+                                                temp.contenido = palabras;
+                                                temp.tipo = "ident";
+                                                tokens.Enqueue(temp);
+                                            }
+                                            else if (validarCadena(palabras, llave, inicio, finError).Contains("Operador"))
+                                            {
+                                                var temp = new Token();
+                                                temp.contenido = palabras;
+                                                temp.tipo = "operador";
+                                                tokens.Enqueue(temp);
+                                            }
+                                            else if (validarCadena(palabras, llave, inicio, finError).Contains("Int"))
+                                            {
+                                                var temp = new Token();
+                                                temp.contenido = palabras;
+                                                temp.tipo = "int";
+                                                tokens.Enqueue(temp);
+                                            }
+                                            else if (validarCadena(palabras, llave, inicio, finError).Contains("Double"))
+                                            {
+                                                var temp = new Token();
+                                                temp.contenido = palabras;
+                                                temp.tipo = "double";
+                                                tokens.Enqueue(temp);
+                                            }
                                             finError++;
                                             inicio = finError;
                                             palabras = "";
@@ -443,7 +728,42 @@ namespace ProyectoCompiladores2020
                                         else if (fin == finError) //si el fin que llevamos es igual al que tenia el error validado
                                         { finError--; }///le restamos el valor del final de cols de el error
                                         salida.Add(validarCadena(palabras, llave, inicio, finError));
-                                        tokens.Enqueue(palabras);
+
+                                        if (validarCadena(palabras, llave, inicio, finError).Contains("reservada"))
+                                        {
+                                            var temp = new Token();
+                                            temp.contenido = cadena;
+                                            temp.tipo = "reservada";
+                                            tokens.Enqueue(temp);
+                                        }
+                                        else if (validarCadena(palabras, llave, inicio, finError).Contains("ident"))
+                                        {
+                                            var temp = new Token();
+                                            temp.contenido = palabras;
+                                            temp.tipo = "ident";
+                                            tokens.Enqueue(temp);
+                                        }
+                                        else if (validarCadena(palabras, llave, inicio, finError).Contains("Operador"))
+                                        {
+                                            var temp = new Token();
+                                            temp.contenido = palabras;
+                                            temp.tipo = "operador";
+                                            tokens.Enqueue(temp);
+                                        }
+                                        else if (validarCadena(palabras, llave, inicio, finError).Contains("Int"))
+                                        {
+                                            var temp = new Token();
+                                            temp.contenido = palabras;
+                                            temp.tipo = "int";
+                                            tokens.Enqueue(temp);
+                                        }
+                                        else if (validarCadena(palabras, llave, inicio, finError).Contains("Double"))
+                                        {
+                                            var temp = new Token();
+                                            temp.contenido = palabras;
+                                            temp.tipo = "double";
+                                            tokens.Enqueue(temp);
+                                        }
                                         finError++;
                                         inicio = finError;
                                         fin = inicio;
@@ -453,7 +773,42 @@ namespace ProyectoCompiladores2020
                                 else
                                 {
                                     salida.Add(validarCadena(cadena, llave, inicio, fin));
-                                    tokens.Enqueue(cadena);
+
+                                    if (validarCadena(cadena, llave, inicio, fin).Contains("reservada"))
+                                    {
+                                        var temp = new Token();
+                                        temp.contenido = cadena;
+                                        temp.tipo = "reservada";
+                                        tokens.Enqueue(temp);
+                                    }
+                                    else if (validarCadena(cadena, llave, inicio, fin).Contains("ident"))
+                                    {
+                                        var temp = new Token();
+                                        temp.contenido = cadena;
+                                        temp.tipo = "ident";
+                                        tokens.Enqueue(temp);
+                                    }
+                                    else if (validarCadena(cadena, llave, inicio, fin).Contains("Operador"))
+                                    {
+                                        var temp = new Token();
+                                        temp.contenido = cadena;
+                                        temp.tipo = "operador";
+                                        tokens.Enqueue(temp);
+                                    }
+                                    else if (validarCadena(cadena, llave, inicio, fin).Contains("Int"))
+                                    {
+                                        var temp = new Token();
+                                        temp.contenido = cadena;
+                                        temp.tipo = "int";
+                                        tokens.Enqueue(temp);
+                                    }
+                                    else if (validarCadena(cadena, llave, inicio, fin).Contains("Double"))
+                                    {
+                                        var temp = new Token();
+                                        temp.contenido = cadena;
+                                        temp.tipo = "double";
+                                        tokens.Enqueue(temp);
+                                    }
                                     inicio = fin;
                                 }
                                 cadena = "";
@@ -517,7 +872,42 @@ namespace ProyectoCompiladores2020
                                             else if (fin == finError)
                                             { finError--; }
                                             salida.Add(validarCadena(palabras, llave, inicio, finError));
-                                            tokens.Enqueue(palabras);
+
+                                            if (validarCadena(palabras, llave, inicio, finError).Contains("reservada"))
+                                            {
+                                                var temp = new Token();
+                                                temp.contenido = cadena;
+                                                temp.tipo = "reservada";
+                                                tokens.Enqueue(temp);
+                                            }
+                                            else if (validarCadena(palabras, llave, inicio, finError).Contains("ident"))
+                                            {
+                                                var temp = new Token();
+                                                temp.contenido = palabras;
+                                                temp.tipo = "ident";
+                                                tokens.Enqueue(temp);
+                                            }
+                                            else if (validarCadena(palabras, llave, inicio, finError).Contains("Operador"))
+                                            {
+                                                var temp = new Token();
+                                                temp.contenido = palabras;
+                                                temp.tipo = "operador";
+                                                tokens.Enqueue(temp);
+                                            }
+                                            else if (validarCadena(palabras, llave, inicio, finError).Contains("Int"))
+                                            {
+                                                var temp = new Token();
+                                                temp.contenido = palabras;
+                                                temp.tipo = "int";
+                                                tokens.Enqueue(temp);
+                                            }
+                                            else if (validarCadena(palabras, llave, inicio, finError).Contains("Double"))
+                                            {
+                                                var temp = new Token();
+                                                temp.contenido = palabras;
+                                                temp.tipo = "double";
+                                                tokens.Enqueue(temp);
+                                            }
                                             finError++;
                                             inicio = finError;
                                             palabras = "";
@@ -531,7 +921,42 @@ namespace ProyectoCompiladores2020
                                         else if (fin == finError)
                                         { finError--; }
                                         salida.Add(validarCadena(palabras, llave, inicio, finError));
-                                        tokens.Enqueue(palabras);
+
+                                        if (validarCadena(palabras, llave, inicio, finError).Contains("reservada"))
+                                        {
+                                            var temp = new Token();
+                                            temp.contenido = cadena;
+                                            temp.tipo = "reservada";
+                                            tokens.Enqueue(temp);
+                                        }
+                                        else if (validarCadena(palabras, llave, inicio, finError).Contains("ident"))
+                                        {
+                                            var temp = new Token();
+                                            temp.contenido = palabras;
+                                            temp.tipo = "ident";
+                                            tokens.Enqueue(temp);
+                                        }
+                                        else if (validarCadena(palabras, llave, inicio, finError).Contains("Operador"))
+                                        {
+                                            var temp = new Token();
+                                            temp.contenido = palabras;
+                                            temp.tipo = "operador";
+                                            tokens.Enqueue(temp);
+                                        }
+                                        else if (validarCadena(palabras, llave, inicio, finError).Contains("Int"))
+                                        {
+                                            var temp = new Token();
+                                            temp.contenido = palabras;
+                                            temp.tipo = "int";
+                                            tokens.Enqueue(temp);
+                                        }
+                                        else if (validarCadena(palabras, llave, inicio, finError).Contains("Double"))
+                                        {
+                                            var temp = new Token();
+                                            temp.contenido = palabras;
+                                            temp.tipo = "double";
+                                            tokens.Enqueue(temp);
+                                        }
                                         finError++;
                                         inicio = finError;
                                         fin = inicio;
@@ -541,7 +966,42 @@ namespace ProyectoCompiladores2020
                                 else// i no hay error agrega a la lista
                                 {
                                     salida.Add(validarCadena(cadena, llave, inicio, fin));
-                                    tokens.Enqueue(cadena);
+
+                                    if (validarCadena(cadena, llave, inicio, fin).Contains("reservada"))
+                                    {
+                                        var temp = new Token();
+                                        temp.contenido = cadena;
+                                        temp.tipo = "reservada";
+                                        tokens.Enqueue(temp);
+                                    }
+                                    else if (validarCadena(cadena, llave, inicio, fin).Contains("ident"))
+                                    {
+                                        var temp = new Token();
+                                        temp.contenido = cadena;
+                                        temp.tipo = "ident";
+                                        tokens.Enqueue(temp);
+                                    }
+                                    else if (validarCadena(cadena, llave, inicio, fin).Contains("Operador"))
+                                    {
+                                        var temp = new Token();
+                                        temp.contenido = cadena;
+                                        temp.tipo = "operador";
+                                        tokens.Enqueue(temp);
+                                    }
+                                    else if (validarCadena(cadena, llave, inicio, fin).Contains("Int"))
+                                    {
+                                        var temp = new Token();
+                                        temp.contenido = cadena;
+                                        temp.tipo = "int";
+                                        tokens.Enqueue(temp);
+                                    }
+                                    else if (validarCadena(cadena, llave, inicio, fin).Contains("Double"))
+                                    {
+                                        var temp = new Token();
+                                        temp.contenido = cadena;
+                                        temp.tipo = "double";
+                                        tokens.Enqueue(temp);
+                                    }
                                     fin++;
                                     inicio = fin;
                                 }
@@ -555,7 +1015,10 @@ namespace ProyectoCompiladores2020
                             if (linea.Count == 0)
                             {
                                 salida.Add(cadenaSimbolos + " en linea " + llave + " cols " + inicio + " - " + fin + " es T_Operador");
-                                tokens.Enqueue(cadenaSimbolos);
+                                var temp = new Token();
+                                temp.contenido = cadenaSimbolos;
+                                temp.tipo = "Operador";
+                                tokens.Enqueue(temp);
                                 inicio = fin;
                             }
                             //Si el simbolo lo persigue otro simbolo lo concatena 
@@ -564,14 +1027,20 @@ namespace ProyectoCompiladores2020
                                 cadenaSimbolos += linea.Dequeue().ToString();
                                 fin++;
                                 salida.Add(cadenaSimbolos + " en linea " + llave.ToString() + " cols " + inicio + " - " + (fin).ToString() + " es T_Operador");
-                                tokens.Enqueue(cadenaSimbolos);
+                                var temp = new Token();
+                                temp.contenido = cadenaSimbolos;
+                                temp.tipo = "Operador";
+                                tokens.Enqueue(temp);
                                 inicio = fin;
                             }
-                            //saca el cimbolo
+                            //saca el simbolo
                             else
                             {
                                 salida.Add(cadenaSimbolos + " en linea " + llave.ToString() + " cols " + (inicio) + " - " + fin +" es T_Operador");
-                                tokens.Enqueue(cadenaSimbolos);
+                                var temp = new Token();
+                                temp.contenido = cadenaSimbolos;
+                                temp.tipo = "Operador";
+                                tokens.Enqueue(temp);
                             }
                             //Sacar espacios y calibrar columnas 
                             if (linea.Count != 0)
@@ -623,7 +1092,41 @@ namespace ProyectoCompiladores2020
                                         else if (fin == finError)
                                         { finError--; }
                                         salida.Add(validarCadena(palabras, llave, inicio, finError));
-                                        tokens.Enqueue(palabras);
+                                        if(validarCadena(palabras, llave, inicio, finError).Contains("reservada"))
+                                        {
+                                            var temp = new Token();
+                                            temp.contenido = cadena;
+                                            temp.tipo = "reservada";
+                                            tokens.Enqueue(temp);
+                                        }
+                                        else if(validarCadena(palabras, llave, inicio, finError).Contains("ident"))
+                                        {
+                                            var temp = new Token();
+                                            temp.contenido = palabras;
+                                            temp.tipo = "ident";
+                                            tokens.Enqueue(temp);
+                                        }
+                                        else if (validarCadena(palabras, llave, inicio, finError).Contains("Operador"))
+                                        {
+                                            var temp = new Token();
+                                            temp.contenido = palabras;
+                                            temp.tipo = "operador";
+                                            tokens.Enqueue(temp);
+                                        }
+                                        else if (validarCadena(palabras, llave, inicio, finError).Contains("Int"))
+                                        {
+                                            var temp = new Token();
+                                            temp.contenido = palabras;
+                                            temp.tipo = "int";
+                                            tokens.Enqueue(temp);
+                                        }
+                                        else if (validarCadena(palabras, llave, inicio, finError).Contains("Double"))
+                                        {
+                                            var temp = new Token();
+                                            temp.contenido = palabras;
+                                            temp.tipo = "double";
+                                            tokens.Enqueue(temp);
+                                        }
                                         finError++;
                                         inicio = finError;
                                         palabras = "";
@@ -636,7 +1139,42 @@ namespace ProyectoCompiladores2020
                                     else if (fin == finError)
                                     { finError--; }
                                     salida.Add(validarCadena(palabras, llave, inicio, finError));
-                                    tokens.Enqueue(palabras);
+
+                                    if (validarCadena(palabras, llave, inicio, finError).Contains("reservada"))
+                                    {
+                                        var temp = new Token();
+                                        temp.contenido = cadena;
+                                        temp.tipo = "reservada";
+                                        tokens.Enqueue(temp);
+                                    }
+                                    else if (validarCadena(palabras, llave, inicio, finError).Contains("ident"))
+                                    {
+                                        var temp = new Token();
+                                        temp.contenido = palabras;
+                                        temp.tipo = "ident";
+                                        tokens.Enqueue(temp);
+                                    }
+                                    else if (validarCadena(palabras, llave, inicio, finError).Contains("Operador"))
+                                    {
+                                        var temp = new Token();
+                                        temp.contenido = palabras;
+                                        temp.tipo = "operador";
+                                        tokens.Enqueue(temp);
+                                    }
+                                    else if (validarCadena(palabras, llave, inicio, finError).Contains("Int"))
+                                    {
+                                        var temp = new Token();
+                                        temp.contenido = palabras;
+                                        temp.tipo = "int";
+                                        tokens.Enqueue(temp);
+                                    }
+                                    else if (validarCadena(palabras, llave, inicio, finError).Contains("Double"))
+                                    {
+                                        var temp = new Token();
+                                        temp.contenido = palabras;
+                                        temp.tipo = "double";
+                                        tokens.Enqueue(temp);
+                                    }
                                     finError++;
                                     inicio = finError;
                                     fin = inicio;
@@ -646,7 +1184,42 @@ namespace ProyectoCompiladores2020
                             else
                             {
                                 salida.Add(validarCadena(cadena, llave, inicio, fin));
-                                tokens.Enqueue(cadena);
+
+                                if (validarCadena(cadena, llave, inicio, fin).Contains("reservada"))
+                                {
+                                    var temp = new Token();
+                                    temp.contenido = cadena;
+                                    temp.tipo = "reservada";
+                                    tokens.Enqueue(temp);
+                                }
+                                else if (validarCadena(cadena, llave, inicio, fin).Contains("ident"))
+                                {
+                                    var temp = new Token(); 
+                                    temp.contenido = cadena;
+                                    temp.tipo = "ident";
+                                    tokens.Enqueue(temp);
+                                }
+                                else if (validarCadena(cadena, llave, inicio, fin).Contains("Operador"))
+                                {
+                                    var temp = new Token();
+                                    temp.contenido = cadena;
+                                    temp.tipo = "operador";
+                                    tokens.Enqueue(temp);
+                                }
+                                else if (validarCadena(cadena, llave, inicio, fin).Contains("Int"))
+                                {
+                                    var temp = new Token();
+                                    temp.contenido = cadena;
+                                    temp.tipo = "int";
+                                    tokens.Enqueue(temp);
+                                }
+                                else if (validarCadena(cadena, llave, inicio, fin).Contains("Double"))
+                                {
+                                    var temp = new Token();
+                                    temp.contenido = cadena;
+                                    temp.tipo = "double";
+                                    tokens.Enqueue(temp);
+                                }
                                 inicio = fin;
                             }
 
@@ -706,8 +1279,9 @@ namespace ProyectoCompiladores2020
 
                 if (reservadas.IsMatch(cadena))
                 {
-
+                    
                     return cadena + " en linea " + llave.ToString() + " Cols " + inicio + " - " + final + " es T_reservada";
+
                 }
                 else if (booleano.IsMatch(cadena))
                 {
@@ -719,12 +1293,10 @@ namespace ProyectoCompiladores2020
                 }
                 else if (id.IsMatch(cadena))
                 {
-
                     return cadena + " en linea " + llave.ToString() + " Cols " + inicio + " - " + final + " es T_identificador";
                 }
                 else if (enterosB10.IsMatch(cadena))
                 {
-
                     return cadena + " en linea " + llave.ToString() + " Cols " + inicio + " - " + final + " es T_ConstanteIntB10" + " (valor = " + cadena + ")";
                 }
                 else if (enterosB16.IsMatch(cadena))
@@ -751,6 +1323,7 @@ namespace ProyectoCompiladores2020
                 return "****Error T_identificador muy largo: " + cadena + " en linea " + llave.ToString() + "\n";
 
             }
+            
         }//Valida si la cadena pertenece a reservadas, identificadores, enterosB10, Enteros B16, simbolos, o si e
     }
 }
