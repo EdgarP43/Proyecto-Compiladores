@@ -236,7 +236,271 @@ namespace ProyectoCompiladores2020
                 parse_stmt();
             }
         }
-       
 
+        public void parse_Expr()
+        {
+            parse_Expr1();
+            parse_Expr_P();
+        }
+        public void parse_Expr_P()
+        {
+            if (tokens.Peek().contenido == "||")
+            {
+                MatchToken("||");
+                parse_Expr1();
+                parse_Expr_P1();
+                //o epison
+            }
+        }
+        public void parse_Expr1()
+        {
+            parse_Expr_P1();
+            parse_Expr_P1();
+        }
+        public void parse_Expr_P1()
+        {
+            if (tokens.Peek().contenido == "&&")
+            {
+                MatchToken("&&");
+                parse_Expr2();
+                parse_Expr_P1();
+                //o epison
+            }
+        }
+        public void parse_Expr2()
+        {
+            parse_Expr3();
+            parse_Expr_P2();
+        }
+        public void parse_Expr_P2()
+        {
+            if (tokens.Peek().contenido == "==")
+            {
+                MatchToken("==");
+                parse_Expr3();
+                parse_Expr_P2();
+                //o epison
+            }
+            else if (tokens.Peek().contenido == "!=")
+            {
+                MatchToken("!=");
+                parse_Expr3();
+                parse_Expr_P2();
+                //o epison
+            }
+        }
+        public void parse_Expr3()
+        {
+            parse_Expr4();
+            parse_Expr_P3();
+        }
+        public void parse_Expr_P3()
+        {
+            if (tokens.Peek().contenido == "<")
+            {
+                MatchToken("<");
+                parse_Expr4();
+                parse_Expr_P3();
+                //o epison
+            }
+            else if (tokens.Peek().contenido == ">")
+            {
+                MatchToken(">");
+                parse_Expr4();
+                parse_Expr_P3();
+                //o epison
+            }
+            else if (tokens.Peek().contenido == ">=")
+            {
+                MatchToken(">=");
+                parse_Expr4();
+                parse_Expr_P3();
+                //o epison
+            }
+            else if (tokens.Peek().contenido == "<=")
+            {
+                MatchToken("<=");
+                parse_Expr4();
+                parse_Expr_P3();
+                //o epison
+            }
+        }
+        public void parse_Expr4()
+        {
+            parse_Expr5();
+            parse_Expr_P4();
+        }
+        public void parse_Expr_P4()
+        {
+            if (tokens.Peek().contenido == "+")
+            {
+                MatchToken("+");
+                parse_Expr5();
+                parse_Expr_P4();
+                //o epison
+            }
+            else if (tokens.Peek().contenido == "-")
+            {
+                MatchToken("-");
+                parse_Expr5();
+                parse_Expr_P4();
+                //o epison
+            }
+        }
+        public void parse_Expr5()
+        {
+            parse_Expr6();
+            parse_Expr_P5();
+        }
+        public void parse_Expr_P5()
+        {
+            if (tokens.Peek().contenido == "*")
+            {
+                MatchToken("*");
+                parse_Expr6();
+                parse_Expr_P5();
+            }
+            else if (tokens.Peek().contenido == "/")
+            {
+                MatchToken("/");
+                parse_Expr6();
+                parse_Expr_P5();
+            }
+            else if (tokens.Peek().contenido == "%")
+            {
+                MatchToken("%");
+                parse_Expr6();
+                parse_Expr_P5();
+            }
+        }
+        public void parse_Expr6()
+        {
+            parse_Expr7();
+            parse_Expr_P6();
+        }
+        public void parse_Expr_P6()
+        {
+            if (tokens.Peek().contenido == "!")
+            {
+                MatchToken("!");
+                parse_Expr7();
+                parse_Expr_P6();
+            }
+        }
+        public void parse_Expr7()
+        {
+            parse_Expr8();
+            parse_Expr_P7();
+        }
+        public void parse_Expr_P7()
+        {
+            if (tokens.Peek().contenido == "-")
+            {
+                MatchToken("-");
+                parse_Expr8();
+                parse_Expr_P7();
+            }
+        }
+        public void parse_Expr8()
+        {
+            if (tipos.Contains(tokens.Peek().tipo) && tokens.Peek().tipo != "ident")
+            {
+                parse_Constant();
+            }
+            else if (tokens.Peek().tipo == "ident")
+            {
+                parse_LValue();
+            }
+            else if (tokens.Peek().contenido == "(")
+            {
+                MatchToken("(");
+                parse_Expr();
+                MatchToken(")");
+            }
+            else if (tokens.Peek().contenido == "this")
+            {
+                MatchToken("this");
+            }
+            else if (tokens.Peek().contenido == "New")
+            {
+                MatchToken("New");
+                MatchToken("(");
+                //Sacar identificador
+                //MatchToken(tokens.peek())
+                MatchToken(")");
+            }
+            else
+            {
+                //cagada
+            }
+        }
+        public void parse_LValue()
+        {
+
+            if (tokens.Peek().tipo == "ident")
+            {
+                tokens.Dequeue();
+            }
+            else
+            {
+                parse_Expr();
+                parse_LValue_P();
+            }
+
+
+        }
+        public void parse_LValue_P()
+        {
+            if (tokens.Peek().contenido == ".")
+            {
+                tokens.Dequeue();
+                if (tokens.Peek().tipo == "ident")
+                {
+                    tokens.Dequeue();
+                }
+            }
+            else if (tokens.Peek().contenido == "[")
+            {
+                MatchToken("[");
+                parse_Expr();
+                MatchToken("]");
+            }
+            else
+            {
+                //cagada
+            }
+        }
+        public void parse_Constant()
+        {
+            //validar con nuesto lexico los numeros y t_constantes
+            if (tokens.Peek().tipo == "int")
+            {
+                tokens.Dequeue();
+            }
+            else if (tokens.Peek().tipo == "double")
+            {
+                tokens.Dequeue();
+            }
+            else if (tokens.Peek().tipo == "double")
+            {
+                tokens.Dequeue();
+            }
+            else if (tokens.Peek().tipo == "bool")
+            {
+                tokens.Dequeue();
+            }
+            else if (tokens.Peek().tipo == "sting")
+            {
+                tokens.Dequeue();
+            }
+            else if (tokens.Peek().contenido == "null")
+            {
+                tokens.Dequeue();
+            }
+            else
+            {
+                //Cagada
+            }
+        }
     }
 }
