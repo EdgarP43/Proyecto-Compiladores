@@ -14,6 +14,7 @@ namespace ProyectoCompiladores2020
     {
         public Queue<Token> tokens = new Queue<Token>();
         string[] tipos = new string[5] { "int", "double", "bool", "string", "ident" };
+        public List<string> errores = new List<string>();
 
         string lookahead = string.Empty;
         bool BacktrakinfFlag = false;
@@ -28,10 +29,10 @@ namespace ProyectoCompiladores2020
             }
             else
             {
-                //DEvolvemos un error de sintaxis porque no hay match
+                errores.Add("Error de sintaxis token:" + lookahead + " incorrecto");
+                lookahead = nextToken();
             }
         }
-
         public string nextToken()
         {
             return tokens.Dequeue().contenido;
@@ -43,40 +44,41 @@ namespace ProyectoCompiladores2020
                 parse_Dclr();
                 parse_Dcl_P();
         }
-
         //Cambiar a void
-        public bool parse_Dclr()
+        public void parse_Dclr()
         {
             if (tipos.Contains(tokens.Peek().contenido))
             {
                 parse_VariableDecl();
 
-                return true;
+                
             }
-            else if (tokens.Peek().contenido == "void" || tipos.Contains(tokens.Peek().tipo))
+            else if (tokens.Peek().contenido == "Void" || tipos.Contains(tokens.Peek().contenido))
             {
                 parse_funcDcl();
-                return false;
+                
             }
             else
             {
-                //error en sintaxis
-                return false;
+                errores.Add("Error de sintaxis token no encontrado"); //error de sintaxis
+                tokens.Dequeue();
+                
             }
-           
-
         }
         //Cambiar a Void
-        public bool parse_Dcl_P()
+        public void parse_Dcl_P()
         {
-            parse_Dclr();
-            //o viene epsilon
-            return true;
+            if (tipos.Contains(tokens.Peek().contenido) || tokens.Peek().tipo == "ident" || tokens.Peek().contenido == "Void")
+            {
+                parse_Dclr();
+                parse_Dcl_P();
+            }
         }
         public void parse_VariableDecl()
         {
             parse_variable();
-           MatchToken(";");
+            //if "("
+            MatchToken(";");
         }
         public void parse_variable()
         {
@@ -89,8 +91,8 @@ namespace ProyectoCompiladores2020
             }
             else
             {
-                tokens.Dequeue();
-                //Kagada
+                errores.Add("Error de sintaxis token no encontrado");
+                tokens.Dequeue();//Error de sintaxis
             }
         }
         public void parse_Type()
@@ -130,7 +132,8 @@ namespace ProyectoCompiladores2020
             }
             else
             {
-                //error de sintaxis
+                errores.Add("Error de sintaxis token no encontrado"); //error de sintaxis
+                tokens.Dequeue();
             }
         }
         public void parse_funcDcl()
@@ -150,7 +153,8 @@ namespace ProyectoCompiladores2020
             }//queda duda si puede venir otra cosa
             else
             {
-                //Error de sintaxis
+                errores.Add("Error de sintaxis token no encontrado");
+                tokens.Dequeue();//Error de sintaxis
             }
         }
         public void parse_funcDCLR()
@@ -158,12 +162,17 @@ namespace ProyectoCompiladores2020
             //ident (formals) metodo
             if(tokens.Peek().tipo == "ident")
             {
-                tokens.Dequeue();
+                tokens.Dequeue(); 
+                MatchToken("(");
+                parse_Formals();
+                MatchToken(")");
+                parse_funcDCLAs();
             }
-            MatchToken("(");
-            parse_Formals();
-            MatchToken(")");
-            parse_funcDCLAs();
+            else
+            {
+                errores.Add("Error de sintaxis token no encontrado");
+                tokens.Dequeue();//Error de sintaxis
+            }
         }
         public void parse_funcDCLAs()
         {
@@ -175,9 +184,8 @@ namespace ProyectoCompiladores2020
         }
         public void parse_Formals()///ep?
         {
-            if (tipos.Contains(tokens.Peek().tipo))
+            if (tipos.Contains(tokens.Peek().contenido) || tokens.Peek().tipo == "ident")
             {
-                parse_variable();
                 parse_variableP();
                 MatchToken(",");
             }
@@ -186,7 +194,7 @@ namespace ProyectoCompiladores2020
         }
         public void parse_variableP()
         {
-            if (tipos.Contains(tokens.Peek().contenido))
+            if (tipos.Contains(tokens.Peek().contenido) || tokens.Peek().tipo == "ident")
             {
                 parse_variable();
                 parse_variableP();
@@ -204,14 +212,15 @@ namespace ProyectoCompiladores2020
             }
             else
             {
-                //Cagada
+                errores.Add("Error de sintaxis token no encontrado"); //error de sintaxis
+                tokens.Dequeue();
             }
         }
         public void parse_ifStmt()
         {
             MatchToken("if");
             MatchToken("(");
-            //parse_Expr();
+            parse_Expr();
             MatchToken(")");
             parse_stmt();
             parse_ifStmt_P();
@@ -227,16 +236,12 @@ namespace ProyectoCompiladores2020
         }
         public void parse_whileStmt()
         {
-            if(tokens.Peek().contenido == "while")
-            {
-                MatchToken("while");
-                MatchToken("(");
-                //parse_Expr();
-                MatchToken(")");
-                parse_stmt();
-            }
+            MatchToken("while");
+            MatchToken("(");
+            parse_Expr();
+            MatchToken(")");
+            parse_stmt();
         }
-
         public void parse_Expr()
         {
             parse_Expr1();
@@ -254,7 +259,7 @@ namespace ProyectoCompiladores2020
         }
         public void parse_Expr1()
         {
-            parse_Expr_P1();
+            parse_Expr2();
             parse_Expr_P1();
         }
         public void parse_Expr_P1()
@@ -426,12 +431,21 @@ namespace ProyectoCompiladores2020
                 MatchToken("New");
                 MatchToken("(");
                 //Sacar identificador
-                //MatchToken(tokens.peek())
+                if (tokens.Peek().tipo == "ident")
+                {
+                    tokens.Dequeue();
+                }
+                else
+                {
+                    errores.Add("Error de sintaxis token no encontrado"); //error de sintaxis
+                    tokens.Dequeue();
+                }
                 MatchToken(")");
             }
             else
             {
-                //cagada
+                errores.Add("Error de sintaxis token no encontrado"); //error de sintaxis
+                tokens.Dequeue();
             }
         }
         public void parse_LValue()
@@ -458,6 +472,11 @@ namespace ProyectoCompiladores2020
                 {
                     tokens.Dequeue();
                 }
+                else
+                {
+                    errores.Add("Error de sintaxis token no encontrado"); //error de sintaxis
+                    tokens.Dequeue();
+                }
             }
             else if (tokens.Peek().contenido == "[")
             {
@@ -467,7 +486,8 @@ namespace ProyectoCompiladores2020
             }
             else
             {
-                //cagada
+                errores.Add("Error de sintaxis token no encontrado"); //error de sintaxis
+                tokens.Dequeue();
             }
         }
         public void parse_Constant()
@@ -499,7 +519,8 @@ namespace ProyectoCompiladores2020
             }
             else
             {
-                //Cagada
+                errores.Add("Error de sintaxis token no encontrado"); //error de sintaxis
+                tokens.Dequeue();
             }
         }
     }
