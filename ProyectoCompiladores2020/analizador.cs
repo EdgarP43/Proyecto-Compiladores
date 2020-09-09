@@ -6,7 +6,6 @@ using System.Windows.Forms;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Runtime;
-using System.Collections.Generic;
 
 namespace ProyectoCompiladores2020
 {
@@ -577,7 +576,6 @@ namespace ProyectoCompiladores2020
 
                                     inicio = fin;
                                     break;
-                                    correcto = false;
                                 }
 
                             } while (linea.Peek() != '"'); //mientras no encuentre un cierre de string

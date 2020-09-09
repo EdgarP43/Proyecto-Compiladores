@@ -4,7 +4,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using System.Collections.Generic;
 using System.Security.Cryptography.X509Certificates;
 using System.Threading;
 
@@ -17,7 +16,6 @@ namespace ProyectoCompiladores2020
         public List<string> errores = new List<string>();
 
         string lookahead = string.Empty;
-        bool BacktrakinfFlag = false;
         public void MatchToken(string expected)
         {
             lookahead = tokens.Peek().contenido;
@@ -44,7 +42,6 @@ namespace ProyectoCompiladores2020
                 parse_Dclr();
                 parse_Dcl_P();
         }
-        //Cambiar a void
         public void parse_Dclr()
         {
             if (tipos.Contains(tokens.Peek().contenido))
@@ -53,7 +50,7 @@ namespace ProyectoCompiladores2020
 
                 
             }
-            else if (tokens.Peek().contenido == "Void" || tipos.Contains(tokens.Peek().contenido))
+            else if (tokens.Peek().contenido == "void" || tipos.Contains(tokens.Peek().contenido))
             {
                 parse_funcDcl();
                 
@@ -65,10 +62,9 @@ namespace ProyectoCompiladores2020
                 
             }
         }
-        //Cambiar a Void
         public void parse_Dcl_P()
         {
-            if (tipos.Contains(tokens.Peek().contenido) || tokens.Peek().tipo == "ident" || tokens.Peek().contenido == "Void")
+            if (tipos.Contains(tokens.Peek().contenido) || tokens.Peek().tipo == "ident" || tokens.Peek().contenido == "void")
             {
                 parse_Dclr();
                 parse_Dcl_P();
@@ -77,8 +73,34 @@ namespace ProyectoCompiladores2020
         public void parse_VariableDecl()
         {
             parse_variable();
-            //if "("
-            MatchToken(";");
+            if (tokens.Peek().contenido == ";")
+            { MatchToken(";"); }
+            else if (tokens.Peek().contenido == "(" || tokens.Peek().contenido == "()")
+            {
+                parse_VariableOrFunction();
+            }
+            else
+            {
+                errores.Add("Error de sintaxis token no encontrado"); //error de sintaxis
+                tokens.Dequeue();
+            }
+
+        }
+        public void parse_VariableOrFunction()
+        {
+            if (tokens.Peek().contenido == "()")
+            {
+                MatchToken("()");
+                parse_funcDCLAs();
+            }
+            else
+            {
+                MatchToken("(");
+                parse_Formals();
+                MatchToken(")");
+                parse_funcDCLAs();
+            }
+
         }
         public void parse_variable()
         {
@@ -162,11 +184,19 @@ namespace ProyectoCompiladores2020
             //ident (formals) metodo
             if(tokens.Peek().tipo == "ident")
             {
-                tokens.Dequeue(); 
-                MatchToken("(");
-                parse_Formals();
-                MatchToken(")");
-                parse_funcDCLAs();
+                tokens.Dequeue();
+                if (tokens.Peek().contenido == "()")
+                {
+                    MatchToken("()");
+                    parse_funcDCLAs();
+                }
+                else
+                {
+                    MatchToken("(");
+                    parse_Formals();
+                    MatchToken(")");
+                    parse_funcDCLAs();
+                }
             }
             else
             {
@@ -187,7 +217,9 @@ namespace ProyectoCompiladores2020
             if (tipos.Contains(tokens.Peek().contenido) || tokens.Peek().tipo == "ident")
             {
                 parse_variableP();
-                MatchToken(",");
+                if (tokens.Peek().contenido == ",")
+                    MatchToken(",");
+                else { }
             }
             //o 
            //D MatchToken("\"\"");
@@ -209,6 +241,11 @@ namespace ProyectoCompiladores2020
             else if ( tokens.Peek().contenido == "while")
             {
                 parse_whileStmt();
+            }
+            else if(tipos.Contains(tokens.Peek().tipo) ||  tokens.Peek().contenido == "null" || tokens.Peek().contenido == "this" || tokens.Peek().contenido == "(" || tokens.Peek().contenido == "New")
+            {
+                parse_Expr();
+                MatchToken(";");
             }
             else
             {
@@ -415,6 +452,11 @@ namespace ProyectoCompiladores2020
             else if (tokens.Peek().tipo == "ident")
             {
                 parse_LValue();
+                if( tokens.Peek().contenido == "=")
+                {
+                    MatchToken("=");
+                    parse_Expr();
+                }
             }
             else if (tokens.Peek().contenido == "(")
             {
