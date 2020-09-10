@@ -25,6 +25,7 @@ namespace ProyectoCompiladores2020
         private void button1_Click(object sender, EventArgs e)
         {
             int contlineas = 0;
+            iraAnalizador.correcto = true;
             OpenFileDialog o = new OpenFileDialog();
             o.Filter = "Todos los archivos(*.*)|*.*";
             if (o.ShowDialog() == DialogResult.OK)
@@ -73,6 +74,7 @@ namespace ProyectoCompiladores2020
                         sw.WriteLine("\n");
                     }
                 }
+                iraAnalizador.errores.Clear();
             }
             
 
@@ -90,8 +92,22 @@ namespace ProyectoCompiladores2020
 
         private void button2_Click(object sender, EventArgs e)
         {
+            
             sintactico.tokens = iraAnalizador.tokens;
             sintactico.parse_Program();
+            if (sintactico.errores.Count != 0)
+            {
+                foreach (var item in sintactico.errores)
+                {
+                    listBox2.Items.Add(item);
+                    listBox2.Items.Add("\n");
+                }
+            }
+            else
+            {
+                listBox2.Items.Add("Archivo correcto");
+            }
+            sintactico.errores.Clear();
         }
     }
 }

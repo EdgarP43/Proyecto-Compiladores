@@ -163,7 +163,13 @@ namespace ProyectoCompiladores2020
                                     else if (fin == finError)
                                     { finError--; }
                                     salida.Add(validarCadena(palabras, llave, inicio, finError));//se manda a imprimir el error encontrado
+                                    if (validarCadena(cadena, llave, inicio, fin).Contains("****Error T_identificador muy largo: "))
+                                    {
+                                        errores.Add("****Error T_identificador muy largo: " + cadena + " en linea " + llave.ToString() + "\n");//se manda a errores
+                                        correcto = false;
 
+                                    }
+                                    /////////////////////////////
                                     if (validarCadena(palabras, llave, inicio, finError).Contains("reservada"))
                                     {
                                         var temp = new Token();
@@ -257,7 +263,19 @@ namespace ProyectoCompiladores2020
                         else// en caso de no tener error la cadena se agrega a la salida
                         {
                             salida.Add(validarCadena(cadena, llave, inicio, fin));
+                            if (validarCadena(cadena, llave, inicio, fin).Contains("****Error T_identificador muy largo: "))
+                            {
+                                errores.Add("****Error T_identificador muy largo: " + cadena + " en linea " + llave.ToString() + "\n");//se manda a errores
+                                correcto = false;
 
+                            }
+                            ////////////////////////////
+                            if (validarCadena(cadena, llave, inicio, fin).Contains("****Error T_identificador muy largo: "))
+                            {
+                                errores.Add("****Error T_identificador muy largo: " + cadena + " en linea " + llave.ToString() + "\n");//se manda a errores
+                                correcto = false;
+
+                            }
                             if (validarCadena(cadena, llave, inicio, fin).Contains("reservada"))
                             {
                                 var temp = new Token();
@@ -406,7 +424,6 @@ namespace ProyectoCompiladores2020
                                         else if (fin == finError) //si el fin que llevamos es igual al que tenia el error validado
                                         { finError--; }///le restamos el valor del final de cols de el error
                                         salida.Add(validarCadena(palabras, llave, inicio, finError));
-
                                         if (validarCadena(palabras, llave, inicio, finError).Contains("reservada"))
                                         {
                                             var temp = new Token();
@@ -451,7 +468,12 @@ namespace ProyectoCompiladores2020
                                 else//agregamos palabra para validar
                                 {
                                     salida.Add(validarCadena(cadena, llave, inicio, fin));
+                                    if (validarCadena(cadena, llave, inicio, fin).Contains("****Error T_identificador muy largo: "))
+                                    {
+                                        errores.Add("****Error T_identificador muy largo: " + cadena + " en linea " + llave.ToString() + "\n");//se manda a errores
+                                        correcto = false;
 
+                                    }
                                     if (validarCadena(cadena, llave, inicio, fin).Contains("reservada"))
                                     {
                                         var temp = new Token();
@@ -515,6 +537,12 @@ namespace ProyectoCompiladores2020
                                     if (cadena != "")
                                     {
                                         salida.Add(validarCadena(cadena, llave, inicio, fin));
+                                        if (validarCadena(cadena, llave, inicio, fin).Contains("****Error T_identificador muy largo: "))
+                                        {
+                                            errores.Add("****Error T_identificador muy largo: " + cadena + " en linea " + llave.ToString() + "\n");//se manda a errores
+                                            correcto = false;
+
+                                        }
                                         cadena = "";
                                         inicio = fin;
                                     }
@@ -600,7 +628,12 @@ namespace ProyectoCompiladores2020
                             if (linea.Count == 0)//si la linea ya terminó
                             {
                                 salida.Add(validarCadena(cadena, llave, inicio, fin));//se manda a validar el double que se tiene
+                                if (validarCadena(cadena, llave, inicio, fin).Contains("****Error T_identificador muy largo: "))
+                                {
+                                    errores.Add("****Error T_identificador muy largo: " + cadena + " en linea " + llave.ToString() + "\n");//se manda a errores
+                                    correcto = false;
 
+                                }
                                 if (validarCadena(cadena, llave, inicio, fin).Contains("reservada"))
                                 {
                                     var temp = new Token();
@@ -771,7 +804,12 @@ namespace ProyectoCompiladores2020
                                 else
                                 {
                                     salida.Add(validarCadena(cadena, llave, inicio, fin));
+                                    if (validarCadena(cadena, llave, inicio, fin).Contains("****Error T_identificador muy largo: "))
+                                    {
+                                        errores.Add("****Error T_identificador muy largo: " + cadena + " en linea " + llave.ToString() + "\n");//se manda a errores
+                                        correcto = false;
 
+                                    }
                                     if (validarCadena(cadena, llave, inicio, fin).Contains("reservada"))
                                     {
                                         var temp = new Token();
@@ -870,7 +908,6 @@ namespace ProyectoCompiladores2020
                                             else if (fin == finError)
                                             { finError--; }
                                             salida.Add(validarCadena(palabras, llave, inicio, finError));
-
                                             if (validarCadena(palabras, llave, inicio, finError).Contains("reservada"))
                                             {
                                                 var temp = new Token();
@@ -964,7 +1001,12 @@ namespace ProyectoCompiladores2020
                                 else// i no hay error agrega a la lista
                                 {
                                     salida.Add(validarCadena(cadena, llave, inicio, fin));
+                                    if (validarCadena(cadena, llave, inicio, fin).Contains("****Error T_identificador muy largo: "))
+                                    {
+                                        errores.Add("****Error T_identificador muy largo: " + cadena + " en linea " + llave.ToString() + "\n");//se manda a errores
+                                        correcto = false;
 
+                                    }
                                     if (validarCadena(cadena, llave, inicio, fin).Contains("reservada"))
                                     {
                                         var temp = new Token();
@@ -1182,7 +1224,12 @@ namespace ProyectoCompiladores2020
                             else
                             {
                                 salida.Add(validarCadena(cadena, llave, inicio, fin));
+                                if (validarCadena(cadena, llave, inicio, fin).Contains("****Error T_identificador muy largo: "))
+                                {
+                                    errores.Add("****Error T_identificador muy largo: " + cadena + " en linea " + llave.ToString() + "\n");//se manda a errores
+                                    correcto = false;
 
+                                }
                                 if (validarCadena(cadena, llave, inicio, fin).Contains("reservada"))
                                 {
                                     var temp = new Token();
