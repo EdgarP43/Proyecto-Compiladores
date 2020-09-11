@@ -130,7 +130,7 @@ namespace ProyectoCompiladores2020
             }
 
         }
-        public void parse_variable()//ver variable
+        public void parse_variable()
         {
             //se va a type
             parse_Type();
@@ -277,11 +277,9 @@ namespace ProyectoCompiladores2020
             else if (tipos.Contains(tokens.Peek().contenido) || tokens.Peek().tipo == "ident")
             {
                 parse_variableP();
-                if (tokens.Peek().contenido == ",")
-                    MatchToken(",");
             }
             //o 
-           //D MatchToken("\"\"");
+            //D MatchToken("\"\"");
         }
         public void parse_variableP()
         {
@@ -292,7 +290,18 @@ namespace ProyectoCompiladores2020
             else if (tipos.Contains(tokens.Peek().contenido) || tokens.Peek().tipo == "ident")
             {
                 parse_variable();
+            }
+            else if (tokens.Peek().contenido == ",")
+            {
+                MatchToken(",");
+                parse_variable();
                 parse_variableP();
+            }
+            else
+            {
+                errores.Add("Error de sintaxis token no encontrado: " + tokens.Peek().contenido); //error de sintaxis
+                tokens.Dequeue();
+
             }
         }
         public void parse_stmt()
