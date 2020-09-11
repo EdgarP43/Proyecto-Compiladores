@@ -130,7 +130,7 @@ namespace ProyectoCompiladores2020
             }
 
         }
-        public void parse_variable()
+        public void parse_variable()//ver variable
         {
             //se va a type
             parse_Type();

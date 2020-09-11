@@ -109,5 +109,10 @@ namespace ProyectoCompiladores2020
             }
             sintactico.errores.Clear();
         }
+
+        private void label3_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }
