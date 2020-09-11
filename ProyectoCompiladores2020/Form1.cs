@@ -15,6 +15,7 @@ namespace ProyectoCompiladores2020
     {
         public Dictionary<int, string> lineas = new Dictionary<int, string>();
         analizador iraAnalizador = new analizador();
+        SintacticoRecursivo sintactico = new SintacticoRecursivo();
         public Form1()
         {
             InitializeComponent();
@@ -24,6 +25,7 @@ namespace ProyectoCompiladores2020
         private void button1_Click(object sender, EventArgs e)
         {
             int contlineas = 0;
+            iraAnalizador.correcto = true;
             OpenFileDialog o = new OpenFileDialog();
             o.Filter = "Todos los archivos(*.*)|*.*";
             if (o.ShowDialog() == DialogResult.OK)
@@ -46,6 +48,8 @@ namespace ProyectoCompiladores2020
                 }
                 iraAnalizador.guardarArchivo(lineas);
                 var mostrar = iraAnalizador.Reconocedor();
+                sintactico.tokens = iraAnalizador.tokens;
+                
                 if (iraAnalizador.correcto == false)
                 {
                     foreach (var item in iraAnalizador.errores)
@@ -58,6 +62,8 @@ namespace ProyectoCompiladores2020
                 else
                 {
                     listBox1.Items.Add("Archivo correcto");
+                    button2.Enabled = true ;
+
                 }       
                 string nombreArchivo = Path.ChangeExtension(o.FileName,".out");
                 using (StreamWriter sw = new StreamWriter(nombreArchivo))
@@ -68,6 +74,7 @@ namespace ProyectoCompiladores2020
                         sw.WriteLine("\n");
                     }
                 }
+                iraAnalizador.errores.Clear();
             }
             
 
@@ -81,6 +88,26 @@ namespace ProyectoCompiladores2020
         private void label2_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            
+            sintactico.tokens = iraAnalizador.tokens;
+            sintactico.parse_Program();
+            if (sintactico.errores.Count != 0)
+            {
+                foreach (var item in sintactico.errores)
+                {
+                    listBox2.Items.Add(item);
+                    listBox2.Items.Add("\n");
+                }
+            }
+            else
+            {
+                listBox2.Items.Add("Archivo correcto");
+            }
+            sintactico.errores.Clear();
         }
     }
 }
