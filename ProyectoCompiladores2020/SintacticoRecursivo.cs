@@ -289,19 +289,22 @@ namespace ProyectoCompiladores2020
             }
             else if (tipos.Contains(tokens.Peek().contenido) || tokens.Peek().tipo == "ident")
             {
+
                 parse_variable();
+                parse_variablePP();
+            }
+        }
+        public void parse_variablePP()
+        {
+            if (tokens.Count == 0)
+            {
+                errores.Add("Error de sintaxis no hay mas tokens disponibles");
             }
             else if (tokens.Peek().contenido == ",")
             {
                 MatchToken(",");
                 parse_variable();
                 parse_variableP();
-            }
-            else
-            {
-                errores.Add("Error de sintaxis token no encontrado: " + tokens.Peek().contenido); //error de sintaxis
-                tokens.Dequeue();
-
             }
         }
         public void parse_stmt()
@@ -521,42 +524,6 @@ namespace ProyectoCompiladores2020
         }
         public void parse_Expr6()
         {
-            parse_Expr7();
-            parse_Expr_P6();
-        }
-        public void parse_Expr_P6()
-        {
-            if (tokens.Count == 0)
-            {
-                errores.Add("Error de sintaxis no hay mas tokens disponibles");
-            }
-            else if (tokens.Peek().contenido == "!")
-            {
-                MatchToken("!");
-                parse_Expr7();
-                parse_Expr_P6();
-            }
-        }
-        public void parse_Expr7()
-        {
-            parse_Expr8();
-            parse_Expr_P7();
-        }
-        public void parse_Expr_P7()
-        {
-            if (tokens.Count == 0)
-            {
-                errores.Add("Error de sintaxis no hay mas tokens disponibles");
-            }
-            else if (tokens.Peek().contenido == "-")
-            {
-                MatchToken("-");
-                parse_Expr8();
-                parse_Expr_P7();
-            }
-        }
-        public void parse_Expr8()
-        {
             if (tokens.Count == 0)
             {
                 errores.Add("Error de sintaxis no hay mas tokens disponibles");
@@ -599,6 +566,18 @@ namespace ProyectoCompiladores2020
                     tokens.Dequeue();
                 }
                 MatchToken(")");
+            }
+
+            else if (tokens.Peek().contenido == "-")
+            {
+                MatchToken("-");
+                parse_Expr();
+            }
+
+            else if (tokens.Peek().contenido == "!")
+            {
+                MatchToken("!");
+                parse_Expr();
             }
             else
             {

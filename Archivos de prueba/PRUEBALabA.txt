@@ -1,0 +1,11 @@
+int numero;
+
+int f1(int d, int e)
+	if(!b)
+		a=d+e
+	else
+		a=2.34
+
+	int a;
+	bool b;
+	
