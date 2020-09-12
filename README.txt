@@ -1,4 +1,4 @@
-# Proyecto Compiladores Fase 1
+# Proyecto Compiladores
 Universidad Rafael Landívar, Campus Central
 Curso: Compiladores 2ndo Ciclo 2020
 Catedrática: Ing. Diana Gutiérez
