@@ -1,0 +1,23 @@
+int f1(int d, int e)
+	if(!b)
+	a = b + e;
+	else
+	a = 2.34;
+int detalle;
+string coma;
+
+void main()
+	if(!b)
+	a = b + e;
+	else
+	a = 2.34;
+void main()
+	while(a == b)
+	if(!b)
+	a = b + e;
+	else
+	a = 2.34;
+
+
+	
+	
