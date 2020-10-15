@@ -4,20 +4,20 @@ Curso: Compiladores 2ndo Ciclo 2020
 Catedrática: Ing. Diana Gutiérez
 
 # Analizador Léxico
-#_______________________________________________________________________________________________________________________________________________________________________
+#______________________________________________________________________________________________________________________________
 La fase 1 de nuestro proyecto de Compiladores consiste en la iniciación de un compilador comenzando con un analizador de léxico bastante robusto, donde creamos un scanner 
 que permite el reconocimiento de los tokens de un archivo de cualquier extensión determinando palabras reservadas, operadores, constantes numéricas (tanto doubles, int e
 incluso hexadecimales) e identidicadores para un lenguaje de c#.
 
 # Analizador Sinstáctico Descendente Recursivo (Laboratorio A)
-#________________________________________________________________________________________________________________________________________________________________________
+#______________________________________________________________________________________________________________________________
 El laboratorio A, consiste en un Analizador Sintáctico Descendente Recursivo, el cual maneja una gramática incluída en la entrega de este mismo, la cual permite analizar la 
 gramática transformada (una gramática tipo 2), teniendo ninguna recursividad por la izquierda, reolviendo ambiguedades, la precedencia de simbolos y constantes, la factorización
 de producciones para llegar a fomar declaraciones de variables, funciones y procesos, así como también se nos fue asignado realizar el análisis de las estructuras "if-else" y ciclos "while" 
 para un lenguaje de c#
 
 # Implementaciones Analizador Léxico
-#_______________________________________________________________________________________________________________________________________________________________________
+#______________________________________________________________________________________________________________________________
 x El mismo analizador omite espacios en blanco, saltos de lineas y tabulaciones, siempre contándolas para validaciones de columnas de los caracteres leídos.
 x Reconocimiento de comentarios y constantes string las cuales son tomadas en cuenta, sin embargo no son mostradas a menos que formen parte de los errores mencionados.
 x Cadenas con formato distintos a los de un identificador válido (concatenaciones de letras, numeros y guiones bajos siempre empezando con letras) son separados, sin tirar
@@ -29,7 +29,7 @@ Este archivo .out se guarda automáticamente donde se encuentra el archivo utili
 
 
 # Implemetaciones para el Analizador Sinstáctico Descendente Recursivo (Laboratorio A)
-# _____________________________________________________________________________________________________________________________________________________________________
+# ______________________________________________________________________________________________________________________________
 x Proceso que solo funciona cuando la entrada al programa es correcta para el analizador léxico, la cual habilita el botón de análisis para esta fase de laboratorio
 x Maneja una recursividad basada en la gramática, tomando en cuenta cada No terminal como un método "parse" el cual redirecciona hacia otros, según la entrada que obtiene.
 x Se manjeaun matchToken, el cual valida un string esperado si es correcto según la gramática, de lo contrario cuenta como un error de la sintaxis
@@ -41,7 +41,7 @@ validados previamente en el programa, tanto con errores, como archivos correctos
 
 
 # Manejo de Errores para el Analizador Sinstáctico Descendente Recursivo (Laboratorio A)
-#_______________________________________________________________________________________________________________________________________________________________________
+#______________________________________________________________________________________________________________________________
  x El programa puede reconocer errores en la sintaxis basads en la comparación de la entrada al programa con la gramática definida en este laboratorio, por cada error
 encontrado se procede a:
 -> Marcarlo como un error de sintaxis y contniuar con su lectura, mostrando en pantalla el token el cual es erroneo, continaundo con el análisis de la producción del siguiente token esperado
@@ -51,7 +51,7 @@ IMPORTANTE:
 existentes en la cola despues de esa produccion reiniciar la gramatica y evaluar todo el proceso
 
 # Manejo de Errores Analizador Léxico
-#_______________________________________________________________________________________________________________________________________________________________________
+#______________________________________________________________________________________________________________________________
 Así también nuestro analizador de léxico tiene un manejo de errores los cuales son mostrados como salida los cuales son:
 x Caracteres no reconocidos para el lenguaje
 x Constantes string sin terminar, es decir una inexistencia de cierre de comillas
@@ -61,7 +61,7 @@ x Inexistencia de emparejamiento de inicio de comentarios de varias líneas
 Estos mismos son identificados por su impresion con ***
 
 # Modo de Uso
-#_______________________________________________________________________________________________________________________________________________________________________
+#______________________________________________________________________________________________________________________________
 -En el ejecutable como primera instancia abre una ventana la cual posee un botón para la carga del archivo y de lado derecho se observa un cuadro donde es posible ver la 
 salida abstracta del análisis de léxico realizado 
 -Al tener un archivo correcto, de habilita un botón del lado izquierdo el cual permite en análisis del analizador sintáctico descendente recursivo, mostrando la salida
