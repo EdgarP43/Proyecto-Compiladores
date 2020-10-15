@@ -15,7 +15,8 @@ namespace ProyectoCompiladores2020
     {
         public Dictionary<int, string> lineas = new Dictionary<int, string>();
         analizador iraAnalizador = new analizador();
-        SintacticoRecursivo sintactico = new SintacticoRecursivo();
+        SintacticoRecursivo sintacticoDes = new SintacticoRecursivo();
+        //SintacticoAscendente sintacticoAs = new SintacticoAscendente();
         public Form1()
         {
             InitializeComponent();
@@ -24,6 +25,8 @@ namespace ProyectoCompiladores2020
         
         private void button1_Click(object sender, EventArgs e)
         {
+
+            SintacticoAscendente sintacticoAs = new SintacticoAscendente();
             int contlineas = 0;
             iraAnalizador.correcto = true;
             OpenFileDialog o = new OpenFileDialog();
@@ -48,7 +51,7 @@ namespace ProyectoCompiladores2020
                 }
                 iraAnalizador.guardarArchivo(lineas);
                 var mostrar = iraAnalizador.Reconocedor();
-                sintactico.tokens = iraAnalizador.tokens;
+                sintacticoDes.tokens = iraAnalizador.tokens;
                 
                 if (iraAnalizador.correcto == false)
                 {
@@ -93,11 +96,11 @@ namespace ProyectoCompiladores2020
         private void button2_Click(object sender, EventArgs e)
         {
             
-            sintactico.tokens = iraAnalizador.tokens;
-            sintactico.parse_Program();
-            if (sintactico.errores.Count != 0)
+            sintacticoDes.tokens = iraAnalizador.tokens;
+            sintacticoDes.parse_Program();
+            if (sintacticoDes.errores.Count != 0)
             {
-                foreach (var item in sintactico.errores)
+                foreach (var item in sintacticoDes.errores)
                 {
                     listBox2.Items.Add(item);
                     listBox2.Items.Add("\n");
@@ -107,7 +110,7 @@ namespace ProyectoCompiladores2020
             {
                 listBox2.Items.Add("Archivo correcto");
             }
-            sintactico.errores.Clear();
+            sintacticoDes.errores.Clear();
         }
     }
 }

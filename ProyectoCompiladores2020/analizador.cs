@@ -205,6 +205,13 @@ namespace ProyectoCompiladores2020
                                         temp.tipo = "double";
                                         tokens.Enqueue(temp);
                                     }
+                                    else if (validarCadena(palabras, llave, inicio, finError).Contains("Bool"))
+                                    {
+                                        var temp = new Token();
+                                        temp.contenido = palabras;
+                                        temp.tipo = "bool";
+                                        tokens.Enqueue(temp);
+                                    }
                                     //tipoToken.Enqueue();
                                     finError++;
                                     inicio = finError;
@@ -252,6 +259,13 @@ namespace ProyectoCompiladores2020
                                     var temp = new Token();
                                     temp.contenido = palabras;
                                     temp.tipo = "double";
+                                    tokens.Enqueue(temp);
+                                }
+                                else if (validarCadena(palabras, llave, inicio, finError).Contains("Bool"))
+                                {
+                                    var temp = new Token();
+                                    temp.contenido = palabras;
+                                    temp.tipo = "bool";
                                     tokens.Enqueue(temp);
                                 }
                                 finError++;
@@ -309,6 +323,13 @@ namespace ProyectoCompiladores2020
                                 var temp = new Token();
                                 temp.contenido = cadena;
                                 temp.tipo = "double";
+                                tokens.Enqueue(temp);
+                            }
+                            else if (validarCadena(cadena, llave, inicio, fin).Contains("Bool"))
+                            {
+                                var temp = new Token();
+                                temp.contenido = cadena;
+                                temp.tipo = "bool";
                                 tokens.Enqueue(temp);
                             }
                             fin = inicio;
@@ -412,6 +433,13 @@ namespace ProyectoCompiladores2020
                                                 temp.tipo = "double";
                                                 tokens.Enqueue(temp);
                                             }
+                                            else if (validarCadena(palabras, llave, inicio, finError).Contains("Bool"))
+                                            {
+                                                var temp = new Token();
+                                                temp.contenido = palabras;
+                                                temp.tipo = "bool";
+                                                tokens.Enqueue(temp);
+                                            }
                                             finError++;
                                             inicio = finError;
                                             palabras = "";
@@ -457,6 +485,13 @@ namespace ProyectoCompiladores2020
                                             var temp = new Token();
                                             temp.contenido = palabras;
                                             temp.tipo = "double";
+                                            tokens.Enqueue(temp);
+                                        }
+                                        else if (validarCadena(palabras, llave, inicio, finError).Contains("Bool"))
+                                        {
+                                            var temp = new Token();
+                                            temp.contenido = palabras;
+                                            temp.tipo = "bool";
                                             tokens.Enqueue(temp);
                                         }
                                         finError++;
@@ -507,6 +542,13 @@ namespace ProyectoCompiladores2020
                                         var temp = new Token();
                                         temp.contenido = cadena;
                                         temp.tipo = "double";
+                                        tokens.Enqueue(temp);
+                                    }
+                                    else if (validarCadena(cadena, llave, inicio, fin).Contains("Bool"))
+                                    {
+                                        var temp = new Token();
+                                        temp.contenido = cadena;
+                                        temp.tipo = "bool";
                                         tokens.Enqueue(temp);
                                     }
                                     fin++;
@@ -669,6 +711,13 @@ namespace ProyectoCompiladores2020
                                     temp.tipo = "double";
                                     tokens.Enqueue(temp);
                                 }
+                                else if (validarCadena(cadena, llave, inicio, fin).Contains("Bool"))
+                                {
+                                var temp = new Token();
+                                temp.contenido = cadena;
+                                temp.tipo = "bool";
+                                tokens.Enqueue(temp);
+                                }
                                 inicio = fin;
                                 cadena = "";//vaciamos la cadena
                             }
@@ -747,6 +796,13 @@ namespace ProyectoCompiladores2020
                                                 temp.tipo = "double";
                                                 tokens.Enqueue(temp);
                                             }
+                                            else if (validarCadena(palabras, llave, inicio, finError).Contains("Bool"))
+                                            {
+                                                var temp = new Token();
+                                                temp.contenido = palabras;
+                                                temp.tipo = "bool";
+                                                tokens.Enqueue(temp);
+                                            }
                                             finError++;
                                             inicio = finError;
                                             palabras = "";
@@ -793,6 +849,13 @@ namespace ProyectoCompiladores2020
                                             var temp = new Token();
                                             temp.contenido = palabras;
                                             temp.tipo = "double";
+                                            tokens.Enqueue(temp);
+                                        }
+                                        else if (validarCadena(palabras, llave, inicio, finError).Contains("Bool"))
+                                        {
+                                            var temp = new Token();
+                                            temp.contenido = palabras;
+                                            temp.tipo = "bool";
                                             tokens.Enqueue(temp);
                                         }
                                         finError++;
@@ -843,6 +906,13 @@ namespace ProyectoCompiladores2020
                                         var temp = new Token();
                                         temp.contenido = cadena;
                                         temp.tipo = "double";
+                                        tokens.Enqueue(temp);
+                                    }
+                                    else if (validarCadena(cadena, llave, inicio, fin).Contains("Bool"))
+                                    {
+                                        var temp = new Token();
+                                        temp.contenido = cadena;
+                                        temp.tipo = "bool";
                                         tokens.Enqueue(temp);
                                     }
                                     inicio = fin;
@@ -943,6 +1013,13 @@ namespace ProyectoCompiladores2020
                                                 temp.tipo = "double";
                                                 tokens.Enqueue(temp);
                                             }
+                                            else if (validarCadena(palabras, llave, inicio, finError).Contains("Bool"))
+                                            {
+                                                var temp = new Token();
+                                                temp.contenido = palabras;
+                                                temp.tipo = "bool";
+                                                tokens.Enqueue(temp);
+                                            }
                                             finError++;
                                             inicio = finError;
                                             palabras = "";
@@ -990,6 +1067,13 @@ namespace ProyectoCompiladores2020
                                             var temp = new Token();
                                             temp.contenido = palabras;
                                             temp.tipo = "double";
+                                            tokens.Enqueue(temp);
+                                        }
+                                        else if (validarCadena(palabras, llave, inicio, finError).Contains("Bool"))
+                                        {
+                                            var temp = new Token();
+                                            temp.contenido = palabras;
+                                            temp.tipo = "bool";
                                             tokens.Enqueue(temp);
                                         }
                                         finError++;
@@ -1040,6 +1124,13 @@ namespace ProyectoCompiladores2020
                                         var temp = new Token();
                                         temp.contenido = cadena;
                                         temp.tipo = "double";
+                                        tokens.Enqueue(temp);
+                                    }
+                                    else if (validarCadena(cadena, llave, inicio, fin).Contains("Bool"))
+                                    {
+                                        var temp = new Token();
+                                        temp.contenido = cadena;
+                                        temp.tipo = "bool";
                                         tokens.Enqueue(temp);
                                     }
                                     fin++;
@@ -1167,6 +1258,13 @@ namespace ProyectoCompiladores2020
                                             temp.tipo = "double";
                                             tokens.Enqueue(temp);
                                         }
+                                        else if (validarCadena(palabras, llave, inicio, finError).Contains("Bool"))
+                                        {
+                                            var temp = new Token();
+                                            temp.contenido = palabras;
+                                            temp.tipo = "bool";
+                                            tokens.Enqueue(temp);
+                                        }
                                         finError++;
                                         inicio = finError;
                                         palabras = "";
@@ -1213,6 +1311,13 @@ namespace ProyectoCompiladores2020
                                         var temp = new Token();
                                         temp.contenido = palabras;
                                         temp.tipo = "double";
+                                        tokens.Enqueue(temp);
+                                    }
+                                    else if (validarCadena(palabras, llave, inicio, finError).Contains("Bool"))
+                                    {
+                                        var temp = new Token();
+                                        temp.contenido = palabras;
+                                        temp.tipo = "bool";
                                         tokens.Enqueue(temp);
                                     }
                                     finError++;
@@ -1263,6 +1368,13 @@ namespace ProyectoCompiladores2020
                                     var temp = new Token();
                                     temp.contenido = cadena;
                                     temp.tipo = "double";
+                                    tokens.Enqueue(temp);
+                                }
+                                else if (validarCadena(cadena, llave, inicio, fin).Contains("Bool"))
+                                {
+                                    var temp = new Token();
+                                    temp.contenido = cadena;
+                                    temp.tipo = "bool";
                                     tokens.Enqueue(temp);
                                 }
                                 inicio = fin;
