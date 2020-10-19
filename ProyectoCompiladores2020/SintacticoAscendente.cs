@@ -11,6 +11,9 @@ namespace ProyectoCompiladores2020
     {
         public Dictionary<string, string> filaMov = new Dictionary<string, string>();
         public Dictionary<int, Dictionary<string, string>> estados = new Dictionary<int, Dictionary<string, string>>();
+        private Queue<string> cadenas = new Queue<string>();
+        private Stack<string> pilaSimbolos = new Stack<string>();
+        private Stack<int> acciones = new Stack<int>();
         private void Tabla()
         {
             int contadorLineas = 0;
@@ -24,7 +27,11 @@ namespace ProyectoCompiladores2020
                     var fila = linea.Split(';');
                     foreach (var item in fila)
                     {
-                        filaMov.Add(llaves[llavesCont], fila[llavesCont]);
+                        if(fila[llavesCont].Equals("null"))
+                        { }
+                        else
+                            filaMov.Add(llaves[llavesCont], fila[llavesCont]);
+                       
                         llavesCont++;
                     }
                     estados.Add(contadorLineas, filaMov);
@@ -34,6 +41,7 @@ namespace ProyectoCompiladores2020
 
 
             }
+            prueba();
         }
         public SintacticoAscendente(){
             Tabla();
@@ -122,5 +130,31 @@ namespace ProyectoCompiladores2020
             "LValue",
             "Constant"
         };
+
+        private bool estado0()
+        {
+            return true;
+        }
+        public bool AnalizandoEntrada(int pila, string entrada)
+        {
+            if (estados.ContainsKey(pila))//titulo 
+            {
+                var temp = estados[pila];
+                if (temp.ContainsKey(entrada))
+                {
+                    var accion = temp[entrada];
+
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            else
+            {
+                return false;
+            }
+        }
     }
 }
