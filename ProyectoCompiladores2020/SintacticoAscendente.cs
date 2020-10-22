@@ -774,14 +774,119 @@ namespace ProyectoCompiladores2020
             }
         }
         private bool estado3(Token lH)
-        { 
+        {
             //Recucion a 3 con ident, const, int, double, bool, string, void, class, interface $
-            return true;
+            switch (lH.tipo)
+            {
+                case "ident":
+                    pilaAcciones.Pop();
+                    pilaSimbolos.Pop();
+                    pilaSimbolos.Push("Decl");
+                    return estado2(lH);
+            }
+            switch (lH.contenido)
+            {
+                case "const":
+                    pilaAcciones.Pop();
+                    pilaSimbolos.Pop();
+                    pilaSimbolos.Push("Decl");
+                    return estado2(lH);
+                case "int":
+                    pilaAcciones.Pop();
+                    pilaSimbolos.Pop();
+                    pilaSimbolos.Push("Decl");
+                    return estado2(lH);
+                case "double":
+                    pilaAcciones.Pop();
+                    pilaSimbolos.Pop();
+                    pilaSimbolos.Push("Decl");
+                    return estado2(lH);
+                case "bool":
+                    pilaAcciones.Pop();
+                    pilaSimbolos.Pop();
+                    pilaSimbolos.Push("Decl");
+                    return estado2(lH);
+                case "string":
+                    pilaAcciones.Pop();
+                    pilaSimbolos.Pop();
+                    pilaSimbolos.Push("Decl");
+                    return estado2(lH);
+                case "void":
+                    pilaAcciones.Pop();
+                    pilaSimbolos.Pop();
+                    pilaSimbolos.Push("Decl");
+                    return estado2(lH);
+                case "class":
+                    pilaAcciones.Pop();
+                    pilaSimbolos.Pop();
+                    pilaSimbolos.Push("Decl");
+                    return estado2(lH);
+                case "interface":
+                    pilaAcciones.Pop();
+                    pilaSimbolos.Pop();
+                    pilaSimbolos.Push("Decl");
+                    return estado2(lH);
+                default:
+                    return false;
+            }
         }
         private bool estado4(Token lH)
         {
             //Recucion a 4 con ident, const, int, double, bool, string, void, class, interface $
-            return true;
+            switch (lH.tipo)
+            {
+                case "ident":
+                    pilaAcciones.Pop();
+                    pilaSimbolos.Pop();
+                    pilaSimbolos.Push("Decl");
+                    return estado2(lH);
+            }
+            switch (lH.contenido)
+            {
+                case "const":
+                    pilaAcciones.Pop();
+                    pilaSimbolos.Pop();
+                    pilaSimbolos.Push("Decl");
+                    return estado2(lH);
+                case "int":
+                    pilaAcciones.Pop();
+                    pilaSimbolos.Pop();
+                    pilaSimbolos.Push("Decl");
+                    return estado2(lH);
+                case "double":
+                    pilaAcciones.Pop();
+                    pilaSimbolos.Pop();
+                    pilaSimbolos.Push("Decl");
+                    return estado2(lH);
+                case "bool":
+                    pilaAcciones.Pop();
+                    pilaSimbolos.Pop();
+                    pilaSimbolos.Push("Decl");
+                    return estado2(lH);
+                case "string":
+                    pilaAcciones.Pop();
+                    pilaSimbolos.Pop();
+                    pilaSimbolos.Push("Decl");
+                    return estado2(lH);
+                case "void":
+                    pilaAcciones.Pop();
+                    pilaSimbolos.Pop();
+                    pilaSimbolos.Push("Decl");
+                    return estado2(lH);
+                case "class":
+                    pilaAcciones.Pop();
+                    pilaSimbolos.Pop();
+                    pilaSimbolos.Push("Decl");
+                    return estado2(lH);
+                case "interface":
+                    pilaAcciones.Pop();
+                    pilaSimbolos.Pop();
+                    pilaSimbolos.Push("Decl");
+                    return estado2(lH);
+                default:
+                    return false;
+            }
+
         }
         private bool estado5(Token lH)
         {
@@ -810,7 +915,6 @@ namespace ProyectoCompiladores2020
                 default:
                     return false;
             }
-            return true;
         }
         private bool estado9(Token lH)
         {
@@ -869,7 +973,6 @@ namespace ProyectoCompiladores2020
                     return false;
             }
         }
-
         private bool estado12(Token lH)
         {
 
@@ -2804,346 +2907,3619 @@ namespace ProyectoCompiladores2020
             }
         private bool estado102(Token lH)
         {
-            return true;
+            switch (lH.contenido)
+            {
+                case "(":
+                    pilaSimbolos.Push(cadenas.Dequeue().contenido);
+                    pilaAcciones.Push(133);
+                    lH = cadenas.Peek();
+                    return estado133(lH);
+                default:
+                    return false;
+            }
         }
         private bool estado103(Token lH)
         {
-            return true;
+            //Reduccion 94 ;
+            //Reduccion 94 ident
+            //Reduccion 94 (
+            //Reduccion 94 )
+            //Reduccion 94 ,
+            //Reduccion 94 {
+            //Reduccion 94 }
+            //Reduccion 94 if
+            //Reduccion 94 else
+            //Reduccion 94 while
+            //Reduccion 94 for
+            //Reduccion 94 return 
+            //Reduccion 94 break
+            //Reduccion 94 Console
+            //Reduccion 94 .
+            //Reduccion 94 ==
+            //Reduccion 94 &&
+            //Reduccion 94 <
+            //Reduccion 94 <=
+            //Reduccion 94 +
+            //Reduccion 94 *
+            //Reduccion 94 %
+            //Reduccion 94 -
+            //Reduccion 94 !
+            //Reduccion 94 this
+            //Reduccion 94 New
+            //Reduccion 94 intConstant
+            //Reduccion 94 doubleConstant
+            //Reduccion 94 boolConstant
+            //Reduccion 94 stringConstant
+            //Reduccion 94 null
+            switch (lH.contenido)
+            {
+                case "=":
+                    pilaSimbolos.Push(cadenas.Dequeue().contenido);
+                    pilaAcciones.Push(134);
+                    lH = cadenas.Peek();
+                    return estado134(lH);
+                default:
+                    return false;
+            }
         }
         private bool estado104(Token lH)
         {
-            return true;
+            //Reduccion 73 ;
+            //Reduccion 73 ident
+            //Reduccion 73 (
+            //Reduccion 73 )
+            //Reduccion 73 ,
+            //Reduccion 73 {
+            //Reduccion 73 }
+            //Reduccion 73 if
+            //Reduccion 73 else
+            //Reduccion 73 while
+            //Reduccion 73 for
+            //Reduccion 73 return 
+            //Reduccion 73 break
+            //Reduccion 73 Console
+            //Reduccion 73 .
+            //Reduccion 73 ==
+            //Reduccion 73 -
+            //Reduccion 73 !
+            //Reduccion 73 this
+            //Reduccion 73 New
+            //Reduccion 73 intConstant
+            //Reduccion 73 doubleConstant
+            //Reduccion 73 boolConstant
+            //Reduccion 73 stringConstant
+            //Reduccion 73 null
+            switch (lH.contenido)
+            {
+                case "==":
+                    pilaSimbolos.Push(cadenas.Dequeue().contenido);
+                    pilaAcciones.Push(135);
+                    lH = cadenas.Peek();
+                    return estado135(lH);
+                default:
+                    return false;
+            }
         }
         private bool estado105(Token lH)
         {
-            return true;
+            //Reduccion 75 ;
+            //Reduccion 75 ident
+            //Reduccion 75 (
+            //Reduccion 75 )
+            //Reduccion 75 ,
+            //Reduccion 75 {
+            //Reduccion 75 }
+            //Reduccion 75 if
+            //Reduccion 75 else
+            //Reduccion 75 while
+            //Reduccion 75 for
+            //Reduccion 75 return 
+            //Reduccion 75 break
+            //Reduccion 75 Console
+            //Reduccion 75 .
+            //Reduccion 75 ==
+            //Reduccion 75 &&
+            //Reduccion 75 -
+            //Reduccion 75 !
+            //Reduccion 75 this
+            //Reduccion 75 New
+            //Reduccion 75 intConstant
+            //Reduccion 75 doubleConstant
+            //Reduccion 75 boolConstant
+            //Reduccion 75 stringConstant
+            //Reduccion 75 null
+            switch (lH.contenido)
+            {
+                case "&&":
+                    pilaSimbolos.Push(cadenas.Dequeue().contenido);
+                    pilaAcciones.Push(136);
+                    lH = cadenas.Peek();
+                    return estado136(lH);
+                default:
+                    return false;
+            }
         }
         private bool estado106(Token lH)
         {
-            return true;
+            //Reduccion 77 ;
+            //Reduccion 77 ident
+            //Reduccion 77 (
+            //Reduccion 77 )
+            //Reduccion 77 ,
+            //Reduccion 77 {
+            //Reduccion 77 }
+            //Reduccion 77 if
+            //Reduccion 77 else
+            //Reduccion 77 while
+            //Reduccion 77 for
+            //Reduccion 77 return 
+            //Reduccion 77 break
+            //Reduccion 77 Console
+            //Reduccion 77 .
+            //Reduccion 77 ==
+            //Reduccion 77 &&
+            //Reduccion 77 -
+            //Reduccion 77 !
+            //Reduccion 77 this
+            //Reduccion 77 New
+            //Reduccion 77 intConstant
+            //Reduccion 77 doubleConstant
+            //Reduccion 77 boolConstant
+            //Reduccion 77 stringConstant
+            //Reduccion 77 null
+            switch (lH.contenido)
+            {
+                case "<":
+                    pilaSimbolos.Push(cadenas.Dequeue().contenido);
+                    pilaAcciones.Push(137);
+                    lH = cadenas.Peek();
+                    return estado137(lH);
+                case "<=":
+                    pilaSimbolos.Push(cadenas.Dequeue().contenido);
+                    pilaAcciones.Push(138);
+                    lH = cadenas.Peek();
+                    return estado138(lH);
+                default:
+                    return false;
+            }
         }
         private bool estado107(Token lH)
         {
-            return true;
+            //Reduccion 78;
+            //Reduccion 78ident
+            //Reduccion 78(
+            //Reduccion 78)
+            //Reduccion 78,
+            //Reduccion 78{
+            //Reduccion 78}
+            //Reduccion 78if
+            //Reduccion 78else
+            //Reduccion 78while
+            //Reduccion 78for
+            //Reduccion 78return 
+            //Reduccion 78break
+            //Reduccion 78Console
+            //Reduccion 78.
+            //Reduccion 78==
+            //Reduccion 78&&
+            //Reduccion 78<
+            //Reduccion 78<=
+            //Reduccion 78-
+            //Reduccion 78!
+            //Reduccion 78this
+            //Reduccion 78New
+            //Reduccion 78intConstant
+            //Reduccion 78doubleConstant
+            //Reduccion 78boolConstant
+            //Reduccion 78stringConstant
+            //Reduccion 78null
+            switch (lH.contenido)
+            {
+                case "+":
+                    pilaSimbolos.Push(cadenas.Dequeue().contenido);
+                    pilaAcciones.Push(137);
+                    lH = cadenas.Peek();
+                    return estado137(lH);
+                default:
+                    return false;
+            }
         }
         private bool estado108(Token lH)
         {
-            return true;
+            //Reduccion 80;
+            //Reduccion 80ident
+            //Reduccion 80(
+            //Reduccion 80)
+            //Reduccion 80,
+            //Reduccion 80{
+            //Reduccion 80}
+            //Reduccion 80if
+            //Reduccion 80else
+            //Reduccion 80while
+            //Reduccion 80for
+            //Reduccion 80return 
+            //Reduccion 80break
+            //Reduccion 80Console
+            //Reduccion 80.
+            //Reduccion 80==
+            //Reduccion 80&&
+            //Reduccion 80<
+            //Reduccion 80<=
+            //Reduccion 80+
+            //Reduccion 80-
+            //Reduccion 80!
+            //Reduccion 80this
+            //Reduccion 80New
+            //Reduccion 80intConstant
+            //Reduccion 80doubleConstant
+            //Reduccion 80boolConstant
+            //Reduccion 80stringConstant
+            //Reduccion 80null
+            switch (lH.contenido)
+            {
+                case "*":
+                    pilaSimbolos.Push(cadenas.Dequeue().contenido);
+                    pilaAcciones.Push(140);
+                    lH = cadenas.Peek();
+                    return estado140(lH);
+                case "%":
+                    pilaSimbolos.Push(cadenas.Dequeue().contenido);
+                    pilaAcciones.Push(141);
+                    lH = cadenas.Peek();
+                    return estado141(lH);
+                default:
+                    return false;
+            }
         }
         private bool estado109(Token lH)
         {
+            //Reduccion 85;
+            //Reduccion 85ident
+            //Reduccion 85(
+            //Reduccion 85)
+            //Reduccion 85,
+            //Reduccion 85{
+            //Reduccion 85}
+            //Reduccion 85if
+            //Reduccion 85else
+            //Reduccion 85while
+            //Reduccion 85for
+            //Reduccion 85return 
+            //Reduccion 85break
+            //Reduccion 85Console
+            //Reduccion 85.
+            //Reduccion 85==
+            //Reduccion 85&&
+            //Reduccion 85<
+            //Reduccion 85<=
+            //Reduccion 85+
+            //Reduccion 85-
+            //Reduccion 85!
+            //Reduccion 85this
+            //Reduccion 85New
+            //Reduccion 85intConstant
+            //Reduccion 85doubleConstant
+            //Reduccion 85boolConstant
+            //Reduccion 85stringConstant
+            //Reduccion 85null
             return true;
         }
         private bool estado110(Token lH)
         {
-            return true;
+            //Ir a 142 ExprComp
+            //Ir a 113 ExprCompP
+            switch (lH.tipo)
+            {
+                case "ident":
+                    pilaSimbolos.Push(cadenas.Dequeue().contenido);
+                    pilaAcciones.Push(143);
+                    lH = cadenas.Peek();
+                    return estado143(lH);
+                case "int":
+                    pilaSimbolos.Push(cadenas.Dequeue().contenido);
+                    pilaAcciones.Push(117);
+                    lH = cadenas.Peek();
+                    return estado117(lH);
+                case "double":
+                    pilaSimbolos.Push(cadenas.Dequeue().contenido);
+                    pilaAcciones.Push(118);
+                    lH = cadenas.Peek();
+                    return estado118(lH);
+                case "bool":
+                    pilaSimbolos.Push(cadenas.Dequeue().contenido);
+                    pilaAcciones.Push(119);
+                    lH = cadenas.Peek();
+                    return estado119(lH);
+                case "string":
+                    pilaSimbolos.Push(cadenas.Dequeue().contenido);
+                    pilaAcciones.Push(120);
+                    lH = cadenas.Peek();
+                    return estado120(lH);
+            }
+            switch (lH.contenido)
+            {
+                case "(":
+                    pilaSimbolos.Push(cadenas.Dequeue().contenido);
+                    pilaAcciones.Push(114);
+                    lH = cadenas.Peek();
+                    return estado114(lH);
+                case "this":
+                    pilaSimbolos.Push(cadenas.Dequeue().contenido);
+                    pilaAcciones.Push(115);
+                    lH = cadenas.Peek();
+                    return estado115(lH);
+                case "New":
+                    pilaSimbolos.Push(cadenas.Dequeue().contenido);
+                    pilaAcciones.Push(116);
+                    lH = cadenas.Peek();
+                    return estado116(lH);
+                case "null":
+                    pilaSimbolos.Push(cadenas.Dequeue().contenido);
+                    pilaAcciones.Push(121);
+                    lH = cadenas.Peek();
+                    return estado121(lH);
+                default:
+                    return false;
+            }
         }
         private bool estado111(Token lH)
         {
-            return true;
+
+            //Ir a 144 ExprComp
+            //Ir a 113 ExprCompP
+            switch (lH.tipo)
+            {
+                case "ident":
+                    pilaSimbolos.Push(cadenas.Dequeue().contenido);
+                    pilaAcciones.Push(143);
+                    lH = cadenas.Peek();
+                    return estado143(lH);
+                case "int":
+                    pilaSimbolos.Push(cadenas.Dequeue().contenido);
+                    pilaAcciones.Push(117);
+                    lH = cadenas.Peek();
+                    return estado117(lH);
+                case "double":
+                    pilaSimbolos.Push(cadenas.Dequeue().contenido);
+                    pilaAcciones.Push(118);
+                    lH = cadenas.Peek();
+                    return estado118(lH);
+                case "bool":
+                    pilaSimbolos.Push(cadenas.Dequeue().contenido);
+                    pilaAcciones.Push(119);
+                    lH = cadenas.Peek();
+                    return estado119(lH);
+                case "string":
+                    pilaSimbolos.Push(cadenas.Dequeue().contenido);
+                    pilaAcciones.Push(120);
+                    lH = cadenas.Peek();
+                    return estado120(lH);
+            }
+            switch (lH.contenido)
+            {
+                case "(":
+                    pilaSimbolos.Push(cadenas.Dequeue().contenido);
+                    pilaAcciones.Push(114);
+                    lH = cadenas.Peek();
+                    return estado114(lH);
+                case "this":
+                    pilaSimbolos.Push(cadenas.Dequeue().contenido);
+                    pilaAcciones.Push(115);
+                    lH = cadenas.Peek();
+                    return estado115(lH);
+                case "New":
+                    pilaSimbolos.Push(cadenas.Dequeue().contenido);
+                    pilaAcciones.Push(116);
+                    lH = cadenas.Peek();
+                    return estado116(lH);
+                case "null":
+                    pilaSimbolos.Push(cadenas.Dequeue().contenido);
+                    pilaAcciones.Push(121);
+                    lH = cadenas.Peek();
+                    return estado121(lH);
+                default:
+                    return false;
+            }
         }
         private bool estado112(Token lH)
         {
-            return true;
+            //Reduccion 88;
+            //Reduccion 88ident
+            //Reduccion 88(
+            //Reduccion 88)
+            //Reduccion 88,
+            //Reduccion 88{
+            //Reduccion 88}
+            //Reduccion 88if
+            //Reduccion 88else
+            //Reduccion 88while
+            //Reduccion 88for
+            //Reduccion 88return 
+            //Reduccion 88break
+            //Reduccion 88Console
+            //Reduccion 88==
+            //Reduccion 88&&
+            //Reduccion 88<
+            //Reduccion 88<=
+            //Reduccion 88+
+            //Reduccion 88*
+            //Reduccion 88%
+            //Reduccion 88-
+            //Reduccion 88!
+            //Reduccion 88this
+            //Reduccion 88New
+            //Reduccion 88intConstant
+            //Reduccion 88doubleConstant
+            //Reduccion 88boolConstant
+            //Reduccion 88stringConstant
+            //Reduccion 88null
+            switch (lH.contenido)
+            {
+                case ".":
+                    pilaSimbolos.Push(cadenas.Dequeue().contenido);
+                    pilaAcciones.Push(145);
+                    lH = cadenas.Peek();
+                    return estado145(lH);
+                default:
+                    return false;
+            }
         }
         private bool estado113(Token lH)
         {
+            //Reduccion 91;
+            //Reduccion 91ident
+            //Reduccion 91(
+            //Reduccion 91)
+            //Reduccion 91,
+            //Reduccion 91{
+            //Reduccion 91}
+            //Reduccion 91if
+            //Reduccion 91else
+            //Reduccion 91while
+            //Reduccion 91for
+            //Reduccion 91return 
+            //Reduccion 91break
+            //Reduccion 91Console
+            //Reduccion 91.
+            //Reduccion 91==
+            //Reduccion 91&&
+            //Reduccion 91<
+            //Reduccion 91<=
+            //Reduccion 91+
+            //Reduccion 91*
+            //Reduccion 91%
+            //Reduccion 91-
+            //Reduccion 91!
+            //Reduccion 91this
+            //Reduccion 91New
+            //Reduccion 91intConstant
+            //Reduccion 91doubleConstant
+            //Reduccion 91boolConstant
+            //Reduccion 91stringConstant
+            //Reduccion 91null
             return true;
         }
         private bool estado114(Token lH)
         {
-            return true;
+            //Ir a 146 Expr
+            //Ir a 104 ExprOr
+            //Ir a 105 ExprOrP
+            //Ir a 106 ExprAnd
+            //Ir a 107 ExpreAndP
+            //Ir a 108 ExprEquals
+            //Ir a 109 ExprEqualsP
+            //Ir a 112  ExprComp
+            //Ir a 113 ExprComp
+            switch (lH.tipo)
+            {
+                case "ident":
+                    pilaSimbolos.Push(cadenas.Dequeue().contenido);
+                    pilaAcciones.Push(103);
+                    lH = cadenas.Peek();
+                    return estado103(lH);
+                case "int":
+                    pilaSimbolos.Push(cadenas.Dequeue().contenido);
+                    pilaAcciones.Push(117);
+                    lH = cadenas.Peek();
+                    return estado117(lH);
+                case "double":
+                    pilaSimbolos.Push(cadenas.Dequeue().contenido);
+                    pilaAcciones.Push(118);
+                    lH = cadenas.Peek();
+                    return estado118(lH);
+                case "bool":
+                    pilaSimbolos.Push(cadenas.Dequeue().contenido);
+                    pilaAcciones.Push(119);
+                    lH = cadenas.Peek();
+                    return estado119(lH);
+                case "string":
+                    pilaSimbolos.Push(cadenas.Dequeue().contenido);
+                    pilaAcciones.Push(120);
+                    lH = cadenas.Peek();
+                    return estado120(lH);
+            }
+            switch (lH.contenido)
+            {
+                case "(":
+                    pilaSimbolos.Push(cadenas.Dequeue().contenido);
+                    pilaAcciones.Push(114);
+                    lH = cadenas.Peek();
+                    return estado114(lH);
+                case "-":
+                    pilaSimbolos.Push(cadenas.Dequeue().contenido);
+                    pilaAcciones.Push(110);
+                    lH = cadenas.Peek();
+                    return estado110(lH);
+                case "!":
+                    pilaSimbolos.Push(cadenas.Dequeue().contenido);
+                    pilaAcciones.Push(111);
+                    lH = cadenas.Peek();
+                    return estado111(lH);
+                case "this":
+                    pilaSimbolos.Push(cadenas.Dequeue().contenido);
+                    pilaAcciones.Push(115);
+                    lH = cadenas.Peek();
+                    return estado115(lH);
+                case "New":
+                    pilaSimbolos.Push(cadenas.Dequeue().contenido);
+                    pilaAcciones.Push(116);
+                    lH = cadenas.Peek();
+                    return estado116(lH);
+                case "null":
+                    pilaSimbolos.Push(cadenas.Dequeue().contenido);
+                    pilaAcciones.Push(121);
+                    lH = cadenas.Peek();
+                    return estado121(lH);
+                default:
+                    return false;
+            }
         }
         private bool estado115(Token lH)
         {
-            return true;
+            //Reduccion 93;
+            //Reduccion 93ident
+            //Reduccion 93(
+            //Reduccion 93)
+            //Reduccion 93,
+            //Reduccion 93{
+            //Reduccion 93}
+            //Reduccion 93if
+            //Reduccion 93else
+            //Reduccion 93while
+            //Reduccion 93for
+            //Reduccion 93return 
+            //Reduccion 93break
+            //Reduccion 93Console
+            //Reduccion 93.
+            //Reduccion 93==
+            //Reduccion 93&&
+            //Reduccion 93<
+            //Reduccion 93<=
+            //Reduccion 93+
+            //Reduccion 93*
+            //Reduccion 93%
+            //Reduccion 93-
+            //Reduccion 93!
+            //Reduccion 93this
+            //Reduccion 93New
+            //Reduccion 93intConstant
+            //Reduccion 93doubleConstant
+            //Reduccion 93boolConstant
+            //Reduccion 93stringConstant
+            //Reduccion 93null
+            return false;
         }
         private bool estado116(Token lH)
         {
-            return true;
+            switch (lH.contenido)
+            {
+                case "(":
+                    pilaSimbolos.Push(cadenas.Dequeue().contenido);
+                    pilaAcciones.Push(147);
+                    lH = cadenas.Peek();
+                    return estado147(lH);
+                default:
+                    return false;
+            }
         }
         private bool estado117(Token lH)
         {
+            //Reduccion 96;
+            //Reduccion 96ident
+            //Reduccion 96(
+            //Reduccion 96)
+            //Reduccion 96,
+            //Reduccion 96{
+            //Reduccion 96}
+            //Reduccion 96if
+            //Reduccion 96else
+            //Reduccion 96while
+            //Reduccion 96for
+            //Reduccion 96return 
+            //Reduccion 96break
+            //Reduccion 96Console
+            //Reduccion 96.
+            //Reduccion 96==
+            //Reduccion 96&&
+            //Reduccion 96<
+            //Reduccion 96<=
+            //Reduccion 96+
+            //Reduccion 96*
+            //Reduccion 96%
+            //Reduccion 96-
+            //Reduccion 96!
+            //Reduccion 96this
+            //Reduccion 96New
+            //Reduccion 96intConstant
+            //Reduccion 96doubleConstant
+            //Reduccion 96boolConstant
+            //Reduccion 96stringConstant
+            //Reduccion 96null
             return true;
         }
         private bool estado118(Token lH)
         {
+            //Reduccion 97;
+            //Reduccion 97ident
+            //Reduccion 97(
+            //Reduccion 97)
+            //Reduccion 97,
+            //Reduccion 97{
+            //Reduccion 97}
+            //Reduccion 97if
+            //Reduccion 97else
+            //Reduccion 97while
+            //Reduccion 97for
+            //Reduccion 97return 
+            //Reduccion 97break
+            //Reduccion 97Console
+            //Reduccion 97.
+            //Reduccion 97==
+            //Reduccion 97&&
+            //Reduccion 97<
+            //Reduccion 97<=
+            //Reduccion 97+
+            //Reduccion 97*
+            //Reduccion 97%
+            //Reduccion 97-
+            //Reduccion 97!
+            //Reduccion 97this
+            //Reduccion 97New
+            //Reduccion 97intConstant
+            //Reduccion 97doubleConstant
+            //Reduccion 97boolConstant
+            //Reduccion 97stringConstant
+            //Reduccion 97null
             return true;
         }
         private bool estado119(Token lH)
         {
+            //Reduccion 98;
+            //Reduccion 98ident
+            //Reduccion 98(
+            //Reduccion 98)
+            //Reduccion 98,
+            //Reduccion 98{
+            //Reduccion 98}
+            //Reduccion 98if
+            //Reduccion 98else
+            //Reduccion 98while
+            //Reduccion 98for
+            //Reduccion 98return 
+            //Reduccion 98break
+            //Reduccion 98Console
+            //Reduccion 98.
+            //Reduccion 98==
+            //Reduccion 98&&
+            //Reduccion 98<
+            //Reduccion 98<=
+            //Reduccion 98+
+            //Reduccion 98*
+            //Reduccion 98%
+            //Reduccion 98-
+            //Reduccion 98!
+            //Reduccion 98this
+            //Reduccion 98New
+            //Reduccion 98intConstant
+            //Reduccion 98doubleConstant
+            //Reduccion 98boolConstant
+            //Reduccion 98stringConstant
+            //Reduccion 98null
             return true;
         }
         private bool estado120(Token lH)
         {
+            //Reduccion 99;
+            //Reduccion 99ident
+            //Reduccion 99(
+            //Reduccion 99)
+            //Reduccion 99,
+            //Reduccion 99{
+            //Reduccion 99}
+            //Reduccion 99if
+            //Reduccion 99else
+            //Reduccion 99while
+            //Reduccion 99for
+            //Reduccion 99return 
+            //Reduccion 99break
+            //Reduccion 99Console
+            //Reduccion 99.
+            //Reduccion 99==
+            //Reduccion 99&&
+            //Reduccion 99<
+            //Reduccion 99<=
+            //Reduccion 99+
+            //Reduccion 99*
+            //Reduccion 99%
+            //Reduccion 99-
+            //Reduccion 99!
+            //Reduccion 99this
+            //Reduccion 99New
+            //Reduccion 99intConstant
+            //Reduccion 99doubleConstant
+            //Reduccion 99boolConstant
+            //Reduccion 99stringConstant
+            //Reduccion 99null
             return true;
         }
         private bool estado121(Token lH)
         {
+            //Reduccion 100;
+            //Reduccion 100ident
+            //Reduccion 100(
+            //Reduccion 100)
+            //Reduccion 100,
+            //Reduccion 100{
+            //Reduccion 100}
+            //Reduccion 100if
+            //Reduccion 100else
+            //Reduccion 100while
+            //Reduccion 100for
+            //Reduccion 100return 
+            //Reduccion 100break
+            //Reduccion 100Console
+            //Reduccion 100.
+            //Reduccion 100==
+            //Reduccion 100&&
+            //Reduccion 100<
+            //Reduccion 100<=
+            //Reduccion 100+
+            //Reduccion 100*
+            //Reduccion 100%
+            //Reduccion 100-
+            //Reduccion 100!
+            //Reduccion 100this
+            //Reduccion 100New
+            //Reduccion 100intConstant
+            //Reduccion 100doubleConstant
+            //Reduccion 100boolConstant
+            //Reduccion 100stringConstant
+            //Reduccion 100null
             return true;
         }
         private bool estado122(Token lH)
         {
+            //Reduccion 48 ;
+            //Reduccion 48 ident
+            //Reduccion 48 conts
+            //Reduccion 48 int
+            //Reduccion 48 double
+            //Reduccion 48 bool
+            //Reduccion 48 string
+            //Reduccion 48 (
+            //Reduccion 48 void
+            //Reduccion 48 class
+            //Reduccion 48 {
+            //Reduccion 48 } 
+            //Reduccion 48 interface
+            //Reduccion 48 if
+            //Reduccion 48 else
+            //Reduccion 48 while
+            //Reduccion 48 for
+            //Reduccion 48 return
+            //Reduccion 48 break
+            //Reduccion 48 Console
+            //Reduccion 48 -
+            //Reduccion 48 !
+            //Reduccion 48 this
+            //Reduccion 48 New
+            //Reduccion 48 intConstant
+            //Reduccion 48 doubleConstant
+            //Reduccion 48 boolConstant
+            //Reduccion 48 stringConstant
+            //Reduccion 48 null
+            //Reduccion 48 $
             return true;
         }
         private bool estado123(Token lH)
         {
+            //Reduccion 43 ident
+            //Reduccion 43 int
+            //Reduccion 43 double
+            //Reduccion 43 bool
+            //Reduccion 43 string
+            //Reduccion 43 void
+            //Reduccion 43 }
             return true;
         }
         private bool estado124(Token lH)
         {
+            //Reduccion 444 ident
+            //Reduccion 44 int
+            //Reduccion 44 double
+            //Reduccion 44 bool
+            //Reduccion 44 string
+            //Reduccion 44 void
+            //Reduccion 44 }
             return true;
         }
         private bool estado125(Token lH)
         {
+            //Reduccion 45 ;
+            //Reduccion 45 ident
+            //Reduccion 45 conts
+            //Reduccion 45 int
+            //Reduccion 45 double
+            //Reduccion 45 bool
+            //Reduccion 45 string
+            //Reduccion 45 (
+            //Reduccion 45 void
+            //Reduccion 45 class
+            //Reduccion 45 {
+            //Reduccion 45 } 
+            //Reduccion 45 interface
+            //Reduccion 45 if
+            //Reduccion 45 else
+            //Reduccion 45 while
+            //Reduccion 45 for
+            //Reduccion 45 return
+            //Reduccion 45 break
+            //Reduccion 45 Console
+            //Reduccion 45 -
+            //Reduccion 45 !
+            //Reduccion 45 this
+            //Reduccion 45 New
+            //Reduccion 45 intConstant
+            //Reduccion 45 doubleConstant
+            //Reduccion 45 boolConstant
+            //Reduccion 45 stringConstant
+            //Reduccion 45 null
+            //Reduccion 45 $
             return true;
         }
         private bool estado126(Token lH)
         {
+            //Reduccion 50 }
             return true;
         }
         private bool estado127(Token lH)
         {
+            //Reduccion 54 ;
+            //Reduccion 54 ident
+            //Reduccion 54 conts
+            //Reduccion 54 int
+            //Reduccion 54 double
+            //Reduccion 54 bool
+            //Reduccion 54 string
+            //Reduccion 54 (
+            //Reduccion 54 void
+            //Reduccion 54 class
+            //Reduccion 54 {
+            //Reduccion 54 } 
+            //Reduccion 54 interface
+            //Reduccion 54 if
+            //Reduccion 54 else
+            //Reduccion 54 while
+            //Reduccion 54 for
+            //Reduccion 54 return
+            //Reduccion 54 break
+            //Reduccion 54 Console
+            //Reduccion 54 -
+            //Reduccion 54 !
+            //Reduccion 54 this
+            //Reduccion 54 New
+            //Reduccion 54 intConstant
+            //Reduccion 54 doubleConstant
+            //Reduccion 54 boolConstant
+            //Reduccion 54 stringConstant
+            //Reduccion 54 null
+            //Reduccion 54 $
             return true;
         }
         private bool estado128(Token lH)
         {
-            return true;
+            //Ir a 148 Expr
+            //Ir a 104 ExprOr
+            //Ir a 105 ExprOrP
+            //Ir a 106 ExprAnd
+            //Ir a 107 ExpreAndP
+            //Ir a 108 ExprEquals
+            //Ir a 109 ExprEqualsP
+            //Ir a 112  ExprComp
+            //Ir a 113 ExprComp
+            switch (lH.tipo)
+            {
+                case "ident":
+                    pilaSimbolos.Push(cadenas.Dequeue().contenido);
+                    pilaAcciones.Push(103);
+                    lH = cadenas.Peek();
+                    return estado103(lH);
+                case "int":
+                    pilaSimbolos.Push(cadenas.Dequeue().contenido);
+                    pilaAcciones.Push(117);
+                    lH = cadenas.Peek();
+                    return estado117(lH);
+                case "double":
+                    pilaSimbolos.Push(cadenas.Dequeue().contenido);
+                    pilaAcciones.Push(118);
+                    lH = cadenas.Peek();
+                    return estado118(lH);
+                case "bool":
+                    pilaSimbolos.Push(cadenas.Dequeue().contenido);
+                    pilaAcciones.Push(119);
+                    lH = cadenas.Peek();
+                    return estado119(lH);
+                case "string":
+                    pilaSimbolos.Push(cadenas.Dequeue().contenido);
+                    pilaAcciones.Push(120);
+                    lH = cadenas.Peek();
+                    return estado120(lH);
+            }
+            switch (lH.contenido)
+            {
+                case "(":
+                    pilaSimbolos.Push(cadenas.Dequeue().contenido);
+                    pilaAcciones.Push(114);
+                    lH = cadenas.Peek();
+                    return estado114(lH);
+                case "-":
+                    pilaSimbolos.Push(cadenas.Dequeue().contenido);
+                    pilaAcciones.Push(110);
+                    lH = cadenas.Peek();
+                    return estado110(lH);
+                case "!":
+                    pilaSimbolos.Push(cadenas.Dequeue().contenido);
+                    pilaAcciones.Push(111);
+                    lH = cadenas.Peek();
+                    return estado111(lH);
+                case "this":
+                    pilaSimbolos.Push(cadenas.Dequeue().contenido);
+                    pilaAcciones.Push(115);
+                    lH = cadenas.Peek();
+                    return estado115(lH);
+                case "New":
+                    pilaSimbolos.Push(cadenas.Dequeue().contenido);
+                    pilaAcciones.Push(116);
+                    lH = cadenas.Peek();
+                    return estado116(lH);
+                case "null":
+                    pilaSimbolos.Push(cadenas.Dequeue().contenido);
+                    pilaAcciones.Push(121);
+                    lH = cadenas.Peek();
+                    return estado121(lH);
+                default:
+                    return false;
+            }
         }
         private bool estado129(Token lH)
         {
-            return true;
+            //Ir a 149 Expr
+            //Ir a 104 ExprOr
+            //Ir a 105 ExprOrP
+            //Ir a 106 ExprAnd
+            //Ir a 107 ExpreAndP
+            //Ir a 108 ExprEquals
+            //Ir a 109 ExprEqualsP
+            //Ir a 112  ExprComp
+            //Ir a 113 ExprComp
+            switch (lH.tipo)
+            {
+                case "ident":
+                    pilaSimbolos.Push(cadenas.Dequeue().contenido);
+                    pilaAcciones.Push(103);
+                    lH = cadenas.Peek();
+                    return estado103(lH);
+                case "int":
+                    pilaSimbolos.Push(cadenas.Dequeue().contenido);
+                    pilaAcciones.Push(117);
+                    lH = cadenas.Peek();
+                    return estado117(lH);
+                case "double":
+                    pilaSimbolos.Push(cadenas.Dequeue().contenido);
+                    pilaAcciones.Push(118);
+                    lH = cadenas.Peek();
+                    return estado118(lH);
+                case "bool":
+                    pilaSimbolos.Push(cadenas.Dequeue().contenido);
+                    pilaAcciones.Push(119);
+                    lH = cadenas.Peek();
+                    return estado119(lH);
+                case "string":
+                    pilaSimbolos.Push(cadenas.Dequeue().contenido);
+                    pilaAcciones.Push(120);
+                    lH = cadenas.Peek();
+                    return estado120(lH);
+            }
+            switch (lH.contenido)
+            {
+                case "(":
+                    pilaSimbolos.Push(cadenas.Dequeue().contenido);
+                    pilaAcciones.Push(114);
+                    lH = cadenas.Peek();
+                    return estado114(lH);
+                case "-":
+                    pilaSimbolos.Push(cadenas.Dequeue().contenido);
+                    pilaAcciones.Push(110);
+                    lH = cadenas.Peek();
+                    return estado110(lH);
+                case "!":
+                    pilaSimbolos.Push(cadenas.Dequeue().contenido);
+                    pilaAcciones.Push(111);
+                    lH = cadenas.Peek();
+                    return estado111(lH);
+                case "this":
+                    pilaSimbolos.Push(cadenas.Dequeue().contenido);
+                    pilaAcciones.Push(115);
+                    lH = cadenas.Peek();
+                    return estado115(lH);
+                case "New":
+                    pilaSimbolos.Push(cadenas.Dequeue().contenido);
+                    pilaAcciones.Push(116);
+                    lH = cadenas.Peek();
+                    return estado116(lH);
+                case "null":
+                    pilaSimbolos.Push(cadenas.Dequeue().contenido);
+                    pilaAcciones.Push(121);
+                    lH = cadenas.Peek();
+                    return estado121(lH);
+                default:
+                    return false;
+            }
         }
         private bool estado130(Token lH)
         {
-            return true;
+            //Ir a 150 Expr
+            //Ir a 104 ExprOr
+            //Ir a 105 ExprOrP
+            //Ir a 106 ExprAnd
+            //Ir a 107 ExpreAndP
+            //Ir a 108 ExprEquals
+            //Ir a 109 ExprEqualsP
+            //Ir a 112  ExprComp
+            //Ir a 113 ExprComp
+            switch (lH.tipo)
+            {
+                case "ident":
+                    pilaSimbolos.Push(cadenas.Dequeue().contenido);
+                    pilaAcciones.Push(103);
+                    lH = cadenas.Peek();
+                    return estado103(lH);
+                case "int":
+                    pilaSimbolos.Push(cadenas.Dequeue().contenido);
+                    pilaAcciones.Push(117);
+                    lH = cadenas.Peek();
+                    return estado117(lH);
+                case "double":
+                    pilaSimbolos.Push(cadenas.Dequeue().contenido);
+                    pilaAcciones.Push(118);
+                    lH = cadenas.Peek();
+                    return estado118(lH);
+                case "bool":
+                    pilaSimbolos.Push(cadenas.Dequeue().contenido);
+                    pilaAcciones.Push(119);
+                    lH = cadenas.Peek();
+                    return estado119(lH);
+                case "string":
+                    pilaSimbolos.Push(cadenas.Dequeue().contenido);
+                    pilaAcciones.Push(120);
+                    lH = cadenas.Peek();
+                    return estado120(lH);
+            }
+            switch (lH.contenido)
+            {
+                case "(":
+                    pilaSimbolos.Push(cadenas.Dequeue().contenido);
+                    pilaAcciones.Push(114);
+                    lH = cadenas.Peek();
+                    return estado114(lH);
+                case "-":
+                    pilaSimbolos.Push(cadenas.Dequeue().contenido);
+                    pilaAcciones.Push(110);
+                    lH = cadenas.Peek();
+                    return estado110(lH);
+                case "!":
+                    pilaSimbolos.Push(cadenas.Dequeue().contenido);
+                    pilaAcciones.Push(111);
+                    lH = cadenas.Peek();
+                    return estado111(lH);
+                case "this":
+                    pilaSimbolos.Push(cadenas.Dequeue().contenido);
+                    pilaAcciones.Push(115);
+                    lH = cadenas.Peek();
+                    return estado115(lH);
+                case "New":
+                    pilaSimbolos.Push(cadenas.Dequeue().contenido);
+                    pilaAcciones.Push(116);
+                    lH = cadenas.Peek();
+                    return estado116(lH);
+                case "null":
+                    pilaSimbolos.Push(cadenas.Dequeue().contenido);
+                    pilaAcciones.Push(121);
+                    lH = cadenas.Peek();
+                    return estado121(lH);
+                default:
+                    return false;
+            }
         }
         private bool estado131(Token lH)
         {
+            //Reduccion 68 ;
+            //Reduccion 68 ident
+            //Reduccion 68 (
+            //Reduccion 68 {
+            //Reduccion 68 }
+            //Reduccion 68 if
+            //Reduccion 68 else
+            //Reduccion 68 while
+            //Reduccion 68 for
+            //Reduccion 68 return 
+            //Reduccion 68 break
+            //Reduccion 68 Console
+            //Reduccion 68 -
+            //Reduccion 68 !
+            //Reduccion 68 this
+            //Reduccion 68 New
+            //Reduccion 68 intConstant
+            //Reduccion 68 doubleConstant
+            //Reduccion 68 boolConstant
+            //Reduccion 68 stringConstant
+            //Reduccion 68 null
             return true;
         }
         private bool estado132(Token lH)
         {
-            return true;
+            switch (lH.contenido)
+            {
+                case ";":
+                    pilaSimbolos.Push(cadenas.Dequeue().contenido);
+                    pilaAcciones.Push(151);
+                    lH = cadenas.Peek();
+                    return estado151(lH);
+                default:
+                    return false;
+            }
+                    
         }
         private bool estado133(Token lH)
         {
-            return true;
+            switch (lH.contenido)
+            {
+                case "WriteLine":
+                    pilaSimbolos.Push(cadenas.Dequeue().contenido);
+                    pilaAcciones.Push(152);
+                    lH = cadenas.Peek();
+                    return estado152(lH);
+                default:
+                    return false;
+            }
         }
         private bool estado134(Token lH)
         {
-            return true;
+            //Ir a 153 ExprOr
+            //Ir a 105 ExprOrP
+            //Ir a 106 ExprAnd
+            //Ir a 107 ExpreAndP
+            //Ir a 108 ExprEquals
+            //Ir a 109 ExprEqualsP
+            //Ir a 112  ExprComp
+            //Ir a 113 ExprComp
+            switch (lH.tipo)
+            {
+                case "ident":
+                    pilaSimbolos.Push(cadenas.Dequeue().contenido);
+                    pilaAcciones.Push(143);
+                    lH = cadenas.Peek();
+                    return estado143(lH);
+                case "int":
+                    pilaSimbolos.Push(cadenas.Dequeue().contenido);
+                    pilaAcciones.Push(117);
+                    lH = cadenas.Peek();
+                    return estado117(lH);
+                case "double":
+                    pilaSimbolos.Push(cadenas.Dequeue().contenido);
+                    pilaAcciones.Push(118);
+                    lH = cadenas.Peek();
+                    return estado118(lH);
+                case "bool":
+                    pilaSimbolos.Push(cadenas.Dequeue().contenido);
+                    pilaAcciones.Push(119);
+                    lH = cadenas.Peek();
+                    return estado119(lH);
+                case "string":
+                    pilaSimbolos.Push(cadenas.Dequeue().contenido);
+                    pilaAcciones.Push(120);
+                    lH = cadenas.Peek();
+                    return estado120(lH);
+            }
+            switch (lH.contenido)
+            {
+                case "(":
+                    pilaSimbolos.Push(cadenas.Dequeue().contenido);
+                    pilaAcciones.Push(114);
+                    lH = cadenas.Peek();
+                    return estado114(lH);
+                case "-":
+                    pilaSimbolos.Push(cadenas.Dequeue().contenido);
+                    pilaAcciones.Push(110);
+                    lH = cadenas.Peek();
+                    return estado110(lH);
+                case "!":
+                    pilaSimbolos.Push(cadenas.Dequeue().contenido);
+                    pilaAcciones.Push(111);
+                    lH = cadenas.Peek();
+                    return estado111(lH);
+                case "this":
+                    pilaSimbolos.Push(cadenas.Dequeue().contenido);
+                    pilaAcciones.Push(115);
+                    lH = cadenas.Peek();
+                    return estado115(lH);
+                case "New":
+                    pilaSimbolos.Push(cadenas.Dequeue().contenido);
+                    pilaAcciones.Push(116);
+                    lH = cadenas.Peek();
+                    return estado116(lH);
+                case "null":
+                    pilaSimbolos.Push(cadenas.Dequeue().contenido);
+                    pilaAcciones.Push(121);
+                    lH = cadenas.Peek();
+                    return estado121(lH);
+                default:
+                    return false;
+            }
         }
         private bool estado135(Token lH)
         {
-            return true;
+            //Ir a 154 ExprOrP
+            //Ir a 106 ExprAnd
+            //Ir a 107 ExpreAndP
+            //Ir a 108 ExprEquals
+            //Ir a 109 ExprEqualsP
+            //Ir a 112  ExprComp
+            //Ir a 113 ExprComp
+            switch (lH.tipo)
+            {
+                case "ident":
+                    pilaSimbolos.Push(cadenas.Dequeue().contenido);
+                    pilaAcciones.Push(143);
+                    lH = cadenas.Peek();
+                    return estado143(lH);
+                case "int":
+                    pilaSimbolos.Push(cadenas.Dequeue().contenido);
+                    pilaAcciones.Push(117);
+                    lH = cadenas.Peek();
+                    return estado117(lH);
+                case "double":
+                    pilaSimbolos.Push(cadenas.Dequeue().contenido);
+                    pilaAcciones.Push(118);
+                    lH = cadenas.Peek();
+                    return estado118(lH);
+                case "bool":
+                    pilaSimbolos.Push(cadenas.Dequeue().contenido);
+                    pilaAcciones.Push(119);
+                    lH = cadenas.Peek();
+                    return estado119(lH);
+                case "string":
+                    pilaSimbolos.Push(cadenas.Dequeue().contenido);
+                    pilaAcciones.Push(120);
+                    lH = cadenas.Peek();
+                    return estado120(lH);
+            }
+            switch (lH.contenido)
+            {
+                case "(":
+                    pilaSimbolos.Push(cadenas.Dequeue().contenido);
+                    pilaAcciones.Push(114);
+                    lH = cadenas.Peek();
+                    return estado114(lH);
+                case "-":
+                    pilaSimbolos.Push(cadenas.Dequeue().contenido);
+                    pilaAcciones.Push(110);
+                    lH = cadenas.Peek();
+                    return estado110(lH);
+                case "!":
+                    pilaSimbolos.Push(cadenas.Dequeue().contenido);
+                    pilaAcciones.Push(111);
+                    lH = cadenas.Peek();
+                    return estado111(lH);
+                case "this":
+                    pilaSimbolos.Push(cadenas.Dequeue().contenido);
+                    pilaAcciones.Push(115);
+                    lH = cadenas.Peek();
+                    return estado115(lH);
+                case "New":
+                    pilaSimbolos.Push(cadenas.Dequeue().contenido);
+                    pilaAcciones.Push(116);
+                    lH = cadenas.Peek();
+                    return estado116(lH);
+                case "null":
+                    pilaSimbolos.Push(cadenas.Dequeue().contenido);
+                    pilaAcciones.Push(121);
+                    lH = cadenas.Peek();
+                    return estado121(lH);
+                default:
+                    return false;
+            }
         }
         private bool estado136(Token lH)
         {
-            return true;
+            //Ir a 155 ExprAnd
+            //Ir a 107 ExpreAndP
+            //Ir a 108 ExprEquals
+            //Ir a 109 ExprEqualsP
+            //Ir a 112  ExprComp
+            //Ir a 113 ExprComp
+            switch (lH.tipo)
+            {
+                case "ident":
+                    pilaSimbolos.Push(cadenas.Dequeue().contenido);
+                    pilaAcciones.Push(143);
+                    lH = cadenas.Peek();
+                    return estado143(lH);
+                case "int":
+                    pilaSimbolos.Push(cadenas.Dequeue().contenido);
+                    pilaAcciones.Push(117);
+                    lH = cadenas.Peek();
+                    return estado117(lH);
+                case "double":
+                    pilaSimbolos.Push(cadenas.Dequeue().contenido);
+                    pilaAcciones.Push(118);
+                    lH = cadenas.Peek();
+                    return estado118(lH);
+                case "bool":
+                    pilaSimbolos.Push(cadenas.Dequeue().contenido);
+                    pilaAcciones.Push(119);
+                    lH = cadenas.Peek();
+                    return estado119(lH);
+                case "string":
+                    pilaSimbolos.Push(cadenas.Dequeue().contenido);
+                    pilaAcciones.Push(120);
+                    lH = cadenas.Peek();
+                    return estado120(lH);
+            }
+            switch (lH.contenido)
+            {
+                case "(":
+                    pilaSimbolos.Push(cadenas.Dequeue().contenido);
+                    pilaAcciones.Push(114);
+                    lH = cadenas.Peek();
+                    return estado114(lH);
+                case "-":
+                    pilaSimbolos.Push(cadenas.Dequeue().contenido);
+                    pilaAcciones.Push(110);
+                    lH = cadenas.Peek();
+                    return estado110(lH);
+                case "!":
+                    pilaSimbolos.Push(cadenas.Dequeue().contenido);
+                    pilaAcciones.Push(111);
+                    lH = cadenas.Peek();
+                    return estado111(lH);
+                case "this":
+                    pilaSimbolos.Push(cadenas.Dequeue().contenido);
+                    pilaAcciones.Push(115);
+                    lH = cadenas.Peek();
+                    return estado115(lH);
+                case "New":
+                    pilaSimbolos.Push(cadenas.Dequeue().contenido);
+                    pilaAcciones.Push(116);
+                    lH = cadenas.Peek();
+                    return estado116(lH);
+                case "null":
+                    pilaSimbolos.Push(cadenas.Dequeue().contenido);
+                    pilaAcciones.Push(121);
+                    lH = cadenas.Peek();
+                    return estado121(lH);
+                default:
+                    return false;
+            }
         }
         private bool estado137(Token lH)
         {
-            return true;
+            //Ir a 156 ExpreAndP
+            //Ir a 108 ExprEquals
+            //Ir a 109 ExprEqualsP
+            //Ir a 112  ExprComp
+            //Ir a 113 ExprComp
+            switch (lH.tipo)
+            {
+                case "ident":
+                    pilaSimbolos.Push(cadenas.Dequeue().contenido);
+                    pilaAcciones.Push(143);
+                    lH = cadenas.Peek();
+                    return estado143(lH);
+                case "int":
+                    pilaSimbolos.Push(cadenas.Dequeue().contenido);
+                    pilaAcciones.Push(117);
+                    lH = cadenas.Peek();
+                    return estado117(lH);
+                case "double":
+                    pilaSimbolos.Push(cadenas.Dequeue().contenido);
+                    pilaAcciones.Push(118);
+                    lH = cadenas.Peek();
+                    return estado118(lH);
+                case "bool":
+                    pilaSimbolos.Push(cadenas.Dequeue().contenido);
+                    pilaAcciones.Push(119);
+                    lH = cadenas.Peek();
+                    return estado119(lH);
+                case "string":
+                    pilaSimbolos.Push(cadenas.Dequeue().contenido);
+                    pilaAcciones.Push(120);
+                    lH = cadenas.Peek();
+                    return estado120(lH);
+            }
+            switch (lH.contenido)
+            {
+                case "(":
+                    pilaSimbolos.Push(cadenas.Dequeue().contenido);
+                    pilaAcciones.Push(114);
+                    lH = cadenas.Peek();
+                    return estado114(lH);
+                case "-":
+                    pilaSimbolos.Push(cadenas.Dequeue().contenido);
+                    pilaAcciones.Push(110);
+                    lH = cadenas.Peek();
+                    return estado110(lH);
+                case "!":
+                    pilaSimbolos.Push(cadenas.Dequeue().contenido);
+                    pilaAcciones.Push(111);
+                    lH = cadenas.Peek();
+                    return estado111(lH);
+                case "this":
+                    pilaSimbolos.Push(cadenas.Dequeue().contenido);
+                    pilaAcciones.Push(115);
+                    lH = cadenas.Peek();
+                    return estado115(lH);
+                case "New":
+                    pilaSimbolos.Push(cadenas.Dequeue().contenido);
+                    pilaAcciones.Push(116);
+                    lH = cadenas.Peek();
+                    return estado116(lH);
+                case "null":
+                    pilaSimbolos.Push(cadenas.Dequeue().contenido);
+                    pilaAcciones.Push(121);
+                    lH = cadenas.Peek();
+                    return estado121(lH);
+                default:
+                    return false;
+            }
         }
         private bool estado138(Token lH)
         {
-            return true;
+            //Ir a 157 ExpreAndP
+            //Ir a 108 ExprEquals
+            //Ir a 109 ExprEqualsP
+            //Ir a 112  ExprComp
+            //Ir a 113 ExprComp
+            switch (lH.tipo)
+            {
+                case "ident":
+                    pilaSimbolos.Push(cadenas.Dequeue().contenido);
+                    pilaAcciones.Push(143);
+                    lH = cadenas.Peek();
+                    return estado143(lH);
+                case "int":
+                    pilaSimbolos.Push(cadenas.Dequeue().contenido);
+                    pilaAcciones.Push(117);
+                    lH = cadenas.Peek();
+                    return estado117(lH);
+                case "double":
+                    pilaSimbolos.Push(cadenas.Dequeue().contenido);
+                    pilaAcciones.Push(118);
+                    lH = cadenas.Peek();
+                    return estado118(lH);
+                case "bool":
+                    pilaSimbolos.Push(cadenas.Dequeue().contenido);
+                    pilaAcciones.Push(119);
+                    lH = cadenas.Peek();
+                    return estado119(lH);
+                case "string":
+                    pilaSimbolos.Push(cadenas.Dequeue().contenido);
+                    pilaAcciones.Push(120);
+                    lH = cadenas.Peek();
+                    return estado120(lH);
+            }
+            switch (lH.contenido)
+            {
+                case "(":
+                    pilaSimbolos.Push(cadenas.Dequeue().contenido);
+                    pilaAcciones.Push(114);
+                    lH = cadenas.Peek();
+                    return estado114(lH);
+                case "-":
+                    pilaSimbolos.Push(cadenas.Dequeue().contenido);
+                    pilaAcciones.Push(110);
+                    lH = cadenas.Peek();
+                    return estado110(lH);
+                case "!":
+                    pilaSimbolos.Push(cadenas.Dequeue().contenido);
+                    pilaAcciones.Push(111);
+                    lH = cadenas.Peek();
+                    return estado111(lH);
+                case "this":
+                    pilaSimbolos.Push(cadenas.Dequeue().contenido);
+                    pilaAcciones.Push(115);
+                    lH = cadenas.Peek();
+                    return estado115(lH);
+                case "New":
+                    pilaSimbolos.Push(cadenas.Dequeue().contenido);
+                    pilaAcciones.Push(116);
+                    lH = cadenas.Peek();
+                    return estado116(lH);
+                case "null":
+                    pilaSimbolos.Push(cadenas.Dequeue().contenido);
+                    pilaAcciones.Push(121);
+                    lH = cadenas.Peek();
+                    return estado121(lH);
+                default:
+                    return false;
+            }
         }
         private bool estado139(Token lH)
         {
-            return true;
+            //Ir a 158 ExprEquals
+            //Ir a 109 ExprEqualsP
+            //Ir a 112  ExprComp
+            //Ir a 113 ExprComp
+            switch (lH.tipo)
+            {
+                case "ident":
+                    pilaSimbolos.Push(cadenas.Dequeue().contenido);
+                    pilaAcciones.Push(143);
+                    lH = cadenas.Peek();
+                    return estado143(lH);
+                case "int":
+                    pilaSimbolos.Push(cadenas.Dequeue().contenido);
+                    pilaAcciones.Push(117);
+                    lH = cadenas.Peek();
+                    return estado117(lH);
+                case "double":
+                    pilaSimbolos.Push(cadenas.Dequeue().contenido);
+                    pilaAcciones.Push(118);
+                    lH = cadenas.Peek();
+                    return estado118(lH);
+                case "bool":
+                    pilaSimbolos.Push(cadenas.Dequeue().contenido);
+                    pilaAcciones.Push(119);
+                    lH = cadenas.Peek();
+                    return estado119(lH);
+                case "string":
+                    pilaSimbolos.Push(cadenas.Dequeue().contenido);
+                    pilaAcciones.Push(120);
+                    lH = cadenas.Peek();
+                    return estado120(lH);
+            }
+            switch (lH.contenido)
+            {
+                case "(":
+                    pilaSimbolos.Push(cadenas.Dequeue().contenido);
+                    pilaAcciones.Push(114);
+                    lH = cadenas.Peek();
+                    return estado114(lH);
+                case "-":
+                    pilaSimbolos.Push(cadenas.Dequeue().contenido);
+                    pilaAcciones.Push(110);
+                    lH = cadenas.Peek();
+                    return estado110(lH);
+                case "!":
+                    pilaSimbolos.Push(cadenas.Dequeue().contenido);
+                    pilaAcciones.Push(111);
+                    lH = cadenas.Peek();
+                    return estado111(lH);
+                case "this":
+                    pilaSimbolos.Push(cadenas.Dequeue().contenido);
+                    pilaAcciones.Push(115);
+                    lH = cadenas.Peek();
+                    return estado115(lH);
+                case "New":
+                    pilaSimbolos.Push(cadenas.Dequeue().contenido);
+                    pilaAcciones.Push(116);
+                    lH = cadenas.Peek();
+                    return estado116(lH);
+                case "null":
+                    pilaSimbolos.Push(cadenas.Dequeue().contenido);
+                    pilaAcciones.Push(121);
+                    lH = cadenas.Peek();
+                    return estado121(lH);
+                default:
+                    return false;
+            }
         }
         private bool estado140(Token lH)
         {
-            return true;
+            //Ir a 159 ExprEqualsP
+            //Ir a 112  ExprComp
+            //Ir a 113 ExprComp
+            switch (lH.tipo)
+            {
+                case "ident":
+                    pilaSimbolos.Push(cadenas.Dequeue().contenido);
+                    pilaAcciones.Push(143);
+                    lH = cadenas.Peek();
+                    return estado143(lH);
+                case "int":
+                    pilaSimbolos.Push(cadenas.Dequeue().contenido);
+                    pilaAcciones.Push(117);
+                    lH = cadenas.Peek();
+                    return estado117(lH);
+                case "double":
+                    pilaSimbolos.Push(cadenas.Dequeue().contenido);
+                    pilaAcciones.Push(118);
+                    lH = cadenas.Peek();
+                    return estado118(lH);
+                case "bool":
+                    pilaSimbolos.Push(cadenas.Dequeue().contenido);
+                    pilaAcciones.Push(119);
+                    lH = cadenas.Peek();
+                    return estado119(lH);
+                case "string":
+                    pilaSimbolos.Push(cadenas.Dequeue().contenido);
+                    pilaAcciones.Push(120);
+                    lH = cadenas.Peek();
+                    return estado120(lH);
+            }
+            switch (lH.contenido)
+            {
+                case "(":
+                    pilaSimbolos.Push(cadenas.Dequeue().contenido);
+                    pilaAcciones.Push(114);
+                    lH = cadenas.Peek();
+                    return estado114(lH);
+                case "-":
+                    pilaSimbolos.Push(cadenas.Dequeue().contenido);
+                    pilaAcciones.Push(110);
+                    lH = cadenas.Peek();
+                    return estado110(lH);
+                case "!":
+                    pilaSimbolos.Push(cadenas.Dequeue().contenido);
+                    pilaAcciones.Push(111);
+                    lH = cadenas.Peek();
+                    return estado111(lH);
+                case "this":
+                    pilaSimbolos.Push(cadenas.Dequeue().contenido);
+                    pilaAcciones.Push(115);
+                    lH = cadenas.Peek();
+                    return estado115(lH);
+                case "New":
+                    pilaSimbolos.Push(cadenas.Dequeue().contenido);
+                    pilaAcciones.Push(116);
+                    lH = cadenas.Peek();
+                    return estado116(lH);
+                case "null":
+                    pilaSimbolos.Push(cadenas.Dequeue().contenido);
+                    pilaAcciones.Push(121);
+                    lH = cadenas.Peek();
+                    return estado121(lH);
+                default:
+                    return false;
+            }
         }
         private bool estado141(Token lH)
         {
-            return true;
+            //Ir a 160 ExprEqualsP
+            //Ir a 112  ExprComp
+            //Ir a 113 ExprComp
+            switch (lH.tipo)
+            {
+                case "ident":
+                    pilaSimbolos.Push(cadenas.Dequeue().contenido);
+                    pilaAcciones.Push(143);
+                    lH = cadenas.Peek();
+                    return estado143(lH);
+                case "int":
+                    pilaSimbolos.Push(cadenas.Dequeue().contenido);
+                    pilaAcciones.Push(117);
+                    lH = cadenas.Peek();
+                    return estado117(lH);
+                case "double":
+                    pilaSimbolos.Push(cadenas.Dequeue().contenido);
+                    pilaAcciones.Push(118);
+                    lH = cadenas.Peek();
+                    return estado118(lH);
+                case "bool":
+                    pilaSimbolos.Push(cadenas.Dequeue().contenido);
+                    pilaAcciones.Push(119);
+                    lH = cadenas.Peek();
+                    return estado119(lH);
+                case "string":
+                    pilaSimbolos.Push(cadenas.Dequeue().contenido);
+                    pilaAcciones.Push(120);
+                    lH = cadenas.Peek();
+                    return estado120(lH);
+            }
+            switch (lH.contenido)
+            {
+                case "(":
+                    pilaSimbolos.Push(cadenas.Dequeue().contenido);
+                    pilaAcciones.Push(114);
+                    lH = cadenas.Peek();
+                    return estado114(lH);
+                case "-":
+                    pilaSimbolos.Push(cadenas.Dequeue().contenido);
+                    pilaAcciones.Push(110);
+                    lH = cadenas.Peek();
+                    return estado110(lH);
+                case "!":
+                    pilaSimbolos.Push(cadenas.Dequeue().contenido);
+                    pilaAcciones.Push(111);
+                    lH = cadenas.Peek();
+                    return estado111(lH);
+                case "this":
+                    pilaSimbolos.Push(cadenas.Dequeue().contenido);
+                    pilaAcciones.Push(115);
+                    lH = cadenas.Peek();
+                    return estado115(lH);
+                case "New":
+                    pilaSimbolos.Push(cadenas.Dequeue().contenido);
+                    pilaAcciones.Push(116);
+                    lH = cadenas.Peek();
+                    return estado116(lH);
+                case "null":
+                    pilaSimbolos.Push(cadenas.Dequeue().contenido);
+                    pilaAcciones.Push(121);
+                    lH = cadenas.Peek();
+                    return estado121(lH);
+                default:
+                    return false;
+            }
         }
         private bool estado142(Token lH)
         {
-            return true;
+            //Reduccion 86;
+            //Reduccion 86ident
+            //Reduccion 86(
+            //Reduccion 86)
+            //Reduccion 86,
+            //Reduccion 86{
+            //Reduccion 86}
+            //Reduccion 86if
+            //Reduccion 86else
+            //Reduccion 86while
+            //Reduccion 86for
+            //Reduccion 86return 
+            //Reduccion 86break
+            //Reduccion 86Console
+            //Reduccion 86==
+            //Reduccion 86&&
+            //Reduccion 86<
+            //Reduccion 86<=
+            //Reduccion 86+
+            //Reduccion 86*
+            //Reduccion 86%
+            //Reduccion 86-
+            //Reduccion 86!
+            //Reduccion 86this
+            //Reduccion 86New
+            //Reduccion 86intConstant
+            //Reduccion 86doubleConstant
+            //Reduccion 86boolConstant
+            //Reduccion 86stringConstant
+            //Reduccion 86null
+            switch (lH.contenido)
+            {
+                case ".":
+                    pilaSimbolos.Push(cadenas.Dequeue().contenido);
+                    pilaAcciones.Push(145);
+                    lH = cadenas.Peek();
+                    return estado145(lH);
+                default:
+                    return false;
+            }
         }
         private bool estado143(Token lH)
         {
-            return true;
+            //Reduccion 94;
+            //Reduccion 94ident
+            //Reduccion 94(
+            //Reduccion 94)
+            //Reduccion 94,
+            //Reduccion 94{
+            //Reduccion 94}
+            //Reduccion 94if
+            //Reduccion 94else
+            //Reduccion 94while
+            //Reduccion 94for
+            //Reduccion 94return 
+            //Reduccion 94break
+            //Reduccion 94Console
+            //Reduccion 94 .
+            //Reduccion 94==
+            //Reduccion 94&&
+            //Reduccion 94<
+            //Reduccion 94<=
+            //Reduccion 94+
+            //Reduccion 94*
+            //Reduccion 94%
+            //Reduccion 94-
+            //Reduccion 94!
+            //Reduccion 94this
+            //Reduccion 94New
+            //Reduccion 94intConstant
+            //Reduccion 94doubleConstant
+            //Reduccion 94boolConstant
+            //Reduccion 94stringConstant
+            //Reduccion 94null
+            return false;
         }
         private bool estado144(Token lH)
         {
-            return true;
+            //Reduccion 87 ;
+            //Reduccion 87 ident
+            //Reduccion 87 (
+            //Reduccion 87 )
+            //Reduccion 87 ,
+            //Reduccion 87 {
+            //Reduccion 87 }
+            //Reduccion 87 if
+            //Reduccion 87 else
+            //Reduccion 87 while
+            //Reduccion 87 for
+            //Reduccion 87 return 
+            //Reduccion 87 break
+            //Reduccion 87 Console
+            //Reduccion 87 ==
+            //Reduccion 87 &&
+            //Reduccion 87 <
+            //Reduccion 87 <=
+            //Reduccion 87 +
+            //Reduccion 87 *
+            //Reduccion 87 %
+            //Reduccion 87 -
+            //Reduccion 87 !
+            //Reduccion 87 this
+            //Reduccion 87 New
+            //Reduccion 87 intConstant
+            //Reduccion 87 doubleConstant
+            //Reduccion 87 boolConstant
+            //Reduccion 87 stringConstant
+            //Reduccion 87 null
+            switch (lH.contenido)
+            {
+                case ".":
+                    pilaSimbolos.Push(cadenas.Dequeue().contenido);
+                    pilaAcciones.Push(145);
+                    lH = cadenas.Peek();
+                    return estado145(lH);
+                default:
+                    return false;
+            }
         }
         private bool estado145(Token lH)
         {
-            return true;
+            switch (lH.tipo)
+            {
+                case "ident":
+                    pilaSimbolos.Push(cadenas.Dequeue().contenido);
+                    pilaAcciones.Push(161);
+                    lH = cadenas.Peek();
+                    return estado161(lH);
+                default:
+                    return false;
+            }
         }
         private bool estado146(Token lH)
         {
-            return true;
+            switch (lH.contenido)
+            {
+                case ")":
+                    pilaSimbolos.Push(cadenas.Dequeue().contenido);
+                    pilaAcciones.Push(162);
+                    lH = cadenas.Peek();
+                    return estado162(lH);
+                default:
+                    return false;
+            }
         }
         private bool estado147(Token lH)
         {
-            return true;
+            switch (lH.tipo)
+            {
+                case "ident":
+                    pilaSimbolos.Push(cadenas.Dequeue().contenido);
+                    pilaAcciones.Push(163);
+                    lH = cadenas.Peek();
+                    return estado163(lH);
+                default:
+                    return false;
+            }
         }
         private bool estado148(Token lH)
         {
-            return true;
+            switch (lH.contenido)
+            {
+                case ")":
+                    pilaSimbolos.Push(cadenas.Dequeue().contenido);
+                    pilaAcciones.Push(164);
+                    lH = cadenas.Peek();
+                    return estado164(lH);
+                default:
+                    return false;
+            }
         }
         private bool estado149(Token lH)
         {
-            return true;
+            switch (lH.contenido)
+            {
+                case ")":
+                    pilaSimbolos.Push(cadenas.Dequeue().contenido);
+                    pilaAcciones.Push(165);
+                    lH = cadenas.Peek();
+                    return estado165(lH);
+                default:
+                    return false;
+            }
         }
         private bool estado150(Token lH)
         {
-            return true;
+            switch (lH.contenido)
+            {
+                case ";":
+                    pilaSimbolos.Push(cadenas.Dequeue().contenido);
+                    pilaAcciones.Push(166);
+                    lH = cadenas.Peek();
+                    return estado166(lH);
+                default:
+                    return false;
+            }
         }
         private bool estado151(Token lH)
         {
+            //REDUCCION A 67 CON ;
+            //REDUCCION A 67 CON IDENT 
+            //REDUCCION A 67 CON (
+            //REDUCCION A 67 CON {
+            //REDUCCION A 67 CON }
+            //REDUCCION A 67 CON if
+            //REDUCCION A 67 CON else
+            //REDUCCION A 67 CON while
+            //REDUCCION A 67 CON for
+            //REDUCCION A 67 CON return
+            //REDUCCION A 67 CON break
+            //REDUCCION A 67 CON Console
+            //REDUCCION A 67 CON -
+            //REDUCCION A 67 CON !
+            //REDUCCION A 67 CON this
+            //REDUCCION A 67 CON new
+            //REDUCCION A 67 CON intConstant
+            //REDUCCION A 67 CON doubleConstant
+            //REDUCCION A 67 CON boolconstant
+            //REDUCCION A 67 CON stringconstant
+            //REDUCCION A 67 CON null
             return true;
         }
         private bool estado152(Token lH)
         {
-            return true;
+            switch (lH.contenido)
+            {
+                case "(":
+                    pilaSimbolos.Push(cadenas.Dequeue().contenido);
+                    pilaAcciones.Push(167);
+                    lH = cadenas.Peek();
+                    return estado167(lH);
+                default:
+                    return false;
+            }
         }
         private bool estado153(Token lH)
         {
-            return true;
+            //REDUCCION A 72 CON ;
+            //REDUCCION A 72 CON IDENT
+            //REDUCCION A 72 CON (
+            //REDUCCION A 72 CON )
+            //REDUCCION A 72 CON ,
+            //REDUCCION A 72 CON {
+            //REDUCCION A 72 CON }
+            //REDUCCION A 72 CON if
+            //REDUCCION A 72 CON else
+            //REDUCCION A 72 CON for
+            //REDUCCION A 72 CON return
+            //REDUCCION A 72 CON break
+            //REDUCCION A 72 CON console
+
+            //REDUCCION A 72 CON -
+            //REDUCCION A 72 CON !
+            //REDUCCION A 72 CON new
+            //REDUCCION A 72 CON intconstant
+            //REDUCCION A 72 CON doubleconstant
+            //REDUCCION A 72 CON booLConstant
+            //REDUCCION A 72 CON stringConstant
+            //REDUCCION A 72 CON null
+
+            switch (lH.contenido)
+            {
+                case "==":
+                    pilaSimbolos.Push(cadenas.Dequeue().contenido);
+                    pilaAcciones.Push(135);
+                    lH = cadenas.Peek();
+                    return estado135(lH);
+                default:
+                    return false;
+            }
+
         }
         private bool estado154(Token lH)
         {
-            return true;
+            //Reduccion 74 ;
+            //Reduccion 74 ident
+            //Reduccion 74 (
+            //Reduccion 74 )
+            //Reduccion 74 ,
+            //Reduccion 74 {
+            //Reduccion 74 }
+            //Reduccion 74 if
+            //Reduccion 74 else
+            //Reduccion 74 while
+            //Reduccion 74 for
+            //Reduccion 74 return 
+            //Reduccion 74 break
+            //Reduccion 74 Console
+            //REDUCCION 74 ==
+
+            //Reduccion 74 -
+            //Reduccion 74 !
+            //Reduccion 74 this
+            //Reduccion 74 New
+            //Reduccion 74 intConstant
+            //Reduccion 74 doubleConstant
+            //Reduccion 74 boolConstant
+            //Reduccion 74 stringConstant
+            //Reduccion 74 null
+            switch (lH.contenido)
+            {
+                case "&&":
+                    pilaSimbolos.Push(cadenas.Dequeue().contenido);
+                    pilaAcciones.Push(136);
+                    lH = cadenas.Peek();
+                    return estado136(lH);
+                default:
+                    return false;
+            }
         }
         private bool estado155(Token lH)
         {
-            return true;
+            //Reduccion 76 ;
+            //Reduccion 76 ident
+
+            //Reduccion 76 ;
+            //Reduccion 76 ident
+            //Reduccion 76 (
+            //Reduccion 76 )
+            //Reduccion 76 ,
+            //Reduccion 76 {
+            //Reduccion 76 }
+            //Reduccion 76 if
+            //Reduccion 76 else
+            //Reduccion 76 while
+            //Reduccion 76 for
+            //Reduccion 76 return 
+            //Reduccion 76 break
+            //Reduccion 76 Console
+
+            //Reduccion 76 ==
+            //Reduccion 76 &&
+
+            //Reduccion 76 -
+            //Reduccion 76 !
+            //Reduccion 76 this
+            //Reduccion 76 New
+            //Reduccion 76 intConstant
+            //Reduccion 76 doubleConstant
+            //Reduccion 76 boolConstant
+            //Reduccion 76 stringConstant
+            //Reduccion 76 null
+
+            switch (lH.contenido)
+            {
+                case "<":
+                    pilaSimbolos.Push(cadenas.Dequeue().contenido);
+                    pilaAcciones.Push(137);
+                    lH = cadenas.Peek();
+                    return estado137(lH);
+                case "<=":
+                    pilaSimbolos.Push(cadenas.Dequeue().contenido);
+                    pilaAcciones.Push(138);
+                    lH = cadenas.Peek();
+                    return estado138(lH);
+                default:
+                    return false;
+            }
         }
         private bool estado156(Token lH)
         {
-            return true;
+            //Reduccion 78 ;
+            //Reduccion 78 ident
+            //Reduccion 78 (
+            //Reduccion 78 )
+            //Reduccion 78 ,
+            //Reduccion 78 {
+            //Reduccion 78 }
+            //Reduccion 78 if
+            //Reduccion 78 else
+            //Reduccion 78 while
+            //Reduccion 78 for
+            //Reduccion 78 return 
+            //Reduccion 78 break
+            //Reduccion 78 Console
+            //Reduccion 78 ==
+            //Reduccion 78 &&
+            //Reduccion 78 <
+            //Reduccion 78 <=
+
+            //Reduccion 78 -
+            //Reduccion 78 !
+            //Reduccion 78 this
+            //Reduccion 78 New
+            //Reduccion 78 intConstant
+            //Reduccion 78 doubleConstant
+            //Reduccion 78 boolConstant
+            //Reduccion 78 stringConstant
+            //Reduccion 78 null
+
+            switch (lH.contenido)
+            {
+                case "+":
+                    pilaSimbolos.Push(cadenas.Dequeue().contenido);
+                    pilaAcciones.Push(139);
+                    lH = cadenas.Peek();
+                    return estado139(lH);
+                default:
+                    return false;
+            }
         }
         private bool estado157(Token lH)
         {
-            return true;
+            //Reduccion 79 ;
+            //Reduccion 79 ident
+            //Reduccion 79 (
+            //Reduccion 79 )
+            //Reduccion 79 ,
+            //Reduccion 79 {
+            //Reduccion 79 }
+            //Reduccion 79 if
+            //Reduccion 79 else
+            //Reduccion 79 while
+            //Reduccion 79 for
+            //Reduccion 79 return 
+            //Reduccion 79 break
+            //Reduccion 79 Console
+            //Reduccion 79 ==
+            //Reduccion 79 &&
+            //Reduccion 79 <
+            //Reduccion 79 <=
+
+            //Reduccion 79 -
+            //Reduccion 79 !
+            //Reduccion 79 this
+            //Reduccion 79 New
+            //Reduccion 79 intConstant
+            //Reduccion 79 doubleConstant
+            //Reduccion 79 boolConstant
+            //Reduccion 79 stringConstant
+            //Reduccion 79 null
+
+            switch (lH.contenido)
+            {
+                case "+":
+                    pilaSimbolos.Push(cadenas.Dequeue().contenido);
+                    pilaAcciones.Push(139);
+                    lH = cadenas.Peek();
+                    return estado139(lH);
+                default:
+                    return false;
+            }
         }
         private bool estado158(Token lH)
         {
-            return true;
+            //Reduccion 81 ;
+            //Reduccion 81 ident
+            //Reduccion 81 (
+            //Reduccion 81 )
+            //Reduccion 81 ,
+            //Reduccion 81 {
+            //Reduccion 81 }
+            //Reduccion 81 if
+            //Reduccion 81 else
+            //Reduccion 81 while
+            //Reduccion 81 for
+            //Reduccion 81 return 
+            //Reduccion 81 break
+            //Reduccion 81 Console
+            //Reduccion 81 ==
+            //Reduccion 81 &&
+            //Reduccion 81 <
+            //Reduccion 81 <=
+            //Reduccion 81 +
+
+            //Reduccion 81 !
+            //Reduccion 81 this
+            //Reduccion 81 New
+            //Reduccion 81 intConstant
+            //Reduccion 81 doubleConstant
+            //Reduccion 81 boolConstant
+            //Reduccion 81 stringConstant
+            //Reduccion 81 null
+
+            switch (lH.contenido)
+            {
+                case "*":
+                    pilaSimbolos.Push(cadenas.Dequeue().contenido);
+                    pilaAcciones.Push(140);
+                    lH = cadenas.Peek();
+                    return estado140(lH);
+                case "%":
+                    pilaSimbolos.Push(cadenas.Dequeue().contenido);
+                    pilaAcciones.Push(141);
+                    lH = cadenas.Peek();
+                    return estado141(lH);
+                default:
+                    return false;
+            }
+
         }
         private bool estado159(Token lH)
         {
+
+            //Reduccion 83 ;
+            //Reduccion 83 ident
+            //Reduccion 83 (
+            //Reduccion 83 )
+            //Reduccion 83 ,
+            //Reduccion 83 {
+            //Reduccion 83 }
+            //Reduccion 83 if
+            //Reduccion 83 else
+            //Reduccion 83 while
+            //Reduccion 83 for
+            //Reduccion 83 return 
+            //Reduccion 83 break
+            //Reduccion 83 Console
+            //Reduccion 83 ==
+            //Reduccion 83 &&
+            //Reduccion 83 <
+            //Reduccion 83 <=
+            //Reduccion 83 +
+            //Reduccion 83 *
+            //Reduccion 83 %
+            //Reduccion 83 -
+            //Reduccion 83 !
+            //Reduccion 83 this
+            //Reduccion 83 New
+            //Reduccion 83 intConstant
+            //Reduccion 83 doubleConstant
+            //Reduccion 83 boolConstant
+            //Reduccion 83 stringConstant
+            //Reduccion 83 null
             return true;
         }
         private bool estado160(Token lH)
         {
+            //Reduccion 84 ;
+            //Reduccion 84 ident
+            //Reduccion 84 (
+            //Reduccion 84 )
+            //Reduccion 84 ,
+            //Reduccion 84 {
+            //Reduccion 84 }
+            //Reduccion 84 if
+            //Reduccion 84 else
+            //Reduccion 84 while
+            //Reduccion 84 for
+            //Reduccion 84 return 
+            //Reduccion 84 break
+            //Reduccion 84 Console
+            //Reduccion 84 ==
+            //Reduccion 84 &&
+            //Reduccion 84 <
+            //Reduccion 84 <=
+            //Reduccion 84 +
+            //Reduccion 84 *
+            //Reduccion 84 %
+            //Reduccion 84 -
+            //Reduccion 84 !
+            //Reduccion 84 this
+            //Reduccion 84 New
+            //Reduccion 84 intConstant
+            //Reduccion 84 doubleConstant
+            //Reduccion 84 boolConstant
+            //Reduccion 84 stringConstant
+            //Reduccion 84 null
             return true;
         }
         private bool estado161(Token lH)
         {
-            return true;
+            //Reduccion 90 ;
+            //Reduccion 90 ident
+            //Reduccion 90 (
+            //Reduccion 90 )
+            //Reduccion 90 ,
+            //Reduccion 90 {
+            //Reduccion 90 }
+            //Reduccion 90 if
+            //Reduccion 90 else
+            //Reduccion 90 while
+            //Reduccion 90 for
+            //Reduccion 90 return 
+            //Reduccion 90 break
+            //Reduccion 90 Console
+            //reducción .
+
+            //Reduccion 90 ==
+            //Reduccion 90 &&
+            //Reduccion 90 <
+            //Reduccion 90 <=
+            //Reduccion 90 +
+            //Reduccion 90 *
+            //Reduccion 90 %
+            //Reduccion 90 -
+            //Reduccion 90 !
+            //Reduccion 90 this
+            //Reduccion 90 New
+            //Reduccion 90 intConstant
+            //Reduccion 90 doubleConstant
+            //Reduccion 90 boolConstant
+            //Reduccion 90 stringConstant
+            //Reduccion 90 null
+
+            switch (lH.contenido)
+            {
+                case "=":
+                    pilaSimbolos.Push(cadenas.Dequeue().contenido);
+                    pilaAcciones.Push(168);
+                    lH = cadenas.Peek();
+                    return estado168(lH);
+                default:
+                    return false;
+            }
         }
         private bool estado162(Token lH)
         {
+            //Reduccion 92 ;
+            //Reduccion 92 ident
+            //Reduccion 92 (
+            //Reduccion 92 )
+            //Reduccion 92 ,
+            //Reduccion 92 {
+            //Reduccion 92 }
+            //Reduccion 92 if
+            //Reduccion 92 else
+            //Reduccion 92 while
+            //Reduccion 92 for
+            //Reduccion 92 return 
+            //Reduccion 92 break
+            //Reduccion 92 Console
+            //reduccion 92 .
+
+            //Reduccion 92 ==
+            //Reduccion 92 &&
+            //Reduccion 92 <
+            //Reduccion 92 <=
+            //Reduccion 92 +
+            //Reduccion 92 *
+            //Reduccion 92 %
+            //Reduccion 92 -
+            //Reduccion 92 !
+            //Reduccion 92 this
+            //Reduccion 92 New
+            //Reduccion 92 intConstant
+            //Reduccion 92 doubleConstant
+            //Reduccion 92 boolConstant
+            //Reduccion 92 stringConstant
+            //Reduccion 92 null
             return true;
         }
         private bool estado163(Token lH)
         {
-            return true;
+
+            switch (lH.contenido)
+            {
+                case ")":
+                    pilaSimbolos.Push(cadenas.Dequeue().contenido);
+                    pilaAcciones.Push(169);
+                    lH = cadenas.Peek();
+                    return estado169(lH);
+                default:
+                    return false;
+            }
         }
         private bool estado164(Token lH)
         {
-            return true;
+
+            //reduccion 61 con ;
+
+            //IR A 95 CON Stmtblock
+            //IR A 170 CON Stmt
+            //IR A 90 CON Stmt_P
+            //IR A 88 CON IfStmt
+            //IR A 89 CON WhileStmt
+            //IR A 91 CON forStmt 
+            //IR A 93 CON returnStmt 
+            //IR A 92 CON BreakStmt 
+            //IR A 94 CON PrintStmt 
+            //IR A 98 CON Expr 
+            //IR A 104 CON ExprOr 
+            //IR A 105 CON ExprOrP 
+            //IR A 106 CON ExprAnd 
+            //IR A 107 CON ExprAndP 
+            //IR A 108 CON ExprEquals
+            //IR A 109 CON ExprEqualsP
+            //IR A 112 CON ExprComp
+            //IR A 113 CON ExprCompP
+
+
+            switch (lH.tipo)
+            {
+                case "ident":
+                    pilaSimbolos.Push(cadenas.Dequeue().contenido);
+                    pilaAcciones.Push(103);
+                    lH = cadenas.Peek();
+                    return estado103(lH);
+                case "int":
+                    pilaSimbolos.Push(cadenas.Dequeue().contenido);
+                    pilaAcciones.Push(117);
+                    lH = cadenas.Peek();
+                    return estado117(lH);
+                case "double":
+                    pilaSimbolos.Push(cadenas.Dequeue().contenido);
+                    pilaAcciones.Push(118);
+                    lH = cadenas.Peek();
+                    return estado118(lH);
+                case "bool":
+                    pilaSimbolos.Push(cadenas.Dequeue().contenido);
+                    pilaAcciones.Push(119);
+                    lH = cadenas.Peek();
+                    return estado119(lH);
+                case "string":
+                    pilaSimbolos.Push(cadenas.Dequeue().contenido);
+                    pilaAcciones.Push(120);
+                    lH = cadenas.Peek();
+                    return estado120(lH);
+
+            }
+            switch (lH.contenido)
+            {
+                case "(":
+                    pilaSimbolos.Push(cadenas.Dequeue().contenido);
+                    pilaAcciones.Push(114);
+                    lH = cadenas.Peek();
+                    return estado114(lH);
+                case "{":
+                    pilaSimbolos.Push(cadenas.Dequeue().contenido);
+                    pilaAcciones.Push(68);
+                    lH = cadenas.Peek();
+                    return estado68(lH);
+                case "if":
+                    pilaSimbolos.Push(cadenas.Dequeue().contenido);
+                    pilaAcciones.Push(96);
+                    lH = cadenas.Peek();
+                    return estado96(lH);
+                case "while":
+                    pilaSimbolos.Push(cadenas.Dequeue().contenido);
+                    pilaAcciones.Push(97);
+                    lH = cadenas.Peek();
+                    return estado97(lH);
+                case "for":
+                    pilaSimbolos.Push(cadenas.Dequeue().contenido);
+                    pilaAcciones.Push(99);
+                    lH = cadenas.Peek();
+                    return estado99(lH);
+                case "return":
+                    pilaSimbolos.Push(cadenas.Dequeue().contenido);
+                    pilaAcciones.Push(101);
+                    lH = cadenas.Peek();
+                    return estado101(lH);
+                case "break":
+                    pilaSimbolos.Push(cadenas.Dequeue().contenido);
+                    pilaAcciones.Push(100);
+                    lH = cadenas.Peek();
+                    return estado100(lH);
+                case "Console":
+                    pilaSimbolos.Push(cadenas.Dequeue().contenido);
+                    pilaAcciones.Push(102);
+                    lH = cadenas.Peek();
+                    return estado102(lH);
+                case "-":
+                    pilaSimbolos.Push(cadenas.Dequeue().contenido);
+                    pilaAcciones.Push(110);
+                    lH = cadenas.Peek();
+                    return estado110(lH);
+                case "!":
+                    pilaSimbolos.Push(cadenas.Dequeue().contenido);
+                    pilaAcciones.Push(111);
+                    lH = cadenas.Peek();
+                    return estado111(lH);
+                case "this":
+                    pilaSimbolos.Push(cadenas.Dequeue().contenido);
+                    pilaAcciones.Push(115);
+                    lH = cadenas.Peek();
+                    return estado115(lH);
+                case "New":
+                    pilaSimbolos.Push(cadenas.Dequeue().contenido);
+                    pilaAcciones.Push(116);
+                    lH = cadenas.Peek();
+                    return estado116(lH);
+                case "null":
+                    pilaSimbolos.Push(cadenas.Dequeue().contenido);
+                    pilaAcciones.Push(121);
+                    lH = cadenas.Peek();
+                    return estado121(lH);
+                default:
+                    return false;
+            }
         }
         private bool estado165(Token lH)
         {
-            return true;
+            //reduccion 61 con ;
+
+            //IR A 95 CON Stmtblock
+            //IR A 171 CON Stmt
+            //IR A 90 CON Stmt_P
+            //IR A 88 CON IfStmt
+            //IR A 89 CON WhileStmt
+            //IR A 91 CON forStmt 
+            //IR A 93 CON returnStmt 
+            //IR A 92 CON BreakStmt 
+            //IR A 94 CON PrintStmt 
+            //IR A 98 CON Expr 
+            //IR A 104 CON ExprOr 
+            //IR A 105 CON ExprOrP 
+            //IR A 106 CON ExprAnd 
+            //IR A 107 CON ExprAndP 
+            //IR A 108 CON ExprEquals
+            //IR A 109 CON ExprEqualsP
+            //IR A 112 CON ExprComp
+            //IR A 113 CON ExprCompP
+
+
+            switch (lH.tipo)
+            {
+                case "ident":
+                    pilaSimbolos.Push(cadenas.Dequeue().contenido);
+                    pilaAcciones.Push(103);
+                    lH = cadenas.Peek();
+                    return estado103(lH);
+                case "int":
+                    pilaSimbolos.Push(cadenas.Dequeue().contenido);
+                    pilaAcciones.Push(117);
+                    lH = cadenas.Peek();
+                    return estado117(lH);
+                case "double":
+                    pilaSimbolos.Push(cadenas.Dequeue().contenido);
+                    pilaAcciones.Push(118);
+                    lH = cadenas.Peek();
+                    return estado118(lH);
+                case "bool":
+                    pilaSimbolos.Push(cadenas.Dequeue().contenido);
+                    pilaAcciones.Push(119);
+                    lH = cadenas.Peek();
+                    return estado119(lH);
+                case "string":
+                    pilaSimbolos.Push(cadenas.Dequeue().contenido);
+                    pilaAcciones.Push(120);
+                    lH = cadenas.Peek();
+                    return estado120(lH);
+
+            }
+            switch (lH.contenido)
+            {
+                case "(":
+                    pilaSimbolos.Push(cadenas.Dequeue().contenido);
+                    pilaAcciones.Push(114);
+                    lH = cadenas.Peek();
+                    return estado114(lH);
+                case "{":
+                    pilaSimbolos.Push(cadenas.Dequeue().contenido);
+                    pilaAcciones.Push(68);
+                    lH = cadenas.Peek();
+                    return estado68(lH);
+                case "if":
+                    pilaSimbolos.Push(cadenas.Dequeue().contenido);
+                    pilaAcciones.Push(96);
+                    lH = cadenas.Peek();
+                    return estado96(lH);
+                case "while":
+                    pilaSimbolos.Push(cadenas.Dequeue().contenido);
+                    pilaAcciones.Push(97);
+                    lH = cadenas.Peek();
+                    return estado97(lH);
+                case "for":
+                    pilaSimbolos.Push(cadenas.Dequeue().contenido);
+                    pilaAcciones.Push(99);
+                    lH = cadenas.Peek();
+                    return estado99(lH);
+                case "return":
+                    pilaSimbolos.Push(cadenas.Dequeue().contenido);
+                    pilaAcciones.Push(101);
+                    lH = cadenas.Peek();
+                    return estado101(lH);
+                case "break":
+                    pilaSimbolos.Push(cadenas.Dequeue().contenido);
+                    pilaAcciones.Push(100);
+                    lH = cadenas.Peek();
+                    return estado100(lH);
+                case "Console":
+                    pilaSimbolos.Push(cadenas.Dequeue().contenido);
+                    pilaAcciones.Push(102);
+                    lH = cadenas.Peek();
+                    return estado102(lH);
+                case "-":
+                    pilaSimbolos.Push(cadenas.Dequeue().contenido);
+                    pilaAcciones.Push(110);
+                    lH = cadenas.Peek();
+                    return estado110(lH);
+                case "!":
+                    pilaSimbolos.Push(cadenas.Dequeue().contenido);
+                    pilaAcciones.Push(111);
+                    lH = cadenas.Peek();
+                    return estado111(lH);
+                case "this":
+                    pilaSimbolos.Push(cadenas.Dequeue().contenido);
+                    pilaAcciones.Push(115);
+                    lH = cadenas.Peek();
+                    return estado115(lH);
+                case "New":
+                    pilaSimbolos.Push(cadenas.Dequeue().contenido);
+                    pilaAcciones.Push(116);
+                    lH = cadenas.Peek();
+                    return estado116(lH);
+                case "null":
+                    pilaSimbolos.Push(cadenas.Dequeue().contenido);
+                    pilaAcciones.Push(121);
+                    lH = cadenas.Peek();
+                    return estado121(lH);
+                default:
+                    return false;
+            }
         }
         private bool estado166(Token lH)
         {
-            return true;
+            //IR A EXPR CON 172
+            //IR A EXPROR CON 104
+            //IR A 105 CON EXPRORP
+            //IR A EXPRAND CON 106
+            //IR  A EXPRANDP CON 107
+            //IR A EXPREQUALS CON 108
+            //IR A EXPREQUALSP CON 109
+            //IR A EXPRCOMP CON 112
+            //IR A EXPRCOMP_P CON 113
+
+
+            switch (lH.tipo)
+            {
+                case "ident":
+                    pilaSimbolos.Push(cadenas.Dequeue().contenido);
+                    pilaAcciones.Push(103);
+                    lH = cadenas.Peek();
+                    return estado103(lH);
+                case "int":
+                    pilaSimbolos.Push(cadenas.Dequeue().contenido);
+                    pilaAcciones.Push(117);
+                    lH = cadenas.Peek();
+                    return estado117(lH);
+                case "double":
+                    pilaSimbolos.Push(cadenas.Dequeue().contenido);
+                    pilaAcciones.Push(118);
+                    lH = cadenas.Peek();
+                    return estado118(lH);
+                case "bool":
+                    pilaSimbolos.Push(cadenas.Dequeue().contenido);
+                    pilaAcciones.Push(119);
+                    lH = cadenas.Peek();
+                    return estado119(lH);
+                case "string":
+                    pilaSimbolos.Push(cadenas.Dequeue().contenido);
+                    pilaAcciones.Push(120);
+                    lH = cadenas.Peek();
+                    return estado120(lH);
+            }
+            switch (lH.contenido)
+            {
+                case "(":
+                    pilaSimbolos.Push(cadenas.Dequeue().contenido);
+                    pilaAcciones.Push(114);
+                    lH = cadenas.Peek();
+                    return estado114(lH);
+                case "-":
+                    pilaSimbolos.Push(cadenas.Dequeue().contenido);
+                    pilaAcciones.Push(110);
+                    lH = cadenas.Peek();
+                    return estado110(lH);
+                case "!":
+                    pilaSimbolos.Push(cadenas.Dequeue().contenido);
+                    pilaAcciones.Push(111);
+                    lH = cadenas.Peek();
+                    return estado111(lH);
+                case "this":
+                    pilaSimbolos.Push(cadenas.Dequeue().contenido);
+                    pilaAcciones.Push(115);
+                    lH = cadenas.Peek();
+                    return estado115(lH);
+                case "New":
+                    pilaSimbolos.Push(cadenas.Dequeue().contenido);
+                    pilaAcciones.Push(116);
+                    lH = cadenas.Peek();
+                    return estado116(lH);
+                case "null":
+                    pilaSimbolos.Push(cadenas.Dequeue().contenido);
+                    pilaAcciones.Push(121);
+                    lH = cadenas.Peek();
+                    return estado121(lH);
+
+                default:
+                    return false;
+            }
         }
         private bool estado167(Token lH)
         {
-            return true;
+            //IR A EXPR CON 173
+            //IR A EXPROR CON 104
+            //IR A 105 CON EXPRORP
+            //IR A EXPRAND CON 106
+            //IR  A EXPRANDP CON 107
+            //IR A EXPREQUALS CON 108
+            //IR A EXPREQUALSP CON 109
+            //IR A EXPRCOMP CON 112
+            //IR A EXPRCOMP_P CON 113
+
+
+            switch (lH.tipo)
+            {
+                case "ident":
+                    pilaSimbolos.Push(cadenas.Dequeue().contenido);
+                    pilaAcciones.Push(103);
+                    lH = cadenas.Peek();
+                    return estado103(lH);
+                case "int":
+                    pilaSimbolos.Push(cadenas.Dequeue().contenido);
+                    pilaAcciones.Push(117);
+                    lH = cadenas.Peek();
+                    return estado117(lH);
+                case "double":
+                    pilaSimbolos.Push(cadenas.Dequeue().contenido);
+                    pilaAcciones.Push(118);
+                    lH = cadenas.Peek();
+                    return estado118(lH);
+                case "bool":
+                    pilaSimbolos.Push(cadenas.Dequeue().contenido);
+                    pilaAcciones.Push(119);
+                    lH = cadenas.Peek();
+                    return estado119(lH);
+                case "string":
+                    pilaSimbolos.Push(cadenas.Dequeue().contenido);
+                    pilaAcciones.Push(120);
+                    lH = cadenas.Peek();
+                    return estado120(lH);
+            }
+            switch (lH.contenido)
+            {
+                case "(":
+                    pilaSimbolos.Push(cadenas.Dequeue().contenido);
+                    pilaAcciones.Push(114);
+                    lH = cadenas.Peek();
+                    return estado114(lH);
+                case "-":
+                    pilaSimbolos.Push(cadenas.Dequeue().contenido);
+                    pilaAcciones.Push(110);
+                    lH = cadenas.Peek();
+                    return estado110(lH);
+                case "!":
+                    pilaSimbolos.Push(cadenas.Dequeue().contenido);
+                    pilaAcciones.Push(111);
+                    lH = cadenas.Peek();
+                    return estado111(lH);
+                case "this":
+                    pilaSimbolos.Push(cadenas.Dequeue().contenido);
+                    pilaAcciones.Push(115);
+                    lH = cadenas.Peek();
+                    return estado115(lH);
+                case "New":
+                    pilaSimbolos.Push(cadenas.Dequeue().contenido);
+                    pilaAcciones.Push(116);
+                    lH = cadenas.Peek();
+                    return estado116(lH);
+                case "null":
+                    pilaSimbolos.Push(cadenas.Dequeue().contenido);
+                    pilaAcciones.Push(121);
+                    lH = cadenas.Peek();
+                    return estado121(lH);
+
+                default:
+                    return false;
+            }
         }
         private bool estado168(Token lH)
         {
-            return true;
+            //IR A 174 CON EXPRCOMP_P
+
+            switch (lH.contenido)
+            {
+                case "(":
+                    pilaSimbolos.Push(cadenas.Dequeue().contenido);
+                    pilaAcciones.Push(114);
+                    lH = cadenas.Peek();
+                    return estado114(lH);
+                case "this":
+                    pilaSimbolos.Push(cadenas.Dequeue().contenido);
+                    pilaAcciones.Push(115);
+                    lH = cadenas.Peek();
+                    return estado115(lH);
+                case "New":
+                    pilaSimbolos.Push(cadenas.Dequeue().contenido);
+                    pilaAcciones.Push(116);
+                    lH = cadenas.Peek();
+                    return estado116(lH);
+                case "null":
+                    pilaSimbolos.Push(cadenas.Dequeue().contenido);
+                    pilaAcciones.Push(121);
+                    lH = cadenas.Peek();
+                    return estado121(lH);
+            }
+
+            switch (lH.tipo)
+            {
+                case "ident":
+                    pilaSimbolos.Push(cadenas.Dequeue().contenido);
+                    pilaAcciones.Push(103);
+                    lH = cadenas.Peek();
+                    return estado103(lH);
+                case "int":
+                    pilaSimbolos.Push(cadenas.Dequeue().contenido);
+                    pilaAcciones.Push(117);
+                    lH = cadenas.Peek();
+                    return estado117(lH);
+                case "double":
+                    pilaSimbolos.Push(cadenas.Dequeue().contenido);
+                    pilaAcciones.Push(118);
+                    lH = cadenas.Peek();
+                    return estado118(lH);
+                case "bool":
+                    pilaSimbolos.Push(cadenas.Dequeue().contenido);
+                    pilaAcciones.Push(119);
+                    lH = cadenas.Peek();
+                    return estado119(lH);
+                case "string":
+                    pilaSimbolos.Push(cadenas.Dequeue().contenido);
+                    pilaAcciones.Push(120);
+                    lH = cadenas.Peek();
+                    return estado120(lH);
+                default:
+                    return false;
+            }
         }
         private bool estado169(Token lH)
         {
+            //Reduccion 95 ;
+            //Reduccion 95 ident
+            //Reduccion 95 (
+            //Reduccion 95 )
+            //Reduccion 95 ,
+            //Reduccion 95 {
+            //Reduccion 95 }
+            //Reduccion 95 if
+            //Reduccion 95 else
+            //Reduccion 95 while
+            //Reduccion 95 for
+            //Reduccion 95 return 
+            //Reduccion 95 break
+            //Reduccion 95 Console
+            //REduccion 95 .
+
+            //Reduccion 95 ==
+            //Reduccion 95 &&
+            //Reduccion 95 <
+            //Reduccion 95 <=
+            //Reduccion 95 +
+            //Reduccion 95 *
+            //Reduccion 95 %
+            //Reduccion 95 -
+            //Reduccion 95 !
+            //Reduccion 95 this
+            //Reduccion 95 New
+            //Reduccion 95 intConstant
+            //Reduccion 95 doubleConstant
+            //Reduccion 95 boolConstant
+            //Reduccion 95 stringConstant
+            //Reduccion 95 null
             return true;
         }
         private bool estado170(Token lH)
         {
+            //Reduccion 64 ;
+            //Reduccion 64 ident
+            //Reduccion 64 (
+            //Reduccion 64 ,
+            //Reduccion 64 {
+            //Reduccion 64 }
+            //Reduccion 64 if
+
+            //COLISION (DESPLAZAMIENTO A 176 / REDUCCION A 64 ) CON ELSE
+
+            //Reduccion 64 while
+            //Reduccion 64 for
+            //Reduccion 64 return 
+            //Reduccion 64 break
+            //Reduccion 64 Console
+
+            //Reduccion 64 -
+            //Reduccion 64 !
+            //Reduccion 64 this
+            //Reduccion 64 New
+            //Reduccion 64 intConstant
+            //Reduccion 64 doubleConstant
+            //Reduccion 64 boolConstant
+            //Reduccion 64 stringConstant
+            //Reduccion 64 null
             return true;
         }
         private bool estado171(Token lH)
         {
+            //Reduccion 65 ;
+            //Reduccion 65 ident
+            //Reduccion 65 (
+
+            //Reduccion 65 else
+            //Reduccion 65 while
+            //Reduccion 65 for
+            //Reduccion 65 return 
+            //Reduccion 65 break
+            //Reduccion 65 Console
+
+            //Reduccion 65 -
+            //Reduccion 65 !
+            //Reduccion 65 this
+            //Reduccion 65 New
+            //Reduccion 65 intConstant
+            //Reduccion 65 doubleConstant
+            //Reduccion 65 boolConstant
+            //Reduccion 65 stringConstant
+            //Reduccion 65 null
+
             return true;
         }
         private bool estado172(Token lH)
         {
-            return true;
+
+            switch (lH.contenido)
+            {
+                case ";":
+                    pilaSimbolos.Push(cadenas.Dequeue().contenido);
+                    pilaAcciones.Push(177);
+                    lH = cadenas.Peek();
+                    return estado177(lH);
+                default:
+                    return false;
+            }
         }
         private bool estado173(Token lH)
         {
-            return true;
+            //Reducción 71 con )
+
+            //IR A 178 CON PRINT STMT
+
+
+            switch (lH.contenido)
+            {
+                case ",":
+                    pilaSimbolos.Push(cadenas.Dequeue().contenido);
+                    pilaAcciones.Push(179);
+                    lH = cadenas.Peek();
+                    return estado179(lH);
+                default:
+                    return false;
+            }
         }
         private bool estado174(Token lH)
         {
+            //Reduccion 89 ;
+            //Reduccion 89 ident
+            //Reduccion 89 (
+            //Reduccion 89 )
+            //Reduccion 89 ,
+            //Reduccion 89 {
+            //Reduccion 89 }
+            //Reduccion 89 if
+            //Reduccion 89 else
+            //Reduccion 89 while
+            //Reduccion 89 for
+            //Reduccion 89 return 
+            //Reduccion 89 break
+            //Reduccion 89 Console
+            //REDUCCION 89 .
+
+            //Reduccion 89 ==
+            //Reduccion 89 &&
+            //Reduccion 89 <
+            //Reduccion 89 <=
+            //Reduccion 89 +
+            //Reduccion 89 *
+            //Reduccion 89 %
+            //Reduccion 89 -
+            //Reduccion 89 !
+            //Reduccion 89 this
+            //Reduccion 89 New
+            //Reduccion 89 intConstant
+            //Reduccion 89 doubleConstant
+            //Reduccion 89 boolConstant
+            //Reduccion 89 stringConstant
+            //Reduccion 89 null
+
             return true;
         }
         private bool estado175(Token lH)
         {
+
+            //Reduccion 62 ;
+            //Reduccion 62 ident
+            //Reduccion 62 (
+
+            //Reduccion 62 {
+            //Reduccion 62 }
+            //Reduccion 62 if
+            //Reduccion 62 else
+            //Reduccion 62 while
+            //Reduccion 62 for
+            //Reduccion 62 return 
+            //Reduccion 62 break
+            //Reduccion 62 Console
+
+            //Reduccion 62 -
+            //Reduccion 62 !
+            //Reduccion 62 this
+            //Reduccion 62 New
+            //Reduccion 62 intConstant
+            //Reduccion 62 doubleConstant
+            //Reduccion 62 boolConstant
+            //Reduccion 62 stringConstant
+            //Reduccion 62 null
+
             return true;
         }
         private bool estado176(Token lH)
         {
-            return true;
+
+            //Reducción 61 ;
+
+            //IR A 95 StmtBlock
+            //iR A 180 Stmt
+            //iR A 90 Stmt_P
+            //iR A 88 IFStmt
+            //iR A 89 WhileStmt
+            //iR A 91 forStmt
+            //iR A 93 ReturnStmt
+            //iR A 94 PrintStmt
+
+            //iR A 98 Expr
+            //iR A 104 ExprOr
+            //iR A 105 ExprP
+            //iR A 106 ExprPAnd
+            //iR A 107 ExprPAndP
+            //iR A 108 ExprEquals
+            //iR A 109 ExprEqualsP
+
+            //iR A 112 ExprCOmp
+            //iR A 113 ExprCOmpP
+
+            switch (lH.tipo)
+            {
+                case "ident":
+                    pilaSimbolos.Push(cadenas.Dequeue().contenido);
+                    pilaAcciones.Push(103);
+                    lH = cadenas.Peek();
+                    return estado103(lH);
+                case "int":
+                    pilaSimbolos.Push(cadenas.Dequeue().contenido);
+                    pilaAcciones.Push(117);
+                    lH = cadenas.Peek();
+                    return estado117(lH);
+                case "double":
+                    pilaSimbolos.Push(cadenas.Dequeue().contenido);
+                    pilaAcciones.Push(118);
+                    lH = cadenas.Peek();
+                    return estado118(lH);
+                case "bool":
+                    pilaSimbolos.Push(cadenas.Dequeue().contenido);
+                    pilaAcciones.Push(119);
+                    lH = cadenas.Peek();
+                    return estado119(lH);
+                case "string":
+                    pilaSimbolos.Push(cadenas.Dequeue().contenido);
+                    pilaAcciones.Push(120);
+                    lH = cadenas.Peek();
+                    return estado120(lH);
+
+            }
+            switch (lH.contenido)
+            {
+                case "(":
+                    pilaSimbolos.Push(cadenas.Dequeue().contenido);
+                    pilaAcciones.Push(114);
+                    lH = cadenas.Peek();
+                    return estado114(lH);
+                case "{":
+                    pilaSimbolos.Push(cadenas.Dequeue().contenido);
+                    pilaAcciones.Push(68);
+                    lH = cadenas.Peek();
+                    return estado68(lH);
+                case "if":
+                    pilaSimbolos.Push(cadenas.Dequeue().contenido);
+                    pilaAcciones.Push(96);
+                    lH = cadenas.Peek();
+                    return estado96(lH);
+                case "while":
+                    pilaSimbolos.Push(cadenas.Dequeue().contenido);
+                    pilaAcciones.Push(97);
+                    lH = cadenas.Peek();
+                    return estado97(lH);
+                case "for":
+                    pilaSimbolos.Push(cadenas.Dequeue().contenido);
+                    pilaAcciones.Push(99);
+                    lH = cadenas.Peek();
+                    return estado99(lH);
+                case "return":
+                    pilaSimbolos.Push(cadenas.Dequeue().contenido);
+                    pilaAcciones.Push(101);
+                    lH = cadenas.Peek();
+                    return estado101(lH);
+                case "break":
+                    pilaSimbolos.Push(cadenas.Dequeue().contenido);
+                    pilaAcciones.Push(100);
+                    lH = cadenas.Peek();
+                    return estado100(lH);
+                case "Console":
+                    pilaSimbolos.Push(cadenas.Dequeue().contenido);
+                    pilaAcciones.Push(102);
+                    lH = cadenas.Peek();
+                    return estado102(lH);
+                case "-":
+                    pilaSimbolos.Push(cadenas.Dequeue().contenido);
+                    pilaAcciones.Push(110);
+                    lH = cadenas.Peek();
+                    return estado110(lH);
+                case "!":
+                    pilaSimbolos.Push(cadenas.Dequeue().contenido);
+                    pilaAcciones.Push(111);
+                    lH = cadenas.Peek();
+                    return estado111(lH);
+                case "this":
+                    pilaSimbolos.Push(cadenas.Dequeue().contenido);
+                    pilaAcciones.Push(115);
+                    lH = cadenas.Peek();
+                    return estado115(lH);
+                case "New":
+                    pilaSimbolos.Push(cadenas.Dequeue().contenido);
+                    pilaAcciones.Push(116);
+                    lH = cadenas.Peek();
+                    return estado116(lH);
+                case "null":
+                    pilaSimbolos.Push(cadenas.Dequeue().contenido);
+                    pilaAcciones.Push(121);
+                    lH = cadenas.Peek();
+                    return estado121(lH);
+                default:
+                    return false;
+            }
         }
         private bool estado177(Token lH)
         {
-            return true;
+            //iR A 181 Expr
+            //iR A 104 ExprOr
+            //iR A 105 ExprP
+            //iR A 106 ExprPAnd
+            //iR A 107 ExprPAndP
+            //iR A 108 ExprEquals
+            //iR A 109 ExprEqualsP
+
+            //iR A 112 ExprCOmp
+            //iR A 113 ExprCOmpP
+
+            switch (lH.tipo)
+            {
+                case "ident":
+                    pilaSimbolos.Push(cadenas.Dequeue().contenido);
+                    pilaAcciones.Push(103);
+                    lH = cadenas.Peek();
+                    return estado103(lH);
+                case "int":
+                    pilaSimbolos.Push(cadenas.Dequeue().contenido);
+                    pilaAcciones.Push(117);
+                    lH = cadenas.Peek();
+                    return estado117(lH);
+                case "double":
+                    pilaSimbolos.Push(cadenas.Dequeue().contenido);
+                    pilaAcciones.Push(118);
+                    lH = cadenas.Peek();
+                    return estado118(lH);
+                case "bool":
+                    pilaSimbolos.Push(cadenas.Dequeue().contenido);
+                    pilaAcciones.Push(119);
+                    lH = cadenas.Peek();
+                    return estado119(lH);
+                case "string":
+                    pilaSimbolos.Push(cadenas.Dequeue().contenido);
+                    pilaAcciones.Push(120);
+                    lH = cadenas.Peek();
+                    return estado120(lH);
+
+            }
+            switch (lH.contenido)
+            {
+                case "(":
+                    pilaSimbolos.Push(cadenas.Dequeue().contenido);
+                    pilaAcciones.Push(114);
+                    lH = cadenas.Peek();
+                    return estado114(lH);
+               
+                case "-":
+                    pilaSimbolos.Push(cadenas.Dequeue().contenido);
+                    pilaAcciones.Push(110);
+                    lH = cadenas.Peek();
+                    return estado110(lH);
+                case "!":
+                    pilaSimbolos.Push(cadenas.Dequeue().contenido);
+                    pilaAcciones.Push(111);
+                    lH = cadenas.Peek();
+                    return estado111(lH);
+                case "this":
+                    pilaSimbolos.Push(cadenas.Dequeue().contenido);
+                    pilaAcciones.Push(115);
+                    lH = cadenas.Peek();
+                    return estado115(lH);
+                case "New":
+                    pilaSimbolos.Push(cadenas.Dequeue().contenido);
+                    pilaAcciones.Push(116);
+                    lH = cadenas.Peek();
+                    return estado116(lH);
+                case "null":
+                    pilaSimbolos.Push(cadenas.Dequeue().contenido);
+                    pilaAcciones.Push(121);
+                    lH = cadenas.Peek();
+                    return estado121(lH);
+                default:
+                    return false;
+            }
         }
         private bool estado178(Token lH)
         {
-            return true;
+            switch (lH.contenido)
+            {
+                case ")":
+                    pilaSimbolos.Push(cadenas.Dequeue().contenido);
+                    pilaAcciones.Push(182);
+                    lH = cadenas.Peek();
+                    return estado182(lH);
+                default:
+                    return false;
+            }
         }
         private bool estado179(Token lH)
         {
-            return true;
+            //iR A 183 Expr
+            //iR A 104 ExprOr
+            //iR A 105 ExprP
+            //iR A 106 ExprPAnd
+            //iR A 107 ExprPAndP
+            //iR A 108 ExprEquals
+            //iR A 109 ExprEqualsP
+
+            //iR A 112 ExprCOmp
+            //iR A 113 ExprCOmpP
+
+            switch (lH.tipo)
+            {
+                case "ident":
+                    pilaSimbolos.Push(cadenas.Dequeue().contenido);
+                    pilaAcciones.Push(103);
+                    lH = cadenas.Peek();
+                    return estado103(lH);
+                case "int":
+                    pilaSimbolos.Push(cadenas.Dequeue().contenido);
+                    pilaAcciones.Push(117);
+                    lH = cadenas.Peek();
+                    return estado117(lH);
+                case "double":
+                    pilaSimbolos.Push(cadenas.Dequeue().contenido);
+                    pilaAcciones.Push(118);
+                    lH = cadenas.Peek();
+                    return estado118(lH);
+                case "bool":
+                    pilaSimbolos.Push(cadenas.Dequeue().contenido);
+                    pilaAcciones.Push(119);
+                    lH = cadenas.Peek();
+                    return estado119(lH);
+                case "string":
+                    pilaSimbolos.Push(cadenas.Dequeue().contenido);
+                    pilaAcciones.Push(120);
+                    lH = cadenas.Peek();
+                    return estado120(lH);
+
+            }
+            switch (lH.contenido)
+            {
+                case "(":
+                    pilaSimbolos.Push(cadenas.Dequeue().contenido);
+                    pilaAcciones.Push(114);
+                    lH = cadenas.Peek();
+                    return estado114(lH);
+
+                case "-":
+                    pilaSimbolos.Push(cadenas.Dequeue().contenido);
+                    pilaAcciones.Push(110);
+                    lH = cadenas.Peek();
+                    return estado110(lH);
+                case "!":
+                    pilaSimbolos.Push(cadenas.Dequeue().contenido);
+                    pilaAcciones.Push(111);
+                    lH = cadenas.Peek();
+                    return estado111(lH);
+                case "this":
+                    pilaSimbolos.Push(cadenas.Dequeue().contenido);
+                    pilaAcciones.Push(115);
+                    lH = cadenas.Peek();
+                    return estado115(lH);
+                case "New":
+                    pilaSimbolos.Push(cadenas.Dequeue().contenido);
+                    pilaAcciones.Push(116);
+                    lH = cadenas.Peek();
+                    return estado116(lH);
+                case "null":
+                    pilaSimbolos.Push(cadenas.Dequeue().contenido);
+                    pilaAcciones.Push(121);
+                    lH = cadenas.Peek();
+                    return estado121(lH);
+                default:
+                    return false;
+            }
         }
         private bool estado180(Token lH)
         {
+            //Reduccion 63 ;
+            //Reduccion 63 ident
+            //Reduccion 63 (
+            //Reduccion 63 {
+            //Reduccion 63 }
+            //Reduccion 63 if
+            //Reduccion 63 else
+            //Reduccion 63 while
+            //Reduccion 63 for
+            //Reduccion 63 return 
+            //Reduccion 63 break
+            //Reduccion 63 Console
+            //Reduccion 63 -
+            //Reduccion 63 !
+            //Reduccion 63 this
+            //Reduccion 63 New
+            //Reduccion 63 intConstant
+            //Reduccion 63 doubleConstant
+            //Reduccion 63 boolConstant
+            //Reduccion 63 stringConstant
+            //Reduccion 63 null
             return true;
         }
         private bool estado181(Token lH)
         {
-            return true;
+            switch (lH.contenido)
+            {
+                case ")":
+                    pilaSimbolos.Push(cadenas.Dequeue().contenido);
+                    pilaAcciones.Push(184);
+                    lH = cadenas.Peek();
+                    return estado184(lH);
+                default:
+                    return false;
+            }
         }
         private bool estado182(Token lH)
         {
-            return true;
+            switch (lH.contenido)
+            {
+                case ";":
+                    pilaSimbolos.Push(cadenas.Dequeue().contenido);
+                    pilaAcciones.Push(185);
+                    lH = cadenas.Peek();
+                    return estado185(lH);
+                default:
+                    return false;
+            }
         }
         private bool estado183(Token lH)
         {
-            return true;
+            //Reduccion 71 )
+            //Ir a 186 PrintStmt_P
+            switch (lH.contenido)
+            {
+                case ")":
+                    pilaSimbolos.Push(cadenas.Dequeue().contenido);
+                    pilaAcciones.Push(179);
+                    lH = cadenas.Peek();
+                    return estado179(lH);
+                default:
+                    return false;
+            }
         }
         private bool estado184(Token lH)
         {
-            return true;
+            //Reduccion 61 ;
+            //Ir a 95 StmtBlock
+            //Ir a 187 Stmt
+            //Ir a 90 Stmt_P
+            //iR A 88 IFStmt
+            //iR A 89 WhileStmt
+            //iR A 91 forStmt
+            //iR A 93 ReturnStmt
+            //Ir a 92 BreakStmt
+            //iR A 94 PrintStmt
+
+            //iR A 98 Expr
+            //iR A 104 ExprOr
+            //iR A 105 ExprP
+            //iR A 106 ExprPAnd
+            //iR A 107 ExprPAndP
+            //iR A 108 ExprEquals
+            //iR A 109 ExprEqualsP
+
+            //iR A 112 ExprCOmp
+            //iR A 113 ExprCOmpP
+            switch (lH.tipo)
+            {
+                case "ident":
+                    pilaSimbolos.Push(cadenas.Dequeue().contenido);
+                    pilaAcciones.Push(103);
+                    lH = cadenas.Peek();
+                    return estado103(lH);
+                case "int":
+                    pilaSimbolos.Push(cadenas.Dequeue().contenido);
+                    pilaAcciones.Push(117);
+                    lH = cadenas.Peek();
+                    return estado117(lH);
+                case "double":
+                    pilaSimbolos.Push(cadenas.Dequeue().contenido);
+                    pilaAcciones.Push(118);
+                    lH = cadenas.Peek();
+                    return estado118(lH);
+                case "bool":
+                    pilaSimbolos.Push(cadenas.Dequeue().contenido);
+                    pilaAcciones.Push(119);
+                    lH = cadenas.Peek();
+                    return estado119(lH);
+                case "string":
+                    pilaSimbolos.Push(cadenas.Dequeue().contenido);
+                    pilaAcciones.Push(120);
+                    lH = cadenas.Peek();
+                    return estado120(lH);
+
+            }
+            switch (lH.contenido)
+            {
+                case "(":
+                    pilaSimbolos.Push(cadenas.Dequeue().contenido);
+                    pilaAcciones.Push(114);
+                    lH = cadenas.Peek();
+                    return estado114(lH);
+                case "{":
+                    pilaSimbolos.Push(cadenas.Dequeue().contenido);
+                    pilaAcciones.Push(68);
+                    lH = cadenas.Peek();
+                    return estado68(lH);
+                case "if":
+                    pilaSimbolos.Push(cadenas.Dequeue().contenido);
+                    pilaAcciones.Push(96);
+                    lH = cadenas.Peek();
+                    return estado96(lH);
+                case "while":
+                    pilaSimbolos.Push(cadenas.Dequeue().contenido);
+                    pilaAcciones.Push(97);
+                    lH = cadenas.Peek();
+                    return estado97(lH);
+                case "for":
+                    pilaSimbolos.Push(cadenas.Dequeue().contenido);
+                    pilaAcciones.Push(99);
+                    lH = cadenas.Peek();
+                    return estado99(lH);
+                case "return":
+                    pilaSimbolos.Push(cadenas.Dequeue().contenido);
+                    pilaAcciones.Push(101);
+                    lH = cadenas.Peek();
+                    return estado101(lH);
+                case "break":
+                    pilaSimbolos.Push(cadenas.Dequeue().contenido);
+                    pilaAcciones.Push(100);
+                    lH = cadenas.Peek();
+                    return estado100(lH);
+                case "Console":
+                    pilaSimbolos.Push(cadenas.Dequeue().contenido);
+                    pilaAcciones.Push(102);
+                    lH = cadenas.Peek();
+                    return estado102(lH);
+                case "-":
+                    pilaSimbolos.Push(cadenas.Dequeue().contenido);
+                    pilaAcciones.Push(110);
+                    lH = cadenas.Peek();
+                    return estado110(lH);
+                case "!":
+                    pilaSimbolos.Push(cadenas.Dequeue().contenido);
+                    pilaAcciones.Push(111);
+                    lH = cadenas.Peek();
+                    return estado111(lH);
+                case "this":
+                    pilaSimbolos.Push(cadenas.Dequeue().contenido);
+                    pilaAcciones.Push(115);
+                    lH = cadenas.Peek();
+                    return estado115(lH);
+                case "New":
+                    pilaSimbolos.Push(cadenas.Dequeue().contenido);
+                    pilaAcciones.Push(116);
+                    lH = cadenas.Peek();
+                    return estado116(lH);
+                case "null":
+                    pilaSimbolos.Push(cadenas.Dequeue().contenido);
+                    pilaAcciones.Push(121);
+                    lH = cadenas.Peek();
+                    return estado121(lH);
+                default:
+                    return false;
+            }
         }
         private bool estado185(Token lH)
         {
+            //Reduccion 69 ;
+            //Reduccion 69 ident
+            //Reduccion 69 (
+            //Reduccion 69 {
+            //Reduccion 69 }
+            //Reduccion 69 if
+            //Reduccion 69 else
+            //Reduccion 69 while
+            //Reduccion 69 for
+            //Reduccion 69 return 
+            //Reduccion 69 break
+            //Reduccion 69 Console
+            //Reduccion 69 -
+            //Reduccion 69 !
+            //Reduccion 69 this
+            //Reduccion 69 New
+            //Reduccion 69 intConstant
+            //Reduccion 69 doubleConstant
+            //Reduccion 69 boolConstant
+            //Reduccion 69 stringConstant
+            //Reduccion 69 null
             return true;
         }
         private bool estado186(Token lH)
         {
+            //Reduccion 70 )
             return true;
         }
         private bool estado187(Token lH)
         {
+            //Reduccion 66 ;
+            //Reduccion 66 ident
+            //Reduccion 66 (
+            //Reduccion 66 {
+            //Reduccion 66 }
+            //Reduccion 66 if
+            //Reduccion 66 else
+            //Reduccion 66 while
+            //Reduccion 66 for
+            //Reduccion 66 return 
+            //Reduccion 66 break
+            //Reduccion 66 Console
+            //Reduccion 66 -
+            //Reduccion 66 !
+            //Reduccion 66 this
+            //Reduccion 66 New
+            //Reduccion 66 intConstant
+            //Reduccion 66 doubleConstant
+            //Reduccion 66 boolConstant
+            //Reduccion 66 stringConstant
+            //Reduccion 66 null
             return true;
         }
     }
