@@ -768,21 +768,20 @@ namespace ProyectoCompiladores2020
                     lH = cadenas.Peek();
                     return estado11(lH);
                 //Faltas los irA
-                //Falta r2 con $
                 default:
-                    return false;
+                    pilaSimbolos.Push("Program");
+                    return IrA(pilaAcciones.Peek(), lH);
             }
         }
         private bool estado3(Token lH)
         {
-            //Recucion a 3 con ident, const, int, double, bool, string, void, class, interface $
             switch (lH.tipo)
             {
                 case "ident":
                     pilaAcciones.Pop();
                     pilaSimbolos.Pop();
                     pilaSimbolos.Push("Decl");
-                    return estado2(lH);
+                    return IrA(pilaAcciones.Peek(), lH);
             }
             switch (lH.contenido)
             {
@@ -790,56 +789,56 @@ namespace ProyectoCompiladores2020
                     pilaAcciones.Pop();
                     pilaSimbolos.Pop();
                     pilaSimbolos.Push("Decl");
-                    return estado2(lH);
+                    return IrA(pilaAcciones.Peek(), lH);
                 case "int":
                     pilaAcciones.Pop();
                     pilaSimbolos.Pop();
                     pilaSimbolos.Push("Decl");
-                    return estado2(lH);
+                    return IrA(pilaAcciones.Peek(), lH);
                 case "double":
                     pilaAcciones.Pop();
                     pilaSimbolos.Pop();
                     pilaSimbolos.Push("Decl");
-                    return estado2(lH);
+                    return IrA(pilaAcciones.Peek(), lH);
                 case "bool":
                     pilaAcciones.Pop();
                     pilaSimbolos.Pop();
                     pilaSimbolos.Push("Decl");
-                    return estado2(lH);
+                    return IrA(pilaAcciones.Peek(), lH);
                 case "string":
                     pilaAcciones.Pop();
                     pilaSimbolos.Pop();
                     pilaSimbolos.Push("Decl");
-                    return estado2(lH);
+                    return IrA(pilaAcciones.Peek(), lH);
                 case "void":
                     pilaAcciones.Pop();
                     pilaSimbolos.Pop();
                     pilaSimbolos.Push("Decl");
-                    return estado2(lH);
+                    return IrA(pilaAcciones.Peek(), lH);
                 case "class":
                     pilaAcciones.Pop();
                     pilaSimbolos.Pop();
                     pilaSimbolos.Push("Decl");
-                    return estado2(lH);
+                    return IrA(pilaAcciones.Peek(), lH);
                 case "interface":
                     pilaAcciones.Pop();
                     pilaSimbolos.Pop();
                     pilaSimbolos.Push("Decl");
-                    return estado2(lH);
+                    return IrA(pilaAcciones.Peek(), lH);
                 default:
-                    return false;
+                    pilaSimbolos.Push("Decl");
+                    return IrA(pilaAcciones.Peek(), lH);
             }
         }
         private bool estado4(Token lH)
         {
-            //Recucion a 4 con ident, const, int, double, bool, string, void, class, interface $
             switch (lH.tipo)
             {
                 case "ident":
                     pilaAcciones.Pop();
                     pilaSimbolos.Pop();
                     pilaSimbolos.Push("Decl");
-                    return estado2(lH);
+                    return IrA(pilaAcciones.Peek(), lH);
             }
             switch (lH.contenido)
             {
@@ -847,61 +846,220 @@ namespace ProyectoCompiladores2020
                     pilaAcciones.Pop();
                     pilaSimbolos.Pop();
                     pilaSimbolos.Push("Decl");
-                    return estado2(lH);
+                    return IrA(pilaAcciones.Peek(), lH);
                 case "int":
                     pilaAcciones.Pop();
                     pilaSimbolos.Pop();
                     pilaSimbolos.Push("Decl");
-                    return estado2(lH);
+                    return IrA(pilaAcciones.Peek(), lH);
                 case "double":
                     pilaAcciones.Pop();
                     pilaSimbolos.Pop();
                     pilaSimbolos.Push("Decl");
-                    return estado2(lH);
+                    return IrA(pilaAcciones.Peek(), lH);
                 case "bool":
                     pilaAcciones.Pop();
                     pilaSimbolos.Pop();
                     pilaSimbolos.Push("Decl");
-                    return estado2(lH);
+                    return IrA(pilaAcciones.Peek(), lH);
                 case "string":
                     pilaAcciones.Pop();
                     pilaSimbolos.Pop();
                     pilaSimbolos.Push("Decl");
-                    return estado2(lH);
+                    return IrA(pilaAcciones.Peek(), lH);
                 case "void":
                     pilaAcciones.Pop();
                     pilaSimbolos.Pop();
                     pilaSimbolos.Push("Decl");
-                    return estado2(lH);
+                    return IrA(pilaAcciones.Peek(), lH);
                 case "class":
                     pilaAcciones.Pop();
                     pilaSimbolos.Pop();
                     pilaSimbolos.Push("Decl");
-                    return estado2(lH);
+                    return IrA(pilaAcciones.Peek(), lH);
                 case "interface":
                     pilaAcciones.Pop();
                     pilaSimbolos.Pop();
                     pilaSimbolos.Push("Decl");
-                    return estado2(lH);
+                    return IrA(pilaAcciones.Peek(), lH);
                 default:
-                    return false;
+                    pilaSimbolos.Push("Decl");
+                    return IrA(pilaAcciones.Peek(), lH);
             }
-
         }
         private bool estado5(Token lH)
         {
             //Recucion a 5 con ident, const, int, double, bool, string, void, class, interface $
-            return true;
+            switch (lH.tipo)
+            {
+                case "ident":
+                    pilaAcciones.Pop();
+                    pilaSimbolos.Pop();
+                    pilaSimbolos.Push("Decl");
+                    return IrA(pilaAcciones.Peek(), lH);
+            }
+            switch (lH.contenido)
+            {
+                case "const":
+                    pilaAcciones.Pop();
+                    pilaSimbolos.Pop();
+                    pilaSimbolos.Push("Decl");
+                    return IrA(pilaAcciones.Peek(), lH);
+                case "int":
+                    pilaAcciones.Pop();
+                    pilaSimbolos.Pop();
+                    pilaSimbolos.Push("Decl");
+                    return IrA(pilaAcciones.Peek(), lH);
+                case "double":
+                    pilaAcciones.Pop();
+                    pilaSimbolos.Pop();
+                    pilaSimbolos.Push("Decl");
+                    return IrA(pilaAcciones.Peek(), lH);
+                case "bool":
+                    pilaAcciones.Pop();
+                    pilaSimbolos.Pop();
+                    pilaSimbolos.Push("Decl");
+                    return IrA(pilaAcciones.Peek(), lH);
+                case "string":
+                    pilaAcciones.Pop();
+                    pilaSimbolos.Pop();
+                    pilaSimbolos.Push("Decl");
+                    return IrA(pilaAcciones.Peek(), lH);
+                case "void":
+                    pilaAcciones.Pop();
+                    pilaSimbolos.Pop();
+                    pilaSimbolos.Push("Decl");
+                    return IrA(pilaAcciones.Peek(), lH);
+                case "class":
+                    pilaAcciones.Pop();
+                    pilaSimbolos.Pop();
+                    pilaSimbolos.Push("Decl");
+                    return IrA(pilaAcciones.Peek(), lH);
+                case "interface":
+                    pilaAcciones.Pop();
+                    pilaSimbolos.Pop();
+                    pilaSimbolos.Push("Decl");
+                    return IrA(pilaAcciones.Peek(), lH);
+                default:
+                    pilaSimbolos.Push("Decl");
+                    return IrA(pilaAcciones.Peek(), lH);
+            }
         }
         private bool estado6(Token lH)
         {
             //Recucion a 6 con ident, const, int, double, bool, string, void, class, interface $
-            return true;
+            switch (lH.tipo)
+            {
+                case "ident":
+                    pilaAcciones.Pop();
+                    pilaSimbolos.Pop();
+                    pilaSimbolos.Push("Decl");
+                    return IrA(pilaAcciones.Peek(), lH);
+            }
+            switch (lH.contenido)
+            {
+                case "const":
+                    pilaAcciones.Pop();
+                    pilaSimbolos.Pop();
+                    pilaSimbolos.Push("Decl");
+                    return IrA(pilaAcciones.Peek(), lH);
+                case "int":
+                    pilaAcciones.Pop();
+                    pilaSimbolos.Pop();
+                    pilaSimbolos.Push("Decl");
+                    return IrA(pilaAcciones.Peek(), lH);
+                case "double":
+                    pilaAcciones.Pop();
+                    pilaSimbolos.Pop();
+                    pilaSimbolos.Push("Decl");
+                    return IrA(pilaAcciones.Peek(), lH);
+                case "bool":
+                    pilaAcciones.Pop();
+                    pilaSimbolos.Pop();
+                    pilaSimbolos.Push("Decl");
+                    return IrA(pilaAcciones.Peek(), lH);
+                case "string":
+                    pilaAcciones.Pop();
+                    pilaSimbolos.Pop();
+                    pilaSimbolos.Push("Decl");
+                    return IrA(pilaAcciones.Peek(), lH);
+                case "void":
+                    pilaAcciones.Pop();
+                    pilaSimbolos.Pop();
+                    pilaSimbolos.Push("Decl");
+                    return IrA(pilaAcciones.Peek(), lH);
+                case "class":
+                    pilaAcciones.Pop();
+                    pilaSimbolos.Pop();
+                    pilaSimbolos.Push("Decl");
+                    return IrA(pilaAcciones.Peek(), lH);
+                case "interface":
+                    pilaAcciones.Pop();
+                    pilaSimbolos.Pop();
+                    pilaSimbolos.Push("Decl");
+                    return IrA(pilaAcciones.Peek(), lH);
+                default:
+                    pilaSimbolos.Push("Decl");
+                    return IrA(pilaAcciones.Peek(), lH);
+            }
         }
         private bool estado7(Token lH)
         {
             //Recucion a 7 con ident, const, int, double, bool, string, void, class, interface $
-            return true;
+            switch (lH.tipo)
+            {
+                case "ident":
+                    pilaAcciones.Pop();
+                    pilaSimbolos.Pop();
+                    pilaSimbolos.Push("Decl");
+                    return IrA(pilaAcciones.Peek(), lH);
+            }
+            switch (lH.contenido)
+            {
+                case "const":
+                    pilaAcciones.Pop();
+                    pilaSimbolos.Pop();
+                    pilaSimbolos.Push("Decl");
+                    return IrA(pilaAcciones.Peek(), lH);
+                case "int":
+                    pilaAcciones.Pop();
+                    pilaSimbolos.Pop();
+                    pilaSimbolos.Push("Decl");
+                    return IrA(pilaAcciones.Peek(), lH);
+                case "double":
+                    pilaAcciones.Pop();
+                    pilaSimbolos.Pop();
+                    pilaSimbolos.Push("Decl");
+                    return IrA(pilaAcciones.Peek(), lH);
+                case "bool":
+                    pilaAcciones.Pop();
+                    pilaSimbolos.Pop();
+                    pilaSimbolos.Push("Decl");
+                    return IrA(pilaAcciones.Peek(), lH);
+                case "string":
+                    pilaAcciones.Pop();
+                    pilaSimbolos.Pop();
+                    pilaSimbolos.Push("Decl");
+                    return IrA(pilaAcciones.Peek(), lH);
+                case "void":
+                    pilaAcciones.Pop();
+                    pilaSimbolos.Pop();
+                    pilaSimbolos.Push("Decl");
+                    return IrA(pilaAcciones.Peek(), lH);
+                case "class":
+                    pilaAcciones.Pop();
+                    pilaSimbolos.Pop();
+                    pilaSimbolos.Push("Decl");
+                    return IrA(pilaAcciones.Peek(), lH);
+                case "interface":
+                    pilaAcciones.Pop();
+                    pilaSimbolos.Pop();
+                    pilaSimbolos.Push("Decl");
+                    return IrA(pilaAcciones.Peek(), lH);
+                default:
+                    pilaSimbolos.Push("Decl");
+                    return IrA(pilaAcciones.Peek(), lH);
+            }
         }
         private bool estado8(Token lH)
         {
@@ -1002,8 +1160,9 @@ namespace ProyectoCompiladores2020
         }
         private bool estado14(Token lH)
         {
-            //retroceso con ident R22 
+            
             //IR A TYPE_R CON 31
+
             switch (lH.contenido)
             {
                 case "[]":
@@ -1011,6 +1170,13 @@ namespace ProyectoCompiladores2020
                     pilaAcciones.Push(32);
                     lH = cadenas.Peek();
                     return estado11(lH);
+                
+            }
+            switch (lH.tipo)//retroceso con ident R22 
+            {
+                case "ident":
+                    pilaSimbolos.Push("Type_R");
+                    return estado2(lH);
                 default:
                     return false;
             }
@@ -1019,6 +1185,16 @@ namespace ProyectoCompiladores2020
         {
             //RETROCESO A IDENT R16
             //RETROESO CON [] R16
+            switch (lH.tipo)
+            {
+                case "ident":
+                    pilaSimbolos.Push("Type_R");
+                    return estado2(lH);
+                default:
+                    return false;
+            }
+
+
             return true;
         }
         private bool estado16(Token lH)
