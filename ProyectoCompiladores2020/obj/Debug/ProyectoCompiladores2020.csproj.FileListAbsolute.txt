@@ -166,3 +166,17 @@ C:\Users\epare\source\repos\Compis (\ProyectoCompiladores2020\obj\Debug\Proyecto
 C:\Users\epare\source\repos\Compis (\ProyectoCompiladores2020\obj\Debug\ProyectoCompiladores2020.application
 C:\Users\epare\source\repos\Compis (\ProyectoCompiladores2020\obj\Debug\ProyectoCompiladores2020.exe
 C:\Users\epare\source\repos\Compis (\ProyectoCompiladores2020\obj\Debug\ProyectoCompiladores2020.pdb
+C:\Users\usuario\Desktop\COMPIS ALV\ProyectoCompiladores2020\bin\Debug\ProyectoCompiladores2020.exe.config
+C:\Users\usuario\Desktop\COMPIS ALV\ProyectoCompiladores2020\bin\Debug\ProyectoCompiladores2020.exe.manifest
+C:\Users\usuario\Desktop\COMPIS ALV\ProyectoCompiladores2020\bin\Debug\ProyectoCompiladores2020.application
+C:\Users\usuario\Desktop\COMPIS ALV\ProyectoCompiladores2020\bin\Debug\ProyectoCompiladores2020.exe
+C:\Users\usuario\Desktop\COMPIS ALV\ProyectoCompiladores2020\bin\Debug\ProyectoCompiladores2020.pdb
+C:\Users\usuario\Desktop\COMPIS ALV\ProyectoCompiladores2020\obj\Debug\ProyectoCompiladores2020.csprojAssemblyReference.cache
+C:\Users\usuario\Desktop\COMPIS ALV\ProyectoCompiladores2020\obj\Debug\ProyectoCompiladores2020.Form1.resources
+C:\Users\usuario\Desktop\COMPIS ALV\ProyectoCompiladores2020\obj\Debug\ProyectoCompiladores2020.Properties.Resources.resources
+C:\Users\usuario\Desktop\COMPIS ALV\ProyectoCompiladores2020\obj\Debug\ProyectoCompiladores2020.csproj.GenerateResource.cache
+C:\Users\usuario\Desktop\COMPIS ALV\ProyectoCompiladores2020\obj\Debug\ProyectoCompiladores2020.csproj.CoreCompileInputs.cache
+C:\Users\usuario\Desktop\COMPIS ALV\ProyectoCompiladores2020\obj\Debug\ProyectoCompiladores2020.exe.manifest
+C:\Users\usuario\Desktop\COMPIS ALV\ProyectoCompiladores2020\obj\Debug\ProyectoCompiladores2020.application
+C:\Users\usuario\Desktop\COMPIS ALV\ProyectoCompiladores2020\obj\Debug\ProyectoCompiladores2020.exe
+C:\Users\usuario\Desktop\COMPIS ALV\ProyectoCompiladores2020\obj\Debug\ProyectoCompiladores2020.pdb
