@@ -14,6 +14,7 @@ namespace ProyectoCompiladores2020
         private Queue<Token> cadenas = new Queue<Token>();
         private Stack<string> pilaSimbolos = new Stack<string>();
         private Stack<int> pilaAcciones = new Stack<int>();
+        public List<string> errores = new List<string>();
         private void Tabla()
         {
             int contadorLineas = 0;
@@ -140,6 +141,16 @@ namespace ProyectoCompiladores2020
             "ExprCompP",
         };
 
+        private bool error (Token lH)
+        {
+            errores.Add("Error en la linea " + lH.linea + ", Columnas de la " + lH.columnaInicio + "-" + lH.columnaFin + " con la cadena " + lH.contenido);
+            cadenas.Dequeue();
+            lH = cadenas.Peek();
+            if (cadenas.Count > 0)
+                return IrA(pilaAcciones.Peek(), lH);
+            else
+                return false;
+        }
         private bool IrA(int inicio, Token lH)
         {
             switch(inicio)
@@ -813,7 +824,7 @@ namespace ProyectoCompiladores2020
                     return estado11(lH);
                 
                 default:
-                    return false;
+                    return error(lH);
             }
         }
         private bool estado1(Token lH)
@@ -912,7 +923,6 @@ namespace ProyectoCompiladores2020
                     pilaAcciones.Push(11);
                     lH = cadenas.Peek();
                     return estado11(lH);
-                //Faltas los irA
                 default:
                     pilaAcciones.Pop();
                     pilaSimbolos.Pop();
@@ -1228,7 +1238,7 @@ namespace ProyectoCompiladores2020
                     lH = cadenas.Peek();
                     return estado21(lH);
                 default:
-                    return false;
+                    return error(lH); ;
             }
         }
         private bool estado9(Token lH)
@@ -1241,7 +1251,7 @@ namespace ProyectoCompiladores2020
                     lH = cadenas.Peek();
                     return estado19(lH);
                 default:
-                    return false;
+                    return error(lH);
             }
 
         }
@@ -1255,7 +1265,7 @@ namespace ProyectoCompiladores2020
                     lH = cadenas.Peek();
                     return estado19(lH);
                 default:
-                    return false;
+                    return error(lH);
             }
         }
         private bool estado11(Token lH)
@@ -1266,8 +1276,8 @@ namespace ProyectoCompiladores2020
                     pilaAcciones.Push(11);
                     return IrA(24, lH);
             }
-                    switch (lH.contenido)
-                    {
+            switch (lH.contenido)
+            {
                 case "int":
                     pilaSimbolos.Push(cadenas.Dequeue().contenido);
                     pilaAcciones.Push(25);
@@ -1288,10 +1298,8 @@ namespace ProyectoCompiladores2020
                     pilaAcciones.Push(28);
                     lH = cadenas.Peek();
                     return estado11(lH);
-
-                //Faltas los irA CONSTYPE
                 default:
-                    return false;
+                    return error(lH);
             }
         }
         private bool estado12(Token lH)
@@ -1305,7 +1313,7 @@ namespace ProyectoCompiladores2020
                     lH = cadenas.Peek();
                     return estado19(lH);
                 default:
-                    return false;
+                    return error(lH);
             }
         }
         private bool estado13(Token lH)
@@ -1318,7 +1326,7 @@ namespace ProyectoCompiladores2020
                     lH = cadenas.Peek();
                     return estado19(lH);
                 default:
-                    return false;
+                    return error(lH);
             }
         }
         private bool estado14(Token lH)
@@ -1345,7 +1353,7 @@ namespace ProyectoCompiladores2020
                     pilaSimbolos.Push("Type_R");
                     return estado2(lH);
                 default:
-                    return false;
+                    return error(lH);
             }
         }
         private bool estado15(Token lH)
@@ -1366,7 +1374,7 @@ namespace ProyectoCompiladores2020
                     pilaSimbolos.Push("Type_P");
                     return IrA(pilaAcciones.Peek(), lH);
                 default:
-                    return false;
+                    return error(lH);
             }
         }
         private bool estado16(Token lH)
@@ -1389,7 +1397,7 @@ namespace ProyectoCompiladores2020
                     pilaSimbolos.Push("Type_P");
                     return IrA(pilaAcciones.Peek(), lH);
                 default:
-                    return false;
+                    return error(lH);
             }
         }
         private bool estado17(Token lH)
@@ -1412,7 +1420,7 @@ namespace ProyectoCompiladores2020
                     pilaSimbolos.Push("Type_P");
                     return IrA(pilaAcciones.Peek(), lH);
                 default:
-                    return false;
+                    return error(lH);
             }
         }
         private bool estado18(Token lH)
@@ -1435,7 +1443,7 @@ namespace ProyectoCompiladores2020
                     pilaSimbolos.Push("Type_P");
                     return IrA(pilaAcciones.Peek(), lH);
                 default:
-                    return false;
+                    return error(lH);
             }
         }
         private bool estado19(Token lH)
@@ -1458,7 +1466,7 @@ namespace ProyectoCompiladores2020
                     pilaSimbolos.Push("Type_P");
                     return IrA(pilaAcciones.Peek(), lH);
                 default:
-                    return false;
+                    return error(lH);
             }
         }
         private bool estado20(Token lH)

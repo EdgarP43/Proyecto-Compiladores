@@ -10,6 +10,9 @@ namespace ProyectoCompiladores2020
    {
         public string contenido;
         public string tipo;
+        public int linea;
+        public int columnaInicio;
+        public int columnaFin;
 
-   }
+    }
 }
