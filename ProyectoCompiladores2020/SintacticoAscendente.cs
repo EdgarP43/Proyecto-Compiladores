@@ -146,581 +146,520 @@ namespace ProyectoCompiladores2020
             errores.Add("Error en la linea " + lH.linea + ", Columnas de la " + lH.columnaInicio + "-" + lH.columnaFin + " con la cadena " + lH.contenido);
             cadenas.Dequeue();
             lH = cadenas.Peek();
+            pilaAcciones.Clear();
+            pilaSimbolos.Clear();
             if (cadenas.Count > 0)
-                return IrA(pilaAcciones.Peek(), lH);
+                return IrA(0, lH);
             else
                 return false;
         }
         private bool IrA(int inicio, Token lH)
         {
-            switch(inicio)
+            switch (inicio)
             {
                 case 0:
-                    pilaAcciones.Push(0);
-                     return estado0(lH);
+                    return estado0(lH);
                 case 1:
-                    pilaAcciones.Push(1);
                     return estado1(lH);
                 case 2:
-                    pilaAcciones.Push(2);
                     return estado2(lH);
                 case 3:
-                    pilaAcciones.Push(3);
                     return estado3(lH);
                 case 4:
-                    pilaAcciones.Push(4);
                     return estado4(lH);
                 case 5:
-                    pilaAcciones.Push(5);
                     return estado5(lH);
                 case 6:
-                    pilaAcciones.Push(6);
                     return estado6(lH);
                 case 7:
-                    pilaAcciones.Push(7);
                     return estado7(lH);
                 case 8:
-                    pilaAcciones.Push(8);
                     return estado8(lH);
                 case 9:
-                    pilaAcciones.Push(9);
                     return estado9(lH);
                 case 10:
-                    pilaAcciones.Push(10);
                     return estado10(lH);
                 case 11:
-                    pilaAcciones.Push(11);
                     return estado11(lH);
                 case 12:
-                    pilaAcciones.Push(12);
                     return estado12(lH);
                 case 13:
-                    pilaAcciones.Push(13);
                     return estado13(lH);
                 case 14:
-                    pilaAcciones.Push(14);
                     return estado14(lH);
                 case 15:
-                    pilaAcciones.Push(15);
                     return estado15(lH);
                 case 16:
-                    pilaAcciones.Push(16);
                     return estado16(lH);
                 case 17:
-                    pilaAcciones.Push(17);
                     return estado17(lH);
                 case 18:
-                    pilaAcciones.Push(18);
                     return estado18(lH);
+
                 case 19:
-                    pilaAcciones.Push(19);
                     return estado19(lH);
+
                 case 20:
-                    pilaAcciones.Push(20);
                     return estado20(lH);
+
                 case 21:
-                    pilaAcciones.Push(21);
                     return estado21(lH);
+
                 case 22:
-                    pilaAcciones.Push(22);
                     return estado22(lH);
+
                 case 23:
-                    pilaAcciones.Push(23);
                     return estado23(lH);
+
                 case 24:
-                    pilaAcciones.Push(24);
                     return estado24(lH);
+
                 case 25:
-                    pilaAcciones.Push(25);
                     return estado25(lH);
+
                 case 26:
-                    pilaAcciones.Push(26);
                     return estado26(lH);
+
                 case 27:
-                    pilaAcciones.Push(27);
                     return estado27(lH);
+
                 case 28:
-                    pilaAcciones.Push(28);
                     return estado28(lH);
+
                 case 29:
-                    pilaAcciones.Push(29);
                     return estado29(lH);
+
                 case 30:
-                    pilaAcciones.Push(30);
                     return estado30(lH);
+
                 case 31:
-                    pilaAcciones.Push(31);
                     return estado31(lH);
+
                 case 32:
-                    pilaAcciones.Push(32);
                     return estado32(lH);
+
                 case 33:
-                    pilaAcciones.Push(33);
                     return estado33(lH);
+
                 case 34:
-                    pilaAcciones.Push(34);
                     return estado34(lH);
+
                 case 35:
-                    pilaAcciones.Push(35);
                     return estado35(lH);
+
                 case 36:
-                    pilaAcciones.Push(36);
                     return estado36(lH);
+
                 case 37:
-                    pilaAcciones.Push(37);
                     return estado37(lH);
+
                 case 38:
-                    pilaAcciones.Push(38);
                     return estado38(lH);
+
                 case 39:
-                    pilaAcciones.Push(39);
                     return estado39(lH);
+
                 case 40:
-                    pilaAcciones.Push(40);
                     return estado40(lH);
+
                 case 41:
-                    pilaAcciones.Push(41);
                     return estado41(lH);
+
                 case 42:
-                    pilaAcciones.Push(42);
                     return estado42(lH);
+
                 case 43:
-                    pilaAcciones.Push(43);
                     return estado43(lH);
+
                 case 44:
-                    pilaAcciones.Push(44);
                     return estado44(lH);
+
                 case 45:
-                    pilaAcciones.Push(45);
                     return estado45(lH);
+
                 case 46:
-                    pilaAcciones.Push(46);
                     return estado46(lH);
+
                 case 47:
-                    pilaAcciones.Push(47);
                     return estado47(lH);
+
                 case 48:
-                    pilaAcciones.Push(48);
                     return estado48(lH);
+
                 case 49:
-                    pilaAcciones.Push(49);
                     return estado49(lH);
+
                 case 50:
-                    pilaAcciones.Push(50);
                     return estado50(lH);
+
                 case 51:
-                    pilaAcciones.Push(51);
                     return estado51(lH);
+
                 case 52:
-                    pilaAcciones.Push(52);
                     return estado52(lH);
+
                 case 53:
-                    pilaAcciones.Push(53);
                     return estado53(lH);
+
                 case 54:
-                    pilaAcciones.Push(54);
                     return estado54(lH);
+
                 case 55:
-                    pilaAcciones.Push(55);
                     return estado55(lH);
+
                 case 56:
-                    pilaAcciones.Push(56);
                     return estado56(lH);
+
                 case 57:
-                    pilaAcciones.Push(57);
                     return estado57(lH);
+
                 case 58:
-                    pilaAcciones.Push(58);
                     return estado58(lH);
+
                 case 59:
-                    pilaAcciones.Push(59);
                     return estado59(lH);
+
                 case 60:
-                    pilaAcciones.Push(60);
                     return estado60(lH);
+
                 case 61:
-                    pilaAcciones.Push(61);
                     return estado61(lH);
+
                 case 62:
-                    pilaAcciones.Push(62);
                     return estado62(lH);
+
                 case 63:
-                    pilaAcciones.Push(63);
                     return estado63(lH);
+
                 case 64:
-                    pilaAcciones.Push(64);
                     return estado64(lH);
+
                 case 65:
-                    pilaAcciones.Push(65);
                     return estado65(lH);
+
                 case 66:
-                    pilaAcciones.Push(66);
                     return estado66(lH);
+
                 case 67:
-                    pilaAcciones.Push(67);
                     return estado67(lH);
+
                 case 68:
-                    pilaAcciones.Push(68);
                     return estado68(lH);
+
                 case 69:
-                    pilaAcciones.Push(69);
                     return estado69(lH);
+
                 case 70:
-                    pilaAcciones.Push(70);
                     return estado70(lH);
+
                 case 71:
-                    pilaAcciones.Push(71);
                     return estado71(lH);
+
                 case 72:
-                    pilaAcciones.Push(72);
                     return estado72(lH);
+
                 case 73:
-                    pilaAcciones.Push(73);
                     return estado73(lH);
+
                 case 74:
-                    pilaAcciones.Push(74);
                     return estado74(lH);
+
                 case 75:
-                    pilaAcciones.Push(75);
                     return estado75(lH);
+
                 case 76:
-                    pilaAcciones.Push(76);
                     return estado76(lH);
+
                 case 77:
-                    pilaAcciones.Push(77);
                     return estado77(lH);
+
                 case 78:
-                    pilaAcciones.Push(78);
                     return estado78(lH);
+
                 case 79:
-                    pilaAcciones.Push(79);
                     return estado79(lH);
+
                 case 80:
-                    pilaAcciones.Push(80);
                     return estado80(lH);
+
                 case 81:
-                    pilaAcciones.Push(81);
                     return estado81(lH);
+
                 case 82:
-                    pilaAcciones.Push(82);
                     return estado82(lH);
+
                 case 83:
-                    pilaAcciones.Push(83);
                     return estado83(lH);
+
                 case 84:
-                    pilaAcciones.Push(84);
                     return estado84(lH);
+
                 case 85:
-                    pilaAcciones.Push(85);
                     return estado85(lH);
+
                 case 86:
-                    pilaAcciones.Push(86);
                     return estado86(lH);
+
                 case 87:
-                    pilaAcciones.Push(87);
                     return estado87(lH);
+
                 case 88:
-                    pilaAcciones.Push(88);
                     return estado88(lH);
-                    
+
                 case 89:
-                    pilaAcciones.Push(89);
                     return estado89(lH);
-                    
+
                 case 90:
-                    pilaAcciones.Push(90);
                     return estado90(lH);
+
                 case 91:
-                    pilaAcciones.Push(91);
                     return estado91(lH);
+
                 case 92:
-                    pilaAcciones.Push(92);
                     return estado92(lH);
+
                 case 93:
-                    pilaAcciones.Push(93);
                     return estado93(lH);
+
                 case 94:
-                    pilaAcciones.Push(94);
                     return estado94(lH);
+
                 case 95:
-                    pilaAcciones.Push(95);
                     return estado95(lH);
+
                 case 96:
-                    pilaAcciones.Push(96);
                     return estado96(lH);
+
                 case 97:
-                    pilaAcciones.Push(97);
                     return estado97(lH);
+
                 case 98:
-                    pilaAcciones.Push(98);
                     return estado98(lH);
+
                 case 99:
-                    pilaAcciones.Push(99);
                     return estado99(lH);
+
                 case 100:
-                    pilaAcciones.Push(100);
                     return estado100(lH);
+
                 case 101:
-                    pilaAcciones.Push(101);
                     return estado101(lH);
+
                 case 102:
-                    pilaAcciones.Push(102);
                     return estado102(lH);
+
                 case 103:
-                    pilaAcciones.Push(103);
                     return estado103(lH);
+
                 case 104:
-                    pilaAcciones.Push(104);
                     return estado104(lH);
+
                 case 105:
-                    pilaAcciones.Push(105);
                     return estado105(lH);
+
                 case 106:
-                    pilaAcciones.Push(106);
                     return estado106(lH);
+
                 case 107:
-                    pilaAcciones.Push(107);
                     return estado107(lH);
+
                 case 108:
-                    pilaAcciones.Push(108);
                     return estado108(lH);
+
                 case 109:
-                    pilaAcciones.Push(109);
-                    return estado109(lH);                    
+                    return estado109(lH);
+
                 case 110:
-                    pilaAcciones.Push(110);
-                    return estado110(lH);                    
+                    return estado110(lH);
+
                 case 111:
-                    pilaAcciones.Push(111);
-                    return estado111(lH);                    
+                    return estado111(lH);
+
                 case 112:
-                    pilaAcciones.Push(112);
-                    return estado112(lH);                    
+                    return estado112(lH);
+
                 case 113:
-                    pilaAcciones.Push(113);
-                    return estado113(lH);                    
+                    return estado113(lH);
+
                 case 114:
-                    pilaAcciones.Push(114);
-                    return estado114(lH);                    
+                    return estado114(lH);
+
                 case 115:
-                    pilaAcciones.Push(115);
-                    return estado115(lH);                    
+                    return estado115(lH);
+
                 case 116:
-                    pilaAcciones.Push(116);
-                    return estado116(lH);                    
+                    return estado116(lH);
+
                 case 117:
-                    pilaAcciones.Push(117);
-                    return estado117(lH);                    
+                    return estado117(lH);
+
                 case 118:
-                    pilaAcciones.Push(118);
-                    return estado118(lH);                    
+                    return estado118(lH);
+
                 case 119:
-                    pilaAcciones.Push(119);
-                    return estado119(lH);                    
+                    return estado119(lH);
+
                 case 120:
-                    pilaAcciones.Push(120);
-                    return estado120(lH);                    
+                    return estado120(lH);
+
                 case 121:
-                    pilaAcciones.Push(121);
-                    return estado121(lH);                    
+                    return estado121(lH);
+
                 case 122:
-                    pilaAcciones.Push(123);
-                    return estado122(lH);                    
+                    return estado122(lH);
+
                 case 123:
-                    pilaAcciones.Push(123);
-                    return estado123(lH);                    
+                    return estado123(lH);
+
                 case 124:
-                    pilaAcciones.Push(124);
-                    return estado124(lH);                    
+                    return estado124(lH);
+
                 case 125:
-                    pilaAcciones.Push(125);
-                    return estado125(lH);                    
+                    return estado125(lH);
+
                 case 126:
-                    pilaAcciones.Push(126);
-                    return estado126(lH);                   
+                    return estado126(lH);
+
                 case 127:
-                    pilaAcciones.Push(127);
-                    return estado127(lH);                    
+                    return estado127(lH);
+
                 case 128:
-                    pilaAcciones.Push(128);
-                    return estado128(lH);                    
+                    return estado128(lH);
+
                 case 129:
-                    pilaAcciones.Push(129);
-                    return estado129(lH);                    
+                    return estado129(lH);
+
                 case 130:
-                    pilaAcciones.Push(130);
-                    return estado130(lH);                    
+                    return estado130(lH);
+
                 case 131:
-                    pilaAcciones.Push(131);
-                    return estado131(lH);                    
+                    return estado131(lH);
+
                 case 132:
-                    pilaAcciones.Push(132);
-                    return estado132(lH);                    
+                    return estado132(lH);
+
                 case 133:
-                    pilaAcciones.Push(133);
-                    return estado133(lH);                    
+                    return estado133(lH);
+
                 case 134:
-                    pilaAcciones.Push(134);
-                    return estado134(lH);                    
+                    return estado134(lH);
+
                 case 135:
-                    pilaAcciones.Push(135);
-                    return estado135(lH);                    
+                    return estado135(lH);
+
                 case 136:
-                    pilaAcciones.Push(136);
-                    return estado136(lH);                    
+                    return estado136(lH);
+
                 case 137:
-                    pilaAcciones.Push(137);
-                    return estado137(lH);                    
+                    return estado137(lH);
+
                 case 138:
-                    pilaAcciones.Push(138);
-                    return estado138(lH);                    
+                    return estado138(lH);
+
                 case 139:
-                    pilaAcciones.Push(139);
-                    return estado139(lH);                    
+                    return estado139(lH);
+
                 case 140:
-                    pilaAcciones.Push(140);
-                    return estado140(lH);                    
+                    return estado140(lH);
+
                 case 141:
-                    pilaAcciones.Push(141);
-                    return estado141(lH);                    
+                    return estado141(lH);
+
                 case 142:
-                    pilaAcciones.Push(142);
-                    return estado142(lH);                    
+                    return estado142(lH);
+
                 case 143:
-                    pilaAcciones.Push(143);
-                    return estado143(lH);                    
+                    return estado143(lH);
+
                 case 144:
-                    pilaAcciones.Push(144);
-                    return estado144(lH);                    
+                    return estado144(lH);
+
                 case 145:
-                    pilaAcciones.Push(145);
-                    return estado145(lH);                    
+                    return estado145(lH);
+
                 case 146:
-                    pilaAcciones.Push(146);
                     return estado146(lH);
                 case 147:
-                    pilaAcciones.Push(147);
                     return estado147(lH);
                 case 148:
-                    pilaAcciones.Push(148);
                     return estado148(lH);
                 case 149:
-                    pilaAcciones.Push(149);
                     return estado149(lH);
                 case 150:
-                    pilaAcciones.Push(150);
                     return estado150(lH);
                 case 151:
-                    pilaAcciones.Push(151);
                     return estado151(lH);
                 case 152:
-                    pilaAcciones.Push(152);
                     return estado152(lH);
                 case 153:
-                    pilaAcciones.Push(153);
                     return estado153(lH);
                 case 154:
-                    pilaAcciones.Push(154);
                     return estado154(lH);
                 case 155:
-                    pilaAcciones.Push(155);
                     return estado155(lH);
-
                 case 156:
-                    pilaAcciones.Push(156);
                     return estado156(lH);
                 case 157:
-                    pilaAcciones.Push(157);
                     return estado157(lH);
                 case 158:
-                    pilaAcciones.Push(158);
                     return estado158(lH);
                 case 159:
-                    pilaAcciones.Push(159);
                     return estado159(lH);
                 case 160:
-                    pilaAcciones.Push(160);
                     return estado160(lH);
                 case 161:
-                    pilaAcciones.Push(161);
                     return estado161(lH);
                 case 162:
-                    pilaAcciones.Push(162);
                     return estado162(lH);
                 case 163:
-                    pilaAcciones.Push(163);
                     return estado163(lH);
                 case 164:
-                    pilaAcciones.Push(164);
                     return estado164(lH);
                 case 165:
-                    pilaAcciones.Push(165);
                     return estado165(lH);
                 case 166:
-                    pilaAcciones.Push(166);
                     return estado166(lH);
                 case 167:
-                    pilaAcciones.Push(167);
                     return estado167(lH);
                 case 168:
-                    pilaAcciones.Push(168);
                     return estado168(lH);
                 case 169:
-                    pilaAcciones.Push(169);
                     return estado169(lH);
                 case 170:
-                    pilaAcciones.Push(170);
                     return estado170(lH);
                 case 171:
-                    pilaAcciones.Push(171);
                     return estado171(lH);
                 case 172:
-                    pilaAcciones.Push(172);
                     return estado172(lH);
                 case 173:
-                    pilaAcciones.Push(173);
                     return estado173(lH);
                 case 174:
-                    pilaAcciones.Push(174);
                     return estado174(lH);
                 case 175:
-                    pilaAcciones.Push(175);
                     return estado175(lH);
                 case 176:
-                    pilaAcciones.Push(176);
                     return estado176(lH);
                 case 177:
-                    pilaAcciones.Push(177);
                     return estado177(lH);
                 case 178:
-                    pilaAcciones.Push(178);
                     return estado178(lH);
                 case 179:
-                    pilaAcciones.Push(179);
                     return estado179(lH);
                 case 180:
-                    pilaAcciones.Push(180);
                     return estado180(lH);
                 case 181:
-                    pilaAcciones.Push(181);
                     return estado181(lH);
                 case 182:
-                    pilaAcciones.Push(182);
                     return estado182(lH);
                 case 183:
-                    pilaAcciones.Push(183);
                     return estado183(lH);
                 case 184:
-                    pilaAcciones.Push(184);
                     return estado184(lH);
                 case 185:
-                    pilaAcciones.Push(185);
                     return estado185(lH);
                 case 186:
-                    pilaAcciones.Push(186);
                     return estado186(lH);
                 case 187:
-                    pilaAcciones.Push(187);
                     return estado187(lH);
                 default:
                     return false;
@@ -1481,32 +1420,6 @@ namespace ProyectoCompiladores2020
         }
         private bool estado21(Token lH)
         {
-            //REDUCCION CON ; R8
-            //REDUCCION CON CONST R8
-            //REDUCCION CON INT R8
-            //REDUCCION CON DOUBLE R8
-            //REDUCCION CON BOOL R8
-            //REDUCCION CON STRING R8
-            //REDUCCION CON ( R8
-            //REDUCCION CON void R8
-            //REDUCCION CON class R8
-            //REDUCCION CON { R8
-            //REDUCCION CON } R8
-            //REDUCCION CON interface R8
-            //REDUCCION CON { R8
-            //REDUCCION CON if R8
-            //REDUCCION CON else R8
-            //REDUCCION CON while R8
-            //REDUCCION CON for R8
-            //REDUCCION CON return R8
-            //REDUCCION CON break R8
-            //REDUCCION CON Console R8
-            //REDUCCION CON - R8
-            //REDUCCION CON ! R8
-            //REDUCCION CON this R8
-            //REDUCCION CON New R8
-            //REDUCCION CON null R8
-            //REDUCCION CON $ R8
             switch (lH.tipo)
             {
                 case "ident":
@@ -1724,9 +1637,6 @@ namespace ProyectoCompiladores2020
         }
         private bool estado22(Token lH)
         {
-            //REDUCCION CON ; R9
-            //REDUCCION CON ) R9
-            //REDUCCION CON , R9
             switch (lH.contenido)
             {
                 case ";":
@@ -1756,7 +1666,7 @@ namespace ProyectoCompiladores2020
                     pilaSimbolos.Push("Variable");
                     return IrA(pilaAcciones.Peek(), lH);
                 default:
-                    return false;
+                    return error(lH);
             }
         }
         private bool estado23(Token lH)
@@ -1769,7 +1679,7 @@ namespace ProyectoCompiladores2020
                     lH = cadenas.Peek();
                     return estado34(lH);
                 default:
-                    return false;
+                    return error(lH);
             }
         }
         private bool estado24(Token lH)
@@ -1782,7 +1692,7 @@ namespace ProyectoCompiladores2020
                     lH = cadenas.Peek();
                     return estado35(lH);
                 default:
-                    return false;
+                    return error(lH);
             }
         }
         private bool estado25(Token lH)
@@ -1796,7 +1706,7 @@ namespace ProyectoCompiladores2020
                     pilaSimbolos.Push("ConstType");
                     return IrA(pilaAcciones.Peek(), lH);
                 default:
-                    return false;
+                    return error(lH);
             }
         }
         private bool estado26(Token lH)
@@ -1810,7 +1720,7 @@ namespace ProyectoCompiladores2020
                     pilaSimbolos.Push("ConstType");
                     return IrA(pilaAcciones.Peek(), lH);
                 default:
-                    return false;
+                    return error(lH);
             }
         }
         private bool estado27(Token lH)
@@ -1824,7 +1734,7 @@ namespace ProyectoCompiladores2020
                     pilaSimbolos.Push("ConstType");
                     return IrA(pilaAcciones.Peek(), lH);
                 default:
-                    return false;
+                    return error(lH);
             }
         }
         private bool estado28(Token lH)
@@ -1838,7 +1748,7 @@ namespace ProyectoCompiladores2020
                     pilaSimbolos.Push("ConstType");
                     return IrA(pilaAcciones.Peek(), lH);
                 default:
-                    return false;
+                    return error(lH);
             }
         }
         private bool estado29(Token lH)
@@ -1850,9 +1760,6 @@ namespace ProyectoCompiladores2020
                     pilaAcciones.Push(29);
                     return IrA(36, lH);
             }
-
-
-            //Reduccion a 30 con {
             switch (lH.contenido)
             {
                 case ":":
@@ -1864,7 +1771,7 @@ namespace ProyectoCompiladores2020
                     pilaSimbolos.Push("ClassDecl_P");
                     return IrA(pilaAcciones.Peek(), lH);
                 default:
-                    return false;
+                    return error(lH);
             }
         }
         private bool estado30(Token lH)
@@ -1878,7 +1785,7 @@ namespace ProyectoCompiladores2020
                     lH = cadenas.Peek();
                     return estado38(lH);
                 default:
-                    return false;
+                    return error(lH);
             }
         }
         private bool estado31(Token lH)
@@ -1894,7 +1801,7 @@ namespace ProyectoCompiladores2020
                     pilaSimbolos.Push("Type");
                     return IrA(pilaAcciones.Peek(), lH);
                 default:
-                    return false;
+                    return error(lH);
             }
         }
         private bool estado32(Token lH)
@@ -1908,7 +1815,7 @@ namespace ProyectoCompiladores2020
                     pilaSimbolos.Push("Type_R");
                     return IrA(pilaAcciones.Peek(), lH);
                 default:
-                    return false;
+                    return error(lH);
             }
         }
         private bool estado33(Token lH)
@@ -1959,7 +1866,7 @@ namespace ProyectoCompiladores2020
                     lH = cadenas.Peek();
                     return estado18(lH);
                 default:
-                    return false;
+                    return error(lH);
             }
         }
         private bool estado34(Token lH)
@@ -2010,7 +1917,7 @@ namespace ProyectoCompiladores2020
                     lH = cadenas.Peek();
                     return estado18(lH);
                 default:
-                    return false;
+                    return error(lH);
             }
         }
         private bool estado35(Token lH)
@@ -2023,7 +1930,7 @@ namespace ProyectoCompiladores2020
                     lH = cadenas.Peek();
                     return estado43(lH);
                 default:
-                    return false;
+                    return error(lH);
             }
         }
         private bool estado36(Token lH)
@@ -2036,7 +1943,7 @@ namespace ProyectoCompiladores2020
                     lH = cadenas.Peek();
                     return estado44(lH);
                 default:
-                    return false;
+                    return error(lH);
             }
         }
         private bool estado37(Token lH)
@@ -2057,7 +1964,7 @@ namespace ProyectoCompiladores2020
                     lH = cadenas.Peek();
                     return estado44(lH);
                 default:
-                    return false;
+                    return error(lH);
             }
         }
         private bool estado38(Token lH)
@@ -2078,8 +1985,6 @@ namespace ProyectoCompiladores2020
                     pilaAcciones.Push(38);
                     return IrA(47, lH);
             }
-
-
             switch (lH.tipo)
             {
                 case "ident":
@@ -2119,7 +2024,7 @@ namespace ProyectoCompiladores2020
                     lH = cadenas.Peek();
                     return estado49(lH);
                 default:
-                    return false;
+                    return error(lH);
 
             }
         }
@@ -2133,7 +2038,7 @@ namespace ProyectoCompiladores2020
                     lH = cadenas.Peek();
                     return estado50(lH);
                 default:
-                    return false;
+                    return error(lH);
             }
         }
         private bool estado40(Token lH)
@@ -2144,7 +2049,7 @@ namespace ProyectoCompiladores2020
                     pilaAcciones.Push(40);
                     return IrA(51, lH);
             }
-                    switch (lH.contenido)
+            switch (lH.contenido)
             {
                 case ")"://Reduccion a 27 con )
                     pilaSimbolos.Push("Formals_P");
@@ -2155,7 +2060,7 @@ namespace ProyectoCompiladores2020
                     lH = cadenas.Peek();
                     return estado52(lH);
                 default:
-                    return false;
+                    return error(lH);
             }
         }
         private bool estado41(Token lH)
@@ -2168,7 +2073,7 @@ namespace ProyectoCompiladores2020
                     lH = cadenas.Peek();
                     return estado53(lH);
                 default:
-                    return false;
+                    return error(lH);
             }
         }
         private bool estado42(Token lH)
@@ -2181,7 +2086,7 @@ namespace ProyectoCompiladores2020
                     lH = cadenas.Peek();
                     return estado54(lH);
                 default:
-                    return false;
+                    return error(lH);
             }
         }
         private bool estado43(Token lH)
@@ -2592,8 +2497,8 @@ namespace ProyectoCompiladores2020
                     pilaAcciones.Push(19);
                     lH = cadenas.Peek();
                     return estado19(lH);
-                default:
-                    return false;
+                default: 
+                    return error(lH);
             }
         }
         private bool estado45(Token lH)
@@ -2619,7 +2524,7 @@ namespace ProyectoCompiladores2020
                     return IrA(pilaAcciones.Peek(), lH);
 
                 default:
-                    return false;
+                    return error(lH);
             }
         }
         private bool estado46(Token lH)
@@ -2632,7 +2537,7 @@ namespace ProyectoCompiladores2020
                     lH = cadenas.Peek();
                     return estado63(lH);
                 default:
-                    return false;
+                    return error(lH);
             }
         }
         private bool estado47(Token lH)
@@ -2738,8 +2643,8 @@ namespace ProyectoCompiladores2020
                     lH = cadenas.Peek();
                     return estado19(lH);
                 default:
-                    return false;
-                    
+                    return error(lH);
+
             }
             
         }
@@ -2753,7 +2658,7 @@ namespace ProyectoCompiladores2020
                     lH = cadenas.Peek();
                     return estado65(lH);
                 default:
-                    return false;
+                    return error(lH);
 
             }
         }
@@ -2767,7 +2672,7 @@ namespace ProyectoCompiladores2020
                     lH = cadenas.Peek();
                     return estado66(lH);
                 default:
-                    return false;
+                    return error(lH);
 
             }
 
@@ -2782,7 +2687,7 @@ namespace ProyectoCompiladores2020
                     lH = cadenas.Peek();
                     return estado68(lH);
                 default:
-                    return false;
+                    return error(lH);
             }
         }
         private bool estado51(Token lH)
@@ -2798,12 +2703,11 @@ namespace ProyectoCompiladores2020
                     pilaSimbolos.Push("Formals");
                     return IrA(pilaAcciones.Peek(), lH);
                 default:
-                    return false;
+                    return error(lH);
             }
         }
         private bool estado52(Token lH)
         {
-           
             switch (pilaSimbolos.Peek())//ir a
             {
                 case "Variable":  //Ir a 40 con Variable
@@ -2849,15 +2753,12 @@ namespace ProyectoCompiladores2020
                     pilaAcciones.Push(18);
                     lH = cadenas.Peek();
                     return estado18(lH);
-                default:
-                    return false;
+                default: 
+                    return error(lH);
             }
         }
         private bool estado53(Token lH)
         {
-            //Reduccion 9 con ;
-            //Reduccion 9 con )
-            //Reduccion 9 con ,
             switch (lH.contenido)
             {
                 case ";":
@@ -2882,7 +2783,7 @@ namespace ProyectoCompiladores2020
                     pilaSimbolos.Push("Variable");
                     return IrA(pilaAcciones.Peek(), lH);
                 default:
-                    return false;
+                    return error(lH);
             }
         }
         private bool estado54(Token lH)
@@ -2895,7 +2796,7 @@ namespace ProyectoCompiladores2020
                     return IrA(70, lH);
             }
 
-                    switch (lH.contenido)
+            switch (lH.contenido)
             {
                 case "{":
                     pilaSimbolos.Push(cadenas.Dequeue().contenido);
@@ -2903,7 +2804,7 @@ namespace ProyectoCompiladores2020
                     lH = cadenas.Peek();
                     return estado68(lH);
                 default:
-                    return false;
+                    return error(lH);
 
             }
                     
@@ -2918,7 +2819,7 @@ namespace ProyectoCompiladores2020
                     lH = cadenas.Peek();
                     return estado71(lH);
                 default:
-                    return false;
+                    return error(lH);
 
             }
         }
@@ -3041,20 +2942,12 @@ namespace ProyectoCompiladores2020
                     pilaSimbolos.Push("ClassDecl_Q");
                     return IrA(pilaAcciones.Peek(), lH);
                 default:
-                    return false;
+                    return error(lH);
 
             }
         }
         private bool estado57(Token lH)
         {
-            //Reduccion a 37 ident
-            //Reduccion a 37 Const
-            //Reduccion a 37 int
-            //Reduccion a 37 double
-            //Reduccion a 37 bool
-            //Reduccion a 37 string
-            //Reduccion a 37 void
-            //Reduccion a 37 }
             switch (lH.tipo)
             {
                 case "ident":
@@ -3065,7 +2958,6 @@ namespace ProyectoCompiladores2020
             }
             switch (lH.contenido)
             {
-                
                 case "const":
                     pilaAcciones.Pop();
                     pilaSimbolos.Pop();
@@ -3102,20 +2994,12 @@ namespace ProyectoCompiladores2020
                     pilaSimbolos.Push("Field");
                     return IrA(pilaAcciones.Peek(), lH);
                 default:
-                    return false;
+                    return error(lH);
             }
 
         }
         private bool estado58(Token lH)
         {
-            //Reduccion a 38 ident
-            //Reduccion a 38 Const
-            //Reduccion a 38 int
-            //Reduccion a 38 double
-            //Reduccion a 38 bool
-            //Reduccion a 38 string
-            //Reduccion a 38 void
-            //Reduccion a 38 }
             switch (lH.tipo)
             {
                 case "ident":
@@ -3163,19 +3047,11 @@ namespace ProyectoCompiladores2020
                     pilaSimbolos.Push("Field");
                     return IrA(pilaAcciones.Peek(), lH);
                 default:
-                    return false;
+                    return error(lH);
             }
         }
         private bool estado59(Token lH)
         {
-            //Reduccion a 39 ident
-            //Reduccion a 39 Const
-            //Reduccion a 39 int
-            //Reduccion a 39 double
-            //Reduccion a 39 bool
-            //Reduccion a 39 string
-            //Reduccion a 39 void
-            //Reduccion a 39 }
             switch (lH.tipo)
             {
                 case "ident":
@@ -3223,7 +3099,7 @@ namespace ProyectoCompiladores2020
                     pilaSimbolos.Push("Field");
                     return IrA(pilaAcciones.Peek(), lH);
                 default:
-                    return false;
+                    return error(lH);
             }
         }
         private bool estado60(Token lH)
@@ -3241,7 +3117,7 @@ namespace ProyectoCompiladores2020
                     pilaSimbolos.Push("ClassDecl_P");
                     return IrA(pilaAcciones.Peek(), lH);
                 default:
-                    return false;
+                    return error(lH);
             }
         }
         private bool estado61(Token lH)
@@ -3255,7 +3131,7 @@ namespace ProyectoCompiladores2020
                     pilaSimbolos.Push("ClassDecl_R");
                     return IrA(pilaAcciones.Peek(), lH);
                 default:
-                    return false;
+                    return error(lH);
             }
         }
         private bool estado62(Token lH)
@@ -3268,20 +3144,11 @@ namespace ProyectoCompiladores2020
                     lH = cadenas.Peek();
                     return estado73(lH);
                 default:
-                    return false;
+                    return error(lH);
             }
         }
         private bool estado63(Token lH)
         {
-            //Reduccion a 40 ident
-            //Reduccion a 40 Const
-            //Reduccion a 40 int
-            //Reduccion a 40 double
-            //Reduccion a 40 bool
-            //Reduccion a 40 string
-            //Reduccion a 40 void
-            //Reduccion a 40 }
-
             switch (lH.tipo)
             {
                 case "ident":
@@ -3423,7 +3290,7 @@ namespace ProyectoCompiladores2020
                     pilaSimbolos.Push("InterfaceDecl_P");
                     return IrA(pilaAcciones.Peek(), lH);
                 default:
-                    return false;
+                    return error(lH);
 
             }
 
@@ -3438,7 +3305,7 @@ namespace ProyectoCompiladores2020
                     lH = cadenas.Peek();
                     return estado74(lH);
                 default:
-                    return false;
+                    return error(lH);
             }
         }
         private bool estado66(Token lH)
@@ -3451,13 +3318,11 @@ namespace ProyectoCompiladores2020
                     lH = cadenas.Peek();
                     return estado73(lH);
                 default:
-                    return false;
+                    return error(lH);
             }
         }
         private bool estado67(Token lH)
         {
-             
-            
             switch (lH.tipo)//Reduccion a 23 ident
             {
                 case "ident":
@@ -3806,7 +3671,7 @@ namespace ProyectoCompiladores2020
                     pilaSimbolos.Push("Formals_P");
                     return IrA(pilaAcciones.Peek(), lH);
                 default:
-                    return false;
+                    return error(lH);
             }
         }
         private bool estado70(Token lH)
@@ -4006,8 +3871,6 @@ namespace ProyectoCompiladores2020
         }
         private bool estado71(Token lH)
         {
-            
-
             switch (lH.tipo)
             {
                 case "ident":            //REDUCCION A 28 CON IDENT
@@ -4189,7 +4052,7 @@ namespace ProyectoCompiladores2020
                     pilaSimbolos.Push("ClassDecl_Q");
                     return IrA(pilaAcciones.Peek(), lH);
                 default:
-                    return false;
+                    return error(lH);
             }
         }
         private bool estado73(Token lH)
@@ -4216,7 +4079,7 @@ namespace ProyectoCompiladores2020
                     pilaSimbolos.Push("ClassDecl_O");
                     return IrA(pilaAcciones.Peek(), lH);
                 default:
-                    return false;
+                    return error(lH);
             }
 
         }
@@ -4268,7 +4131,7 @@ namespace ProyectoCompiladores2020
                     lH = cadenas.Peek();
                     return estado19(lH);
                 default:
-                    return false;
+                    return error(lH);
             }
         }
         private bool estado75(Token lH)
@@ -4318,8 +4181,8 @@ namespace ProyectoCompiladores2020
                     pilaAcciones.Push(18);
                     lH = cadenas.Peek();
                     return estado18(lH);
-                default:
-                    return false;
+                default: 
+                    return error(lH);
             }
 
         }
@@ -4693,7 +4556,7 @@ namespace ProyectoCompiladores2020
                     pilaSimbolos.Push("StmtBlock_P");
                     return IrA(pilaAcciones.Peek(), lH);
                 default:
-                    return false;
+                    return error(lH);
             }
         }
         private bool estado79(Token lH)
@@ -4706,7 +4569,7 @@ namespace ProyectoCompiladores2020
                     lH = cadenas.Peek();
                     return estado84(lH);
                 default:
-                    return false;
+                    return error(lH);
             }
            
         }
@@ -4721,7 +4584,7 @@ namespace ProyectoCompiladores2020
                     lH = cadenas.Peek();
                     return estado85(lH);
                 default:
-                    return false;
+                    return error(lH);
             }
         }
         private bool estado81(Token lH)
@@ -4885,7 +4748,7 @@ namespace ProyectoCompiladores2020
                     lH = cadenas.Peek();
                     return estado121(lH);
                 default:
-                    return false;
+                    return error(lH);
             }
 
             }
@@ -5288,7 +5151,7 @@ namespace ProyectoCompiladores2020
                     lH = cadenas.Peek();
                     return estado123(lH);
                 default:
-                    return false;
+                    return error(lH);
             }
         }
         private bool estado85(Token lH)
@@ -5301,7 +5164,7 @@ namespace ProyectoCompiladores2020
                     lH = cadenas.Peek();
                     return estado124(lH);
                 default:
-                    return false;
+                    return error(lH);
             }
         }
         private bool estado86(Token lH)
@@ -5315,7 +5178,7 @@ namespace ProyectoCompiladores2020
                     lH = cadenas.Peek();
                     return estado125(lH);
                 default:
-                    return false;
+                    return error(lH);
             }
         }
         private bool estado87(Token lH)
@@ -5588,7 +5451,7 @@ namespace ProyectoCompiladores2020
                     lH = cadenas.Peek();
                     return estado103(lH);
                 default:
-                    return false;
+                    return error(lH);
             }
         }
         private bool estado88(Token lH)
@@ -5707,7 +5570,7 @@ namespace ProyectoCompiladores2020
                     pilaSimbolos.Push("Stmt");
                     return IrA(pilaAcciones.Peek(), lH);
                 default:
-                    return false;
+                    return error(lH);
             }
         }
         private bool estado89(Token lH)
@@ -5825,7 +5688,7 @@ namespace ProyectoCompiladores2020
                     pilaSimbolos.Push("Stmt");
                     return IrA(pilaAcciones.Peek(), lH);
                 default:
-                    return false;
+                    return error(lH);
             }
         }
         private bool estado90(Token lH)
@@ -5838,7 +5701,7 @@ namespace ProyectoCompiladores2020
                     lH = cadenas.Peek();
                     return estado114(lH);
                 default:
-                    return false;
+                    return error(lH);
             }
         }
         private bool estado91(Token lH)
@@ -5956,7 +5819,7 @@ namespace ProyectoCompiladores2020
                     pilaSimbolos.Push("Stmt");
                     return IrA(pilaAcciones.Peek(), lH);
                 default:
-                    return false;
+                    return error(lH);
             }
         }
         private bool estado92(Token lH)
@@ -6074,7 +5937,7 @@ namespace ProyectoCompiladores2020
                     pilaSimbolos.Push("Stmt");
                     return IrA(pilaAcciones.Peek(), lH);
                 default:
-                    return false;
+                    return error(lH);
             }
         }
         private bool estado93(Token lH)
@@ -6192,7 +6055,7 @@ namespace ProyectoCompiladores2020
                     pilaSimbolos.Push("Stmt");
                     return IrA(pilaAcciones.Peek(), lH);
                 default:
-                    return false;
+                    return error(lH);
             }
         }
         private bool estado94(Token lH)
@@ -6310,7 +6173,7 @@ namespace ProyectoCompiladores2020
                     pilaSimbolos.Push("Stmt");
                     return IrA(pilaAcciones.Peek(), lH);
                 default:
-                    return false;
+                    return error(lH);
             }
         }
         private bool estado95(Token lH)
@@ -6428,7 +6291,7 @@ namespace ProyectoCompiladores2020
                     pilaSimbolos.Push("Stmt");
                     return IrA(pilaAcciones.Peek(), lH);
                 default:
-                    return false;
+                    return error(lH);
             }
         }
         private bool estado96(Token lH)
@@ -6441,7 +6304,7 @@ namespace ProyectoCompiladores2020
                     lH = cadenas.Peek();
                     return estado128(lH);
                 default:
-                    return false;
+                    return error(lH);
             }
         }
         private bool estado97(Token lH)
@@ -6454,7 +6317,7 @@ namespace ProyectoCompiladores2020
                     lH = cadenas.Peek();
                     return estado129(lH);
                 default:
-                    return false;
+                    return error(lH);
             }
         }
         private bool estado98(Token lH)
@@ -6467,7 +6330,7 @@ namespace ProyectoCompiladores2020
                     pilaSimbolos.Push("Stmt_P");
                     return IrA(pilaAcciones.Peek(), lH);
                 default:
-                    return false;
+                    return error(lH);
             }
         }
         private bool estado99(Token lH)
@@ -6480,7 +6343,7 @@ namespace ProyectoCompiladores2020
                     lH = cadenas.Peek();
                     return estado130(lH);
                 default:
-                    return false;
+                    return error(lH);
             }
         }
         private bool estado100(Token lH)
@@ -6493,7 +6356,7 @@ namespace ProyectoCompiladores2020
                     lH = cadenas.Peek();
                     return estado131(lH);
                 default:
-                    return false;
+                    return error(lH);
             }
         }
         private bool estado101(Token lH)
@@ -6561,7 +6424,6 @@ namespace ProyectoCompiladores2020
                     lH = cadenas.Peek();
                     return estado121(lH);
             }
-
             switch (lH.tipo)
             {
                 case "ident":
@@ -6589,10 +6451,9 @@ namespace ProyectoCompiladores2020
                     pilaAcciones.Push(120);
                     lH = cadenas.Peek();
                     return estado120(lH);
-                default:
-                    return false;
+                default: return error(lH);
             }
-            }
+        }
         private bool estado102(Token lH)
         {
             switch (lH.contenido)
@@ -6603,12 +6464,11 @@ namespace ProyectoCompiladores2020
                     lH = cadenas.Peek();
                     return estado133(lH);
                 default:
-                    return false;
+                    return error(lH);
             }
         }
         private bool estado103(Token lH)
         {
-            
             switch (lH.tipo)
             {
                 case "ident":
@@ -6776,7 +6636,7 @@ namespace ProyectoCompiladores2020
                     pilaSimbolos.Push("ExprCompP");
                     return IrA(pilaAcciones.Peek(), lH);
                 default:
-                    return false;
+                    return error(lH);
             }
         }
         private bool estado104(Token lH)
@@ -6908,7 +6768,7 @@ namespace ProyectoCompiladores2020
                     pilaSimbolos.Push("Expr");
                     return IrA(pilaAcciones.Peek(), lH);
                 default:
-                    return false;
+                    return error(lH);
             }
         }
         private bool estado105(Token lH)
@@ -7045,7 +6905,7 @@ namespace ProyectoCompiladores2020
                     pilaSimbolos.Push("Expr");
                     return IrA(pilaAcciones.Peek(), lH);
                 default:
-                    return false;
+                    return error(lH);
             }
         }
         private bool estado106(Token lH)
@@ -7193,7 +7053,7 @@ namespace ProyectoCompiladores2020
                     pilaSimbolos.Push("ExprOrP");
                     return IrA(pilaAcciones.Peek(), lH);
                 default:
-                    return false;
+                    return error(lH);
             }
         }
         private bool estado107(Token lH)
@@ -7345,7 +7205,7 @@ namespace ProyectoCompiladores2020
                     pilaSimbolos.Push("ExprAnd");
                     return IrA(pilaAcciones.Peek(), lH);
                 default:
-                    return false;
+                    return error(lH);
             }
         }
         private bool estado108(Token lH)
@@ -7353,11 +7213,6 @@ namespace ProyectoCompiladores2020
             
             switch (lH.tipo)
             {
-                //Reduccion 82ident
-                //Reduccion 82intConstant
-                //Reduccion 82doubleConstant
-                //Reduccion 82boolConstant
-                //Reduccion 82stringConstant
                 case "ident":
                     pilaAcciones.Pop();
                     pilaSimbolos.Pop();
@@ -7515,12 +7370,11 @@ namespace ProyectoCompiladores2020
                     pilaSimbolos.Push("ExprAndP");
                     return IrA(pilaAcciones.Peek(), lH);
                 default:
-                    return false;
+                    return error(lH);
             }
         }
         private bool estado109(Token lH)
         {
-
             switch (lH.tipo)
             {
                 case "ident": //Reduccion 85ident
@@ -7548,9 +7402,7 @@ namespace ProyectoCompiladores2020
                     pilaSimbolos.Pop();
                     pilaSimbolos.Push("ExprEqualsP");
                     return IrA(pilaAcciones.Peek(), lH);
-
             }
-
             switch (lH.contenido)
             {
                 //REDUCCIONES
@@ -7682,14 +7534,12 @@ namespace ProyectoCompiladores2020
                     pilaSimbolos.Push("ExprEqualsP");
                     return IrA(pilaAcciones.Peek(), lH);
                 default:
-                    return false;
+                    return error(lH);
             }
 
         }
         private bool estado110(Token lH)
         {
-            //Ir a 142 ExprComp
-            //Ir a 113 ExprCompP
             switch(pilaSimbolos.Peek())
             {
                 case "ExprComp":
@@ -7750,7 +7600,7 @@ namespace ProyectoCompiladores2020
                     lH = cadenas.Peek();
                     return estado121(lH);
                 default:
-                    return false;
+                    return error(lH);
             }
         }
         private bool estado111(Token lH)
@@ -7815,7 +7665,7 @@ namespace ProyectoCompiladores2020
                     lH = cadenas.Peek();
                     return estado121(lH);
                 default:
-                    return false;
+                    return error(lH);
             }
         }
         private bool estado112(Token lH)
@@ -7849,7 +7699,6 @@ namespace ProyectoCompiladores2020
                     return IrA(pilaAcciones.Peek(), lH);
 
             }
-
             switch (lH.contenido)
             {
                 //REDUCCIONES
@@ -7986,7 +7835,7 @@ namespace ProyectoCompiladores2020
                     pilaSimbolos.Push("ExprEqualsP");
                     return IrA(pilaAcciones.Peek(), lH);
                 default:
-                    return false;
+                    return error(lH);
             }
         }
         private bool estado113(Token lH)
@@ -8157,7 +8006,7 @@ namespace ProyectoCompiladores2020
                     pilaSimbolos.Push("ExprComp");
                     return IrA(pilaAcciones.Peek(), lH);
                 default:
-                    return false;
+                    return error(lH);
             }
         }
         private bool estado114(Token lH)
@@ -8253,7 +8102,7 @@ namespace ProyectoCompiladores2020
                     lH = cadenas.Peek();
                     return estado121(lH);
                 default:
-                    return false;
+                    return error(lH);
             }
         }
         private bool estado115(Token lH)
@@ -8424,7 +8273,7 @@ namespace ProyectoCompiladores2020
                     pilaSimbolos.Push("ExprCompP");
                     return IrA(pilaAcciones.Peek(), lH);
                 default:
-                    return false;
+                    return error(lH);
             }
         }
         private bool estado116(Token lH)
@@ -8437,7 +8286,7 @@ namespace ProyectoCompiladores2020
                     lH = cadenas.Peek();
                     return estado147(lH);
                 default:
-                    return false;
+                    return error(lH);
             }
         }
         private bool estado117(Token lH)
@@ -8471,7 +8320,6 @@ namespace ProyectoCompiladores2020
                     return IrA(pilaAcciones.Peek(), lH);
 
             }
-
             switch (lH.contenido)
             {
                 //REDUCCIONES
@@ -8608,7 +8456,7 @@ namespace ProyectoCompiladores2020
                     pilaSimbolos.Push("ExprCompP");
                     return IrA(pilaAcciones.Peek(), lH);
                 default:
-                    return false;
+                    return error(lH);
             }
 
         }
@@ -8641,9 +8489,7 @@ namespace ProyectoCompiladores2020
                     pilaSimbolos.Pop();
                     pilaSimbolos.Push("ExprCompP");
                     return IrA(pilaAcciones.Peek(), lH);
-
             }
-
             switch (lH.contenido)
             {
                 //REDUCCIONES
@@ -8780,7 +8626,7 @@ namespace ProyectoCompiladores2020
                     pilaSimbolos.Push("ExprCompP");
                     return IrA(pilaAcciones.Peek(), lH);
                 default:
-                    return false;
+                    return error(lH);
             }
         }
         private bool estado119(Token lH)
@@ -8814,7 +8660,6 @@ namespace ProyectoCompiladores2020
                     return IrA(pilaAcciones.Peek(), lH);
 
             }
-
             switch (lH.contenido)
             {
                 //REDUCCIONES
@@ -8951,7 +8796,7 @@ namespace ProyectoCompiladores2020
                     pilaSimbolos.Push("ExprCompP");
                     return IrA(pilaAcciones.Peek(), lH);
                 default:
-                    return false;
+                    return error(lH);
             }
         }
         private bool estado120(Token lH)
@@ -8983,9 +8828,7 @@ namespace ProyectoCompiladores2020
                     pilaSimbolos.Pop();
                     pilaSimbolos.Push("ExprCompP");
                     return IrA(pilaAcciones.Peek(), lH);
-
             }
-
             switch (lH.contenido)
             {
                 //REDUCCIONES
@@ -9122,7 +8965,7 @@ namespace ProyectoCompiladores2020
                     pilaSimbolos.Push("ExprCompP");
                     return IrA(pilaAcciones.Peek(), lH);
                 default:
-                    return false;
+                    return error(lH);
             }
         }
         private bool estado121(Token lH)
@@ -9292,8 +9135,8 @@ namespace ProyectoCompiladores2020
                     pilaSimbolos.Pop();
                     pilaSimbolos.Push("ExprCompP");
                     return IrA(pilaAcciones.Peek(), lH);
-                default:
-                    return false;
+                default: 
+                    return error(lH);
             }
         }
         private bool estado122(Token lH)
@@ -9667,7 +9510,7 @@ namespace ProyectoCompiladores2020
                     pilaSimbolos.Push("Prototype");
                     return IrA(pilaAcciones.Peek(), lH);
                 default:
-                    return false;
+                    return error(lH);
             }
         }
         private bool estado124(Token lH)
@@ -9828,7 +9671,7 @@ namespace ProyectoCompiladores2020
                     pilaSimbolos.Push("Prototype");
                     return IrA(pilaAcciones.Peek(), lH);
                 default:
-                    return false;
+                    return error(lH);
             }
         }
         private bool estado125(Token lH)
@@ -10246,7 +10089,7 @@ namespace ProyectoCompiladores2020
             }
             else
             {
-                return false;
+                return error(lH);
             }
         }
         private bool estado127(Token lH)
@@ -10563,7 +10406,7 @@ namespace ProyectoCompiladores2020
                     lH = cadenas.Peek();
                     return estado121(lH);
                 default:
-                    return false;
+                    return error(lH);
             }
         }
         private bool estado129(Token lH)
@@ -10659,7 +10502,7 @@ namespace ProyectoCompiladores2020
                     lH = cadenas.Peek();
                     return estado121(lH);
                 default:
-                    return false;
+                    return error(lH);
             }
         }
         private bool estado130(Token lH)
@@ -10755,7 +10598,7 @@ namespace ProyectoCompiladores2020
                     lH = cadenas.Peek();
                     return estado121(lH);
                 default:
-                    return false;
+                    return error(lH);
             }
         }
         private bool estado131(Token lH)
@@ -10916,7 +10759,7 @@ namespace ProyectoCompiladores2020
                     pilaSimbolos.Push("BreakStmt");
                     return IrA(pilaAcciones.Peek(), lH);
                 default:
-                    return false;
+                    return error(lH);
             }
         }
         private bool estado132(Token lH)
@@ -10929,7 +10772,7 @@ namespace ProyectoCompiladores2020
                     lH = cadenas.Peek();
                     return estado151(lH);
                 default:
-                    return false;
+                    return error(lH);
             }
                     
         }
@@ -10943,12 +10786,11 @@ namespace ProyectoCompiladores2020
                     lH = cadenas.Peek();
                     return estado152(lH);
                 default:
-                    return false;
+                    return error(lH);
             }
         }
         private bool estado134(Token lH)
         {
-          
             switch (pilaSimbolos.Peek())
             {
                 case "ExprOr"://Ir a 153 ExprOr
@@ -10976,8 +10818,6 @@ namespace ProyectoCompiladores2020
                     pilaAcciones.Push(134);
                     return IrA(113, lH);
             }
-
-
             switch (lH.tipo)
             {
                 case "ident":
@@ -11039,7 +10879,7 @@ namespace ProyectoCompiladores2020
                     lH = cadenas.Peek();
                     return estado121(lH);
                 default:
-                    return false;
+                    return error(lH);
             }
         }
         private bool estado135(Token lH)
@@ -11071,7 +10911,6 @@ namespace ProyectoCompiladores2020
                     pilaAcciones.Push(135);
                     return IrA(113, lH);
             }
-
             switch (lH.tipo)
             {
                 case "ident":
@@ -11133,7 +10972,7 @@ namespace ProyectoCompiladores2020
                     lH = cadenas.Peek();
                     return estado121(lH);
                 default:
-                    return false;
+                    return error(lH);
             }
         }
         private bool estado136(Token lH)
@@ -11159,7 +10998,6 @@ namespace ProyectoCompiladores2020
                     pilaAcciones.Push(136);
                     return IrA(113, lH);
             }
-
             switch (lH.tipo)
             {
                 case "ident":
@@ -11221,7 +11059,7 @@ namespace ProyectoCompiladores2020
                     lH = cadenas.Peek();
                     return estado121(lH);
                 default:
-                    return false;
+                    return error(lH);
             }
         }
         private bool estado137(Token lH)
@@ -11244,7 +11082,6 @@ namespace ProyectoCompiladores2020
                     pilaAcciones.Push(136);
                     return IrA(113, lH);
             }
-
             switch (lH.tipo)
             {
                 case "ident":
@@ -11306,12 +11143,11 @@ namespace ProyectoCompiladores2020
                     lH = cadenas.Peek();
                     return estado121(lH);
                 default:
-                    return false;
+                    return error(lH);
             }
         }
         private bool estado138(Token lH)
         {
-
             switch (pilaSimbolos.Peek())
             {
                 case "ExprAndP": //Ir a 157 ExpreAndP
@@ -11330,7 +11166,6 @@ namespace ProyectoCompiladores2020
                     pilaAcciones.Push(138);
                     return IrA(113, lH);
             }
-
             switch (lH.tipo)
             {
                 case "ident":
@@ -11392,7 +11227,7 @@ namespace ProyectoCompiladores2020
                     lH = cadenas.Peek();
                     return estado121(lH);
                 default:
-                    return false;
+                    return error(lH);
             }
         }
         private bool estado139(Token lH)
@@ -11412,7 +11247,6 @@ namespace ProyectoCompiladores2020
                     pilaAcciones.Push(139);
                     return IrA(113, lH);
             }
-
             switch (lH.tipo)
             {
                 case "ident":
@@ -11474,12 +11308,11 @@ namespace ProyectoCompiladores2020
                     lH = cadenas.Peek();
                     return estado121(lH);
                 default:
-                    return false;
+                    return error(lH);
             }
         }
         private bool estado140(Token lH)
         {
-
             switch (pilaSimbolos.Peek())
             {
                 case "ExprEqualsP"://Ir a 159 ExprEqualsP
@@ -11492,8 +11325,6 @@ namespace ProyectoCompiladores2020
                     pilaAcciones.Push(140);
                     return IrA(113, lH);
             }
-
-
             switch (lH.tipo)
             {
                 case "ident":
@@ -11555,7 +11386,7 @@ namespace ProyectoCompiladores2020
                     lH = cadenas.Peek();
                     return estado121(lH);
                 default:
-                    return false;
+                    return error(lH);
             }
         }
         private bool estado141(Token lH)
@@ -11572,7 +11403,6 @@ namespace ProyectoCompiladores2020
                     pilaAcciones.Push(141);
                     return IrA(113, lH);
             }
-
             switch (lH.tipo)
             {
                 case "ident":
@@ -11634,7 +11464,7 @@ namespace ProyectoCompiladores2020
                     lH = cadenas.Peek();
                     return estado121(lH);
                 default:
-                    return false;
+                    return error(lH);
             }
         }
         private bool estado142(Token lH)
@@ -11861,7 +11691,7 @@ namespace ProyectoCompiladores2020
                     lH = cadenas.Peek();
                     return estado145(lH);
                 default:
-                    return false;
+                    return error(lH);
             }
         }
         private bool estado143(Token lH)
@@ -12030,7 +11860,7 @@ namespace ProyectoCompiladores2020
                     pilaSimbolos.Push("ExprComP");
                     return IrA(pilaAcciones.Peek(), lH);
                 default:
-                    return false;
+                    return error(lH);
             }
         }
         private bool estado144(Token lH)
@@ -12257,7 +12087,7 @@ namespace ProyectoCompiladores2020
                     lH = cadenas.Peek();
                     return estado145(lH);
                 default:
-                    return false;
+                    return error(lH);
             }
         }
         private bool estado145(Token lH)
@@ -12270,7 +12100,7 @@ namespace ProyectoCompiladores2020
                     lH = cadenas.Peek();
                     return estado161(lH);
                 default:
-                    return false;
+                    return error(lH);
             }
         }
         private bool estado146(Token lH)
@@ -12283,7 +12113,7 @@ namespace ProyectoCompiladores2020
                     lH = cadenas.Peek();
                     return estado162(lH);
                 default:
-                    return false;
+                    return error(lH);
             }
         }
         private bool estado147(Token lH)
@@ -12296,7 +12126,7 @@ namespace ProyectoCompiladores2020
                     lH = cadenas.Peek();
                     return estado163(lH);
                 default:
-                    return false;
+                    return error(lH);
             }
         }
         private bool estado148(Token lH)
@@ -12309,7 +12139,7 @@ namespace ProyectoCompiladores2020
                     lH = cadenas.Peek();
                     return estado164(lH);
                 default:
-                    return false;
+                    return error(lH);
             }
         }
         private bool estado149(Token lH)
@@ -12322,7 +12152,7 @@ namespace ProyectoCompiladores2020
                     lH = cadenas.Peek();
                     return estado165(lH);
                 default:
-                    return false;
+                    return error(lH);
             }
         }
         private bool estado150(Token lH)
@@ -12335,7 +12165,7 @@ namespace ProyectoCompiladores2020
                     lH = cadenas.Peek();
                     return estado166(lH);
                 default:
-                    return false;
+                    return error(lH);
             }
         }
         private bool estado151(Token lH)
@@ -12536,7 +12366,7 @@ namespace ProyectoCompiladores2020
                     pilaSimbolos.Push("ReturnStmt");
                     return IrA(pilaAcciones.Peek(), lH);
                 default:
-                    return false;
+                    return error(lH);
             }
         }
         private bool estado152(Token lH)
@@ -12549,7 +12379,7 @@ namespace ProyectoCompiladores2020
                     lH = cadenas.Peek();
                     return estado167(lH);
                 default:
-                    return false;
+                    return error(lH);
             }
         }
         private bool estado153(Token lH)
@@ -12773,7 +12603,7 @@ namespace ProyectoCompiladores2020
                     pilaSimbolos.Push("Expr");
                     return IrA(pilaAcciones.Peek(), lH);
                 default:
-                    return false;
+                    return error(lH);
             }
 
         }
@@ -13007,7 +12837,7 @@ namespace ProyectoCompiladores2020
                     lH = cadenas.Peek();
                     return estado136(lH);
                 default:
-                    return false;
+                    return error(lH);
             }
         }
         private bool estado155(Token lH)
@@ -13254,7 +13084,7 @@ namespace ProyectoCompiladores2020
                     lH = cadenas.Peek();
                     return estado138(lH);
                 default:
-                    return false;
+                    return error(lH);
             }
         }
         private bool estado156(Token lH)
@@ -13514,7 +13344,7 @@ namespace ProyectoCompiladores2020
                     lH = cadenas.Peek();
                     return estado139(lH);
                 default:
-                    return false;
+                    return error(lH);
             }
         }
         private bool estado157(Token lH)
@@ -13774,7 +13604,7 @@ namespace ProyectoCompiladores2020
                     lH = cadenas.Peek();
                     return estado139(lH);
                 default:
-                    return false;
+                    return error(lH);
             }
         }
         private bool estado158(Token lH)
@@ -14048,7 +13878,7 @@ namespace ProyectoCompiladores2020
                     lH = cadenas.Peek();
                     return estado141(lH);
                 default:
-                    return false;
+                    return error(lH);
             }
 
         }
@@ -14331,7 +14161,7 @@ namespace ProyectoCompiladores2020
                     pilaSimbolos.Push("ExprEquals");
                     return IrA(pilaAcciones.Peek(), lH);
                 default:
-                    return false;
+                    return error(lH);
             }
         }
         private bool estado160(Token lH)
@@ -14613,7 +14443,7 @@ namespace ProyectoCompiladores2020
                     pilaSimbolos.Push("ExprEquals");
                     return IrA(pilaAcciones.Peek(), lH);
                 default:
-                    return false;
+                    return error(lH);
             }
         }
         private bool estado161(Token lH)
@@ -14780,7 +14610,7 @@ namespace ProyectoCompiladores2020
                     lH = cadenas.Peek();
                     return estado168(lH);
                 default:
-                    return false;
+                    return error(lH);
             }
         }
         private bool estado162(Token lH)
@@ -15061,7 +14891,7 @@ namespace ProyectoCompiladores2020
                     pilaSimbolos.Push("ExprCompP");
                     return IrA(pilaAcciones.Peek(), lH);
                 default:
-                    return false;
+                    return error(lH);
             }
         }
         private bool estado163(Token lH)
@@ -15075,7 +14905,7 @@ namespace ProyectoCompiladores2020
                     lH = cadenas.Peek();
                     return estado169(lH);
                 default:
-                    return false;
+                    return error(lH);
             }
         }
         private bool estado164(Token lH)
@@ -15137,7 +14967,6 @@ namespace ProyectoCompiladores2020
                     pilaAcciones.Push(164);
                     return IrA(113, lH);
             }
-
             switch (lH.tipo)
             {
                 case "ident":
@@ -15238,7 +15067,7 @@ namespace ProyectoCompiladores2020
                     lH = cadenas.Peek();
                     return estado121(lH);
                 default:
-                    return false;
+                    return error(lH);
             }
         }
         private bool estado165(Token lH)
@@ -15300,7 +15129,6 @@ namespace ProyectoCompiladores2020
                     pilaAcciones.Push(165);
                     return IrA(113, lH);
             }
-
             switch (lH.tipo)
             {
                 case "ident":
@@ -15401,7 +15229,7 @@ namespace ProyectoCompiladores2020
                     lH = cadenas.Peek();
                     return estado121(lH);
                 default:
-                    return false;
+                    return error(lH);
             }
         }
         private bool estado166(Token lH)
@@ -15497,7 +15325,7 @@ namespace ProyectoCompiladores2020
                     lH = cadenas.Peek();
                     return estado121(lH);
                 default:
-                    return false;
+                    return error(lH);
             }
         }
         private bool estado167(Token lH)
@@ -15532,7 +15360,6 @@ namespace ProyectoCompiladores2020
                     pilaAcciones.Push(167);
                     return IrA(113, lH);
             }
-
             switch (lH.tipo)
             {
                 case "ident":
@@ -15593,9 +15420,8 @@ namespace ProyectoCompiladores2020
                     pilaAcciones.Push(121);
                     lH = cadenas.Peek();
                     return estado121(lH);
-
                 default:
-                    return false;
+                    return error(lH);
             }
         }
         private bool estado168(Token lH)
@@ -15629,7 +15455,6 @@ namespace ProyectoCompiladores2020
                     lH = cadenas.Peek();
                     return estado121(lH);
             }
-
             switch (lH.tipo)
             {
                 case "ident":
@@ -15658,37 +15483,11 @@ namespace ProyectoCompiladores2020
                     lH = cadenas.Peek();
                     return estado120(lH);
                 default:
-                    return false;
+                    return error(lH);
             }
         }
         private bool estado169(Token lH)
         {
-            //Reduccion 95 ;
-            //Reduccion 95 (
-            //Reduccion 95 )
-            //Reduccion 95 ,
-            //Reduccion 95 {
-            //Reduccion 95 }
-            //Reduccion 95 if
-            //Reduccion 95 else
-            //Reduccion 95 while
-            //Reduccion 95 for
-            //Reduccion 95 return 
-            //Reduccion 95 break
-            //Reduccion 95 Console
-            //REduccion 95 .
-            //Reduccion 95 ==
-            //Reduccion 95 &&
-            //Reduccion 95 <
-            //Reduccion 95 <=
-            //Reduccion 95 +
-            //Reduccion 95 *
-            //Reduccion 95 %
-            //Reduccion 95 -
-            //Reduccion 95 !
-            //Reduccion 95 this
-            //Reduccion 95 New
-            //Reduccion 95 null
             switch (lH.tipo)
             {
                 case "ident":
@@ -15974,7 +15773,7 @@ namespace ProyectoCompiladores2020
                     pilaSimbolos.Push("ExprCompP");
                     return IrA(pilaAcciones.Peek(), lH);
                 default:
-                    return false;
+                    return error(lH);
             }
         }
         private bool estado170(Token lH)
@@ -15988,58 +15787,80 @@ namespace ProyectoCompiladores2020
             switch (lH.tipo)
             {
                 case "ident":  //Reduccion 64 ident
+                    pilaSimbolos.Push("IfStmt_P");
                     return IrA(pilaAcciones.Peek(), lH);
                 case "int":   //Reduccion 64 intConstant
+                    pilaSimbolos.Push("IfStmt_P");
                     return IrA(pilaAcciones.Peek(), lH);
                 case "double"://Reduccion 64 doubleConstant
+                    pilaSimbolos.Push("IfStmt_P");
                     return IrA(pilaAcciones.Peek(), lH);
                 case "bool"://Reduccion 64 boolConstant
+                    pilaSimbolos.Push("IfStmt_P");
                     return IrA(pilaAcciones.Peek(), lH);
                 case "string"://Reduccion 64 stringConstant
+                    pilaSimbolos.Push("IfStmt_P");
                     return IrA(pilaAcciones.Peek(), lH);
 
             }
             switch (lH.contenido)
             {
                 case ";":  //Reduccion 64 ;
+                    pilaSimbolos.Push("IfStmt_P");
                     return IrA(pilaAcciones.Peek(), lH);
                 case "(": //Reduccion 64 (
+                    pilaSimbolos.Push("IfStmt_P");
                     return IrA(pilaAcciones.Peek(), lH);
                 case ")":
+                    pilaSimbolos.Push("IfStmt_P");
                     return IrA(pilaAcciones.Peek(), lH);
                 case ",": //Reduccion 64 ,
+                    pilaSimbolos.Push("IfStmt_P");
                     return IrA(pilaAcciones.Peek(), lH);
                 case "{"://Reduccion 64 {
+                    pilaSimbolos.Push("IfStmt_P");
                     return IrA(pilaAcciones.Peek(), lH);
                 case "}"://Reduccion 64 }
+                    pilaSimbolos.Push("IfStmt_P");
                     return IrA(pilaAcciones.Peek(), lH);
                 case "if": //Reduccion 64 if
+                    pilaSimbolos.Push("IfStmt_P");
                     return IrA(pilaAcciones.Peek(), lH);
 
                 //COLISION (DESPLAZAMIENTO A 176 / REDUCCION A 64 ) CON ELSE
 
                 case "for"://Reduccion 64 for
+                    pilaSimbolos.Push("IfStmt_P");
                     return IrA(pilaAcciones.Peek(), lH);
                 case "while"://Reduccion 64 while
+                    pilaSimbolos.Push("IfStmt_P");
                     return IrA(pilaAcciones.Peek(), lH);
                 case "return": //Reduccion 64 return 
+                    pilaSimbolos.Push("IfStmt_P");
                     return IrA(pilaAcciones.Peek(), lH);
                 case "break"://Reduccion 64 break
+                    pilaSimbolos.Push("IfStmt_P");
                     return IrA(pilaAcciones.Peek(), lH);
                 case "Console": //Reduccion 64 Console
+                    pilaSimbolos.Push("IfStmt_P");
                     return IrA(pilaAcciones.Peek(), lH);
                 case "-": //Reduccion 64 -
+                    pilaSimbolos.Push("IfStmt_P");
                     return IrA(pilaAcciones.Peek(), lH);
                 case "!": //Reduccion 64 !
+                    pilaSimbolos.Push("IfStmt_P");
                     return IrA(pilaAcciones.Peek(), lH);
                 case "this"://Reduccion 64 this
+                    pilaSimbolos.Push("IfStmt_P");
                     return IrA(pilaAcciones.Peek(), lH);
                 case "New"://Reduccion 64 New
+                    pilaSimbolos.Push("IfStmt_P");
                     return IrA(pilaAcciones.Peek(), lH);
                 case "null"://Reduccion 64 null
+                    pilaSimbolos.Push("IfStmt_P");
                     return IrA(pilaAcciones.Peek(), lH);
                 default:
-                    return false;
+                    return error(lH);
             }
            
         }
@@ -16350,7 +16171,7 @@ namespace ProyectoCompiladores2020
                     pilaSimbolos.Push("WhileStmt");
                     return IrA(pilaAcciones.Peek(), lH);
                 default:
-                    return false;
+                    return error(lH);
             }
 
         }
@@ -16365,7 +16186,7 @@ namespace ProyectoCompiladores2020
                     lH = cadenas.Peek();
                     return estado177(lH);
                 default:
-                    return false;
+                    return error(lH);
             }
         }
         private bool estado173(Token lH)
@@ -16387,7 +16208,7 @@ namespace ProyectoCompiladores2020
                 case ")":  //Reduccion 71 )
                     return IrA(pilaAcciones.Peek(), lH);
                 default:
-                    return false;
+                    return error(lH);
             }
         }
         private bool estado174(Token lH)
@@ -16836,12 +16657,11 @@ namespace ProyectoCompiladores2020
                     pilaSimbolos.Push("Exprcomp");
                     return IrA(pilaAcciones.Peek(), lH);
                 default:
-                    return false;
+                    return error(lH);
             }
         }
         private bool estado175(Token lH)
         {
-           
             switch (lH.tipo)
             {
                 case "ident"://Reduccion 62ident
@@ -16926,7 +16746,6 @@ namespace ProyectoCompiladores2020
                     return IrA(pilaAcciones.Peek(), lH);
 
             }
-
             switch (lH.contenido)
             {
                 //REDUCCIONES
@@ -17187,7 +17006,7 @@ namespace ProyectoCompiladores2020
                     pilaSimbolos.Push("IfStmt");
                     return IrA(pilaAcciones.Peek(), lH);
                 default:
-                    return false;
+                    return error(lH);
             }
 
         }
@@ -17282,7 +17101,6 @@ namespace ProyectoCompiladores2020
             }
             switch (lH.contenido)
             {
-                
                 case ";"://Reducción 61 ;
                     pilaSimbolos.Push("Stmt_P");
                     return IrA(pilaAcciones.Peek(), lH);
@@ -17352,7 +17170,7 @@ namespace ProyectoCompiladores2020
                     lH = cadenas.Peek();
                     return estado121(lH);
                 default:
-                    return false;
+                    return error(lH);
             }
         }
         private bool estado177(Token lH)
@@ -17387,7 +17205,6 @@ namespace ProyectoCompiladores2020
                     pilaAcciones.Push(177);
                     return IrA(113, lH);
             }
-
             switch (lH.tipo)
             {
                 case "ident":
@@ -17451,7 +17268,7 @@ namespace ProyectoCompiladores2020
                     lH = cadenas.Peek();
                     return estado121(lH);
                 default:
-                    return false;
+                    return error(lH);
             }
         }
         private bool estado178(Token lH)
@@ -17464,7 +17281,7 @@ namespace ProyectoCompiladores2020
                     lH = cadenas.Peek();
                     return estado182(lH);
                 default:
-                    return false;
+                    return error(lH);
             }
         }
         private bool estado179(Token lH)
@@ -17562,32 +17379,11 @@ namespace ProyectoCompiladores2020
                     lH = cadenas.Peek();
                     return estado121(lH);
                 default:
-                    return false;
+                    return error(lH);
             }
         }
         private bool estado180(Token lH)
         {
-            //Reduccion 63 ;
-            //Reduccion 63 ident
-            //Reduccion 63 (
-            //Reduccion 63 {
-            //Reduccion 63 }
-            //Reduccion 63 if
-            //Reduccion 63 else
-            //Reduccion 63 while
-            //Reduccion 63 for
-            //Reduccion 63 return 
-            //Reduccion 63 break
-            //Reduccion 63 Console
-            //Reduccion 63 -
-            //Reduccion 63 !
-            //Reduccion 63 this
-            //Reduccion 63 New
-            //Reduccion 63 intConstant
-            //Reduccion 63 doubleConstant
-            //Reduccion 63 boolConstant
-            //Reduccion 63 stringConstant
-            //Reduccion 63 null
             switch (lH.tipo)
             {
                 case "ident":
@@ -17784,7 +17580,7 @@ namespace ProyectoCompiladores2020
                     pilaSimbolos.Push("IfStmt_P");
                     return IrA(pilaAcciones.Peek(), lH);
                 default:
-                    return false;
+                    return error(lH);
             }
         }
         private bool estado181(Token lH)
@@ -17797,7 +17593,7 @@ namespace ProyectoCompiladores2020
                     lH = cadenas.Peek();
                     return estado184(lH);
                 default:
-                    return false;
+                    return error(lH);
             }
         }
         private bool estado182(Token lH)
@@ -17810,7 +17606,7 @@ namespace ProyectoCompiladores2020
                     lH = cadenas.Peek();
                     return estado185(lH);
                 default:
-                    return false;
+                    return error(lH);
             }
         }
         private bool estado183(Token lH)
@@ -17833,7 +17629,7 @@ namespace ProyectoCompiladores2020
                     pilaSimbolos.Push("PrintStmt_P");
                     return IrA(pilaAcciones.Peek(), lH);
                 default:
-                    return false;
+                    return error(lH);
             }
         }
         private bool estado184(Token lH)
@@ -17996,32 +17792,11 @@ namespace ProyectoCompiladores2020
                     lH = cadenas.Peek();
                     return estado121(lH);
                 default:
-                    return false;
+                    return error(lH);
             }
         }
         private bool estado185(Token lH)
         {
-            //Reduccion 69 ;
-            //Reduccion 69 ident
-            //Reduccion 69 (
-            //Reduccion 69 {
-            //Reduccion 69 }
-            //Reduccion 69 if
-            //Reduccion 69 else
-            //Reduccion 69 while
-            //Reduccion 69 for
-            //Reduccion 69 return 
-            //Reduccion 69 break
-            //Reduccion 69 Console
-            //Reduccion 69 -
-            //Reduccion 69 !
-            //Reduccion 69 this
-            //Reduccion 69 New
-            //Reduccion 69 intConstant
-            //Reduccion 69 doubleConstant
-            //Reduccion 69 boolConstant
-            //Reduccion 69 stringConstant
-            //Reduccion 69 null
             switch (lH.tipo)
             {
                 case "ident":
@@ -18491,7 +18266,7 @@ namespace ProyectoCompiladores2020
                     pilaSimbolos.Push("PrintStmt");
                     return IrA(pilaAcciones.Peek(), lH);
                 default:
-                    return false;
+                    return error(lH);
             }
         }
         private bool estado186(Token lH)
@@ -18509,32 +18284,11 @@ namespace ProyectoCompiladores2020
             }
             else
             {
-                return false;
+                return error(lH);
             }
         }
         private bool estado187(Token lH)
         {
-            //Reduccion 66 ;
-            //Reduccion 66 ident
-            //Reduccion 66 (
-            //Reduccion 66 {
-            //Reduccion 66 }
-            //Reduccion 66 if
-            //Reduccion 66 else
-            //Reduccion 66 while
-            //Reduccion 66 for
-            //Reduccion 66 return 
-            //Reduccion 66 break
-            //Reduccion 66 Console
-            //Reduccion 66 -
-            //Reduccion 66 !
-            //Reduccion 66 this
-            //Reduccion 66 New
-            //Reduccion 66 intConstant
-            //Reduccion 66 doubleConstant
-            //Reduccion 66 boolConstant
-            //Reduccion 66 stringConstant
-            //Reduccion 66 null
             switch (lH.tipo)
             {
                 case "ident":
@@ -19025,7 +18779,7 @@ namespace ProyectoCompiladores2020
                     pilaSimbolos.Push("ForStmt");
                     return IrA(pilaAcciones.Peek(), lH);
                 default:
-                    return false;
+                    return error(lH);
             }
         }
     }
