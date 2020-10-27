@@ -718,7 +718,50 @@ namespace ProyectoCompiladores2020
 
         private bool estado0(Token lH)
         {
-            switch(lH.tipo)
+            //IR A 1 Program
+            //IR A 2 Decl
+            //IR A 3 VariableDecl
+            //IR A 8 Variable
+            //IR A 5 ConstDecl
+            //IR A 9 Type 
+            //IR A 14 Type_P
+            //IR A 4 FunctionDecl
+            //IR A 6 ClassDecl
+            //IR A 7 InterfaceDecl
+            switch(pilaSimbolos.Peek())
+            {
+                case "Program":
+                    pilaAcciones.Push(0);
+                    return IrA(1, lH);
+                case "Decl":
+                    pilaAcciones.Push(0);
+                    return IrA(2, lH);
+                case "VariableDecl":
+                    pilaAcciones.Push(0);
+                    return IrA(3, lH);
+                case "Variable":
+                    pilaAcciones.Push(0);
+                    return IrA(8, lH);
+                case "ConstDecl":
+                    pilaAcciones.Push(0);
+                    return IrA(5, lH);
+                case "Type":
+                    pilaAcciones.Push(0);
+                    return IrA(9, lH);
+                case "Type_P":
+                    pilaAcciones.Push(0);
+                    return IrA(14, lH);
+                case "FunctionDecl":
+                    pilaAcciones.Push(0);
+                    return IrA(4, lH);
+                case "ClassDecl":
+                    pilaAcciones.Push(0);
+                    return IrA(6, lH);
+                case "InterfaceDecl":
+                    pilaAcciones.Push(0);
+                    return IrA(7, lH);
+            }
+            switch (lH.tipo)
             {
                 case "ident":
                     pilaSimbolos.Push(cadenas.Dequeue().contenido);
@@ -768,7 +811,7 @@ namespace ProyectoCompiladores2020
                     pilaAcciones.Push(19);
                     lH = cadenas.Peek();
                     return estado11(lH);
-                //Faltas los irA
+                
                 default:
                     return false;
             }
@@ -780,6 +823,45 @@ namespace ProyectoCompiladores2020
         }
         private bool estado2(Token lH)
         {
+            switch (pilaSimbolos.Peek())
+            {
+                case "Program"://IR A 20 Program
+                    pilaAcciones.Push(2);
+                    return IrA(20, lH);
+                case "Decl"://IR A 2 Decl 
+                    pilaAcciones.Push(2);
+                    return IrA(2, lH);
+                case "VariableDecl"://IR A 3 VariableDecl
+                    pilaAcciones.Push(2);
+                    return IrA(3, lH);
+                case "Variable"://IR A 8 Variable
+                    pilaAcciones.Push(2);
+                    return IrA(8, lH);
+                case "ConstDecl"://IR A 5 ConstDecl
+                    pilaAcciones.Push(2);
+                    return IrA(5, lH);
+                case "Type":////IR A 9  Type
+                    pilaAcciones.Push(2);
+                    return IrA(9, lH);
+                case "Type_P": /////IR A 14 Type_P
+                    pilaAcciones.Push(2);
+                    return IrA(14, lH);
+                case "FunctionDecl": /////IR A 4 FunctionDecl
+                    pilaAcciones.Push(2);
+                    return IrA(4, lH);
+                case "ClassDecl":///IR A 6 ClassDecl
+                    pilaAcciones.Push(2);
+                    return IrA(6, lH);
+                case "InterfaceDecl":///IR A 7 InterfaceDecl
+                    pilaAcciones.Push(2);
+                    return IrA(7, lH);
+            }
+            switch (pilaSimbolos.Peek())
+            {
+                case "Program":
+                    pilaAcciones.Push(2);
+                    return IrA(20, lH);
+            }
             switch (lH.tipo)
             {
                 case "ident":
@@ -1155,7 +1237,7 @@ namespace ProyectoCompiladores2020
             {
                 case "ident":
                     pilaSimbolos.Push(cadenas.Dequeue().contenido);
-                    pilaAcciones.Push(22);
+                    pilaAcciones.Push(9);
                     lH = cadenas.Peek();
                     return estado19(lH);
                 default:
@@ -1178,8 +1260,14 @@ namespace ProyectoCompiladores2020
         }
         private bool estado11(Token lH)
         {
-            switch (lH.contenido)
+            switch (pilaSimbolos.Peek())
             {
+                case "ConstType": //IR A 24 ConsType
+                    pilaAcciones.Push(11);
+                    return IrA(24, lH);
+            }
+                    switch (lH.contenido)
+                    {
                 case "int":
                     pilaSimbolos.Push(cadenas.Dequeue().contenido);
                     pilaAcciones.Push(25);
@@ -1208,8 +1296,8 @@ namespace ProyectoCompiladores2020
         }
         private bool estado12(Token lH)
         {
-
-            switch (lH.tipo)
+            
+                    switch (lH.tipo)
             {
                 case "ident":
                     pilaSimbolos.Push(cadenas.Dequeue().contenido);
@@ -1235,8 +1323,12 @@ namespace ProyectoCompiladores2020
         }
         private bool estado14(Token lH)
         {
-            
-            //IR A TYPE_R CON 31
+            switch (pilaSimbolos.Peek())
+            {
+                case "Type_R":
+                    pilaAcciones.Push(14);
+                    return IrA(31, lH);
+            }
 
             switch (lH.contenido)
             {
@@ -1743,7 +1835,15 @@ namespace ProyectoCompiladores2020
         }
         private bool estado29(Token lH)
         {
-            //Ir a 36 con ClassDecll_P
+           
+            switch (pilaSimbolos.Peek())
+            {
+                case "ClassDecl_P": //Ir a 36 con ClassDecll_P
+                    pilaAcciones.Push(29);
+                    return IrA(36, lH);
+            }
+
+
             //Reduccion a 30 con {
             switch (lH.contenido)
             {
@@ -1805,10 +1905,21 @@ namespace ProyectoCompiladores2020
         }
         private bool estado33(Token lH)
         {
-            //Ir a 40 Variable
-            //IR a 41 Type
-            //IR a 14 Type_P
-            //IR a 39 Formals /42
+            switch (pilaSimbolos.Peek())
+            {
+                case "Variable": //Ir a 40 con variable
+                    pilaAcciones.Push(33);
+                    return IrA(40, lH);
+                case "Type": //Ir a 41 con type
+                    pilaAcciones.Push(33);
+                    return IrA(41, lH);
+                case "Type_P": //Ir a 14 con type_p
+                    pilaAcciones.Push(33);
+                    return IrA(14, lH);
+                case "Formals": //Ir a 39 con Formlas
+                    pilaAcciones.Push(33);
+                    return IrA(39, lH);
+            }
             switch (lH.tipo)
             {
                 case "ident":
@@ -1845,10 +1956,21 @@ namespace ProyectoCompiladores2020
         }
         private bool estado34(Token lH)
         {
-            //Ir a 40 Variable
-            //IR a 41 Type
-            //IR a 14 Type_P
-            //IR a 42 Formals 
+            switch (pilaSimbolos.Peek())
+            {
+                case "Variable": //Ir a 40 con variable
+                    pilaAcciones.Push(34);
+                    return IrA(40, lH);
+                case "Type": //Ir a 41 con type
+                    pilaAcciones.Push(34);
+                    return IrA(41, lH);
+                case "Type_P": //Ir a 14 con type_p
+                    pilaAcciones.Push(34);
+                    return IrA(14, lH);
+                case "Formals": //Ir a 42 con Formlas
+                    pilaAcciones.Push(34);
+                    return IrA(40, lH);
+            }
             switch (lH.tipo)
             {
                 case "ident":
@@ -1932,10 +2054,24 @@ namespace ProyectoCompiladores2020
         }
         private bool estado38(Token lH)
         {
-            //Ir a 48 con Type
-            //Ir a 14 con Type
-            //Ir a 46 con InterfaceDecl_P
-            //Ir a 47 con Prototype
+           
+            switch (pilaSimbolos.Peek())
+            {
+                case "Type": //Ir a 48 con type
+                    pilaAcciones.Push(38);
+                    return IrA(48, lH);
+                case "Type_P": //Ir a 14 con type_p
+                    pilaAcciones.Push(38);
+                    return IrA(14, lH);
+                case "InterfaceDecl_P": //Ir a 446 con interfacedel_p
+                    pilaAcciones.Push(38);
+                    return IrA(46, lH);
+                case "Prototype": //Ir a 38 con prototype
+                    pilaAcciones.Push(38);
+                    return IrA(47, lH);
+            }
+
+
             switch (lH.tipo)
             {
                 case "ident":
@@ -1994,11 +2130,15 @@ namespace ProyectoCompiladores2020
         }
         private bool estado40(Token lH)
         {
-            //Reduccion a 27 con )
-            //Ir a 51 Formals
-            switch (lH.contenido)
+            switch (pilaSimbolos.Peek())
             {
-                case ")":
+                case "Formals": //Ir a 51 con formals
+                    pilaAcciones.Push(40);
+                    return IrA(51, lH);
+            }
+                    switch (lH.contenido)
+            {
+                case ")"://Reduccion a 27 con )
                     pilaSimbolos.Push("Formals_P");
                     return IrA(pilaAcciones.Peek(), lH);
                 case ",":
@@ -2373,15 +2513,33 @@ namespace ProyectoCompiladores2020
         }
         private bool estado44(Token lH)
         {
-            //Reduccion a 36 }
-            //Ir a 57 con VariableDecl
-            //Ir a 8 con Variable
-            //Ir a 59 con ConstDecl
-            //Ir a 9 con Type
-            //Ir a 14 con Type_P
-            //Ir a 58 con FunctionDecl
-            //IR a 55 con ClassDecl_Q
-            //Ir a 56 con Field
+            switch (pilaSimbolos.Peek())
+            {
+                case "Formals": //Ir a 57 con variabledecl
+                    pilaAcciones.Push(44);
+                    return IrA(57, lH);
+                case "Variable": //Ir a 8 con variable
+                    pilaAcciones.Push(44);
+                    return IrA(8, lH);
+                case "ConstDecl": //Ir a 59 con ConstDecl
+                    pilaAcciones.Push(44);
+                    return IrA(59, lH);
+                case "Type": //Ir a 9 con type
+                    pilaAcciones.Push(44);
+                    return IrA(9, lH);
+                case "Type_P": //Ir a 14 con type_p
+                    pilaAcciones.Push(44);
+                    return IrA(14, lH);
+                case "FunctionDecl": //Ir a 58 con functiondecl
+                    pilaAcciones.Push(44);
+                    return IrA(58, lH);
+                case "ClassDecl_Q": //Ir a 55 con classdecl
+                    pilaAcciones.Push(44);
+                    return IrA(55, lH);
+                case "Field": //Ir a 55 con field
+                    pilaAcciones.Push(44);
+                    return IrA(56, lH);
+            }
             switch (lH.contenido)
             {
                 case "const":
@@ -2414,7 +2572,7 @@ namespace ProyectoCompiladores2020
                     pilaAcciones.Push(10);
                     lH = cadenas.Peek();
                     return estado10(lH);
-                case "}":
+                case "}"://Reduccion a 36 }
                     pilaSimbolos.Push("ClassDecl_Q");
                     return IrA(pilaAcciones.Peek(), lH);
 
@@ -2432,10 +2590,15 @@ namespace ProyectoCompiladores2020
         }
         private bool estado45(Token lH)
         {
-            //Reduccion a 32 con {
-            //IR a 60 con ClassDecl_R
-            //Ir a 61 con ClassDecl_O
-
+            switch (pilaSimbolos.Peek())//ir a
+            {
+                case "ClassDecl_R": //Ir a 60 con classdecl_r
+                    pilaAcciones.Push(45);
+                    return IrA(60, lH);
+                case "ClassDecl_O": //Ir a 61 con classdecl_o
+                    pilaAcciones.Push(45);
+                    return IrA(61, lH);
+            }
             switch (lH.contenido)
             {
                 case "const":
@@ -2443,7 +2606,7 @@ namespace ProyectoCompiladores2020
                     pilaAcciones.Push(62);
                     lH = cadenas.Peek();
                     return estado62(lH);
-                case "}":
+                case "}"://Reduccion a 32 con {
                     pilaSimbolos.Push("ClassDecl_R");
                     return IrA(pilaAcciones.Peek(), lH);
 
@@ -2466,11 +2629,65 @@ namespace ProyectoCompiladores2020
         }
         private bool estado47(Token lH)
         {
-            //IR A TYPE CON 48
-            //IR A TYPE_P CON 14
-            //IR A INTERFACEDECL_P CON 64
-            //IR A PROTOTYPE CON 47
+            switch (pilaSimbolos.Peek())//ir a
+            {
+                case "Type": //Ir a 48 con type
+                    pilaAcciones.Push(47);
+                    return IrA(48, lH);
+                case "Type_P": //Ir a 14 con type_p
+                    pilaAcciones.Push(47);
+                    return IrA(14, lH);
+                case "InterfaceDecl_P": //Ir a 64 con interfacedecl-p
+                    pilaAcciones.Push(47);
+                    return IrA(64, lH);
+                case "Prototype": //Ir a 47 con protype
+                    pilaAcciones.Push(47);
+                    switch (lH.contenido)
+                    {
+                        case "int":
+                            pilaSimbolos.Push(cadenas.Dequeue().contenido);
+                            pilaAcciones.Push(15);
+                            lH = cadenas.Peek();
+                            return estado15(lH);
+                        case "double":
+                            pilaSimbolos.Push(cadenas.Dequeue().contenido);
+                            pilaAcciones.Push(16);
+                            lH = cadenas.Peek();
+                            return estado16(lH);
+                        case "bool":
+                            pilaSimbolos.Push(cadenas.Dequeue().contenido);
+                            pilaAcciones.Push(17);
+                            lH = cadenas.Peek();
+                            return estado17(lH);
+                        case "string":
+                            pilaSimbolos.Push(cadenas.Dequeue().contenido);
+                            pilaAcciones.Push(18);
+                            lH = cadenas.Peek();
+                            return estado18(lH);
+                        case "void":
+                            pilaSimbolos.Push(cadenas.Dequeue().contenido);
+                            pilaAcciones.Push(10);
+                            lH = cadenas.Peek();
+                            return estado10(lH);
 
+                        case "}":
+                            pilaSimbolos.Push(cadenas.Dequeue().contenido);
+                            pilaAcciones.Push(42);
+                            lH = cadenas.Peek();
+                            return estado42(lH);
+                    }
+                    switch (lH.tipo)
+                    {
+                        case "ident":
+                            pilaSimbolos.Push(cadenas.Dequeue().contenido);
+                            pilaAcciones.Push(19);
+                            lH = cadenas.Peek();
+                            return estado19(lH);
+                        default:
+                            return false;
+
+                    }
+            }
             switch (lH.contenido)
             {
                 case "int":
@@ -2505,7 +2722,6 @@ namespace ProyectoCompiladores2020
                     lH = cadenas.Peek();
                     return estado42(lH);
             }
-
             switch (lH.tipo)
             {
                 case "ident":
@@ -2563,10 +2779,10 @@ namespace ProyectoCompiladores2020
         }
         private bool estado51(Token lH)
         {
-            //Reduccion a 25 con )
+            
             switch (lH.contenido)
             {
-                case ")":
+                case ")"://Reduccion a 25 con )
                     pilaSimbolos.Pop();
                     pilaSimbolos.Pop();
                     pilaAcciones.Pop(); 
@@ -2579,11 +2795,23 @@ namespace ProyectoCompiladores2020
         }
         private bool estado52(Token lH)
         {
-            //Ir a 40 con Variable
-            //Ir a 41 con Type
-            //Ir a 14 con Type_P
-            //Ir a 69 con Formals
-            switch(lH.tipo)
+           
+            switch (pilaSimbolos.Peek())//ir a
+            {
+                case "Variable":  //Ir a 40 con Variable
+                    pilaAcciones.Push(52);
+                    return IrA(40, lH);
+                case "Type":  //Ir a 41 con Type
+                    pilaAcciones.Push(52);
+                    return IrA(41, lH);
+                case "Type_P": //Ir a 14 con Type_P
+                    pilaAcciones.Push(52);
+                    return IrA(14, lH);
+                case "Formals":  //Ir a 69 con Formals
+                    pilaAcciones.Push(52);
+                    return IrA(69, lH);
+            }
+            switch (lH.tipo)
             {
                 case "ident":
                     pilaSimbolos.Push(cadenas.Dequeue().contenido);
@@ -2651,8 +2879,15 @@ namespace ProyectoCompiladores2020
         }
         private bool estado54(Token lH)
         {
-            //Ir a 70 con StmtBlock
-            switch (lH.contenido)
+           
+            switch (pilaSimbolos.Peek())//ir a
+            {
+                case "StmtBlock":  //Ir a 70 con StmtBlock
+                    pilaAcciones.Push(54);
+                    return IrA(70, lH);
+            }
+
+                    switch (lH.contenido)
             {
                 case "{":
                     pilaSimbolos.Push(cadenas.Dequeue().contenido);
@@ -2681,15 +2916,79 @@ namespace ProyectoCompiladores2020
         }
         private bool estado56(Token lH)
         {
-            //Reduccion a 36 }
-            //Ir a 57 VariableDecl
-            //Ir a 8 Variable
-            //Ir a 59 ConstDecl
-            //Ir a 9 Type
-            //Ir a 14 Type_p
-            //Ir a 58 FunctionDecl
-            //Ir a 75 ClassDecl_Q
-            //Ir a 56 Field
+            switch (pilaSimbolos.Peek())//ir a
+            {
+                case "VariableDecl": //Ir a 57 VariableDecl
+                    pilaAcciones.Push(56);
+                    return IrA(57, lH);
+                case "Variable":  //Ir a 8 Variable
+                    pilaAcciones.Push(56);
+                    return IrA(8, lH);
+                case "ConstDecl":  //Ir a 59 ConstDecl
+                    pilaAcciones.Push(56);
+                    return IrA(59, lH);
+                case "Type":  //Ir a 9 Type
+                    pilaAcciones.Push(56);
+                    return IrA(9, lH);
+                case "Type_P":  //Ir a 14 Type
+                    pilaAcciones.Push(56);
+                    return IrA(14, lH);
+                case "FunctionDecl": //Ir a 58 FunctionDecl
+                    pilaAcciones.Push(56);
+                    return IrA(58, lH);
+                case "ClassDecl_Q": //Ir a 75 ClassDecl_Q
+                    pilaAcciones.Push(56);
+                    return IrA(75, lH);
+                case "Field":   //Ir a 56 Field
+                    pilaAcciones.Push(56); 
+                    switch (lH.tipo)
+                    {
+                        case "ident":
+                            pilaSimbolos.Push(cadenas.Dequeue().contenido);
+                            pilaAcciones.Push(19);
+                            lH = cadenas.Peek();
+                            return estado19(lH);
+                    }
+                    switch (lH.contenido)
+                    {
+                        case "const":
+                            pilaSimbolos.Push(cadenas.Dequeue().contenido);
+                            pilaAcciones.Push(11);
+                            lH = cadenas.Peek();
+                            return estado11(lH);
+                        case "int":
+                            pilaSimbolos.Push(cadenas.Dequeue().contenido);
+                            pilaAcciones.Push(15);
+                            lH = cadenas.Peek();
+                            return estado15(lH);
+                        case "double":
+                            pilaSimbolos.Push(cadenas.Dequeue().contenido);
+                            pilaAcciones.Push(16);
+                            lH = cadenas.Peek();
+                            return estado16(lH);
+                        case "bool":
+                            pilaSimbolos.Push(cadenas.Dequeue().contenido);
+                            pilaAcciones.Push(17);
+                            lH = cadenas.Peek();
+                            return estado17(lH);
+                        case "string":
+                            pilaSimbolos.Push(cadenas.Dequeue().contenido);
+                            pilaAcciones.Push(18);
+                            lH = cadenas.Peek();
+                            return estado18(lH);
+                        case "void":
+                            pilaSimbolos.Push(cadenas.Dequeue().contenido);
+                            pilaAcciones.Push(10);
+                            lH = cadenas.Peek();
+                            return estado10(lH);
+                        case "}": //Reduccion a 36 }
+                            pilaSimbolos.Push("ClassDecl_Q");
+                            return IrA(pilaAcciones.Peek(), lH);
+                        default:
+                            return false;
+
+                    }
+            }
             switch (lH.tipo)
             {
                 case "ident":
@@ -2730,7 +3029,7 @@ namespace ProyectoCompiladores2020
                     pilaAcciones.Push(10);
                     lH = cadenas.Peek();
                     return estado10(lH);
-                case "}":
+                case "}": //Reduccion a 36 }
                     pilaSimbolos.Push("ClassDecl_Q");
                     return IrA(pilaAcciones.Peek(), lH);
                 default:
@@ -2921,10 +3220,10 @@ namespace ProyectoCompiladores2020
         }
         private bool estado60(Token lH)
         {
-            //Reduccion a 29 }
+            
             switch (lH.contenido)
             {
-                case "}":
+                case "}"://Reduccion a 29 }
                     pilaAcciones.Pop();
                     pilaAcciones.Pop();
                     pilaAcciones.Pop();
@@ -2939,10 +3238,10 @@ namespace ProyectoCompiladores2020
         }
         private bool estado61(Token lH)
         {
-            //Reduccion a 31 }
+            
             switch (lH.contenido)
             {
-                case "}":
+                case "}"://Reduccion a 31 }
                     pilaAcciones.Pop();
                     pilaSimbolos.Pop();
                     pilaSimbolos.Push("ClassDecl_R");
@@ -3346,11 +3645,28 @@ namespace ProyectoCompiladores2020
         }
         private bool estado68(Token lH)
         {
-            //Ir a 77 VariableDecl
-            //Ir a 8 Variable 
-            //Ir a 41 Type
-            //Ir a 14 Type_P
-            //Ir a 76 StmtBlock_P
+            
+            switch (pilaSimbolos.Peek())//ir a
+            {
+                case "VariableDecl": //Ir a 77 VariableDecl
+                    pilaAcciones.Push(68);
+                    return IrA(77, lH);
+                case "Variable":  //Ir a 8 Variable
+                    pilaAcciones.Push(68);
+                    return IrA(8, lH);
+                case "Type":   //Ir a 41 Type
+                    pilaAcciones.Push(68);
+                    return IrA(41, lH);
+                case "Type_P":  //Ir a 14 Type_P
+                    pilaAcciones.Push(68);
+                    return IrA(14, lH);
+                case "StmtBlock_P":   //Ir a 76 StmtBlock_P
+                    pilaAcciones.Push(68);
+                    return IrA(76, lH);
+            }
+
+
+
             switch (lH.tipo)
             {
                 case "ident":
@@ -3468,11 +3784,11 @@ namespace ProyectoCompiladores2020
         }
         private bool estado69(Token lH)
         {
-            //reducción a 26 con )
+         
 
             switch (lH.contenido)
             {
-                case ")":
+                case ")":   //reducción a 26 con )
                     pilaAcciones.Pop();
                     pilaAcciones.Pop();
 
@@ -3852,11 +4168,10 @@ namespace ProyectoCompiladores2020
             }
         }
         private bool estado72(Token lH)
-        {
-            //REDUCCION A 35 CON }
+        { 
             switch (lH.contenido)
             {
-                case "}":
+                case "}"://REDUCCION A 35 CON }
                     pilaAcciones.Pop();
                     pilaAcciones.Pop();
 
@@ -3871,11 +4186,13 @@ namespace ProyectoCompiladores2020
         }
         private bool estado73(Token lH)
         {
+            if(pilaSimbolos.Peek() == "ClassDecl_O")
+            {
+                pilaAcciones.Push(73);
+                return IrA(78, lH);
+            }
             switch (lH.contenido)
             {
-                
-                //IR A ClassDecl_O con 78
-
                 case ",":
                     pilaSimbolos.Push(cadenas.Dequeue().contenido);
                     pilaAcciones.Push(62);
@@ -3897,10 +4214,21 @@ namespace ProyectoCompiladores2020
         }
         private bool estado74(Token lH)
         {
-            //IR A Variable con 40
-            //IR A Type con 41
-            //IR A Type_P con 14
-            //IR A Formlas con 79
+            switch(pilaSimbolos.Peek())
+            {
+                case "Variable":
+                    pilaAcciones.Push(74);
+                    return IrA(40, lH);
+                case "Type":
+                    pilaAcciones.Push(74);
+                    return IrA(41, lH);
+                case "Type_P":
+                    pilaAcciones.Push(74);
+                    return IrA(14, lH);
+                case "Formals":
+                    pilaAcciones.Push(74);
+                    return IrA(79, lH);
+            }
             switch (lH.contenido)
             {
                 case "int":
@@ -3924,27 +4252,34 @@ namespace ProyectoCompiladores2020
                     lH = cadenas.Peek();
                     return estado18(lH);
             }
-                    switch (lH.tipo)
-                    {
-                        case "ident":
-                            pilaSimbolos.Push(cadenas.Dequeue().contenido);
-                            pilaAcciones.Push(19);
-                            lH = cadenas.Peek();
-                            return estado19(lH);
-                        default:
-                            return false;
-                    }
-            
-
-
+            switch (lH.tipo)
+            {
+                case "ident":
+                    pilaSimbolos.Push(cadenas.Dequeue().contenido);
+                    pilaAcciones.Push(19);
+                    lH = cadenas.Peek();
+                    return estado19(lH);
+                default:
+                    return false;
             }
+        }
         private bool estado75(Token lH)
         {
-            //IR A 40 con Variable
-            //IR A 41 CON Type
-            //IR A 14 con Type_P 
-            //IR A 80 CON Formals
-
+            switch (pilaSimbolos.Peek())
+            {
+                case "Variable":
+                    pilaAcciones.Push(74);
+                    return IrA(40, lH);
+                case "Type":
+                    pilaAcciones.Push(74);
+                    return IrA(41, lH);
+                case "Type_P":
+                    pilaAcciones.Push(74);
+                    return IrA(14, lH);
+                case "Formals":
+                    pilaAcciones.Push(74);
+                    return IrA(80, lH);
+            }
             switch (lH.tipo)
             {
                 case "ident":
@@ -3986,6 +4321,15 @@ namespace ProyectoCompiladores2020
 
             //IR A 82 CON ConstDecl
             //IR A 81 CON StmtBlock_R
+            switch(pilaSimbolos.Peek())
+            {
+                case "ConstDecl":
+                    pilaAcciones.Push(76);
+                    return IrA(82, lH);
+                case "StmtBlock_R":
+                    pilaAcciones.Push(76);
+                    return IrA(81, lH);
+            }
             switch (lH.tipo)
             {
                 case "ident": //REUCCION A 49 CON IDENT
@@ -4073,12 +4417,143 @@ namespace ProyectoCompiladores2020
         }
         private bool estado77(Token lH)
         {
-            //IR A 77 CON VariableDecl
             //IR A 8 CON Variable
             //IR A 41 CON Type
             //IR A 14 CON Type_P
             //IR A 83 CON StmtBlock_P
-
+            if(pilaSimbolos.Peek() == "VariableDecl")
+            {
+                pilaAcciones.Push(77);
+                switch (lH.tipo)
+                {
+                    case "ident":
+                        //Colision con Reduccion 47 ident
+                        pilaSimbolos.Push(cadenas.Dequeue().contenido);
+                        pilaAcciones.Push(19);
+                        lH = cadenas.Peek();
+                        return estado19(lH);
+                    //REDUCCIONES
+                    case "int": //Reduccion a 47 intconstant
+                        pilaSimbolos.Push("StmtBlock_P");
+                        return IrA(pilaAcciones.Peek(), lH);
+                    case "double": //Reduccion a 47 doubleconstant
+                        pilaSimbolos.Push("StmtBlock_P");
+                        return IrA(pilaAcciones.Peek(), lH);
+                    case "bool": //Reduccion a 47 boolcontatnt
+                        pilaSimbolos.Push("StmtBlock_P");
+                        return IrA(pilaAcciones.Peek(), lH);
+                    case "string": //Reduccion a 47 string
+                        pilaSimbolos.Push("StmtBlock_P");
+                        return IrA(pilaAcciones.Peek(), lH);
+                }
+                switch (lH.contenido)
+                {
+                    //REDUCCIONES
+                    case ";"://Reduccion a 47 ;
+                        pilaSimbolos.Push("StmtBlock_P");
+                        return IrA(pilaAcciones.Peek(), lH);
+                    case "const"://Reduccion a 47 const
+                        pilaSimbolos.Push("StmtBlock_P");
+                        return IrA(pilaAcciones.Peek(), lH);
+                    case "(": //Reduccion a 47 (
+                        pilaSimbolos.Push("StmtBlock_P");
+                        return IrA(pilaAcciones.Peek(), lH);
+                    case "void": //Reduccion a 47 void
+                        pilaSimbolos.Push("StmtBlock_P");
+                        return IrA(pilaAcciones.Peek(), lH);
+                    case "class": //Reduccion a 47 class
+                        pilaSimbolos.Push("StmtBlock_P");
+                        return IrA(pilaAcciones.Peek(), lH);
+                    case "{": //Reduccion a 47 {
+                        pilaSimbolos.Push("StmtBlock_P");
+                        return IrA(pilaAcciones.Peek(), lH);
+                    case "}": //Reduccion a 47 }
+                        pilaSimbolos.Push("StmtBlock_P");
+                        return IrA(pilaAcciones.Peek(), lH);
+                    case "interface": //Reduccion a 47 interface
+                        pilaSimbolos.Push("StmtBlock_P");
+                        return IrA(pilaAcciones.Peek(), lH);
+                    case "if": //Reduccion a 47 if
+                        pilaSimbolos.Push("StmtBlock_P");
+                        return IrA(pilaAcciones.Peek(), lH);
+                    case "else": //Reduccion a 47 else
+                        pilaSimbolos.Push("StmtBlock_P");
+                        return IrA(pilaAcciones.Peek(), lH);
+                    case "while": //Reduccion a 47 while
+                        pilaSimbolos.Push("StmtBlock_P");
+                        return IrA(pilaAcciones.Peek(), lH);
+                    case "for": //Reduccion a 47 for
+                        pilaSimbolos.Push("StmtBlock_P");
+                        return IrA(pilaAcciones.Peek(), lH);
+                    case "return": //Reduccion a 47 retun
+                        pilaSimbolos.Push("StmtBlock_P");
+                        return IrA(pilaAcciones.Peek(), lH);
+                    case "break": //Reduccion a 47 break
+                        pilaSimbolos.Push("StmtBlock_P");
+                        return IrA(pilaAcciones.Peek(), lH);
+                    case "Console": //Reduccion a 47 console
+                        pilaSimbolos.Push("StmtBlock_P");
+                        return IrA(pilaAcciones.Peek(), lH);
+                    case "-": //Reduccion a 47 -
+                        pilaSimbolos.Push("StmtBlock_P");
+                        return IrA(pilaAcciones.Peek(), lH);
+                    case "!": //Reduccion a 47 !
+                        pilaSimbolos.Push("StmtBlock_P");
+                        return IrA(pilaAcciones.Peek(), lH);
+                    case "this": //Reduccion a 47 this
+                        pilaSimbolos.Push("StmtBlock_P");
+                        return IrA(pilaAcciones.Peek(), lH);
+                    case "New": //Reduccion a 47 nEW
+                        pilaSimbolos.Push("StmtBlock_P");
+                        return IrA(pilaAcciones.Peek(), lH);
+                    case "null": //Reduccion a 47 null
+                        pilaSimbolos.Push("StmtBlock_P");
+                        return IrA(pilaAcciones.Peek(), lH);
+                    case "int":
+                        //Colision con Reduccion 47 
+                        pilaSimbolos.Push(cadenas.Dequeue().contenido);
+                        pilaAcciones.Push(15);
+                        lH = cadenas.Peek();
+                        return estado15(lH);
+                    case "double":
+                        //Colision con Reduccion 47 
+                        pilaSimbolos.Push(cadenas.Dequeue().contenido);
+                        pilaAcciones.Push(16);
+                        lH = cadenas.Peek();
+                        return estado16(lH);
+                    case "bool":
+                        //Colision con Reduccion 47 
+                        pilaSimbolos.Push(cadenas.Dequeue().contenido);
+                        pilaAcciones.Push(17);
+                        lH = cadenas.Peek();
+                        return estado17(lH);
+                    case "string":
+                        //Colision con Reduccion 47 
+                        pilaSimbolos.Push(cadenas.Dequeue().contenido);
+                        pilaAcciones.Push(16);
+                        lH = cadenas.Peek();
+                        return estado16(lH);
+                    default:
+                        //Reduccion a 47 $
+                        pilaSimbolos.Push("StmtBlock_P");
+                        return IrA(pilaAcciones.Peek(), lH);
+                }
+            }
+            switch(pilaSimbolos.Peek())
+            {
+                case "Variable":
+                    pilaAcciones.Push(77);
+                    return IrA(8, lH);
+                case "Type":
+                    pilaAcciones.Push(77);
+                    return IrA(41, lH);
+                case "Type_P":
+                    pilaAcciones.Push(77);
+                    return IrA(14, lH);
+                case "StmtBlock_P":
+                    pilaAcciones.Push(77);
+                    return IrA(83, lH);
+            }
             switch (lH.tipo)
             {
                 case "ident":
@@ -4243,25 +4718,63 @@ namespace ProyectoCompiladores2020
         }
         private bool estado81(Token lH)
         {
-            //IR A StmtBlock CON 95
-            //IR A 86 CON StmtBlock_O 
-            //IR A 87 CON Stmt
-            //IR A 90 CON Stmt_P
-            //IR A 88 CON IfStmt
-            //IR A 89 CON WhileStmt
-            //IR A 91 CON ForStmt 
-            //IR A 93 CON ReturnStmt
-            //IR A 92 CON BreakStmt
-            //IR A 94 CON PrintStmt
-            //IR A 98 CON Expr
-            //IR A 104 CON ExprOr
-            //IR A 105 CON ExprOr_P
-            //IR A 106 CON ExprAnd
-            //IR A 107 CON ExprAndP
-            //IR A 108 CON ExprEquals
-            //IR A 109 CON ExprEqualsP
-            //IR A 112 CON ExprComp
-            //IR A 113 CON ExprCompP
+            switch(pilaSimbolos.Peek())
+            {
+                case "StmtBlock" :
+                    pilaAcciones.Push(81);
+                    return IrA(95, lH);
+                case "StmtBlock_O":
+                    pilaAcciones.Push(81);
+                    return IrA(86, lH);
+                case "Stmt":
+                    pilaAcciones.Push(81);
+                    return IrA(87, lH);
+                case "IfStmt":
+                    pilaAcciones.Push(81);
+                    return IrA(88, lH);
+                case "WhileStmt":
+                    pilaAcciones.Push(81);
+                    return IrA(89, lH);
+                case "ForStmt":
+                    pilaAcciones.Push(81);
+                    return IrA(91, lH);
+                case "ReturnStmt":
+                    pilaAcciones.Push(81);
+                    return IrA(93, lH);
+                case "BreakStmt":
+                    pilaAcciones.Push(81);
+                    return IrA(92, lH);
+                case "PrintStmt":
+                    pilaAcciones.Push(81);
+                    return IrA(94, lH);
+                case "Expr":
+                    pilaAcciones.Push(81);
+                    return IrA(98, lH);
+                case "ExprOr":
+                    pilaAcciones.Push(81);
+                    return IrA(104, lH);
+                case "ExprOrP":
+                    pilaAcciones.Push(81);
+                    return IrA(105, lH);
+                case "ExprAnd":
+                    pilaAcciones.Push(81);
+                    return IrA(106, lH);
+                case "ExprAndP":
+                    pilaAcciones.Push(81);
+                    return IrA(107, lH);
+                case "ExprEquals":
+                    pilaAcciones.Push(81);
+                    return IrA(108, lH);
+                case "ExprEqualsP":
+                    pilaAcciones.Push(81);
+                    return IrA(109, lH);
+                case "ExprComp":
+                    pilaAcciones.Push(81);
+                    return IrA(112, lH);
+                case "ExprCompP":
+                    pilaAcciones.Push(81);
+                    return IrA(113, lH);
+            }
             switch (lH.tipo)
             {
                 case "ident":
@@ -4373,6 +4886,104 @@ namespace ProyectoCompiladores2020
 
             //IR A 82 CON ConstDecl
             //IR A 122 CON StmtBlock_R
+            if(pilaSimbolos.Peek() == "ConstDecl")
+            {
+                pilaAcciones.Push(82); switch (lH.tipo)
+                {
+                    case "ident": //REUCCION A 49 CON IDENT
+                        pilaSimbolos.Push("StmtBlock_R");
+                        return IrA(pilaAcciones.Peek(), lH);
+                    //REDUCCIONES
+                    case "int": //Reduccion a 49 intconstant
+                        pilaSimbolos.Push("StmtBlock_R");
+                        return IrA(pilaAcciones.Peek(), lH);
+                    case "double": //Reduccion a 49 doubleconstant
+                        pilaSimbolos.Push("StmtBlock_R");
+                        return IrA(pilaAcciones.Peek(), lH);
+                    case "bool": //Reduccion a 49 boolcontatnt
+                        pilaSimbolos.Push("StmtBlock_R");
+                        return IrA(pilaAcciones.Peek(), lH);
+                    case "string": //Reduccion a 49 string
+                        pilaSimbolos.Push("StmtBlock_R");
+                        return IrA(pilaAcciones.Peek(), lH);
+                }
+                switch (lH.contenido)
+                {
+                    case "const":
+                        //Colision con reduccion a 47
+                        pilaSimbolos.Push(cadenas.Dequeue().contenido);
+                        pilaAcciones.Push(19);
+                        lH = cadenas.Peek();
+                        return estado19(lH);
+                    //REDUCCIONES
+                    case ";"://Reduccion a 49 ;
+                        pilaSimbolos.Push("StmtBlock_R");
+                        return IrA(pilaAcciones.Peek(), lH);
+                    case "(": //Reduccion a 49 (
+                        pilaSimbolos.Push("StmtBlock_R");
+                        return IrA(pilaAcciones.Peek(), lH);
+                    case "void": //Reduccion a 49 void
+                        pilaSimbolos.Push("StmtBlock_R");
+                        return IrA(pilaAcciones.Peek(), lH);
+                    case "class": //Reduccion a 48 class
+                        pilaSimbolos.Push("StmtBlock_R");
+                        return IrA(pilaAcciones.Peek(), lH);
+                    case "{": //Reduccion a 49 {
+                        pilaSimbolos.Push("StmtBlock_R");
+                        return IrA(pilaAcciones.Peek(), lH);
+                    case "}": //Reduccion a 49 }
+                        pilaSimbolos.Push("StmtBlock_R");
+                        return IrA(pilaAcciones.Peek(), lH);
+                    case "interface": //Reduccion a 49 interface
+                        pilaSimbolos.Push("StmtBlock_R");
+                        return IrA(pilaAcciones.Peek(), lH);
+                    case "if": //Reduccion a 49 if
+                        pilaSimbolos.Push("StmtBlock_R");
+                        return IrA(pilaAcciones.Peek(), lH);
+                    case "else": //Reduccion a 49 else
+                        pilaSimbolos.Push("StmtBlock_R");
+                        return IrA(pilaAcciones.Peek(), lH);
+                    case "while": //Reduccion a 49 while
+                        pilaSimbolos.Push("StmtBlock_R");
+                        return IrA(pilaAcciones.Peek(), lH);
+                    case "for": //Reduccion a 49 for
+                        pilaSimbolos.Push("StmtBlock_R");
+                        return IrA(pilaAcciones.Peek(), lH);
+                    case "return": //Reduccion a 49 retun
+                        pilaSimbolos.Push("StmtBlock_R");
+                        return IrA(pilaAcciones.Peek(), lH);
+                    case "break": //Reduccion a 49 break
+                        pilaSimbolos.Push("StmtBlock_R");
+                        return IrA(pilaAcciones.Peek(), lH);
+                    case "Console": //Reduccion a 49 console
+                        pilaSimbolos.Push("StmtBlock_R");
+                        return IrA(pilaAcciones.Peek(), lH);
+                    case "-": //Reduccion a 49 -
+                        pilaSimbolos.Push("StmtBlock_R");
+                        return IrA(pilaAcciones.Peek(), lH);
+                    case "!": //Reduccion a 4R !
+                        pilaSimbolos.Push("StmtBlock_R");
+                        return IrA(pilaAcciones.Peek(), lH);
+                    case "this": //Reduccion a 49 this
+                        pilaSimbolos.Push("StmtBlock_R");
+                        return IrA(pilaAcciones.Peek(), lH);
+                    case "New": //Reduccion a 49 nEW
+                        pilaSimbolos.Push("StmtBlock_R");
+                        return IrA(pilaAcciones.Peek(), lH);
+                    case "null": //Reduccion a 49 null
+                        pilaSimbolos.Push("StmtBlock_R");
+                        return IrA(pilaAcciones.Peek(), lH);
+
+                    default: //REDUCCION A 49 CON $
+                        pilaSimbolos.Push("StmtBlock_R");
+                        return IrA(pilaAcciones.Peek(), lH);
+                }
+            }
+            else if(pilaSimbolos.Peek() == "StmtBlock_R")
+            {
+                pilaAcciones.Push(82);
+                return IrA(122, lH);
+            }
             switch (lH.tipo)
             {
                 case "ident": //REUCCION A 49 CON IDENT
@@ -4701,25 +5312,172 @@ namespace ProyectoCompiladores2020
         }
         private bool estado87(Token lH)
         {
-            //Ir a 95 StmtBlock
-            //Ir a 126 StmtBlock_O
-            //Ir a 87 Stmt
-            //Ir a 90 Stmt_P
-            //Ir a 88 IfStmt
-            //Ir a 89 WhileStmt
-            //Ir a 91 ForStmt
-            //Ir a 93 ReturnStmt
-            //Ir a 92 BreakStmt
-            //Ir a 94 PrintStmt
-            //Ir a 98 Expr
-            //Ir a 104 ExprOR
-            //Ir a 105 ExprOrP
-            //Ir a 106 ExprAnd
-            //Ir a 107 ExprAndP
-            //Ir a 108 ExprEquals
-            //Ir a 109 ExprEqualsP
-            //Ir a 112 ExprComp
-            //Ir a 113 ExprCompP
+            if(pilaSimbolos.Peek() == "Stmt")
+            {
+                pilaAcciones.Push(87);
+                switch (lH.tipo)
+                {
+                    case "ident":
+                        pilaSimbolos.Push(cadenas.Dequeue().contenido);
+                        pilaAcciones.Push(103);
+                        lH = cadenas.Peek();
+                        return estado103(lH);
+                    case "int":
+                        pilaSimbolos.Push(cadenas.Dequeue().contenido);
+                        pilaAcciones.Push(117);
+                        lH = cadenas.Peek();
+                        return estado117(lH);
+                    case "double":
+                        pilaSimbolos.Push(cadenas.Dequeue().contenido);
+                        pilaAcciones.Push(118);
+                        lH = cadenas.Peek();
+                        return estado118(lH);
+                    case "bool":
+                        pilaSimbolos.Push(cadenas.Dequeue().contenido);
+                        pilaAcciones.Push(119);
+                        lH = cadenas.Peek();
+                        return estado119(lH);
+                    case "string":
+                        pilaSimbolos.Push(cadenas.Dequeue().contenido);
+                        pilaAcciones.Push(120);
+                        lH = cadenas.Peek();
+                        return estado120(lH);
+                }
+                switch (lH.contenido)
+                {
+                    case ";":
+                        pilaSimbolos.Push("Stmt_S");
+                        return IrA(pilaAcciones.Peek(), lH);
+                    case "(":
+                        pilaSimbolos.Push(cadenas.Dequeue().contenido);
+                        pilaAcciones.Push(114);
+                        lH = cadenas.Peek();
+                        return estado114(lH);
+                    case "{":
+                        pilaSimbolos.Push(cadenas.Dequeue().contenido);
+                        pilaAcciones.Push(68);
+                        lH = cadenas.Peek();
+                        return estado68(lH);
+                    case "}":
+                        pilaSimbolos.Push("StmtBlock_O");
+                        return IrA(pilaAcciones.Peek(), lH);
+                    case "if":
+                        pilaSimbolos.Push(cadenas.Dequeue().contenido);
+                        pilaAcciones.Push(96);
+                        lH = cadenas.Peek();
+                        return estado96(lH);
+                    case "while":
+                        pilaSimbolos.Push(cadenas.Dequeue().contenido);
+                        pilaAcciones.Push(97);
+                        lH = cadenas.Peek();
+                        return estado97(lH);
+                    case "for":
+                        pilaSimbolos.Push(cadenas.Dequeue().contenido);
+                        pilaAcciones.Push(99);
+                        lH = cadenas.Peek();
+                        return estado99(lH);
+                    case "return":
+                        pilaSimbolos.Push(cadenas.Dequeue().contenido);
+                        pilaAcciones.Push(101);
+                        lH = cadenas.Peek();
+                        return estado101(lH);
+                    case "break":
+                        pilaSimbolos.Push(cadenas.Dequeue().contenido);
+                        pilaAcciones.Push(100);
+                        lH = cadenas.Peek();
+                        return estado100(lH);
+                    case "Console":
+                        pilaSimbolos.Push(cadenas.Dequeue().contenido);
+                        pilaAcciones.Push(102);
+                        lH = cadenas.Peek();
+                        return estado102(lH);
+                    case "-":
+                        pilaSimbolos.Push(cadenas.Dequeue().contenido);
+                        pilaAcciones.Push(110);
+                        lH = cadenas.Peek();
+                        return estado110(lH);
+                    case "!":
+                        pilaSimbolos.Push(cadenas.Dequeue().contenido);
+                        pilaAcciones.Push(110);
+                        lH = cadenas.Peek();
+                        return estado110(lH);
+                    case "this":
+                        pilaSimbolos.Push(cadenas.Dequeue().contenido);
+                        pilaAcciones.Push(103);
+                        lH = cadenas.Peek();
+                        return estado103(lH);
+                    case "New":
+                        pilaSimbolos.Push(cadenas.Dequeue().contenido);
+                        pilaAcciones.Push(103);
+                        lH = cadenas.Peek();
+                        return estado103(lH);
+                    case "null":
+                        pilaSimbolos.Push(cadenas.Dequeue().contenido);
+                        pilaAcciones.Push(103);
+                        lH = cadenas.Peek();
+                        return estado103(lH);
+                    default:
+                        return false;
+                }
+
+            }
+            switch (pilaSimbolos.Peek())
+            {
+                case "StmtBlock":
+                    pilaAcciones.Push(87);
+                    return IrA(95, lH);
+                case "StmtBlock_O":
+                    pilaAcciones.Push(87);
+                    return IrA(126, lH);
+                case "StmtBlock_P":
+                    pilaAcciones.Push(87);
+                    return IrA(90, lH);
+                case "IfStmt":
+                    pilaAcciones.Push(87);
+                    return IrA(88, lH);
+                case "WhileStmt":
+                    pilaAcciones.Push(87);
+                    return IrA(89, lH);
+                case "ForStmt":
+                    pilaAcciones.Push(87);
+                    return IrA(91, lH);
+                case "ReturnStmt":
+                    pilaAcciones.Push(87);
+                    return IrA(93, lH);
+                case "BreakStmt":
+                    pilaAcciones.Push(87);
+                    return IrA(92, lH);
+                case "PrintStmt":
+                    pilaAcciones.Push(87);
+                    return IrA(94, lH);
+                case "Expr":
+                    pilaAcciones.Push(87);
+                    return IrA(98, lH);
+                case "ExprOr":
+                    pilaAcciones.Push(87);
+                    return IrA(104, lH);
+                case "ExprOrP":
+                    pilaAcciones.Push(87);
+                    return IrA(105, lH);
+                case "ExprAnd":
+                    pilaAcciones.Push(87);
+                    return IrA(106, lH);
+                case "ExprAndP":
+                    pilaAcciones.Push(87);
+                    return IrA(107, lH);
+                case "ExprEquals":
+                    pilaAcciones.Push(87);
+                    return IrA(108, lH);
+                case "ExprEqualsP":
+                    pilaAcciones.Push(87);
+                    return IrA(109, lH);
+                case "ExprComp":
+                    pilaAcciones.Push(87);
+                    return IrA(112, lH);
+                case "ExprCompP":
+                    pilaAcciones.Push(87);
+                    return IrA(113, lH);
+            }
             switch (lH.tipo)
             {
                 case "ident":
@@ -5732,17 +6490,36 @@ namespace ProyectoCompiladores2020
         }
         private bool estado101(Token lH)
         {
-
-            //IR A 132 CON Expr
-            //IR A 104 CON ExprOr
-            //IR A 105 CON ExprOrP
-            //IR A 106 CON ExprAnd
-            //IR A 107 CON ExprAndP
-            //IR A 108 CON ExprEquals
-            //IR A 109 CON ExprEqualsP
-            //IR A 112 CON ExprComp
-            //IR A 113 CON ExprCompP
-
+            switch(pilaSimbolos.Peek())
+            {
+                case "Expr":
+                    pilaAcciones.Push(101);
+                    return IrA(132, lH);
+                case "ExprOr":
+                    pilaAcciones.Push(101);
+                    return IrA(104, lH);
+                case "ExprOrP":
+                    pilaAcciones.Push(101);
+                    return IrA(105, lH);
+                case "ExprAnd":
+                    pilaAcciones.Push(101);
+                    return IrA(106, lH);
+                case "ExprAndP":
+                    pilaAcciones.Push(101);
+                    return IrA(107, lH);
+                case "ExprEquals":
+                    pilaAcciones.Push(101);
+                    return IrA(108, lH);
+                case "ExprEqualsP":
+                    pilaAcciones.Push(101);
+                    return IrA(109, lH);
+                case "ExprComp":
+                    pilaAcciones.Push(101);
+                    return IrA(112, lH);
+                case "ExprCompP":
+                    pilaAcciones.Push(101);
+                    return IrA(113, lH);
+            }
             switch (lH.contenido)
             {
                 case "(":
@@ -6905,6 +7682,15 @@ namespace ProyectoCompiladores2020
         {
             //Ir a 142 ExprComp
             //Ir a 113 ExprCompP
+            switch(pilaSimbolos.Peek())
+            {
+                case "ExprComp":
+                    pilaAcciones.Push(110);
+                    return IrA(142, lH);
+                case "ExprCompP":
+                    pilaAcciones.Push(110);
+                    return IrA(113, lH);
+            }
             switch (lH.tipo)
             {
                 case "ident":
@@ -6961,9 +7747,15 @@ namespace ProyectoCompiladores2020
         }
         private bool estado111(Token lH)
         {
-
-            //Ir a 144 ExprComp
-            //Ir a 113 ExprCompP
+            switch (pilaSimbolos.Peek())
+            {
+                case "ExprComp":
+                    pilaAcciones.Push(111);
+                    return IrA(144, lH);
+                case "ExprCompP":
+                    pilaAcciones.Push(111);
+                    return IrA(113, lH);
+            }
             switch (lH.tipo)
             {
                 case "ident":
@@ -7362,15 +8154,36 @@ namespace ProyectoCompiladores2020
         }
         private bool estado114(Token lH)
         {
-            //Ir a 146 Expr
-            //Ir a 104 ExprOr
-            //Ir a 105 ExprOrP
-            //Ir a 106 ExprAnd
-            //Ir a 107 ExpreAndP
-            //Ir a 108 ExprEquals
-            //Ir a 109 ExprEqualsP
-            //Ir a 112  ExprComp
-            //Ir a 113 ExprComp
+            switch (pilaSimbolos.Peek())
+            {
+                case "Expr":
+                    pilaAcciones.Push(114);
+                    return IrA(146, lH);
+                case "ExprOr":
+                    pilaAcciones.Push(114);
+                    return IrA(104, lH);
+                case "ExprOrP":
+                    pilaAcciones.Push(114);
+                    return IrA(105, lH);
+                case "ExprAnd":
+                    pilaAcciones.Push(114);
+                    return IrA(106, lH);
+                case "ExprAndP":
+                    pilaAcciones.Push(114);
+                    return IrA(107, lH);
+                case "ExprEquals":
+                    pilaAcciones.Push(114);
+                    return IrA(108, lH);
+                case "ExprEqualsP":
+                    pilaAcciones.Push(114);
+                    return IrA(109, lH);
+                case "ExprComp":
+                    pilaAcciones.Push(114);
+                    return IrA(112, lH);
+                case "ExprCompP":
+                    pilaAcciones.Push(114);
+                    return IrA(113, lH);
+            }
             switch (lH.tipo)
             {
                 case "ident":
@@ -9651,15 +10464,36 @@ namespace ProyectoCompiladores2020
         }
         private bool estado128(Token lH)
         {
-            //Ir a 148 Expr
-            //Ir a 104 ExprOr
-            //Ir a 105 ExprOrP
-            //Ir a 106 ExprAnd
-            //Ir a 107 ExpreAndP
-            //Ir a 108 ExprEquals
-            //Ir a 109 ExprEqualsP
-            //Ir a 112  ExprComp
-            //Ir a 113 ExprComp
+            switch (pilaSimbolos.Peek())
+            {
+                case "Expr":
+                    pilaAcciones.Push(128);
+                    return IrA(148, lH);
+                case "ExprOr":
+                    pilaAcciones.Push(128);
+                    return IrA(104, lH);
+                case "ExprOrP":
+                    pilaAcciones.Push(128);
+                    return IrA(105, lH);
+                case "ExprAnd":
+                    pilaAcciones.Push(128);
+                    return IrA(106, lH);
+                case "ExprAndP":
+                    pilaAcciones.Push(128);
+                    return IrA(107, lH);
+                case "ExprEquals":
+                    pilaAcciones.Push(128);
+                    return IrA(108, lH);
+                case "ExprEqualsP":
+                    pilaAcciones.Push(128);
+                    return IrA(109, lH);
+                case "ExprComp":
+                    pilaAcciones.Push(128);
+                    return IrA(112, lH);
+                case "ExprCompP":
+                    pilaAcciones.Push(128);
+                    return IrA(113, lH);
+            }
             switch (lH.tipo)
             {
                 case "ident":
@@ -9726,15 +10560,36 @@ namespace ProyectoCompiladores2020
         }
         private bool estado129(Token lH)
         {
-            //Ir a 149 Expr
-            //Ir a 104 ExprOr
-            //Ir a 105 ExprOrP
-            //Ir a 106 ExprAnd
-            //Ir a 107 ExpreAndP
-            //Ir a 108 ExprEquals
-            //Ir a 109 ExprEqualsP
-            //Ir a 112  ExprComp
-            //Ir a 113 ExprComp
+            switch (pilaSimbolos.Peek())
+            {
+                case "Expr":
+                    pilaAcciones.Push(129);
+                    return IrA(149, lH);
+                case "ExprOr":
+                    pilaAcciones.Push(129);
+                    return IrA(104, lH);
+                case "ExprOrP":
+                    pilaAcciones.Push(128);
+                    return IrA(105, lH);
+                case "ExprAnd":
+                    pilaAcciones.Push(129);
+                    return IrA(106, lH);
+                case "ExprAndP":
+                    pilaAcciones.Push(129);
+                    return IrA(107, lH);
+                case "ExprEquals":
+                    pilaAcciones.Push(129);
+                    return IrA(108, lH);
+                case "ExprEqualsP":
+                    pilaAcciones.Push(129);
+                    return IrA(109, lH);
+                case "ExprComp":
+                    pilaAcciones.Push(129);
+                    return IrA(112, lH);
+                case "ExprCompP":
+                    pilaAcciones.Push(129);
+                    return IrA(113, lH);
+            }
             switch (lH.tipo)
             {
                 case "ident":
@@ -9801,15 +10656,36 @@ namespace ProyectoCompiladores2020
         }
         private bool estado130(Token lH)
         {
-            //Ir a 150 Expr
-            //Ir a 104 ExprOr
-            //Ir a 105 ExprOrP
-            //Ir a 106 ExprAnd
-            //Ir a 107 ExpreAndP
-            //Ir a 108 ExprEquals
-            //Ir a 109 ExprEqualsP
-            //Ir a 112  ExprComp
-            //Ir a 113 ExprComp
+            switch (pilaSimbolos.Peek())
+            {
+                case "Expr":
+                    pilaAcciones.Push(130);
+                    return IrA(150, lH);
+                case "ExprOr":
+                    pilaAcciones.Push(130);
+                    return IrA(104, lH);
+                case "ExprOrP":
+                    pilaAcciones.Push(130);
+                    return IrA(105, lH);
+                case "ExprAnd":
+                    pilaAcciones.Push(130);
+                    return IrA(106, lH);
+                case "ExprAndP":
+                    pilaAcciones.Push(130);
+                    return IrA(107, lH);
+                case "ExprEquals":
+                    pilaAcciones.Push(130);
+                    return IrA(108, lH);
+                case "ExprEqualsP":
+                    pilaAcciones.Push(130);
+                    return IrA(109, lH);
+                case "ExprComp":
+                    pilaAcciones.Push(130);
+                    return IrA(112, lH);
+                case "ExprCompP":
+                    pilaAcciones.Push(130);
+                    return IrA(113, lH);
+            }
             switch (lH.tipo)
             {
                 case "ident":
@@ -10064,14 +10940,36 @@ namespace ProyectoCompiladores2020
         }
         private bool estado134(Token lH)
         {
-            //Ir a 153 ExprOr
-            //Ir a 105 ExprOrP
-            //Ir a 106 ExprAnd
-            //Ir a 107 ExpreAndP
-            //Ir a 108 ExprEquals
-            //Ir a 109 ExprEqualsP
-            //Ir a 112  ExprComp
-            //Ir a 113 ExprComp
+          
+            switch (pilaSimbolos.Peek())
+            {
+                case "ExprOr"://Ir a 153 ExprOr
+                    pilaAcciones.Push(134);
+                    return IrA(153, lH);
+                case "ExprOrP": //Ir a 105 ExprOrP
+                    pilaAcciones.Push(134);
+                    return IrA(105, lH);
+                case "ExprAnd": //Ir a 106 ExprAnd
+                    pilaAcciones.Push(134);
+                    return IrA(106, lH);
+                case "ExprAndP"://Ir a 107 ExpreAndP
+                    pilaAcciones.Push(134);
+                    return IrA(107, lH);
+                case "ExprEquals": //Ir a 108 ExprEquals
+                    pilaAcciones.Push(134);
+                    return IrA(108, lH);
+                case "ExprEqualsP"://Ir a 109 ExprEqualsP
+                    pilaAcciones.Push(134);
+                    return IrA(109, lH);
+                case "ExprComp": //Ir a 112  ExprComp
+                    pilaAcciones.Push(134);
+                    return IrA(112, lH);
+                case "ExprCompP": //Ir a 113 ExprComp
+                    pilaAcciones.Push(134);
+                    return IrA(113, lH);
+            }
+
+
             switch (lH.tipo)
             {
                 case "ident":
@@ -10138,13 +11036,34 @@ namespace ProyectoCompiladores2020
         }
         private bool estado135(Token lH)
         {
-            //Ir a 154 ExprOrP
-            //Ir a 106 ExprAnd
-            //Ir a 107 ExpreAndP
-            //Ir a 108 ExprEquals
-            //Ir a 109 ExprEqualsP
-            //Ir a 112  ExprComp
-            //Ir a 113 ExprComp
+            switch (pilaSimbolos.Peek())
+            {
+                case "ExprOr"://Ir a 154 ExprOr
+                    pilaAcciones.Push(135);
+                    return IrA(154, lH);
+                case "ExprOrP": //Ir a 105 ExprOrP
+                    pilaAcciones.Push(135);
+                    return IrA(105, lH);
+                case "ExprAnd": //Ir a 106 ExprAnd
+                    pilaAcciones.Push(135);
+                    return IrA(106, lH);
+                case "ExprAndP"://Ir a 107 ExpreAndP
+                    pilaAcciones.Push(135);
+                    return IrA(107, lH);
+                case "ExprEquals": //Ir a 108 ExprEquals
+                    pilaAcciones.Push(135);
+                    return IrA(108, lH);
+                case "ExprEqualsP"://Ir a 109 ExprEqualsP
+                    pilaAcciones.Push(135);
+                    return IrA(109, lH);
+                case "ExprComp": //Ir a 112  ExprComp
+                    pilaAcciones.Push(135);
+                    return IrA(112, lH);
+                case "ExprCompP": //Ir a 113 ExprComp
+                    pilaAcciones.Push(135);
+                    return IrA(113, lH);
+            }
+
             switch (lH.tipo)
             {
                 case "ident":
@@ -10211,12 +11130,28 @@ namespace ProyectoCompiladores2020
         }
         private bool estado136(Token lH)
         {
-            //Ir a 155 ExprAnd
-            //Ir a 107 ExpreAndP
-            //Ir a 108 ExprEquals
-            //Ir a 109 ExprEqualsP
-            //Ir a 112  ExprComp
-            //Ir a 113 ExprComp
+            switch (pilaSimbolos.Peek())
+            { 
+                case "ExprAnd": //Ir a 155 ExprAnd
+                    pilaAcciones.Push(136);
+                    return IrA(155, lH);
+                case "ExprAndP": //Ir a 107 ExpreAndP
+                    pilaAcciones.Push(136);
+                    return IrA(107, lH);
+                case "ExprEquals":  //Ir a 108 ExprEquals
+                    pilaAcciones.Push(136);
+                    return IrA(108, lH);
+                case "ExprEqualsP"://Ir a 109 ExprEqualsP
+                    pilaAcciones.Push(136);
+                    return IrA(109, lH);
+                case "ExprComp": //Ir a 112  ExprComp
+                    pilaAcciones.Push(136);
+                    return IrA(112, lH);
+                case "ExprCompP": //Ir a 113 ExprComp
+                    pilaAcciones.Push(136);
+                    return IrA(113, lH);
+            }
+
             switch (lH.tipo)
             {
                 case "ident":
@@ -10283,11 +11218,25 @@ namespace ProyectoCompiladores2020
         }
         private bool estado137(Token lH)
         {
-            //Ir a 156 ExpreAndP
-            //Ir a 108 ExprEquals
-            //Ir a 109 ExprEqualsP
-            //Ir a 112  ExprComp
-            //Ir a 113 ExprComp
+            switch (pilaSimbolos.Peek())
+            {
+                case "ExprAndP": //Ir a 156 ExpreAndP
+                    pilaAcciones.Push(137);
+                    return IrA(156, lH);
+                case "ExprEquals":  //Ir a 108 ExprEquals
+                    pilaAcciones.Push(137);
+                    return IrA(108, lH);
+                case "ExprEqualsP"://Ir a 109 ExprEqualsP
+                    pilaAcciones.Push(137);
+                    return IrA(109, lH);
+                case "ExprComp": //Ir a 112  ExprComp
+                    pilaAcciones.Push(137);
+                    return IrA(112, lH);
+                case "ExprCompP": //Ir a 113 ExprComp
+                    pilaAcciones.Push(136);
+                    return IrA(113, lH);
+            }
+
             switch (lH.tipo)
             {
                 case "ident":
@@ -10354,11 +11303,26 @@ namespace ProyectoCompiladores2020
         }
         private bool estado138(Token lH)
         {
-            //Ir a 157 ExpreAndP
-            //Ir a 108 ExprEquals
-            //Ir a 109 ExprEqualsP
-            //Ir a 112  ExprComp
-            //Ir a 113 ExprComp
+
+            switch (pilaSimbolos.Peek())
+            {
+                case "ExprAndP": //Ir a 157 ExpreAndP
+                    pilaAcciones.Push(138);
+                    return IrA(157, lH);
+                case "ExprEquals":  //Ir a 108 ExprEquals
+                    pilaAcciones.Push(138);
+                    return IrA(108, lH);
+                case "ExprEqualsP"://Ir a 109 ExprEqualsP
+                    pilaAcciones.Push(138);
+                    return IrA(109, lH);
+                case "ExprComp": //Ir a 112  ExprComp
+                    pilaAcciones.Push(138);
+                    return IrA(112, lH);
+                case "ExprCompP": //Ir a 113 ExprComp
+                    pilaAcciones.Push(138);
+                    return IrA(113, lH);
+            }
+
             switch (lH.tipo)
             {
                 case "ident":
@@ -10425,10 +11389,22 @@ namespace ProyectoCompiladores2020
         }
         private bool estado139(Token lH)
         {
-            //Ir a 158 ExprEquals
-            //Ir a 109 ExprEqualsP
-            //Ir a 112  ExprComp
-            //Ir a 113 ExprComp
+            switch (pilaSimbolos.Peek())
+            {
+                case "ExprEquals":  //Ir a 158 ExprEquals
+                    pilaAcciones.Push(139);
+                    return IrA(108, lH);
+                case "ExprEqualsP"://Ir a 109 ExprEqualsP
+                    pilaAcciones.Push(139);
+                    return IrA(109, lH);
+                case "ExprComp": //Ir a 112  ExprComp
+                    pilaAcciones.Push(139);
+                    return IrA(112, lH);
+                case "ExprCompP": //Ir a 113 ExprComp
+                    pilaAcciones.Push(139);
+                    return IrA(113, lH);
+            }
+
             switch (lH.tipo)
             {
                 case "ident":
@@ -10495,9 +11471,21 @@ namespace ProyectoCompiladores2020
         }
         private bool estado140(Token lH)
         {
-            //Ir a 159 ExprEqualsP
-            //Ir a 112  ExprComp
-            //Ir a 113 ExprComp
+
+            switch (pilaSimbolos.Peek())
+            {
+                case "ExprEqualsP"://Ir a 159 ExprEqualsP
+                    pilaAcciones.Push(140);
+                    return IrA(159, lH);
+                case "ExprComp": //Ir a 112  ExprComp
+                    pilaAcciones.Push(140);
+                    return IrA(112, lH);
+                case "ExprCompP": //Ir a 113 ExprComp
+                    pilaAcciones.Push(140);
+                    return IrA(113, lH);
+            }
+
+
             switch (lH.tipo)
             {
                 case "ident":
@@ -10564,9 +11552,19 @@ namespace ProyectoCompiladores2020
         }
         private bool estado141(Token lH)
         {
-            //Ir a 160 ExprEqualsP
-            //Ir a 112  ExprComp
-            //Ir a 113 ExprComp
+            switch (pilaSimbolos.Peek())
+            {
+                case "ExprEqualsP"://Ir a 160 ExprEqualsP
+                    pilaAcciones.Push(141);
+                    return IrA(160, lH);
+                case "ExprComp": //Ir a 112  ExprComp
+                    pilaAcciones.Push(141);
+                    return IrA(112, lH);
+                case "ExprCompP": //Ir a 113 ExprComp
+                    pilaAcciones.Push(141);
+                    return IrA(113, lH);
+            }
+
             switch (lH.tipo)
             {
                 case "ident":
@@ -14074,28 +15072,63 @@ namespace ProyectoCompiladores2020
         }
         private bool estado164(Token lH)
         {
-
-            //reduccion 61 con ;
-
-            //IR A 95 CON Stmtblock
-            //IR A 170 CON Stmt
-            //IR A 90 CON Stmt_P
-            //IR A 88 CON IfStmt
-            //IR A 89 CON WhileStmt
-            //IR A 91 CON forStmt 
-            //IR A 93 CON returnStmt 
-            //IR A 92 CON BreakStmt 
-            //IR A 94 CON PrintStmt 
-            //IR A 98 CON Expr 
-            //IR A 104 CON ExprOr 
-            //IR A 105 CON ExprOrP 
-            //IR A 106 CON ExprAnd 
-            //IR A 107 CON ExprAndP 
-            //IR A 108 CON ExprEquals
-            //IR A 109 CON ExprEqualsP
-            //IR A 112 CON ExprComp
-            //IR A 113 CON ExprCompP
-
+            switch (pilaSimbolos.Peek())
+            {
+                case "StmtBlock"://IR A 95 CON Stmtblock
+                    pilaAcciones.Push(164);
+                    return IrA(95, lH);
+                case "Stmt_P":  //IR A 90 CON Stmt_P
+                    pilaAcciones.Push(164);
+                    return IrA(90, lH);
+                case "Stmt":  //IR A 170 CON Stmt
+                    pilaAcciones.Push(164);
+                    return IrA(170, lH);
+                case "IfStmt": //IR A 88 CON IfStmt
+                    pilaAcciones.Push(164);
+                    return IrA(88, lH);
+                case "WhileStmt": //IR A 89 CON WhileStmt
+                    pilaAcciones.Push(164);
+                    return IrA(89, lH);
+                case "ForStmt": //IR A 91 CON forStmt 
+                    pilaAcciones.Push(164);
+                    return IrA(91, lH);
+                case "ReturnStmt":  //IR A 93 CON returnStmt 
+                    pilaAcciones.Push(164);
+                    return IrA(93, lH);
+                case "BreakStmt"://IR A 92 CON BreakStmt 
+                    pilaAcciones.Push(164);
+                    return IrA(92, lH);
+                case "PrintStmt":  //IR A 94 CON PrintStmt 
+                    pilaAcciones.Push(164);
+                    return IrA(94, lH);
+                case "Expr":   //IR A 98 CON Expr 
+                    pilaAcciones.Push(164);
+                    return IrA(98, lH);
+                case "ExprOr":  //IR A 104 CON ExprOr 
+                    pilaAcciones.Push(164);
+                    return IrA(104, lH);
+                case "ExprOrP": //IR A 105 CON ExprOrP 
+                    pilaAcciones.Push(164);
+                    return IrA(105, lH);
+                case "ExprAnd": //IR A 106 CON ExprAnd
+                    pilaAcciones.Push(164);
+                    return IrA(106, lH);
+                case "ExprAndP":  //IR A 107 CON ExprAndP 
+                    pilaAcciones.Push(164);
+                    return IrA(107, lH);
+                case "ExprEquals":  //IR A 108 CON ExprEquals
+                    pilaAcciones.Push(164);
+                    return IrA(108, lH);
+                case "ExprEqualsP": //IR A 109 CON ExprEqualsP
+                    pilaAcciones.Push(164);
+                    return IrA(109, lH);
+                case "ExprComp": //IR A 112 CON ExprComp
+                    pilaAcciones.Push(164);
+                    return IrA(112, lH);
+                case "ExprCompP": //IR A 113 CON ExprCompP
+                    pilaAcciones.Push(164);
+                    return IrA(113, lH);
+            }
 
             switch (lH.tipo)
             {
@@ -14128,7 +15161,7 @@ namespace ProyectoCompiladores2020
             }
             switch (lH.contenido)
             {
-                case ";":
+                case ";": //reduccion 61 con ;
                     pilaSimbolos.Push("Stmt_P");
                     return IrA(pilaAcciones.Peek(), lH);
                 case "(":
@@ -14202,25 +15235,63 @@ namespace ProyectoCompiladores2020
         }
         private bool estado165(Token lH)
         {
-            //IR A 95 CON Stmtblock
-            //IR A 171 CON Stmt
-            //IR A 90 CON Stmt_P
-            //IR A 88 CON IfStmt
-            //IR A 89 CON WhileStmt
-            //IR A 91 CON forStmt 
-            //IR A 93 CON returnStmt 
-            //IR A 92 CON BreakStmt 
-            //IR A 94 CON PrintStmt 
-            //IR A 98 CON Expr 
-            //IR A 104 CON ExprOr 
-            //IR A 105 CON ExprOrP 
-            //IR A 106 CON ExprAnd 
-            //IR A 107 CON ExprAndP 
-            //IR A 108 CON ExprEquals
-            //IR A 109 CON ExprEqualsP
-            //IR A 112 CON ExprComp
-            //IR A 113 CON ExprCompP
-
+            switch (pilaSimbolos.Peek())
+            {
+                case "StmtBlock"://IR A 95 CON Stmtblock
+                    pilaAcciones.Push(165);
+                    return IrA(95, lH);
+                case "Stmt_P":  //IR A 90 CON Stmt_P
+                    pilaAcciones.Push(165);
+                    return IrA(90, lH);
+                case "Stmt":  //IR A 170 CON Stmt
+                    pilaAcciones.Push(165);
+                    return IrA(171, lH);
+                case "IfStmt": //IR A 88 CON IfStmt
+                    pilaAcciones.Push(165);
+                    return IrA(88, lH);
+                case "WhileStmt": //IR A 89 CON WhileStmt
+                    pilaAcciones.Push(165);
+                    return IrA(89, lH);
+                case "ForStmt": //IR A 91 CON forStmt 
+                    pilaAcciones.Push(165);
+                    return IrA(91, lH);
+                case "ReturnStmt":  //IR A 93 CON returnStmt 
+                    pilaAcciones.Push(165);
+                    return IrA(93, lH);
+                case "BreakStmt"://IR A 92 CON BreakStmt 
+                    pilaAcciones.Push(165);
+                    return IrA(92, lH);
+                case "PrintStmt":  //IR A 94 CON PrintStmt 
+                    pilaAcciones.Push(165);
+                    return IrA(94, lH);
+                case "Expr":   //IR A 98 CON Expr 
+                    pilaAcciones.Push(165);
+                    return IrA(98, lH);
+                case "ExprOr":  //IR A 104 CON ExprOr 
+                    pilaAcciones.Push(165);
+                    return IrA(104, lH);
+                case "ExprOrP": //IR A 105 CON ExprOrP 
+                    pilaAcciones.Push(165);
+                    return IrA(105, lH);
+                case "ExprAnd": //IR A 106 CON ExprAnd
+                    pilaAcciones.Push(165);
+                    return IrA(106, lH);
+                case "ExprAndP":  //IR A 107 CON ExprAndP 
+                    pilaAcciones.Push(165);
+                    return IrA(107, lH);
+                case "ExprEquals":  //IR A 108 CON ExprEquals
+                    pilaAcciones.Push(165);
+                    return IrA(108, lH);
+                case "ExprEqualsP": //IR A 109 CON ExprEqualsP
+                    pilaAcciones.Push(165);
+                    return IrA(109, lH);
+                case "ExprComp": //IR A 112 CON ExprComp
+                    pilaAcciones.Push(165);
+                    return IrA(112, lH);
+                case "ExprCompP": //IR A 113 CON ExprCompP
+                    pilaAcciones.Push(165);
+                    return IrA(113, lH);
+            }
 
             switch (lH.tipo)
             {
@@ -14327,15 +15398,36 @@ namespace ProyectoCompiladores2020
         }
         private bool estado166(Token lH)
         {
-            //IR A EXPR CON 172
-            //IR A EXPROR CON 104
-            //IR A 105 CON EXPRORP
-            //IR A EXPRAND CON 106
-            //IR  A EXPRANDP CON 107
-            //IR A EXPREQUALS CON 108
-            //IR A EXPREQUALSP CON 109
-            //IR A EXPRCOMP CON 112
-            //IR A EXPRCOMP_P CON 113
+            switch (pilaSimbolos.Peek())
+            {
+                case "Expr":    //IR A EXPR CON 172
+                    pilaAcciones.Push(166);
+                    return IrA(172, lH);
+                case "ExprOr":   //IR A EXPROR CON 104
+                    pilaAcciones.Push(166);
+                    return IrA(104, lH);
+                case "ExprOrP":   //IR A 105 CON EXPRORP
+                    pilaAcciones.Push(166);
+                    return IrA(105, lH);
+                case "ExprAnd":   //IR A 106 CON EXPRAND
+                    pilaAcciones.Push(166);
+                    return IrA(106, lH);
+                case "ExprAndP": //IR  A EXPRANDP CON 107
+                    pilaAcciones.Push(166);
+                    return IrA(107, lH);
+                case "ExprEquals":   //IR A EXPREQUALS CON 108
+                    pilaAcciones.Push(166);
+                    return IrA(108, lH);
+                case "ExprEqualsP": //IR A EXPREQUALSP CON 109
+                    pilaAcciones.Push(166);
+                    return IrA(109, lH);
+                case "ExprComp":    //IR A EXPRCOMP CON 112
+                    pilaAcciones.Push(166);
+                    return IrA(112, lH);
+                case "ExprCompP":   //IR A EXPRCOMP_P CON 113
+                    pilaAcciones.Push(166);
+                    return IrA(113, lH);
+            }
             switch (lH.tipo)
             {
                 case "ident":
@@ -14402,16 +15494,36 @@ namespace ProyectoCompiladores2020
         }
         private bool estado167(Token lH)
         {
-            //IR A EXPR CON 173
-            //IR A EXPROR CON 104
-            //IR A 105 CON EXPRORP
-            //IR A EXPRAND CON 106
-            //IR  A EXPRANDP CON 107
-            //IR A EXPREQUALS CON 108
-            //IR A EXPREQUALSP CON 109
-            //IR A EXPRCOMP CON 112
-            //IR A EXPRCOMP_P CON 113
-
+            switch (pilaSimbolos.Peek())
+            {
+                case "Expr":    //IR A EXPR CON 173
+                    pilaAcciones.Push(167);
+                    return IrA(173, lH);
+                case "ExprOr":   //IR A EXPROR CON 104
+                    pilaAcciones.Push(167);
+                    return IrA(104, lH);
+                case "ExprOrP":   //IR A 105 CON EXPRORP
+                    pilaAcciones.Push(167);
+                    return IrA(105, lH);
+                case "ExprAnd":   //IR A 106 CON EXPRAND
+                    pilaAcciones.Push(167);
+                    return IrA(106, lH);
+                case "ExprAndP": //IR  A EXPRANDP CON 107
+                    pilaAcciones.Push(167);
+                    return IrA(107, lH);
+                case "ExprEquals":   //IR A EXPREQUALS CON 108
+                    pilaAcciones.Push(167);
+                    return IrA(108, lH);
+                case "ExprEqualsP": //IR A EXPREQUALSP CON 109
+                    pilaAcciones.Push(167);
+                    return IrA(109, lH);
+                case "ExprComp":    //IR A EXPRCOMP CON 112
+                    pilaAcciones.Push(167);
+                    return IrA(112, lH);
+                case "ExprCompP":   //IR A EXPRCOMP_P CON 113
+                    pilaAcciones.Push(167);
+                    return IrA(113, lH);
+            }
 
             switch (lH.tipo)
             {
@@ -14480,8 +15592,12 @@ namespace ProyectoCompiladores2020
         }
         private bool estado168(Token lH)
         {
-            //IR A 174 CON EXPRCOMP_P
-
+            switch (pilaSimbolos.Peek())
+            {
+                case "ExprCompP":   //IR A EXPRCOMP_P CON 174
+                    pilaAcciones.Push(168);
+                    return IrA(174, lH);
+            }
             switch (lH.contenido)
             {
                 case "(":
@@ -14855,6 +15971,12 @@ namespace ProyectoCompiladores2020
         }
         private bool estado170(Token lH)
         {
+            switch (pilaSimbolos.Peek())
+            {
+                case "IfStmt": //IR A 175 CON IfStmt
+                    pilaAcciones.Push(170);
+                    return IrA(175, lH);
+            }
             switch (lH.tipo)
             {
                 case "ident":  //Reduccion 64 ident
@@ -14911,7 +16033,7 @@ namespace ProyectoCompiladores2020
                 default:
                     return false;
             }
-
+           
         }
         private bool estado171(Token lH)
         {
@@ -15240,7 +16362,13 @@ namespace ProyectoCompiladores2020
         }
         private bool estado173(Token lH)
         {
-            //IR A 178 CON PRINT STMT
+            switch (pilaSimbolos.Peek())
+            {
+                case "PrintStmt":    //IR A 178 CON PRINT STMT
+                    pilaAcciones.Push(173);
+                    return IrA(178, lH);
+            }
+
             switch (lH.contenido)
             {
                 case ",":
@@ -16058,28 +17186,63 @@ namespace ProyectoCompiladores2020
         private bool estado176(Token lH)
         {
 
-            //Reducción 61 ;
-
-            //IR A 95 StmtBlock
-            //iR A 180 Stmt
-            //iR A 90 Stmt_P
-            //iR A 88 IFStmt
-            //iR A 89 WhileStmt
-            //iR A 91 forStmt
-            //iR A 93 ReturnStmt
-            //iR A 94 PrintStmt
-
-            //iR A 98 Expr
-            //iR A 104 ExprOr
-            //iR A 105 ExprP
-            //iR A 106 ExprPAnd
-            //iR A 107 ExprPAndP
-            //iR A 108 ExprEquals
-            //iR A 109 ExprEqualsP
-
-            //iR A 112 ExprCOmp
-            //iR A 113 ExprCOmpP
-
+            switch (pilaSimbolos.Peek())
+            {
+                case "StmtBlock"://IR A 95 CON Stmtblock
+                    pilaAcciones.Push(176);
+                    return IrA(95, lH);
+                case "Stmt_P":  //IR A 90 CON Stmt_P
+                    pilaAcciones.Push(176);
+                    return IrA(90, lH);
+                case "Stmt":  //IR A 180 CON Stmt
+                    pilaAcciones.Push(176);
+                    return IrA(180, lH);
+                case "IfStmt": //IR A 88 CON IfStmt
+                    pilaAcciones.Push(176);
+                    return IrA(88, lH);
+                case "WhileStmt": //IR A 89 CON WhileStmt
+                    pilaAcciones.Push(176);
+                    return IrA(89, lH);
+                case "ForStmt": //IR A 91 CON forStmt 
+                    pilaAcciones.Push(176);
+                    return IrA(91, lH);
+                case "ReturnStmt":  //IR A 93 CON returnStmt 
+                    pilaAcciones.Push(176);
+                    return IrA(93, lH);
+                case "BreakStmt"://IR A 92 CON BreakStmt 
+                    pilaAcciones.Push(176);
+                    return IrA(92, lH);
+                case "PrintStmt":  //IR A 94 CON PrintStmt 
+                    pilaAcciones.Push(176);
+                    return IrA(94, lH);
+                case "Expr":   //IR A 98 CON Expr 
+                    pilaAcciones.Push(176);
+                    return IrA(98, lH);
+                case "ExprOr":  //IR A 104 CON ExprOr 
+                    pilaAcciones.Push(176);
+                    return IrA(104, lH);
+                case "ExprOrP": //IR A 105 CON ExprOrP 
+                    pilaAcciones.Push(176);
+                    return IrA(105, lH);
+                case "ExprAnd": //IR A 106 CON ExprAnd
+                    pilaAcciones.Push(176);
+                    return IrA(106, lH);
+                case "ExprAndP":  //IR A 107 CON ExprAndP 
+                    pilaAcciones.Push(176);
+                    return IrA(107, lH);
+                case "ExprEquals":  //IR A 108 CON ExprEquals
+                    pilaAcciones.Push(176);
+                    return IrA(108, lH);
+                case "ExprEqualsP": //IR A 109 CON ExprEqualsP
+                    pilaAcciones.Push(176);
+                    return IrA(109, lH);
+                case "ExprComp": //IR A 112 CON ExprComp
+                    pilaAcciones.Push(176);
+                    return IrA(112, lH);
+                case "ExprCompP": //IR A 113 CON ExprCompP
+                    pilaAcciones.Push(176);
+                    return IrA(113, lH);
+            }
             switch (lH.tipo)
             {
                 case "ident":
@@ -16111,6 +17274,10 @@ namespace ProyectoCompiladores2020
             }
             switch (lH.contenido)
             {
+                
+                case ";"://Reducción 61 ;
+                    pilaSimbolos.Push("Stmt_P");
+                    return IrA(pilaAcciones.Peek(), lH);
                 case "(":
                     pilaSimbolos.Push(cadenas.Dequeue().contenido);
                     pilaAcciones.Push(114);
@@ -16182,16 +17349,36 @@ namespace ProyectoCompiladores2020
         }
         private bool estado177(Token lH)
         {
-            //iR A 181 Expr
-            //iR A 104 ExprOr
-            //iR A 105 ExprP
-            //iR A 106 ExprPAnd
-            //iR A 107 ExprPAndP
-            //iR A 108 ExprEquals
-            //iR A 109 ExprEqualsP
-
-            //iR A 112 ExprCOmp
-            //iR A 113 ExprCOmpP
+            switch (pilaSimbolos.Peek())
+            {
+                case "Expr":   //IR A 181 CON Expr 
+                    pilaAcciones.Push(177);
+                    return IrA(181, lH);
+                case "ExprOr":  //IR A 104 CON ExprOr 
+                    pilaAcciones.Push(177);
+                    return IrA(104, lH);
+                case "ExprOrP": //IR A 105 CON ExprOrP 
+                    pilaAcciones.Push(177);
+                    return IrA(105, lH);
+                case "ExprAnd": //IR A 106 CON ExprAnd
+                    pilaAcciones.Push(177);
+                    return IrA(106, lH);
+                case "ExprAndP":  //IR A 107 CON ExprAndP 
+                    pilaAcciones.Push(177);
+                    return IrA(107, lH);
+                case "ExprEquals":  //IR A 108 CON ExprEquals
+                    pilaAcciones.Push(177);
+                    return IrA(108, lH);
+                case "ExprEqualsP": //IR A 109 CON ExprEqualsP
+                    pilaAcciones.Push(177);
+                    return IrA(109, lH);
+                case "ExprComp": //IR A 112 CON ExprComp
+                    pilaAcciones.Push(177);
+                    return IrA(112, lH);
+                case "ExprCompP": //IR A 113 CON ExprCompP
+                    pilaAcciones.Push(177);
+                    return IrA(113, lH);
+            }
 
             switch (lH.tipo)
             {
@@ -16274,17 +17461,36 @@ namespace ProyectoCompiladores2020
         }
         private bool estado179(Token lH)
         {
-            //iR A 183 Expr
-            //iR A 104 ExprOr
-            //iR A 105 ExprP
-            //iR A 106 ExprPAnd
-            //iR A 107 ExprPAndP
-            //iR A 108 ExprEquals
-            //iR A 109 ExprEqualsP
-
-            //iR A 112 ExprCOmp
-            //iR A 113 ExprCOmpP
-
+            switch (pilaSimbolos.Peek())
+            {
+                case "Expr":   //IR A 183 CON Expr 
+                    pilaAcciones.Push(179);
+                    return IrA(183, lH);
+                case "ExprOr":  //IR A 104 CON ExprOr 
+                    pilaAcciones.Push(179);
+                    return IrA(104, lH);
+                case "ExprOrP": //IR A 105 CON ExprOrP 
+                    pilaAcciones.Push(179);
+                    return IrA(105, lH);
+                case "ExprAnd": //IR A 106 CON ExprAnd
+                    pilaAcciones.Push(179);
+                    return IrA(106, lH);
+                case "ExprAndP":  //IR A 107 CON ExprAndP 
+                    pilaAcciones.Push(179);
+                    return IrA(107, lH);
+                case "ExprEquals":  //IR A 108 CON ExprEquals
+                    pilaAcciones.Push(179);
+                    return IrA(108, lH);
+                case "ExprEqualsP": //IR A 109 CON ExprEqualsP
+                    pilaAcciones.Push(179);
+                    return IrA(109, lH);
+                case "ExprComp": //IR A 112 CON ExprComp
+                    pilaAcciones.Push(179);
+                    return IrA(112, lH);
+                case "ExprCompP": //IR A 113 CON ExprCompP
+                    pilaAcciones.Push(179);
+                    return IrA(113, lH);
+            }
             switch (lH.tipo)
             {
                 case "ident":
@@ -16601,7 +17807,13 @@ namespace ProyectoCompiladores2020
         }
         private bool estado183(Token lH)
         {
-            //Ir a 186 PrintStmt_P
+            
+            switch (pilaSimbolos.Peek())
+            {
+                case "PrintStmt_P": //Ir a 186 PrintStmt_P
+                    pilaAcciones.Push(183);
+                    return IrA(186, lH);
+            }
             switch (lH.contenido)
             {
                 case ",":
@@ -16618,27 +17830,64 @@ namespace ProyectoCompiladores2020
         }
         private bool estado184(Token lH)
         {
-            //Reduccion 61 ;
-            //Ir a 95 StmtBlock
-            //Ir a 187 Stmt
-            //Ir a 90 Stmt_P
-            //iR A 88 IFStmt
-            //iR A 89 WhileStmt
-            //iR A 91 forStmt
-            //iR A 93 ReturnStmt
-            //Ir a 92 BreakStmt
-            //iR A 94 PrintStmt
+            switch (pilaSimbolos.Peek())
+            {
+                case "StmtBlock"://IR A 95 CON Stmtblock
+                    pilaAcciones.Push(184);
+                    return IrA(95, lH);
+                case "Stmt_P":  //IR A 90 CON Stmt_P
+                    pilaAcciones.Push(184);
+                    return IrA(90, lH);
+                case "Stmt":  //IR A 187 CON Stmt
+                    pilaAcciones.Push(184);
+                    return IrA(187, lH);
+                case "IfStmt": //IR A 88 CON IfStmt
+                    pilaAcciones.Push(184);
+                    return IrA(88, lH);
+                case "WhileStmt": //IR A 89 CON WhileStmt
+                    pilaAcciones.Push(184);
+                    return IrA(89, lH);
+                case "ForStmt": //IR A 91 CON forStmt 
+                    pilaAcciones.Push(184);
+                    return IrA(91, lH);
+                case "ReturnStmt":  //IR A 93 CON returnStmt 
+                    pilaAcciones.Push(184);
+                    return IrA(93, lH);
+                case "BreakStmt"://IR A 92 CON BreakStmt 
+                    pilaAcciones.Push(184);
+                    return IrA(92, lH);
+                case "PrintStmt":  //IR A 94 CON PrintStmt 
+                    pilaAcciones.Push(184);
+                    return IrA(94, lH);
+                case "Expr":   //IR A 98 CON Expr 
+                    pilaAcciones.Push(184);
+                    return IrA(98, lH);
+                case "ExprOr":  //IR A 104 CON ExprOr 
+                    pilaAcciones.Push(184);
+                    return IrA(104, lH);
+                case "ExprOrP": //IR A 105 CON ExprOrP 
+                    pilaAcciones.Push(184);
+                    return IrA(105, lH);
+                case "ExprAnd": //IR A 106 CON ExprAnd
+                    pilaAcciones.Push(184);
+                    return IrA(106, lH);
+                case "ExprAndP":  //IR A 107 CON ExprAndP 
+                    pilaAcciones.Push(184);
+                    return IrA(107, lH);
+                case "ExprEquals":  //IR A 108 CON ExprEquals
+                    pilaAcciones.Push(184);
+                    return IrA(108, lH);
+                case "ExprEqualsP": //IR A 109 CON ExprEqualsP
+                    pilaAcciones.Push(184);
+                    return IrA(109, lH);
+                case "ExprComp": //IR A 112 CON ExprComp
+                    pilaAcciones.Push(184);
+                    return IrA(112, lH);
+                case "ExprCompP": //IR A 113 CON ExprCompP
+                    pilaAcciones.Push(184);
+                    return IrA(113, lH);
+            }
 
-            //iR A 98 Expr
-            //iR A 104 ExprOr
-            //iR A 105 ExprP
-            //iR A 106 ExprPAnd
-            //iR A 107 ExprPAndP
-            //iR A 108 ExprEquals
-            //iR A 109 ExprEqualsP
-
-            //iR A 112 ExprCOmp
-            //iR A 113 ExprCOmpP
             switch (lH.tipo)
             {
                 case "ident":
@@ -16670,7 +17919,7 @@ namespace ProyectoCompiladores2020
             }
             switch (lH.contenido)
             {
-                case ";":
+                case ";": //Reduccion 61 ;
                     pilaSimbolos.Push("PrintStmt_P");
                     return IrA(pilaAcciones.Peek(), lH);
                 case "(":
