@@ -16,7 +16,7 @@ namespace ProyectoCompiladores2020
         public Dictionary<int, string> lineas = new Dictionary<int, string>();
         analizador iraAnalizador = new analizador();
         SintacticoRecursivo sintacticoDes = new SintacticoRecursivo();
-        //SintacticoAscendente sintacticoAs = new SintacticoAscendente();
+        SintacticoAscendente sintacticoAs = new SintacticoAscendente();
         public Form1()
         {
             InitializeComponent();
@@ -25,8 +25,6 @@ namespace ProyectoCompiladores2020
         
         private void button1_Click(object sender, EventArgs e)
         {
-
-            SintacticoAscendente sintacticoAs = new SintacticoAscendente();
             int contlineas = 0;
             iraAnalizador.correcto = true;
             OpenFileDialog o = new OpenFileDialog();
@@ -66,6 +64,7 @@ namespace ProyectoCompiladores2020
                 {
                     listBox1.Items.Add("Archivo correcto");
                     button2.Enabled = true ;
+                    button3.Enabled = true ;
 
                 }       
                 string nombreArchivo = Path.ChangeExtension(o.FileName,".out");
@@ -79,13 +78,6 @@ namespace ProyectoCompiladores2020
                 }
                 iraAnalizador.errores.Clear();
             }
-            
-
-
-
-
-
-
         }
 
         private void label2_Click(object sender, EventArgs e)
@@ -111,6 +103,27 @@ namespace ProyectoCompiladores2020
                 listBox2.Items.Add("Archivo correcto");
             }
             sintacticoDes.errores.Clear();
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            sintacticoAs.cadenas = iraAnalizador.tokens;
+            sintacticoAs.iniciar();
+
+            if (sintacticoAs.errores.Count != 0)
+            {
+                foreach (var item in sintacticoAs.errores)
+                {
+                    listBox3.Items.Add(item);
+                    listBox3.Items.Add("\n");
+                }
+            }
+            else
+            {
+                sintacticoAs.errores.Add("El archivo es correcto");
+            }
+            sintacticoAs.errores.Clear();
+
         }
     }
 }

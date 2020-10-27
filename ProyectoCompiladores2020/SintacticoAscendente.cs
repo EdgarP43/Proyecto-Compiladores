@@ -10,137 +10,20 @@ namespace ProyectoCompiladores2020
 {
     class SintacticoAscendente
     {
-        public Dictionary<string, string> filaMov = new Dictionary<string, string>();
-        public Dictionary<int, Dictionary<string, string>> estados = new Dictionary<int, Dictionary<string, string>>();
-        private Queue<Token> cadenas = new Queue<Token>();
+        public Queue<Token> cadenas = new Queue<Token>();
         private Stack<string> pilaSimbolos = new Stack<string>();
         private Stack<int> pilaAcciones = new Stack<int>();
         public List<string> errores = new List<string>();
-        private void Tabla()
+
+        public void iniciar()
         {
-            int contadorLineas = 0;
-            int llavesCont = 0;
-            using (StreamReader sr = new StreamReader("SLR.txt"))
+            pilaAcciones.Push(0);
+            var inicio = cadenas.Peek();
+            if(!IrA(pilaAcciones.Peek(), inicio))
             {
-                string linea = "";
-                while ((linea = sr.ReadLine()) != null)
-                {
-                    Dictionary<string, string> filaMov = new Dictionary<string, string>();
-                    var fila = linea.Split(';');
-                    foreach (var item in fila)
-                    {
-                        if(fila[llavesCont].Equals("n"))
-                        { }
-                        else
-                            filaMov.Add(llaves[llavesCont], fila[llavesCont]);
-                       
-                        llavesCont++;
-                    }
-                    estados.Add(contadorLineas, filaMov);
-                    llavesCont = 0;
-                    contadorLineas++;
-                }
+                errores.Add("Archivo incorrecto");
             }
         }
-        public SintacticoAscendente(){
-            Tabla();
-            Token temporal = new Token();
-            temporal.contenido = "$";
-            temporal.tipo = "reservada";
-            cadenas.Enqueue(temporal);
-        }
-        private string[] llaves = new string[]
-        {
-            ";",
-            "ident",
-            "const",
-            "int",
-            "double",
-            "bool",
-            "string",
-            "[]",
-            "(",
-            ")",
-            "void",
-            ",",
-            "class",
-            "{",
-            "}",
-            ":",
-            "interface",
-            "if",
-            "else",
-            "while",
-            "for",
-            "return",
-            "break",
-            "Console",
-            ".",
-            "WriteLine",
-            "=",
-            "==",
-            "&&",
-            "<",
-            "<=",
-            "+",
-            "*",
-            "%",
-            "-",
-            "!",
-            "this",
-            "New",
-            "intConstant",
-            "doubleConstant",
-            "boolConstant",
-            "stringConstant",
-            "null",
-            "$",
-            "S'",
-            "Program",
-            "Decl",
-            "VariableDecl",
-            "Variable",
-            "ConstDecl",
-            "ConstType",
-            "Type",
-            "Type_P",
-            "Type_R",
-            "FunctionDecl",
-            "Formals",
-            "Formals_P",
-            "ClassDecl",
-            "ClassDecl_P",
-            "ClassDecl_R",
-            "ClassDecl_O",
-            "ClassDecl_Q",
-            "Field",
-            "InterfaceDecl",
-            "InterfaceDecl_P",
-            "Prototype",
-            "StmtBlock",
-            "StmtBlock_P",
-            "StmtBlock_R",
-            "StmtBlock_O",
-            "Stmt",
-            "Stmt_P",
-            "IfStmt",
-            "IfStmt_P",
-            "WhileStmt",
-            "ForStmt",
-            "ReturnStmt",
-            "BreakStmt",
-            "PrintStmt",
-            "PrintStmt_P",
-            "Expr",
-            "ExprOr",
-            "ExprOrP",
-            "ExprAnd",
-            "ExprAndP",
-            "ExprEquals",
-            "ExprEqualsP",
-            "ExprComp",
-            "ExprCompP",
-        };
         private Token rellenarCadenas(Token temp)
         {
             var colaTemp = new Queue<Token>();
@@ -678,16 +561,6 @@ namespace ProyectoCompiladores2020
         }
         private bool estado0(Token lH)
         {
-            //IR A 1 Program
-            //IR A 2 Decl
-            //IR A 3 VariableDecl
-            //IR A 8 Variable
-            //IR A 5 ConstDecl
-            //IR A 9 Type 
-            //IR A 14 Type_P
-            //IR A 4 FunctionDecl
-            //IR A 6 ClassDecl
-            //IR A 7 InterfaceDecl
             switch(pilaSimbolos.Peek())
             {
                 case "Program":
