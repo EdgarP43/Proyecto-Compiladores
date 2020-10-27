@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.IO;
+using System.Reflection.Emit;
 
 namespace ProyectoCompiladores2020
 {
@@ -140,7 +141,17 @@ namespace ProyectoCompiladores2020
             "ExprComp",
             "ExprCompP",
         };
-
+        private Token rellenarCadenas(Token temp)
+        {
+            var colaTemp = new Queue<Token>();
+            colaTemp.Enqueue(temp);
+            for (int i = 0; i < cadenas.Count; i++)
+            {
+                colaTemp.Enqueue(cadenas.Dequeue());
+            }
+            cadenas = colaTemp;
+            return cadenas.Peek();
+        }
         private bool error (Token lH)
         {
             errores.Add("Error en la linea " + lH.linea + ", Columnas de la " + lH.columnaInicio + "-" + lH.columnaFin + " con la cadena " + lH.contenido);
@@ -665,7 +676,6 @@ namespace ProyectoCompiladores2020
                     return false;
             }
         }
-
         private bool estado0(Token lH)
         {
             //IR A 1 Program
@@ -3516,9 +3526,10 @@ namespace ProyectoCompiladores2020
                     return IrA(pilaAcciones.Peek(), lH);
             }
         }
+        
         private bool estado68(Token lH)
         {
-            
+            var temp = new Token();
             switch (pilaSimbolos.Peek())//ir a
             {
                 case "VariableDecl": //Ir a 77 VariableDecl
@@ -3537,17 +3548,26 @@ namespace ProyectoCompiladores2020
                     pilaAcciones.Push(68);
                     return IrA(76, lH);
             }
-
-
-
             switch (lH.tipo)
             {
                 case "ident":
                     //Colision con Reduccion 47 ident
-                    pilaSimbolos.Push(cadenas.Dequeue().contenido);
-                    pilaAcciones.Push(19);
+                    temp = lH;
+                    cadenas.Dequeue();
                     lH = cadenas.Peek();
-                    return estado19(lH);
+                    if (lH.contenido == "[]" || lH.tipo == "ident")
+                    {
+                        pilaSimbolos.Push(temp.contenido);
+                        pilaAcciones.Push(19);
+                        temp = lH;
+                        return estado19(temp);
+                    }
+                    else
+                    {
+                        lH = rellenarCadenas(temp);
+                        pilaSimbolos.Push("StmtBlock_P");
+                        return IrA(pilaAcciones.Peek(), lH);
+                    }
                 //REDUCCIONES
                 case "int": //Reduccion a 47 intconstant
                     pilaSimbolos.Push("StmtBlock_P");
@@ -3626,29 +3646,77 @@ namespace ProyectoCompiladores2020
                     pilaSimbolos.Push("StmtBlock_P");
                     return IrA(pilaAcciones.Peek(), lH);
                 case "int":
-                    //Colision con Reduccion 47 
-                    pilaSimbolos.Push(cadenas.Dequeue().contenido);
-                    pilaAcciones.Push(15);
+                    //Colision con Reduccion 47
+                    temp = lH;
+                    cadenas.Dequeue();
                     lH = cadenas.Peek();
-                    return estado15(lH);
+                    if (lH.contenido == "[]" || lH.tipo == "ident")
+                    {
+                        pilaSimbolos.Push(temp.contenido);
+                        pilaAcciones.Push(15);
+                        temp = lH;
+                        return estado15(temp);
+                    }
+                    else
+                    {
+                        lH = rellenarCadenas(temp);
+                        pilaSimbolos.Push("StmtBlock_P");
+                        return IrA(pilaAcciones.Peek(), lH);
+                    }
                 case "double":
-                    //Colision con Reduccion 47 
-                    pilaSimbolos.Push(cadenas.Dequeue().contenido);
-                    pilaAcciones.Push(16);
+                    //Colision con Reduccion 47
+                    temp = lH;
+                    cadenas.Dequeue();
                     lH = cadenas.Peek();
-                    return estado16(lH);
+                    if (lH.contenido == "[]" || lH.tipo == "ident")
+                    {
+                        pilaSimbolos.Push(temp.contenido);
+                        pilaAcciones.Push(16);
+                        temp = lH;
+                        return estado16(temp);
+                    }
+                    else
+                    {
+                        lH = rellenarCadenas(temp);
+                        pilaSimbolos.Push("StmtBlock_P");
+                        return IrA(pilaAcciones.Peek(), lH);
+                    }
                 case "bool":
                     //Colision con Reduccion 47 
-                    pilaSimbolos.Push(cadenas.Dequeue().contenido);
-                    pilaAcciones.Push(17);
+                    temp = lH;
+                    cadenas.Dequeue();
                     lH = cadenas.Peek();
-                    return estado17(lH);
+                    if (lH.contenido == "[]" || lH.tipo == "ident")
+                    {
+                        pilaSimbolos.Push(temp.contenido);
+                        pilaAcciones.Push(17);
+                        temp = lH;
+                        return estado17(temp);
+                    }
+                    else
+                    {
+                        lH = rellenarCadenas(temp);
+                        pilaSimbolos.Push("StmtBlock_P");
+                        return IrA(pilaAcciones.Peek(), lH);
+                    }
                 case "string":
                     //Colision con Reduccion 47 
-                    pilaSimbolos.Push(cadenas.Dequeue().contenido);
-                    pilaAcciones.Push(16);
+                    temp = lH;
+                    cadenas.Dequeue();
                     lH = cadenas.Peek();
-                    return estado16(lH);
+                    if (lH.contenido == "[]" || lH.tipo == "ident")
+                    {
+                        pilaSimbolos.Push(temp.contenido);
+                        pilaAcciones.Push(18);
+                        temp = lH;
+                        return estado18(temp);
+                    }
+                    else
+                    {
+                        lH = rellenarCadenas(temp);
+                        pilaSimbolos.Push("StmtBlock_P");
+                        return IrA(pilaAcciones.Peek(), lH);
+                    }
                 default:
                 //Reduccion a 47 $
                     pilaSimbolos.Push("StmtBlock_P");
@@ -4189,9 +4257,7 @@ namespace ProyectoCompiladores2020
         private bool estado76(Token lH)
         {
             //COLISION CON (DESPLAZAMIENTO A 11 / REDUCCIÓN A 49 ) CON CONST
-
-            //IR A 82 CON ConstDecl
-            //IR A 81 CON StmtBlock_R
+            var temp = new Token();
             switch(pilaSimbolos.Peek())
             {
                 case "ConstDecl":
@@ -4204,8 +4270,22 @@ namespace ProyectoCompiladores2020
             switch (lH.tipo)
             {
                 case "ident": //REUCCION A 49 CON IDENT
-                    pilaSimbolos.Push("StmtBlock_R");
-                    return IrA(pilaAcciones.Peek(), lH);
+                    temp = lH;
+                    cadenas.Dequeue();
+                    lH = cadenas.Peek();
+                    if (lH.contenido == "int" || lH.contenido == "double" || lH.contenido == "bool" || lH.contenido == "string")
+                    {
+                        pilaSimbolos.Push(temp.contenido);
+                        pilaAcciones.Push(11);
+                        temp = lH;
+                        return estado11(temp);
+                    }
+                    else
+                    {
+                        lH = rellenarCadenas(temp);
+                        pilaSimbolos.Push("StmtBlock_R");
+                        return IrA(pilaAcciones.Peek(), lH);
+                    }
                 //REDUCCIONES
                 case "int": //Reduccion a 49 intconstant
                     pilaSimbolos.Push("StmtBlock_R");
@@ -4288,6 +4368,7 @@ namespace ProyectoCompiladores2020
         }
         private bool estado77(Token lH)
         {
+            var temp = new Token();
             //IR A 8 CON Variable
             //IR A 41 CON Type
             //IR A 14 CON Type_P
@@ -4299,10 +4380,22 @@ namespace ProyectoCompiladores2020
                 {
                     case "ident":
                         //Colision con Reduccion 47 ident
-                        pilaSimbolos.Push(cadenas.Dequeue().contenido);
-                        pilaAcciones.Push(19);
+                        temp = lH;
+                        cadenas.Dequeue();
                         lH = cadenas.Peek();
-                        return estado19(lH);
+                        if (lH.contenido == "[]" || lH.tipo == "ident")
+                        {
+                            pilaSimbolos.Push(temp.contenido);
+                            pilaAcciones.Push(19);
+                            temp = lH;
+                            return estado19(temp);
+                        }
+                        else
+                        {
+                            lH = rellenarCadenas(temp);
+                            pilaSimbolos.Push("StmtBlock_P");
+                            return IrA(pilaAcciones.Peek(), lH);
+                        }
                     //REDUCCIONES
                     case "int": //Reduccion a 47 intconstant
                         pilaSimbolos.Push("StmtBlock_P");
@@ -4381,29 +4474,77 @@ namespace ProyectoCompiladores2020
                         pilaSimbolos.Push("StmtBlock_P");
                         return IrA(pilaAcciones.Peek(), lH);
                     case "int":
-                        //Colision con Reduccion 47 
-                        pilaSimbolos.Push(cadenas.Dequeue().contenido);
-                        pilaAcciones.Push(15);
+                        //Colision con Reduccion 47
+                        temp = lH;
+                        cadenas.Dequeue();
                         lH = cadenas.Peek();
-                        return estado15(lH);
+                        if (lH.contenido == "[]" || lH.tipo == "ident")
+                        {
+                            pilaSimbolos.Push(temp.contenido);
+                            pilaAcciones.Push(15);
+                            temp = lH;
+                            return estado15(temp);
+                        }
+                        else
+                        {
+                            lH = rellenarCadenas(temp);
+                            pilaSimbolos.Push("StmtBlock_P");
+                            return IrA(pilaAcciones.Peek(), lH);
+                        }
                     case "double":
-                        //Colision con Reduccion 47 
-                        pilaSimbolos.Push(cadenas.Dequeue().contenido);
-                        pilaAcciones.Push(16);
+                        //Colision con Reduccion 47
+                        temp = lH;
+                        cadenas.Dequeue();
                         lH = cadenas.Peek();
-                        return estado16(lH);
+                        if (lH.contenido == "[]" || lH.tipo == "ident")
+                        {
+                            pilaSimbolos.Push(temp.contenido);
+                            pilaAcciones.Push(16);
+                            temp = lH;
+                            return estado16(temp);
+                        }
+                        else
+                        {
+                            lH = rellenarCadenas(temp);
+                            pilaSimbolos.Push("StmtBlock_P");
+                            return IrA(pilaAcciones.Peek(), lH);
+                        }
                     case "bool":
                         //Colision con Reduccion 47 
-                        pilaSimbolos.Push(cadenas.Dequeue().contenido);
-                        pilaAcciones.Push(17);
+                        temp = lH;
+                        cadenas.Dequeue();
                         lH = cadenas.Peek();
-                        return estado17(lH);
+                        if (lH.contenido == "[]" || lH.tipo == "ident")
+                        {
+                            pilaSimbolos.Push(temp.contenido);
+                            pilaAcciones.Push(17);
+                            temp = lH;
+                            return estado17(temp);
+                        }
+                        else
+                        {
+                            lH = rellenarCadenas(temp);
+                            pilaSimbolos.Push("StmtBlock_P");
+                            return IrA(pilaAcciones.Peek(), lH);
+                        }
                     case "string":
                         //Colision con Reduccion 47 
-                        pilaSimbolos.Push(cadenas.Dequeue().contenido);
-                        pilaAcciones.Push(16);
+                        temp = lH;
+                        cadenas.Dequeue();
                         lH = cadenas.Peek();
-                        return estado16(lH);
+                        if (lH.contenido == "[]" || lH.tipo == "ident")
+                        {
+                            pilaSimbolos.Push(temp.contenido);
+                            pilaAcciones.Push(18);
+                            temp = lH;
+                            return estado18(temp);
+                        }
+                        else
+                        {
+                            lH = rellenarCadenas(temp);
+                            pilaSimbolos.Push("StmtBlock_P");
+                            return IrA(pilaAcciones.Peek(), lH);
+                        }
                     default:
                         //Reduccion a 47 $
                         pilaSimbolos.Push("StmtBlock_P");
@@ -4429,10 +4570,22 @@ namespace ProyectoCompiladores2020
             {
                 case "ident":
                     //Colision con Reduccion 47 ident
-                    pilaSimbolos.Push(cadenas.Dequeue().contenido);
-                    pilaAcciones.Push(19);
+                    temp = lH;
+                    cadenas.Dequeue();
                     lH = cadenas.Peek();
-                    return estado19(lH);
+                    if (lH.contenido == "[]" || lH.tipo == "ident")
+                    {
+                        pilaSimbolos.Push(temp.contenido);
+                        pilaAcciones.Push(19);
+                        temp = lH;
+                        return estado19(temp);
+                    }
+                    else
+                    {
+                        lH = rellenarCadenas(temp);
+                        pilaSimbolos.Push("StmtBlock_P");
+                        return IrA(pilaAcciones.Peek(), lH);
+                    }
                 //REDUCCIONES
                 case "int": //Reduccion a 47 intconstant
                     pilaSimbolos.Push("StmtBlock_P");
@@ -4511,29 +4664,77 @@ namespace ProyectoCompiladores2020
                     pilaSimbolos.Push("StmtBlock_P");
                     return IrA(pilaAcciones.Peek(), lH);
                 case "int":
-                    //Colision con Reduccion 47 
-                    pilaSimbolos.Push(cadenas.Dequeue().contenido);
-                    pilaAcciones.Push(15);
+                    //Colision con Reduccion 47
+                    temp = lH;
+                    cadenas.Dequeue();
                     lH = cadenas.Peek();
-                    return estado15(lH);
+                    if (lH.contenido == "[]" || lH.tipo == "ident")
+                    {
+                        pilaSimbolos.Push(temp.contenido);
+                        pilaAcciones.Push(15);
+                        temp = lH;
+                        return estado15(temp);
+                    }
+                    else
+                    {
+                        lH = rellenarCadenas(temp);
+                        pilaSimbolos.Push("StmtBlock_P");
+                        return IrA(pilaAcciones.Peek(), lH);
+                    }
                 case "double":
-                    //Colision con Reduccion 47 
-                    pilaSimbolos.Push(cadenas.Dequeue().contenido);
-                    pilaAcciones.Push(16);
+                    //Colision con Reduccion 47
+                    temp = lH;
+                    cadenas.Dequeue();
                     lH = cadenas.Peek();
-                    return estado16(lH);
+                    if (lH.contenido == "[]" || lH.tipo == "ident")
+                    {
+                        pilaSimbolos.Push(temp.contenido);
+                        pilaAcciones.Push(16);
+                        temp = lH;
+                        return estado16(temp);
+                    }
+                    else
+                    {
+                        lH = rellenarCadenas(temp);
+                        pilaSimbolos.Push("StmtBlock_P");
+                        return IrA(pilaAcciones.Peek(), lH);
+                    }
                 case "bool":
                     //Colision con Reduccion 47 
-                    pilaSimbolos.Push(cadenas.Dequeue().contenido);
-                    pilaAcciones.Push(17);
+                    temp = lH;
+                    cadenas.Dequeue();
                     lH = cadenas.Peek();
-                    return estado17(lH);
+                    if (lH.contenido == "[]" || lH.tipo == "ident")
+                    {
+                        pilaSimbolos.Push(temp.contenido);
+                        pilaAcciones.Push(17);
+                        temp = lH;
+                        return estado17(temp);
+                    }
+                    else
+                    {
+                        lH = rellenarCadenas(temp);
+                        pilaSimbolos.Push("StmtBlock_P");
+                        return IrA(pilaAcciones.Peek(), lH);
+                    }
                 case "string":
                     //Colision con Reduccion 47 
-                    pilaSimbolos.Push(cadenas.Dequeue().contenido);
-                    pilaAcciones.Push(16);
+                    temp = lH;
+                    cadenas.Dequeue();
                     lH = cadenas.Peek();
-                    return estado16(lH);
+                    if (lH.contenido == "[]" || lH.tipo == "ident")
+                    {
+                        pilaSimbolos.Push(temp.contenido);
+                        pilaAcciones.Push(18);
+                        temp = lH;
+                        return estado18(temp);
+                    }
+                    else
+                    {
+                        lH = rellenarCadenas(temp);
+                        pilaSimbolos.Push("StmtBlock_P");
+                        return IrA(pilaAcciones.Peek(), lH);
+                    }
                 default:
                     //Reduccion a 47 $
                     pilaSimbolos.Push("StmtBlock_P");
@@ -4754,12 +4955,13 @@ namespace ProyectoCompiladores2020
             }
         private bool estado82(Token lH)
         {
-
+            var temp = new Token();
             //IR A 82 CON ConstDecl
             //IR A 122 CON StmtBlock_R
             if(pilaSimbolos.Peek() == "ConstDecl")
             {
-                pilaAcciones.Push(82); switch (lH.tipo)
+                pilaAcciones.Push(82); 
+                switch (lH.tipo)
                 {
                     case "ident": //REUCCION A 49 CON IDENT
                         pilaSimbolos.Push("StmtBlock_R");
@@ -4781,11 +4983,22 @@ namespace ProyectoCompiladores2020
                 switch (lH.contenido)
                 {
                     case "const":
-                        //Colision con reduccion a 47
-                        pilaSimbolos.Push(cadenas.Dequeue().contenido);
-                        pilaAcciones.Push(19);
+                        temp = lH;
+                        cadenas.Dequeue();
                         lH = cadenas.Peek();
-                        return estado19(lH);
+                        if (lH.contenido == "int" || lH.contenido == "double" || lH.contenido == "bool" || lH.contenido == "string")
+                        {
+                            pilaSimbolos.Push(temp.contenido);
+                            pilaAcciones.Push(11);
+                            temp = lH;
+                            return estado11(temp);
+                        }
+                        else
+                        {
+                            lH = rellenarCadenas(temp);
+                            pilaSimbolos.Push("StmtBlock_R");
+                            return IrA(pilaAcciones.Peek(), lH);
+                        }
                     //REDUCCIONES
                     case ";"://Reduccion a 49 ;
                         pilaSimbolos.Push("StmtBlock_R");
@@ -4877,11 +5090,22 @@ namespace ProyectoCompiladores2020
             switch (lH.contenido)
             {
                 case "const":
-                    //Colision con reduccion a 47
-                    pilaSimbolos.Push(cadenas.Dequeue().contenido);
-                    pilaAcciones.Push(19);
+                    temp = lH;
+                    cadenas.Dequeue();
                     lH = cadenas.Peek();
-                    return estado19(lH);
+                    if (lH.contenido == "int" || lH.contenido == "double" || lH.contenido == "bool" || lH.contenido == "string")
+                    {
+                        pilaSimbolos.Push(temp.contenido);
+                        pilaAcciones.Push(11);
+                        temp = lH;
+                        return estado11(temp);
+                    }
+                    else
+                    {
+                        lH = rellenarCadenas(temp);
+                        pilaSimbolos.Push("StmtBlock_R");
+                        return IrA(pilaAcciones.Peek(), lH);
+                    }
                 //REDUCCIONES
                 case ";"://Reduccion a 49 ;
                     pilaSimbolos.Push("StmtBlock_R");
@@ -15778,6 +16002,7 @@ namespace ProyectoCompiladores2020
         }
         private bool estado170(Token lH)
         {
+            var temp = new Token();
             switch (pilaSimbolos.Peek())
             {
                 case "IfStmt": //IR A 175 CON IfStmt
@@ -15826,9 +16051,27 @@ namespace ProyectoCompiladores2020
                 case "if": //Reduccion 64 if
                     pilaSimbolos.Push("IfStmt_P");
                     return IrA(pilaAcciones.Peek(), lH);
-
-                //COLISION (DESPLAZAMIENTO A 176 / REDUCCION A 64 ) CON ELSE
-
+                case "else":
+                    //COLISION (DESPLAZAMIENTO A 176 / REDUCCION A 64 ) CON ELSE
+                    temp = lH;
+                    cadenas.Dequeue();
+                    lH = cadenas.Peek();
+                    if (lH.contenido == ";" || lH.contenido == "(" || lH.contenido == "{" || lH.contenido == "if" || lH.contenido == "while" || lH.contenido == "for" 
+                        || lH.contenido == "return" || lH.contenido == "break" || lH.contenido == "Console" || lH.contenido == "-" || lH.contenido == "!" 
+                        || lH.contenido == "this" || lH.contenido == "New" || lH.contenido == "null" || lH.tipo == "int" || lH.tipo == "ident" || lH.tipo == "int" 
+                        || lH.tipo == "double" || lH.tipo == "bool" || lH.tipo == "string")
+                    {
+                        pilaSimbolos.Push(temp.contenido);
+                        pilaAcciones.Push(176);
+                        temp = lH;
+                        return estado176(temp);
+                    }
+                    else
+                    {
+                        lH = rellenarCadenas(temp);
+                        pilaSimbolos.Push("IfStmt_P");
+                        return IrA(pilaAcciones.Peek(), lH);
+                    }
                 case "for"://Reduccion 64 for
                     pilaSimbolos.Push("IfStmt_P");
                     return IrA(pilaAcciones.Peek(), lH);
