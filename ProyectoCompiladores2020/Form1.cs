@@ -109,7 +109,6 @@ namespace ProyectoCompiladores2020
         {
             sintacticoAs.cadenas = iraAnalizador.tokens;
             sintacticoAs.iniciar();
-
             if (sintacticoAs.errores.Count != 0)
             {
                 foreach (var item in sintacticoAs.errores)
@@ -120,7 +119,7 @@ namespace ProyectoCompiladores2020
             }
             else
             {
-                sintacticoAs.errores.Add("El archivo es correcto");
+                listBox3.Items.Add("El archivo es correcto");
             }
             sintacticoAs.errores.Clear();
 
