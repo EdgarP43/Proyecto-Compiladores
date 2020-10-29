@@ -14,9 +14,16 @@ namespace ProyectoCompiladores2020
         private Stack<string> pilaSimbolos = new Stack<string>();
         private Stack<int> pilaAcciones = new Stack<int>();
         public List<string> errores = new List<string>();
+        int contador56 = 0;
+        int contador2 = 0;
+        int contador47 = 0;
+        int contador87 = 0;
 
         public void iniciar()
         {
+            pilaAcciones.Clear();
+            pilaSimbolos.Clear();
+            errores.Clear();
             pilaAcciones.Push(0);
             var inicio = cadenas.Peek();
             if(!IrA(pilaAcciones.Peek(), inicio))
@@ -28,7 +35,8 @@ namespace ProyectoCompiladores2020
         {
             var colaTemp = new Queue<Token>();
             colaTemp.Enqueue(temp);
-            for (int i = 0; i < cadenas.Count; i++)
+            int contador = cadenas.Count;
+            for (int i = 0; i < contador; i++)
             {
                 colaTemp.Enqueue(cadenas.Dequeue());
             }
@@ -561,7 +569,11 @@ namespace ProyectoCompiladores2020
         }
         private bool estado0(Token lH)
         {
-            if(pilaSimbolos.Count > 0)
+            contador2 = 0;
+            contador56 = 0;
+            contador47 = 0;
+            contador87 = 0;
+            if (pilaSimbolos.Count > 0)
             { 
             switch(pilaSimbolos.Peek())
             {
@@ -665,6 +677,12 @@ namespace ProyectoCompiladores2020
                     pilaAcciones.Push(20);
                     return IrA(20, lH);
                 case "Decl"://IR A 2 Decl 
+                    if(contador2 == 1)
+                    {
+                        pilaAcciones.Push(2);
+                         contador2 = 0;
+                    }
+                    contador2++;
                     switch (lH.tipo)
                     {
                         case "ident":
@@ -1187,7 +1205,7 @@ namespace ProyectoCompiladores2020
                     pilaSimbolos.Push(cadenas.Dequeue().contenido);
                     pilaAcciones.Push(29);
                     lH = cadenas.Peek();
-                    return estado19(lH);
+                    return estado29(lH);
                 default:
                     return error(lH);
             }
@@ -1876,7 +1894,7 @@ namespace ProyectoCompiladores2020
         {
             switch (lH.contenido)
             {
-                case ";":
+                case "{":
                     pilaSimbolos.Push(cadenas.Dequeue().contenido);
                     pilaAcciones.Push(44);
                     lH = cadenas.Peek();
@@ -2367,7 +2385,7 @@ namespace ProyectoCompiladores2020
         {
             switch (pilaSimbolos.Peek())
             {
-                case "Formals": //Ir a 57 con variabledecl
+                case "VariableDecl": //Ir a 57 con variabledecl
                     pilaAcciones.Push(57);
                     return IrA(57, lH);
                 case "Variable": //Ir a 8 con variable
@@ -2458,7 +2476,7 @@ namespace ProyectoCompiladores2020
                     pilaAcciones.Push(62);
                     lH = cadenas.Peek();
                     return estado62(lH);
-                case "}"://Reduccion a 32 con {
+                case "{"://Reduccion a 32 con {
                     pilaSimbolos.Push("ClassDecl_R");
                     return IrA(pilaAcciones.Peek(), lH);
 
@@ -2494,6 +2512,12 @@ namespace ProyectoCompiladores2020
                     return IrA(64, lH);
                 case "Prototype": //Ir a 47 con protype
                    // pilaAcciones.Push(47);
+                    if(contador47 == 1)
+                    {
+                        contador47=0;
+                        pilaAcciones.Push(47);
+                    }
+                    contador47++;
                     switch (lH.contenido)
                     {
                         case "int":
@@ -2523,10 +2547,8 @@ namespace ProyectoCompiladores2020
                             return estado10(lH);
 
                         case "}":
-                            pilaSimbolos.Push(cadenas.Dequeue().contenido);
-                            pilaAcciones.Push(42);
-                            lH = cadenas.Peek();
-                            return estado42(lH);
+                            pilaSimbolos.Push("InterfaceDecl_P");
+                            return IrA(pilaAcciones.Peek(), lH);
                     }
                     switch (lH.tipo)
                     {
@@ -2564,15 +2586,13 @@ namespace ProyectoCompiladores2020
                     return estado18(lH);
                 case "void":
                     pilaSimbolos.Push(cadenas.Dequeue().contenido);
-                    pilaAcciones.Push(10);
+                    pilaAcciones.Push(49);
                     lH = cadenas.Peek();
-                    return estado10(lH);
+                    return estado49(lH);
 
                 case "}":
-                    pilaSimbolos.Push(cadenas.Dequeue().contenido);
-                    pilaAcciones.Push(42);
-                    lH = cadenas.Peek();
-                    return estado42(lH);
+                    pilaSimbolos.Push("InterfaceDecl_P");
+                    return IrA(pilaAcciones.Peek(), lH);
             }
             switch (lH.tipo)
             {
@@ -2618,9 +2638,14 @@ namespace ProyectoCompiladores2020
         }
         private bool estado50(Token lH)
         {
+            if(pilaSimbolos.Peek() == "StmtBlock")
+            {
+                pilaAcciones.Push(67);
+                return IrA(pilaAcciones.Peek(), lH);
+            }
             switch (lH.contenido)
             {
-                case "}":
+                case "{":
                     pilaSimbolos.Push(cadenas.Dequeue().contenido);
                     pilaAcciones.Push(68);
                     lH = cadenas.Peek();
@@ -2785,10 +2810,16 @@ namespace ProyectoCompiladores2020
                     pilaAcciones.Push(58);
                     return IrA(58, lH);
                 case "ClassDecl_Q": //Ir a 75 ClassDecl_Q
-                    pilaAcciones.Push(75);
-                    return IrA(75, lH);
+                    pilaAcciones.Push(72);
+                    return IrA(72, lH);
                 case "Field":   //Ir a 56 Field
-                    //pilaAcciones.Push(56); 
+                    //pilaAcciones.Push(56);
+                    if (contador56 == 1)
+                    {
+                        pilaAcciones.Push(56);
+                        contador56 = 0;
+                    }
+                    contador56++;
                     switch (lH.tipo)
                     {
                         case "ident":
@@ -3046,7 +3077,7 @@ namespace ProyectoCompiladores2020
             
             switch (lH.contenido)
             {
-                case "}"://Reduccion a 29 }
+                case "{"://Reduccion a 29 }
                     pilaAcciones.Pop();
                     pilaAcciones.Pop();
                     pilaAcciones.Pop();
@@ -3121,6 +3152,8 @@ namespace ProyectoCompiladores2020
                     pilaSimbolos.Pop();
                     pilaSimbolos.Pop();
                     pilaSimbolos.Pop();
+                    pilaSimbolos.Pop();
+
                     pilaSimbolos.Push("InterfaceDecl");
                     return IrA(pilaAcciones.Peek(), lH);
                 case "int":
@@ -3144,13 +3177,14 @@ namespace ProyectoCompiladores2020
                     pilaAcciones.Pop();
                     pilaAcciones.Pop();
                     pilaAcciones.Pop();
-                    
+
                     pilaSimbolos.Pop();
                     pilaSimbolos.Pop();
                     pilaSimbolos.Pop();
                     pilaSimbolos.Pop();
                     pilaSimbolos.Pop();
-                    pilaSimbolos.Push("INterfaceDecl");
+
+                    pilaSimbolos.Push("InterfaceDecl");
                     return IrA(pilaAcciones.Peek(), lH);
                 case "bool":
                     pilaAcciones.Pop();
@@ -3238,7 +3272,7 @@ namespace ProyectoCompiladores2020
         {
             switch (lH.contenido)
             {
-                case "}":
+                case "(":
                     pilaSimbolos.Push(cadenas.Dequeue().contenido);
                     pilaAcciones.Push(74);
                     lH = cadenas.Peek();
@@ -3249,13 +3283,13 @@ namespace ProyectoCompiladores2020
         }
         private bool estado66(Token lH)
         {
-            switch (lH.tipo)
+            switch (lH.contenido)
             {
-                case "ident":
+                case "(":
                     pilaSimbolos.Push(cadenas.Dequeue().contenido);
-                    pilaAcciones.Push(73);
+                    pilaAcciones.Push(75);
                     lH = cadenas.Peek();
-                    return estado73(lH);
+                    return estado75(lH);
                 default:
                     return error(lH);
             }
@@ -3458,6 +3492,7 @@ namespace ProyectoCompiladores2020
         
         private bool estado68(Token lH)
         {
+            contador87 = 0;
             var temp = new Token();
             switch (pilaSimbolos.Peek())//ir a
             {
@@ -3904,6 +3939,8 @@ namespace ProyectoCompiladores2020
                     pilaSimbolos.Pop();
                     pilaSimbolos.Pop();
                     pilaSimbolos.Pop();
+                    pilaSimbolos.Pop();
+
                     pilaSimbolos.Push("ClassDecl");
                     return IrA(pilaAcciones.Peek(), lH);
                 case "int": //Reduccion a 28 int
@@ -3920,6 +3957,8 @@ namespace ProyectoCompiladores2020
                     pilaSimbolos.Pop();
                     pilaSimbolos.Pop();
                     pilaSimbolos.Pop();
+                    pilaSimbolos.Pop();
+
                     pilaSimbolos.Push("ClassDecl");
                     return IrA(pilaAcciones.Peek(), lH);
                 case "double": //Reduccion a 28 double
@@ -3936,6 +3975,8 @@ namespace ProyectoCompiladores2020
                     pilaSimbolos.Pop();
                     pilaSimbolos.Pop();
                     pilaSimbolos.Pop();
+                    pilaSimbolos.Pop();
+
                     pilaSimbolos.Push("ClassDecl");
                     return IrA(pilaAcciones.Peek(), lH);
                 case "bool": //Reduccion a 28 bool
@@ -3952,6 +3993,8 @@ namespace ProyectoCompiladores2020
                     pilaSimbolos.Pop();
                     pilaSimbolos.Pop();
                     pilaSimbolos.Pop();
+                    pilaSimbolos.Pop();
+
                     pilaSimbolos.Push("ClassDecl");
                     return IrA(pilaAcciones.Peek(), lH);
                 case "string": //Reduccion a 28 string
@@ -3968,6 +4011,8 @@ namespace ProyectoCompiladores2020
                     pilaSimbolos.Pop();
                     pilaSimbolos.Pop();
                     pilaSimbolos.Pop();
+                    pilaSimbolos.Pop();
+
                     pilaSimbolos.Push("ClassDecl");
                     return IrA(pilaAcciones.Peek(), lH);
                 case "void": //Reduccion a 28 void
@@ -3984,6 +4029,8 @@ namespace ProyectoCompiladores2020
                     pilaSimbolos.Pop();
                     pilaSimbolos.Pop();
                     pilaSimbolos.Pop();
+                    pilaSimbolos.Pop();
+
                     pilaSimbolos.Push("ClassDecl");
                     return IrA(pilaAcciones.Peek(), lH);
                 case "class": //Reduccion a 28 class
@@ -4000,6 +4047,8 @@ namespace ProyectoCompiladores2020
                     pilaSimbolos.Pop();
                     pilaSimbolos.Pop();
                     pilaSimbolos.Pop();
+                    pilaSimbolos.Pop();
+
                     pilaSimbolos.Push("ClassDecl");
                     return IrA(pilaAcciones.Peek(), lH);
                 case "interface": //Reduccion a 28 interface
@@ -4016,6 +4065,8 @@ namespace ProyectoCompiladores2020
                     pilaSimbolos.Pop();
                     pilaSimbolos.Pop();
                     pilaSimbolos.Pop();
+                    pilaSimbolos.Pop();
+
                     pilaSimbolos.Push("ClassDecl");
                     return IrA(pilaAcciones.Peek(), lH);
                 default: //REDUCCION A 28 CON $
@@ -4031,6 +4082,8 @@ namespace ProyectoCompiladores2020
                     pilaSimbolos.Pop();
                     pilaSimbolos.Pop();
                     pilaSimbolos.Pop();
+                    pilaSimbolos.Pop();
+
                     pilaSimbolos.Push("ClassDecl");
                     return IrA(pilaAcciones.Peek(), lH);
             }
@@ -4721,7 +4774,7 @@ namespace ProyectoCompiladores2020
         private bool estado80(Token lH)
         {
 
-            switch (lH.tipo)
+            switch (lH.contenido)
             {
                 case ")":
                     pilaSimbolos.Push(cadenas.Dequeue().contenido);
@@ -5357,6 +5410,12 @@ namespace ProyectoCompiladores2020
             if(pilaSimbolos.Peek() == "Stmt")
             {
                 //pilaAcciones.Push(87);
+                if(contador87 == 1)
+                {
+                    pilaAcciones.Push(87);
+                    contador87 = 0;
+                }
+                contador87++;
                 switch (lH.tipo)
                 {
                     case "ident":
@@ -5471,7 +5530,7 @@ namespace ProyectoCompiladores2020
                 case "StmtBlock_O":
                     pilaAcciones.Push(126);
                     return IrA(126, lH);
-                case "StmtBlock_P":
+                case "Stmt_P":
                     pilaAcciones.Push(90);
                     return IrA(90, lH);
                 case "IfStmt":
@@ -6493,6 +6552,7 @@ namespace ProyectoCompiladores2020
         }
         private bool estado98(Token lH)
         {
+            
             switch(lH.contenido)
             {
                 case ";":
@@ -6629,7 +6689,7 @@ namespace ProyectoCompiladores2020
         {
             switch (lH.contenido)
             {
-                case "(":
+                case ".":
                     pilaSimbolos.Push(cadenas.Dequeue().contenido);
                     pilaAcciones.Push(133);
                     lH = cadenas.Peek();
@@ -7511,10 +7571,10 @@ namespace ProyectoCompiladores2020
                     pilaSimbolos.Push("ExprAndP");
                     return IrA(pilaAcciones.Peek(), lH);
                 case "+":
-                    pilaSimbolos.Push(cadenas.Dequeue().contenido);
-                    pilaAcciones.Push(139);
-                    lH = cadenas.Peek();
-                    return estado139(lH);
+                    pilaAcciones.Pop();
+                    pilaSimbolos.Pop();
+                    pilaSimbolos.Push("ExprAndP");
+                    return IrA(pilaAcciones.Peek(), lH);
                 case "-":
                     pilaAcciones.Pop();
                     pilaSimbolos.Pop();
@@ -10255,7 +10315,7 @@ namespace ProyectoCompiladores2020
                 pilaAcciones.Pop();
                 pilaSimbolos.Pop();
                 pilaSimbolos.Pop();
-                pilaSimbolos.Push("StmtBlock");
+                pilaSimbolos.Push("StmtBlock_O");
                 return IrA(pilaAcciones.Peek(), lH);
             }
             else
@@ -10265,6 +10325,7 @@ namespace ProyectoCompiladores2020
         }
         private bool estado127(Token lH)
         {
+            
             switch (lH.tipo)
             {
                 case "ident"://Reduccion 100ident
@@ -10272,35 +10333,35 @@ namespace ProyectoCompiladores2020
                     pilaAcciones.Pop();
                     pilaSimbolos.Pop();
                     pilaSimbolos.Pop();
-                    pilaSimbolos.Push("StmtBlock_O");
+                    pilaSimbolos.Push("Stmt");
                     return IrA(pilaAcciones.Peek(), lH);
                 case "int"://Reduccion 100intConstant
                     pilaAcciones.Pop();
                     pilaAcciones.Pop();
                     pilaSimbolos.Pop();
                     pilaSimbolos.Pop();
-                    pilaSimbolos.Push("StmtBlock_O");
+                    pilaSimbolos.Push("Stmt");
                     return IrA(pilaAcciones.Peek(), lH);
                 case "double"://Reduccion 100doubleConstant
                     pilaAcciones.Pop();
                     pilaAcciones.Pop();
                     pilaSimbolos.Pop();
                     pilaSimbolos.Pop();
-                    pilaSimbolos.Push("StmtBlock_O");
+                    pilaSimbolos.Push("Stmt");
                     return IrA(pilaAcciones.Peek(), lH);
                 case "bool"://Reduccion 100boolConstant
                     pilaAcciones.Pop();
                     pilaAcciones.Pop();
                     pilaSimbolos.Pop();
                     pilaSimbolos.Pop();
-                    pilaSimbolos.Push("StmtBlock_O");
+                    pilaSimbolos.Push("Stmt");
                     return IrA(pilaAcciones.Peek(), lH);
                 case "string"://Reduccion 100stringConstant
                     pilaAcciones.Pop();
                     pilaAcciones.Pop();
                     pilaSimbolos.Pop();
                     pilaSimbolos.Pop();
-                    pilaSimbolos.Push("StmtBlock_O");
+                    pilaSimbolos.Push("Stmt");
                     return IrA(pilaAcciones.Peek(), lH);
 
             }
@@ -10312,175 +10373,175 @@ namespace ProyectoCompiladores2020
                     pilaAcciones.Pop();
                     pilaSimbolos.Pop();
                     pilaSimbolos.Pop();
-                    pilaSimbolos.Push("StmtBlock_O");
+                    pilaSimbolos.Push("Stmt");
                     return IrA(pilaAcciones.Peek(), lH);
                 case "const":
                     pilaAcciones.Pop();
                     pilaAcciones.Pop();
                     pilaSimbolos.Pop();
                     pilaSimbolos.Pop();
-                    pilaSimbolos.Push("StmtBlock_O");
+                    pilaSimbolos.Push("Stmt");
                     return IrA(pilaAcciones.Peek(), lH);
                 case "int":
                     pilaAcciones.Pop();
                     pilaAcciones.Pop();
                     pilaSimbolos.Pop();
                     pilaSimbolos.Pop();
-                    pilaSimbolos.Push("StmtBlock_O");
+                    pilaSimbolos.Push("Stmt");
                     return IrA(pilaAcciones.Peek(), lH);
                 case "double":
                     pilaAcciones.Pop();
                     pilaAcciones.Pop();
                     pilaSimbolos.Pop();
                     pilaSimbolos.Pop();
-                    pilaSimbolos.Push("StmtBlock_O");
+                    pilaSimbolos.Push("Stmt");
                     return IrA(pilaAcciones.Peek(), lH);
                 case "bool":
                     pilaAcciones.Pop();
                     pilaAcciones.Pop();
                     pilaSimbolos.Pop();
                     pilaSimbolos.Pop();
-                    pilaSimbolos.Push("StmtBlock_O");
+                    pilaSimbolos.Push("Stmt");
                     return IrA(pilaAcciones.Peek(), lH);
                 case "string":
                     pilaAcciones.Pop();
                     pilaAcciones.Pop();
                     pilaSimbolos.Pop();
                     pilaSimbolos.Pop();
-                    pilaSimbolos.Push("StmtBlock_O");
+                    pilaSimbolos.Push("Stmt");
                     return IrA(pilaAcciones.Peek(), lH);
                 case "(":
                     pilaAcciones.Pop();
                     pilaAcciones.Pop();
                     pilaSimbolos.Pop();
                     pilaSimbolos.Pop();
-                    pilaSimbolos.Push("StmtBlock_O");
+                    pilaSimbolos.Push("Stmt");
                     return IrA(pilaAcciones.Peek(), lH);
                 case "void":
                     pilaAcciones.Pop();
                     pilaAcciones.Pop();
                     pilaSimbolos.Pop();
                     pilaSimbolos.Pop();
-                    pilaSimbolos.Push("StmtBlock_O");
+                    pilaSimbolos.Push("Stmt");
                     return IrA(pilaAcciones.Peek(), lH);
                 case "class":
                     pilaAcciones.Pop();
                     pilaAcciones.Pop();
                     pilaSimbolos.Pop();
                     pilaSimbolos.Pop();
-                    pilaSimbolos.Push("StmtBlock_O");
+                    pilaSimbolos.Push("Stmt");
                     return IrA(pilaAcciones.Peek(), lH);
                 case "{":
                     pilaAcciones.Pop();
                     pilaAcciones.Pop();
                     pilaSimbolos.Pop();
                     pilaSimbolos.Pop();
-                    pilaSimbolos.Push("StmtBlock_O");
+                    pilaSimbolos.Push("Stmt");
                     return IrA(pilaAcciones.Peek(), lH);
                 case "}":
                     pilaAcciones.Pop();
                     pilaAcciones.Pop();
                     pilaSimbolos.Pop();
                     pilaSimbolos.Pop();
-                    pilaSimbolos.Push("StmtBlock_O");
+                    pilaSimbolos.Push("Stmt");
                     return IrA(pilaAcciones.Peek(), lH);
                 case "interface":
                     pilaAcciones.Pop();
                     pilaAcciones.Pop();
                     pilaSimbolos.Pop();
                     pilaSimbolos.Pop();
-                    pilaSimbolos.Push("StmtBlock_O");
+                    pilaSimbolos.Push("Stmt");
                     return IrA(pilaAcciones.Peek(), lH);
                 case "if":
                     pilaAcciones.Pop();
                     pilaAcciones.Pop();
                     pilaSimbolos.Pop();
                     pilaSimbolos.Pop();
-                    pilaSimbolos.Push("StmtBlock_O");
+                    pilaSimbolos.Push("Stmt");
                     return IrA(pilaAcciones.Peek(), lH);
                 case "else":
                     pilaAcciones.Pop();
                     pilaAcciones.Pop();
                     pilaSimbolos.Pop();
                     pilaSimbolos.Pop();
-                    pilaSimbolos.Push("StmtBlock_O");
+                    pilaSimbolos.Push("Stmt");
                     return IrA(pilaAcciones.Peek(), lH);
                 case "while":
                     pilaAcciones.Pop();
                     pilaAcciones.Pop();
                     pilaSimbolos.Pop();
                     pilaSimbolos.Pop();
-                    pilaSimbolos.Push("StmtBlock_O");
+                    pilaSimbolos.Push("Stmt");
                     return IrA(pilaAcciones.Peek(), lH);
                 case "for":
                     pilaAcciones.Pop();
                     pilaAcciones.Pop();
                     pilaSimbolos.Pop();
                     pilaSimbolos.Pop();
-                    pilaSimbolos.Push("StmtBlock_O");
+                    pilaSimbolos.Push("Stmt");
                     return IrA(pilaAcciones.Peek(), lH);
                 case "return":
                     pilaAcciones.Pop();
                     pilaAcciones.Pop();
                     pilaSimbolos.Pop();
                     pilaSimbolos.Pop();
-                    pilaSimbolos.Push("StmtBlock_O");
+                    pilaSimbolos.Push("Stmt");
                     return IrA(pilaAcciones.Peek(), lH);
                 case "break":
                     pilaAcciones.Pop();
                     pilaAcciones.Pop();
                     pilaSimbolos.Pop();
                     pilaSimbolos.Pop();
-                    pilaSimbolos.Push("StmtBlock_O");
+                    pilaSimbolos.Push("Stmt");
                     return IrA(pilaAcciones.Peek(), lH);
                 case "Console":
                     pilaAcciones.Pop();
                     pilaAcciones.Pop();
                     pilaSimbolos.Pop();
                     pilaSimbolos.Pop();
-                    pilaSimbolos.Push("StmtBlock_O");
+                    pilaSimbolos.Push("Stmt");
                     return IrA(pilaAcciones.Peek(), lH);
                 case "-":
                     pilaAcciones.Pop();
                     pilaAcciones.Pop();
                     pilaSimbolos.Pop();
                     pilaSimbolos.Pop();
-                    pilaSimbolos.Push("StmtBlock_O");
+                    pilaSimbolos.Push("Stmt");
                     return IrA(pilaAcciones.Peek(), lH);
                 case "!":
                     pilaAcciones.Pop();
                     pilaAcciones.Pop();
                     pilaSimbolos.Pop();
                     pilaSimbolos.Pop();
-                    pilaSimbolos.Push("StmtBlock_O");
+                    pilaSimbolos.Push("Stmt");
                     return IrA(pilaAcciones.Peek(), lH);
                 case "this":
                     pilaAcciones.Pop();
                     pilaAcciones.Pop();
                     pilaSimbolos.Pop();
                     pilaSimbolos.Pop();
-                    pilaSimbolos.Push("StmtBlock_O");
+                    pilaSimbolos.Push("Stmt");
                     return IrA(pilaAcciones.Peek(), lH);
                 case "New":
                     pilaAcciones.Pop();
                     pilaAcciones.Pop();
                     pilaSimbolos.Pop();
                     pilaSimbolos.Pop();
-                    pilaSimbolos.Push("StmtBlock_O");
+                    pilaSimbolos.Push("Stmt");
                     return IrA(pilaAcciones.Peek(), lH);
                 case "null":
                     pilaAcciones.Pop();
                     pilaAcciones.Pop();
                     pilaSimbolos.Pop();
                     pilaSimbolos.Pop();
-                    pilaSimbolos.Push("StmtBlock_O");
+                    pilaSimbolos.Push("Stmt");
                     return IrA(pilaAcciones.Peek(), lH);
                 default:
                     pilaAcciones.Pop();
                     pilaAcciones.Pop();
                     pilaSimbolos.Pop();
                     pilaSimbolos.Pop();
-                    pilaSimbolos.Push("StmtBlock_O");
+                    pilaSimbolos.Push("Stmt");
                     return IrA(pilaAcciones.Peek(), lH);
             }
         }
@@ -11406,8 +11467,8 @@ namespace ProyectoCompiladores2020
             switch (pilaSimbolos.Peek())
             {
                 case "ExprEquals":  //Ir a 158 ExprEquals
-                    pilaAcciones.Push(108);
-                    return IrA(108, lH);
+                    pilaAcciones.Push(158);
+                    return IrA(158, lH);
                 case "ExprEqualsP"://Ir a 109 ExprEqualsP
                     pilaAcciones.Push(109);
                     return IrA(109, lH);
@@ -11872,27 +11933,27 @@ namespace ProyectoCompiladores2020
                 case "ident"://Reduccion 100ident
                     pilaAcciones.Pop();
                     pilaSimbolos.Pop();
-                    pilaSimbolos.Push("ExprComP");
+                    pilaSimbolos.Push("ExprCompP");
                     return IrA(pilaAcciones.Peek(), lH);
                 case "int"://Reduccion 100intConstant
                     pilaAcciones.Pop();
                     pilaSimbolos.Pop();
-                    pilaSimbolos.Push("ExprComP");
+                    pilaSimbolos.Push("ExprCompP");
                     return IrA(pilaAcciones.Peek(), lH);
                 case "double"://Reduccion 100doubleConstant
                     pilaAcciones.Pop();
                     pilaSimbolos.Pop();
-                    pilaSimbolos.Push("ExprComP");
+                    pilaSimbolos.Push("ExprCompP");
                     return IrA(pilaAcciones.Peek(), lH);
                 case "bool"://Reduccion 100boolConstant
                     pilaAcciones.Pop();
                     pilaSimbolos.Pop();
-                    pilaSimbolos.Push("ExprComP");
+                    pilaSimbolos.Push("ExprCompP");
                     return IrA(pilaAcciones.Peek(), lH);
                 case "string"://Reduccion 100stringConstant
                     pilaAcciones.Pop();
                     pilaSimbolos.Pop();
-                    pilaSimbolos.Push("ExprComP");
+                    pilaSimbolos.Push("ExprCompP");
                     return IrA(pilaAcciones.Peek(), lH);
             }
             switch (lH.contenido)
@@ -11901,134 +11962,132 @@ namespace ProyectoCompiladores2020
                 case ";":  //Reduccion 100;
                     pilaAcciones.Pop();
                     pilaSimbolos.Pop();
-                    pilaSimbolos.Push("ExprComP");
+                    pilaSimbolos.Push("ExprCompP");
                     return IrA(pilaAcciones.Peek(), lH);
                 case "(":
                     pilaAcciones.Pop();
                     pilaSimbolos.Pop();
-                    pilaSimbolos.Push("ExprComP");
+                    pilaSimbolos.Push("ExprCompP");
                     return IrA(pilaAcciones.Peek(), lH);
                 case ")":
                     pilaAcciones.Pop();
                     pilaSimbolos.Pop();
-                    pilaSimbolos.Push("ExprComP");
+                    pilaSimbolos.Push("ExprCompP");
                     return IrA(pilaAcciones.Peek(), lH);
                 case ",":
                     pilaAcciones.Pop();
                     pilaSimbolos.Pop();
-                    pilaSimbolos.Push("ExprComP");
+                    pilaSimbolos.Push("ExprCompP");
                     return IrA(pilaAcciones.Peek(), lH);
                 case "{":  //Reduccion 100{
                     pilaAcciones.Pop();
                     pilaSimbolos.Pop();
-                    pilaSimbolos.Push("ExprComP");
+                    pilaSimbolos.Push("ExprCompP");
                     return IrA(pilaAcciones.Peek(), lH);
                 case "}":  //Reduccion 100}
                     pilaAcciones.Pop();
                     pilaSimbolos.Pop();
-                    pilaSimbolos.Push("ExprComP");
+                    pilaSimbolos.Push("ExprCompP");
                     return IrA(pilaAcciones.Peek(), lH);
                 case "if":  //Reduccion 100 if
                     pilaAcciones.Pop();
                     pilaSimbolos.Pop();
-                    pilaAcciones.Pop();
-                    pilaSimbolos.Pop();
-                    pilaSimbolos.Push("ExprEqualsP");
+                    pilaSimbolos.Push("ExprCompP");
                     return IrA(pilaAcciones.Peek(), lH);
                 case "else":  //Reduccion 100 else
                     pilaAcciones.Pop();
                     pilaSimbolos.Pop();
-                    pilaSimbolos.Push("ExprComP");
+                    pilaSimbolos.Push("ExprCompP");
                     return IrA(pilaAcciones.Peek(), lH);
                 case "while":  //Reduccion 100 while
                     pilaAcciones.Pop();
                     pilaSimbolos.Pop();
-                    pilaSimbolos.Push("ExprComP");
+                    pilaSimbolos.Push("ExprCompP");
                     return IrA(pilaAcciones.Peek(), lH);
                 case "for":  //Reduccion 100 for
                     pilaAcciones.Pop();
                     pilaSimbolos.Pop();
-                    pilaSimbolos.Push("ExprComP");
+                    pilaSimbolos.Push("ExprCompP");
                     return IrA(pilaAcciones.Peek(), lH);
                 case "return":  //Reduccion 100 return
                     pilaAcciones.Pop();
                     pilaSimbolos.Pop();
-                    pilaSimbolos.Push("ExprComP");
+                    pilaSimbolos.Push("ExprCompP");
                     return IrA(pilaAcciones.Peek(), lH);
                 case "break":  //Reduccion 100 brak
                     pilaAcciones.Pop();
                     pilaSimbolos.Pop();
-                    pilaSimbolos.Push("ExprComP");
+                    pilaSimbolos.Push("ExprComPp");
                     return IrA(pilaAcciones.Peek(), lH);
                 case "Console":  //Reduccion 100 Console
                     pilaAcciones.Pop();
                     pilaSimbolos.Pop();
-                    pilaSimbolos.Push("ExprComP");
+                    pilaSimbolos.Push("ExprCompP");
                     return IrA(pilaAcciones.Peek(), lH);
                 case "==":  //Reduccion 100 ==
                     pilaAcciones.Pop();
                     pilaSimbolos.Pop();
-                    pilaSimbolos.Push("ExprComP");
+                    pilaSimbolos.Push("ExprCompP");
                     return IrA(pilaAcciones.Peek(), lH);
                 case "&&":  //Reduccion 100 &&
                     pilaAcciones.Pop();
                     pilaSimbolos.Pop();
-                    pilaSimbolos.Push("ExprComP");
+                    pilaSimbolos.Push("ExprCompP");
                     return IrA(pilaAcciones.Peek(), lH);
                 case "<":  //Reduccion 100 <
                     pilaAcciones.Pop();
                     pilaSimbolos.Pop();
-                    pilaSimbolos.Push("ExprComP");
+                    pilaSimbolos.Push("ExprCompP");
                     return IrA(pilaAcciones.Peek(), lH);
                 case "<=":  //Reduccion 100 <=
                     pilaAcciones.Pop();
                     pilaSimbolos.Pop();
-                    pilaSimbolos.Push("ExprComP");
+                    pilaSimbolos.Push("ExprCompP");
                     return IrA(pilaAcciones.Peek(), lH);
                 case "+":  //Reduccion 100 +
                     pilaAcciones.Pop();
                     pilaSimbolos.Pop();
-                    pilaSimbolos.Push("ExprComP");
+                    pilaSimbolos.Push("ExprCompP");
                     return IrA(pilaAcciones.Peek(), lH);
                 case "*":  //Reduccion 100 *
                     pilaAcciones.Pop();
                     pilaSimbolos.Pop();
-                    pilaSimbolos.Push("ExprComP");
+                    pilaSimbolos.Push("ExprCompP");
                     return IrA(pilaAcciones.Peek(), lH);
                 case "%":  //Reduccion 100 %
                     pilaAcciones.Pop();
                     pilaSimbolos.Pop();
-                    pilaSimbolos.Push("ExprComP");
+                    pilaSimbolos.Push("ExprCompP");
                     return IrA(pilaAcciones.Peek(), lH);
                 case "-":  //Reduccion 100 -
                     pilaAcciones.Pop();
                     pilaSimbolos.Pop();
-                    pilaSimbolos.Push("ExprComP");
+                    pilaSimbolos.Push("ExprCompP");
                     return IrA(pilaAcciones.Peek(), lH);
                 case "!":  //Reduccion 100 !
                     pilaAcciones.Pop();
                     pilaSimbolos.Pop();
-                    pilaSimbolos.Push("ExprComP");
+                    pilaSimbolos.Push("ExprCompP");
                     return IrA(pilaAcciones.Peek(), lH);
                 case "this"://Reduccion 100 ExprCompP
                     pilaAcciones.Pop();
                     pilaSimbolos.Pop();
-                    pilaSimbolos.Push("ExprComP");
+                    pilaSimbolos.Push("ExprCompP");
                     return IrA(pilaAcciones.Peek(), lH);
                 case "New":  //Reduccion 100 New
                     pilaAcciones.Pop();
                     pilaSimbolos.Pop();
-                    pilaSimbolos.Push("ExprComP");
+                    pilaSimbolos.Push("ExprCompP");
                     return IrA(pilaAcciones.Peek(), lH);
                 case "null":  //Reduccion 100 null
                     pilaAcciones.Pop();
                     pilaSimbolos.Pop();
-                    pilaSimbolos.Push("ExprComP");
+                    pilaSimbolos.Push("ExprCompP");
                     return IrA(pilaAcciones.Peek(), lH);
                 case ".":
                     pilaAcciones.Pop();
                     pilaSimbolos.Pop();
-                    pilaSimbolos.Push("ExprComP");
+                    pilaSimbolos.Push("ExprCompP");
                     return IrA(pilaAcciones.Peek(), lH);
                 default:
                     return error(lH);
@@ -14623,26 +14682,46 @@ namespace ProyectoCompiladores2020
             {
                 case "ident":
                     pilaAcciones.Pop();
+                    pilaAcciones.Pop();
+                    pilaAcciones.Pop();
+                    pilaSimbolos.Pop();
+                    pilaSimbolos.Pop();
                     pilaSimbolos.Pop();
                     pilaSimbolos.Push("ExprComp");
                     return IrA(pilaAcciones.Peek(), lH);
                 case "int":
                     pilaAcciones.Pop();
+                    pilaAcciones.Pop();
+                    pilaAcciones.Pop();
+                    pilaSimbolos.Pop();
+                    pilaSimbolos.Pop();
                     pilaSimbolos.Pop();
                     pilaSimbolos.Push("ExprComp");
                     return IrA(pilaAcciones.Peek(), lH);
                 case "double":
                     pilaAcciones.Pop();
+                    pilaAcciones.Pop();
+                    pilaAcciones.Pop();
+                    pilaSimbolos.Pop();
+                    pilaSimbolos.Pop();
                     pilaSimbolos.Pop();
                     pilaSimbolos.Push("ExprComp");
                     return IrA(pilaAcciones.Peek(), lH);
                 case "bool":
                     pilaAcciones.Pop();
+                    pilaAcciones.Pop();
+                    pilaAcciones.Pop();
+                    pilaSimbolos.Pop();
+                    pilaSimbolos.Pop();
                     pilaSimbolos.Pop();
                     pilaSimbolos.Push("ExprComp");
                     return IrA(pilaAcciones.Peek(), lH);
                 case "string":
                     pilaAcciones.Pop();
+                    pilaAcciones.Pop();
+                    pilaAcciones.Pop();
+                    pilaSimbolos.Pop();
+                    pilaSimbolos.Pop();
                     pilaSimbolos.Pop();
                     pilaSimbolos.Push("ExprComp");
                     return IrA(pilaAcciones.Peek(), lH);
@@ -14652,126 +14731,226 @@ namespace ProyectoCompiladores2020
             {
                 case ";":
                     pilaAcciones.Pop();
+                    pilaAcciones.Pop();
+                    pilaAcciones.Pop();
+                    pilaSimbolos.Pop();
+                    pilaSimbolos.Pop();
                     pilaSimbolos.Pop();
                     pilaSimbolos.Push("ExprComp");
                     return IrA(pilaAcciones.Peek(), lH);
                 case "(":
                     pilaAcciones.Pop();
+                    pilaAcciones.Pop();
+                    pilaAcciones.Pop();
+                    pilaSimbolos.Pop();
+                    pilaSimbolos.Pop();
                     pilaSimbolos.Pop();
                     pilaSimbolos.Push("ExprComp");
                     return IrA(pilaAcciones.Peek(), lH);
                 case ")":
                     pilaAcciones.Pop();
+                    pilaAcciones.Pop();
+                    pilaAcciones.Pop();
+                    pilaSimbolos.Pop();
+                    pilaSimbolos.Pop();
                     pilaSimbolos.Pop();
                     pilaSimbolos.Push("ExprComp");
                     return IrA(pilaAcciones.Peek(), lH);
                 case ",":
                     pilaAcciones.Pop();
+                    pilaAcciones.Pop();
+                    pilaAcciones.Pop();
+                    pilaSimbolos.Pop();
+                    pilaSimbolos.Pop();
                     pilaSimbolos.Pop();
                     pilaSimbolos.Push("ExprComp");
                     return IrA(pilaAcciones.Peek(), lH);
                 case "{":
                     pilaAcciones.Pop();
+                    pilaAcciones.Pop();
+                    pilaAcciones.Pop();
+                    pilaSimbolos.Pop();
+                    pilaSimbolos.Pop();
                     pilaSimbolos.Pop();
                     pilaSimbolos.Push("ExprComp");
                     return IrA(pilaAcciones.Peek(), lH);
                 case "}":
                     pilaAcciones.Pop();
+                    pilaAcciones.Pop();
+                    pilaAcciones.Pop();
+                    pilaSimbolos.Pop();
+                    pilaSimbolos.Pop();
                     pilaSimbolos.Pop();
                     pilaSimbolos.Push("ExprComp");
                     return IrA(pilaAcciones.Peek(), lH);
                 case "if":
                     pilaAcciones.Pop();
+                    pilaAcciones.Pop();
+                    pilaAcciones.Pop();
+                    pilaSimbolos.Pop();
+                    pilaSimbolos.Pop();
                     pilaSimbolos.Pop();
                     pilaSimbolos.Push("ExprComp");
                     return IrA(pilaAcciones.Peek(), lH);
                 case "else":
                     pilaAcciones.Pop();
+                    pilaAcciones.Pop();
+                    pilaAcciones.Pop();
+                    pilaSimbolos.Pop();
+                    pilaSimbolos.Pop();
                     pilaSimbolos.Pop();
                     pilaSimbolos.Push("ExprComp");
                     return IrA(pilaAcciones.Peek(), lH);
                 case "while":
                     pilaAcciones.Pop();
+                    pilaAcciones.Pop();
+                    pilaAcciones.Pop();
+                    pilaSimbolos.Pop();
+                    pilaSimbolos.Pop();
                     pilaSimbolos.Pop();
                     pilaSimbolos.Push("ExprComp");
                     return IrA(pilaAcciones.Peek(), lH);
                 case "for":
                     pilaAcciones.Pop();
+                    pilaAcciones.Pop();
+                    pilaAcciones.Pop();
+                    pilaSimbolos.Pop();
+                    pilaSimbolos.Pop();
                     pilaSimbolos.Pop();
                     pilaSimbolos.Push("ExprComp");
                     return IrA(pilaAcciones.Peek(), lH);
                 case "return":
                     pilaAcciones.Pop();
+                    pilaAcciones.Pop();
+                    pilaAcciones.Pop();
+                    pilaSimbolos.Pop();
+                    pilaSimbolos.Pop();
                     pilaSimbolos.Pop();
                     pilaSimbolos.Push("ExprComp");
                     return IrA(pilaAcciones.Peek(), lH);
                 case "break":
                     pilaAcciones.Pop();
+                    pilaAcciones.Pop();
+                    pilaAcciones.Pop();
+                    pilaSimbolos.Pop();
+                    pilaSimbolos.Pop();
                     pilaSimbolos.Pop();
                     pilaSimbolos.Push("ExprComp");
                     return IrA(pilaAcciones.Peek(), lH);
                 case "Console":
                     pilaAcciones.Pop();
+                    pilaAcciones.Pop();
+                    pilaAcciones.Pop();
+                    pilaSimbolos.Pop();
+                    pilaSimbolos.Pop();
                     pilaSimbolos.Pop();
                     pilaSimbolos.Push("ExprComp");
                     return IrA(pilaAcciones.Peek(), lH);
                 case "==":
                     pilaAcciones.Pop();
+                    pilaAcciones.Pop();
+                    pilaAcciones.Pop();
+                    pilaSimbolos.Pop();
+                    pilaSimbolos.Pop();
                     pilaSimbolos.Pop();
                     pilaSimbolos.Push("ExprComp");
                     return IrA(pilaAcciones.Peek(), lH);
                 case "-":
                     pilaAcciones.Pop();
+                    pilaAcciones.Pop();
+                    pilaAcciones.Pop();
+                    pilaSimbolos.Pop();
+                    pilaSimbolos.Pop();
                     pilaSimbolos.Pop();
                     pilaSimbolos.Push("ExprComp");
                     return IrA(pilaAcciones.Peek(), lH);
                 case "!":
                     pilaAcciones.Pop();
+                    pilaAcciones.Pop();
+                    pilaAcciones.Pop();
+                    pilaSimbolos.Pop();
+                    pilaSimbolos.Pop();
                     pilaSimbolos.Pop();
                     pilaSimbolos.Push("ExprComp");
                     return IrA(pilaAcciones.Peek(), lH);
                 case "this":
                     pilaAcciones.Pop();
+                    pilaAcciones.Pop();
+                    pilaAcciones.Pop();
+                    pilaSimbolos.Pop();
+                    pilaSimbolos.Pop();
                     pilaSimbolos.Pop();
                     pilaSimbolos.Push("ExprComp");
                     return IrA(pilaAcciones.Peek(), lH);
                 case "New":
                     pilaAcciones.Pop();
+                    pilaAcciones.Pop();
+                    pilaAcciones.Pop();
+                    pilaSimbolos.Pop();
+                    pilaSimbolos.Pop();
                     pilaSimbolos.Pop();
                     pilaSimbolos.Push("ExprComp");
                     return IrA(pilaAcciones.Peek(), lH);
                 case "null":
                     pilaAcciones.Pop();
+                    pilaAcciones.Pop();
+                    pilaAcciones.Pop();
+                    pilaSimbolos.Pop();
+                    pilaSimbolos.Pop();
                     pilaSimbolos.Pop();
                     pilaSimbolos.Push("ExprComp");
                     return IrA(pilaAcciones.Peek(), lH);
                 case "&&":
                     pilaAcciones.Pop();
+                    pilaAcciones.Pop();
+                    pilaAcciones.Pop();
+                    pilaSimbolos.Pop();
+                    pilaSimbolos.Pop();
                     pilaSimbolos.Pop();
                     pilaSimbolos.Push("ExprComp");
                     return IrA(pilaAcciones.Peek(), lH);
                 case "<":
                     pilaAcciones.Pop();
+                    pilaAcciones.Pop();
+                    pilaAcciones.Pop();
+                    pilaSimbolos.Pop();
+                    pilaSimbolos.Pop();
                     pilaSimbolos.Pop();
                     pilaSimbolos.Push("ExprComp");
                     return IrA(pilaAcciones.Peek(), lH);
                 case "<=":
                     pilaAcciones.Pop();
+                    pilaAcciones.Pop();
+                    pilaAcciones.Pop();
+                    pilaSimbolos.Pop();
+                    pilaSimbolos.Pop();
                     pilaSimbolos.Pop();
                     pilaSimbolos.Push("ExprComp");
                     return IrA(pilaAcciones.Peek(), lH);
                 case "+":
                     pilaAcciones.Pop();
+                    pilaAcciones.Pop();
+                    pilaAcciones.Pop();
+                    pilaSimbolos.Pop();
+                    pilaSimbolos.Pop();
                     pilaSimbolos.Pop();
                     pilaSimbolos.Push("ExprComp");
                     return IrA(pilaAcciones.Peek(), lH);
                 case "*":
                     pilaAcciones.Pop();
+                    pilaAcciones.Pop();
+                    pilaAcciones.Pop();
+                    pilaSimbolos.Pop();
+                    pilaSimbolos.Pop();
                     pilaSimbolos.Pop();
                     pilaSimbolos.Push("ExprComp");
                     return IrA(pilaAcciones.Peek(), lH);
                 case "%":
                     pilaAcciones.Pop();
+                    pilaAcciones.Pop();
+                    pilaAcciones.Pop();
+                    pilaSimbolos.Pop();
+                    pilaSimbolos.Pop();
                     pilaSimbolos.Pop();
                     pilaSimbolos.Push("ExprComp");
                     return IrA(pilaAcciones.Peek(), lH);
@@ -15662,285 +15841,440 @@ namespace ProyectoCompiladores2020
             switch (lH.tipo)
             {
                 case "ident":
+
                     pilaAcciones.Pop();
                     pilaAcciones.Pop();
                     pilaAcciones.Pop();
+                    pilaAcciones.Pop();
+
                     pilaSimbolos.Pop();
                     pilaSimbolos.Pop();
                     pilaSimbolos.Pop();
+                    pilaSimbolos.Pop();
+
                     pilaSimbolos.Push("ExprCompP");
                     return IrA(pilaAcciones.Peek(), lH);
                 case "int":
+
                     pilaAcciones.Pop();
                     pilaAcciones.Pop();
                     pilaAcciones.Pop();
+                    pilaAcciones.Pop();
+
                     pilaSimbolos.Pop();
                     pilaSimbolos.Pop();
                     pilaSimbolos.Pop();
+                    pilaSimbolos.Pop();
+
                     pilaSimbolos.Push("ExprCompP");
                     return IrA(pilaAcciones.Peek(), lH);
                 case "double":
+
                     pilaAcciones.Pop();
                     pilaAcciones.Pop();
                     pilaAcciones.Pop();
+                    pilaAcciones.Pop();
+
                     pilaSimbolos.Pop();
                     pilaSimbolos.Pop();
                     pilaSimbolos.Pop();
+                    pilaSimbolos.Pop();
+
                     pilaSimbolos.Push("ExprCompP");
                     return IrA(pilaAcciones.Peek(), lH);
                 case "bool":
+
                     pilaAcciones.Pop();
                     pilaAcciones.Pop();
                     pilaAcciones.Pop();
+                    pilaAcciones.Pop();
+
                     pilaSimbolos.Pop();
                     pilaSimbolos.Pop();
                     pilaSimbolos.Pop();
+                    pilaSimbolos.Pop();
+
                     pilaSimbolos.Push("ExprCompP");
                     return IrA(pilaAcciones.Peek(), lH);
                 case "string":
+
                     pilaAcciones.Pop();
                     pilaAcciones.Pop();
                     pilaAcciones.Pop();
+                    pilaAcciones.Pop();
+
                     pilaSimbolos.Pop();
                     pilaSimbolos.Pop();
                     pilaSimbolos.Pop();
+                    pilaSimbolos.Pop();
+
                     pilaSimbolos.Push("ExprCompP");
                     return IrA(pilaAcciones.Peek(), lH);
             }
             switch (lH.contenido)
             {
                 case ";":
+
                     pilaAcciones.Pop();
                     pilaAcciones.Pop();
                     pilaAcciones.Pop();
+                    pilaAcciones.Pop();
+
                     pilaSimbolos.Pop();
                     pilaSimbolos.Pop();
                     pilaSimbolos.Pop();
+                    pilaSimbolos.Pop();
+
                     pilaSimbolos.Push("ExprCompP");
                     return IrA(pilaAcciones.Peek(), lH);
                 case "(":
+
                     pilaAcciones.Pop();
                     pilaAcciones.Pop();
                     pilaAcciones.Pop();
+                    pilaAcciones.Pop();
+
                     pilaSimbolos.Pop();
                     pilaSimbolos.Pop();
                     pilaSimbolos.Pop();
+                    pilaSimbolos.Pop();
+
                     pilaSimbolos.Push("ExprCompP");
                     return IrA(pilaAcciones.Peek(), lH);
                 case ")":
+
                     pilaAcciones.Pop();
                     pilaAcciones.Pop();
                     pilaAcciones.Pop();
+                    pilaAcciones.Pop();
+
                     pilaSimbolos.Pop();
                     pilaSimbolos.Pop();
                     pilaSimbolos.Pop();
+                    pilaSimbolos.Pop();
+
                     pilaSimbolos.Push("ExprCompP");
                     return IrA(pilaAcciones.Peek(), lH);
                 case ",":
+
                     pilaAcciones.Pop();
                     pilaAcciones.Pop();
                     pilaAcciones.Pop();
+                    pilaAcciones.Pop();
+
                     pilaSimbolos.Pop();
                     pilaSimbolos.Pop();
                     pilaSimbolos.Pop();
+                    pilaSimbolos.Pop();
+
                     pilaSimbolos.Push("ExprCompP");
                     return IrA(pilaAcciones.Peek(), lH);
                 case "{":
+
                     pilaAcciones.Pop();
                     pilaAcciones.Pop();
                     pilaAcciones.Pop();
+                    pilaAcciones.Pop();
+
                     pilaSimbolos.Pop();
                     pilaSimbolos.Pop();
                     pilaSimbolos.Pop();
+                    pilaSimbolos.Pop();
+
                     pilaSimbolos.Push("ExprCompP");
                     return IrA(pilaAcciones.Peek(), lH);
                 case "}":
+
                     pilaAcciones.Pop();
                     pilaAcciones.Pop();
                     pilaAcciones.Pop();
+                    pilaAcciones.Pop();
+
                     pilaSimbolos.Pop();
                     pilaSimbolos.Pop();
                     pilaSimbolos.Pop();
+                    pilaSimbolos.Pop();
+
                     pilaSimbolos.Push("ExprCompP");
                     return IrA(pilaAcciones.Peek(), lH);
                 case "if":
+
                     pilaAcciones.Pop();
                     pilaAcciones.Pop();
                     pilaAcciones.Pop();
+                    pilaAcciones.Pop();
+
                     pilaSimbolos.Pop();
                     pilaSimbolos.Pop();
                     pilaSimbolos.Pop();
+                    pilaSimbolos.Pop();
+
                     pilaSimbolos.Push("ExprCompP");
                     return IrA(pilaAcciones.Peek(), lH);
                 case "else":
+
                     pilaAcciones.Pop();
                     pilaAcciones.Pop();
                     pilaAcciones.Pop();
+                    pilaAcciones.Pop();
+
                     pilaSimbolos.Pop();
                     pilaSimbolos.Pop();
                     pilaSimbolos.Pop();
+                    pilaSimbolos.Pop();
+
                     pilaSimbolos.Push("ExprCompP");
                     return IrA(pilaAcciones.Peek(), lH);
                 case "while":
+
                     pilaAcciones.Pop();
                     pilaAcciones.Pop();
                     pilaAcciones.Pop();
+                    pilaAcciones.Pop();
+
                     pilaSimbolos.Pop();
                     pilaSimbolos.Pop();
                     pilaSimbolos.Pop();
+                    pilaSimbolos.Pop();
+
                     pilaSimbolos.Push("ExprCompP");
                     return IrA(pilaAcciones.Peek(), lH);
                 case "for":
+
                     pilaAcciones.Pop();
                     pilaAcciones.Pop();
                     pilaAcciones.Pop();
+                    pilaAcciones.Pop();
+
                     pilaSimbolos.Pop();
                     pilaSimbolos.Pop();
                     pilaSimbolos.Pop();
+                    pilaSimbolos.Pop();
+
                     pilaSimbolos.Push("ExprCompP");
                     return IrA(pilaAcciones.Peek(), lH);
                 case "return":
+
                     pilaAcciones.Pop();
                     pilaAcciones.Pop();
                     pilaAcciones.Pop();
+                    pilaAcciones.Pop();
+
                     pilaSimbolos.Pop();
                     pilaSimbolos.Pop();
                     pilaSimbolos.Pop();
+                    pilaSimbolos.Pop();
+
                     pilaSimbolos.Push("ExprCompP");
                     return IrA(pilaAcciones.Peek(), lH);
                 case "break":
+
                     pilaAcciones.Pop();
                     pilaAcciones.Pop();
                     pilaAcciones.Pop();
+                    pilaAcciones.Pop();
+
                     pilaSimbolos.Pop();
                     pilaSimbolos.Pop();
                     pilaSimbolos.Pop();
+                    pilaSimbolos.Pop();
+
                     pilaSimbolos.Push("ExprCompP");
                     return IrA(pilaAcciones.Peek(), lH);
                 case "Console":
+
                     pilaAcciones.Pop();
                     pilaAcciones.Pop();
                     pilaAcciones.Pop();
+                    pilaAcciones.Pop();
+
                     pilaSimbolos.Pop();
                     pilaSimbolos.Pop();
                     pilaSimbolos.Pop();
+                    pilaSimbolos.Pop();
+
                     pilaSimbolos.Push("ExprCompP");
                     return IrA(pilaAcciones.Peek(), lH);
                 case ".":
+
                     pilaAcciones.Pop();
                     pilaAcciones.Pop();
                     pilaAcciones.Pop();
+                    pilaAcciones.Pop();
+
                     pilaSimbolos.Pop();
                     pilaSimbolos.Pop();
                     pilaSimbolos.Pop();
+                    pilaSimbolos.Pop();
+
                     pilaSimbolos.Push("ExprCompP");
                     return IrA(pilaAcciones.Peek(), lH);
                 case "==":
+
                     pilaAcciones.Pop();
                     pilaAcciones.Pop();
                     pilaAcciones.Pop();
+                    pilaAcciones.Pop();
+
                     pilaSimbolos.Pop();
                     pilaSimbolos.Pop();
                     pilaSimbolos.Pop();
+                    pilaSimbolos.Pop();
+
                     pilaSimbolos.Push("ExprCompP");
                     return IrA(pilaAcciones.Peek(), lH);
                 case "&&":
+
                     pilaAcciones.Pop();
                     pilaAcciones.Pop();
                     pilaAcciones.Pop();
+                    pilaAcciones.Pop();
+
                     pilaSimbolos.Pop();
                     pilaSimbolos.Pop();
                     pilaSimbolos.Pop();
+                    pilaSimbolos.Pop();
+
                     pilaSimbolos.Push("ExprCompP");
                     return IrA(pilaAcciones.Peek(), lH);
                 case "<":
+
                     pilaAcciones.Pop();
                     pilaAcciones.Pop();
                     pilaAcciones.Pop();
+                    pilaAcciones.Pop();
+
                     pilaSimbolos.Pop();
                     pilaSimbolos.Pop();
                     pilaSimbolos.Pop();
+                    pilaSimbolos.Pop();
+
                     pilaSimbolos.Push("ExprCompP");
                     return IrA(pilaAcciones.Peek(), lH);
                 case "<=":
+
                     pilaAcciones.Pop();
                     pilaAcciones.Pop();
                     pilaAcciones.Pop();
+                    pilaAcciones.Pop();
+
                     pilaSimbolos.Pop();
                     pilaSimbolos.Pop();
                     pilaSimbolos.Pop();
+                    pilaSimbolos.Pop();
+
                     pilaSimbolos.Push("ExprCompP");
                     return IrA(pilaAcciones.Peek(), lH);
                 case "+":
+
                     pilaAcciones.Pop();
                     pilaAcciones.Pop();
                     pilaAcciones.Pop();
+                    pilaAcciones.Pop();
+
                     pilaSimbolos.Pop();
                     pilaSimbolos.Pop();
                     pilaSimbolos.Pop();
+                    pilaSimbolos.Pop();
+
                     pilaSimbolos.Push("ExprCompP");
                     return IrA(pilaAcciones.Peek(), lH);
                 case "*":
+
                     pilaAcciones.Pop();
                     pilaAcciones.Pop();
                     pilaAcciones.Pop();
+                    pilaAcciones.Pop();
+
                     pilaSimbolos.Pop();
                     pilaSimbolos.Pop();
                     pilaSimbolos.Pop();
+                    pilaSimbolos.Pop();
+
                     pilaSimbolos.Push("ExprCompP");
                     return IrA(pilaAcciones.Peek(), lH);
                 case "%":
+
                     pilaAcciones.Pop();
                     pilaAcciones.Pop();
                     pilaAcciones.Pop();
+                    pilaAcciones.Pop();
+
                     pilaSimbolos.Pop();
                     pilaSimbolos.Pop();
                     pilaSimbolos.Pop();
+                    pilaSimbolos.Pop();
+
                     pilaSimbolos.Push("ExprCompP");
                     return IrA(pilaAcciones.Peek(), lH);
                 case "-":
+
                     pilaAcciones.Pop();
                     pilaAcciones.Pop();
                     pilaAcciones.Pop();
+                    pilaAcciones.Pop();
+
                     pilaSimbolos.Pop();
                     pilaSimbolos.Pop();
                     pilaSimbolos.Pop();
+                    pilaSimbolos.Pop();
+
                     pilaSimbolos.Push("ExprCompP");
                     return IrA(pilaAcciones.Peek(), lH);
                 case "!":
+
                     pilaAcciones.Pop();
                     pilaAcciones.Pop();
                     pilaAcciones.Pop();
+                    pilaAcciones.Pop();
+
                     pilaSimbolos.Pop();
                     pilaSimbolos.Pop();
                     pilaSimbolos.Pop();
+                    pilaSimbolos.Pop();
+
                     pilaSimbolos.Push("ExprCompP");
                     return IrA(pilaAcciones.Peek(), lH);
                 case "this":
+
                     pilaAcciones.Pop();
                     pilaAcciones.Pop();
                     pilaAcciones.Pop();
+                    pilaAcciones.Pop();
+
                     pilaSimbolos.Pop();
                     pilaSimbolos.Pop();
                     pilaSimbolos.Pop();
+                    pilaSimbolos.Pop();
+
                     pilaSimbolos.Push("ExprCompP");
                     return IrA(pilaAcciones.Peek(), lH);
                 case "New":
+
                     pilaAcciones.Pop();
                     pilaAcciones.Pop();
                     pilaAcciones.Pop();
+                    pilaAcciones.Pop();
+
                     pilaSimbolos.Pop();
                     pilaSimbolos.Pop();
                     pilaSimbolos.Pop();
+                    pilaSimbolos.Pop();
+
                     pilaSimbolos.Push("ExprCompP");
                     return IrA(pilaAcciones.Peek(), lH);
                 case "null":
+
                     pilaAcciones.Pop();
                     pilaAcciones.Pop();
                     pilaAcciones.Pop();
+                    pilaAcciones.Pop();
+
                     pilaSimbolos.Pop();
                     pilaSimbolos.Pop();
                     pilaSimbolos.Pop();
+                    pilaSimbolos.Pop();
+
                     pilaSimbolos.Push("ExprCompP");
                     return IrA(pilaAcciones.Peek(), lH);
                 default:
@@ -15952,7 +16286,7 @@ namespace ProyectoCompiladores2020
             var temp = new Token();
             switch (pilaSimbolos.Peek())
             {
-                case "IfStmt": //IR A 175 CON IfStmt
+                case "IfStmt_P": //IR A 175 CON IfStmt
                     pilaAcciones.Push(175);
                     return IrA(175, lH);
             }
@@ -16381,9 +16715,10 @@ namespace ProyectoCompiladores2020
         }
         private bool estado173(Token lH)
         {
+
             switch (pilaSimbolos.Peek())
             {
-                case "PrintStmt":    //IR A 178 CON PRINT STMT
+                case "PrintStmt_P":    //IR A 178 CON PRINT STMT
                     pilaAcciones.Push(178);
                     return IrA(178, lH);
             }
@@ -16396,6 +16731,7 @@ namespace ProyectoCompiladores2020
                     lH = cadenas.Peek();
                     return estado179(lH);
                 case ")":  //Reduccion 71 )
+                    pilaSimbolos.Push("PrintStmt_P");
                     return IrA(pilaAcciones.Peek(), lH);
                 default:
                     return error(lH);
@@ -16417,7 +16753,7 @@ namespace ProyectoCompiladores2020
                     pilaSimbolos.Pop();
                     pilaSimbolos.Pop();
                     pilaSimbolos.Pop();
-                    pilaSimbolos.Push("Exprcomp");
+                    pilaSimbolos.Push("ExprComp");
                     return IrA(pilaAcciones.Peek(), lH);
                 case "int"://Reduccion 89intConstant
                     pilaAcciones.Pop();
@@ -16431,7 +16767,7 @@ namespace ProyectoCompiladores2020
                     pilaSimbolos.Pop();
                     pilaSimbolos.Pop();
                     pilaSimbolos.Pop();
-                    pilaSimbolos.Push("Exprcomp");
+                    pilaSimbolos.Push("ExprComp");
                     return IrA(pilaAcciones.Peek(), lH);
                 case "double"://Reduccion 89doubleConstant
                     pilaAcciones.Pop();
@@ -16445,7 +16781,7 @@ namespace ProyectoCompiladores2020
                     pilaSimbolos.Pop();
                     pilaSimbolos.Pop();
                     pilaSimbolos.Pop();
-                    pilaSimbolos.Push("Exprcomp");
+                    pilaSimbolos.Push("ExprComp");
                     return IrA(pilaAcciones.Peek(), lH);
                 case "bool"://Reduccion 89boolConstant
                     pilaAcciones.Pop();
@@ -16459,7 +16795,7 @@ namespace ProyectoCompiladores2020
                     pilaSimbolos.Pop();
                     pilaSimbolos.Pop();
                     pilaSimbolos.Pop();
-                    pilaSimbolos.Push("Exprcomp");
+                    pilaSimbolos.Push("ExprComp");
                     return IrA(pilaAcciones.Peek(), lH);
                 case "string"://Reduccion 89stringConstant
                     pilaAcciones.Pop();
@@ -16473,7 +16809,7 @@ namespace ProyectoCompiladores2020
                     pilaSimbolos.Pop();
                     pilaSimbolos.Pop();
                     pilaSimbolos.Pop();
-                    pilaSimbolos.Push("Exprcomp");
+                    pilaSimbolos.Push("ExprComp");
                     return IrA(pilaAcciones.Peek(), lH);
             }
 
@@ -16492,7 +16828,7 @@ namespace ProyectoCompiladores2020
                     pilaSimbolos.Pop();
                     pilaSimbolos.Pop();
                     pilaSimbolos.Pop();
-                    pilaSimbolos.Push("Exprcomp");
+                    pilaSimbolos.Push("ExprComp");
                     return IrA(pilaAcciones.Peek(), lH);
                 case "(": //Reduccion 89(
                     pilaAcciones.Pop();
@@ -16506,7 +16842,7 @@ namespace ProyectoCompiladores2020
                     pilaSimbolos.Pop();
                     pilaSimbolos.Pop();
                     pilaSimbolos.Pop();
-                    pilaSimbolos.Push("Exprcomp");
+                    pilaSimbolos.Push("ExprComp");
                     return IrA(pilaAcciones.Peek(), lH);
                 case ")": //Reduccion 89)
                     pilaAcciones.Pop();
@@ -16520,7 +16856,7 @@ namespace ProyectoCompiladores2020
                     pilaSimbolos.Pop();
                     pilaSimbolos.Pop();
                     pilaSimbolos.Pop();
-                    pilaSimbolos.Push("Exprcomp");
+                    pilaSimbolos.Push("ExprComp");
                     return IrA(pilaAcciones.Peek(), lH);
                 case ",": //Reduccion 89,
                     pilaAcciones.Pop();
@@ -16534,7 +16870,7 @@ namespace ProyectoCompiladores2020
                     pilaSimbolos.Pop();
                     pilaSimbolos.Pop();
                     pilaSimbolos.Pop();
-                    pilaSimbolos.Push("Exprcomp");
+                    pilaSimbolos.Push("ExprComp");
                     return IrA(pilaAcciones.Peek(), lH);
                 case "{":  //Reduccion 89{
                     pilaAcciones.Pop();
@@ -16548,7 +16884,7 @@ namespace ProyectoCompiladores2020
                     pilaSimbolos.Pop();
                     pilaSimbolos.Pop();
                     pilaSimbolos.Pop();
-                    pilaSimbolos.Push("Exprcomp");
+                    pilaSimbolos.Push("ExprComp");
                     return IrA(pilaAcciones.Peek(), lH);
                 case "}":  //Reduccion 89}
                     pilaAcciones.Pop();
@@ -16562,7 +16898,7 @@ namespace ProyectoCompiladores2020
                     pilaSimbolos.Pop();
                     pilaSimbolos.Pop();
                     pilaSimbolos.Pop();
-                    pilaSimbolos.Push("Exprcomp");
+                    pilaSimbolos.Push("ExprComp");
                     return IrA(pilaAcciones.Peek(), lH);
                 case "if":  //Reduccion 89 if
                     pilaAcciones.Pop();
@@ -16576,7 +16912,7 @@ namespace ProyectoCompiladores2020
                     pilaSimbolos.Pop();
                     pilaSimbolos.Pop();
                     pilaSimbolos.Pop();
-                    pilaSimbolos.Push("Exprcomp");
+                    pilaSimbolos.Push("ExprComp");
                     return IrA(pilaAcciones.Peek(), lH);
                 case "else":  //Reduccion 89 else
                     pilaAcciones.Pop();
@@ -16590,7 +16926,7 @@ namespace ProyectoCompiladores2020
                     pilaSimbolos.Pop();
                     pilaSimbolos.Pop();
                     pilaSimbolos.Pop();
-                    pilaSimbolos.Push("Exprcomp");
+                    pilaSimbolos.Push("ExprComp");
                     return IrA(pilaAcciones.Peek(), lH);
                 case "while":  //Reduccion 89 while
                     pilaAcciones.Pop();
@@ -16604,7 +16940,7 @@ namespace ProyectoCompiladores2020
                     pilaSimbolos.Pop();
                     pilaSimbolos.Pop();
                     pilaSimbolos.Pop();
-                    pilaSimbolos.Push("Exprcomp");
+                    pilaSimbolos.Push("ExprComp");
                     return IrA(pilaAcciones.Peek(), lH);
                 case "for":  //Reduccion 89 for
                     pilaAcciones.Pop();
@@ -16618,7 +16954,7 @@ namespace ProyectoCompiladores2020
                     pilaSimbolos.Pop();
                     pilaSimbolos.Pop();
                     pilaSimbolos.Pop();
-                    pilaSimbolos.Push("Exprcomp");
+                    pilaSimbolos.Push("ExprComp");
                     return IrA(pilaAcciones.Peek(), lH);
                 case "return":  //Reduccion 89 return
                     pilaAcciones.Pop();
@@ -16632,7 +16968,7 @@ namespace ProyectoCompiladores2020
                     pilaSimbolos.Pop();
                     pilaSimbolos.Pop();
                     pilaSimbolos.Pop();
-                    pilaSimbolos.Push("Exprcomp");
+                    pilaSimbolos.Push("ExprComp");
                     return IrA(pilaAcciones.Peek(), lH);
                 case "break":  //Reduccion 89 brak
                     pilaAcciones.Pop();
@@ -16646,7 +16982,7 @@ namespace ProyectoCompiladores2020
                     pilaSimbolos.Pop();
                     pilaSimbolos.Pop();
                     pilaSimbolos.Pop();
-                    pilaSimbolos.Push("Exprcomp");
+                    pilaSimbolos.Push("ExprComp");
                     return IrA(pilaAcciones.Peek(), lH);
                 case "Console":  //Reduccion 89 Console
                     pilaAcciones.Pop();
@@ -16660,7 +16996,7 @@ namespace ProyectoCompiladores2020
                     pilaSimbolos.Pop();
                     pilaSimbolos.Pop();
                     pilaSimbolos.Pop();
-                    pilaSimbolos.Push("Exprcomp");
+                    pilaSimbolos.Push("ExprComp");
                     return IrA(pilaAcciones.Peek(), lH);
 
                 case ".": //Reduccion 89 . 
@@ -16675,7 +17011,7 @@ namespace ProyectoCompiladores2020
                     pilaSimbolos.Pop();
                     pilaSimbolos.Pop();
                     pilaSimbolos.Pop();
-                    pilaSimbolos.Push("Exprcomp");
+                    pilaSimbolos.Push("ExprComp");
                     return IrA(pilaAcciones.Peek(), lH);
 
                 case "==":  //Reduccion 89 ==
@@ -16690,7 +17026,7 @@ namespace ProyectoCompiladores2020
                     pilaSimbolos.Pop();
                     pilaSimbolos.Pop();
                     pilaSimbolos.Pop();
-                    pilaSimbolos.Push("Exprcomp");
+                    pilaSimbolos.Push("ExprComp");
                     return IrA(pilaAcciones.Peek(), lH);
                 case "&&":  //Reduccion 89 &&
                     pilaAcciones.Pop();
@@ -16704,7 +17040,7 @@ namespace ProyectoCompiladores2020
                     pilaSimbolos.Pop();
                     pilaSimbolos.Pop();
                     pilaSimbolos.Pop();
-                    pilaSimbolos.Push("Exprcomp");
+                    pilaSimbolos.Push("ExprComp");
                     return IrA(pilaAcciones.Peek(), lH);
                 case "<":  //Reduccion 89 <
                     pilaAcciones.Pop();
@@ -16718,7 +17054,7 @@ namespace ProyectoCompiladores2020
                     pilaSimbolos.Pop();
                     pilaSimbolos.Pop();
                     pilaSimbolos.Pop();
-                    pilaSimbolos.Push("Exprcomp");
+                    pilaSimbolos.Push("ExprComp");
                     return IrA(pilaAcciones.Peek(), lH);
                 case "<=":  //Reduccion 89 <=
                     pilaAcciones.Pop();
@@ -16732,7 +17068,7 @@ namespace ProyectoCompiladores2020
                     pilaSimbolos.Pop();
                     pilaSimbolos.Pop();
                     pilaSimbolos.Pop();
-                    pilaSimbolos.Push("Exprcomp");
+                    pilaSimbolos.Push("ExprComp");
                     return IrA(pilaAcciones.Peek(), lH);
                 case "+":  //Reduccion 89 +
                     pilaAcciones.Pop();
@@ -16746,7 +17082,7 @@ namespace ProyectoCompiladores2020
                     pilaSimbolos.Pop();
                     pilaSimbolos.Pop();
                     pilaSimbolos.Pop();
-                    pilaSimbolos.Push("Exprcomp");
+                    pilaSimbolos.Push("ExprComp");
                     return IrA(pilaAcciones.Peek(), lH);
                 case "*":  //Reduccion 89 *
                     pilaAcciones.Pop();
@@ -16760,7 +17096,7 @@ namespace ProyectoCompiladores2020
                     pilaSimbolos.Pop();
                     pilaSimbolos.Pop();
                     pilaSimbolos.Pop();
-                    pilaSimbolos.Push("Exprcomp");
+                    pilaSimbolos.Push("ExprComp");
                     return IrA(pilaAcciones.Peek(), lH);
                 case "%":  //Reduccion 89 %
                     pilaAcciones.Pop();
@@ -16774,7 +17110,7 @@ namespace ProyectoCompiladores2020
                     pilaSimbolos.Pop();
                     pilaSimbolos.Pop();
                     pilaSimbolos.Pop();
-                    pilaSimbolos.Push("Exprcomp");
+                    pilaSimbolos.Push("ExprComp");
                     return IrA(pilaAcciones.Peek(), lH);
                 case "-":  //Reduccion 89 -
                     pilaAcciones.Pop();
@@ -16788,7 +17124,7 @@ namespace ProyectoCompiladores2020
                     pilaSimbolos.Pop();
                     pilaSimbolos.Pop();
                     pilaSimbolos.Pop();
-                    pilaSimbolos.Push("Exprcomp");
+                    pilaSimbolos.Push("ExprComp");
                     return IrA(pilaAcciones.Peek(), lH);
                 case "!":  //Reduccion 89 !
                     pilaAcciones.Pop();
@@ -16802,7 +17138,7 @@ namespace ProyectoCompiladores2020
                     pilaSimbolos.Pop();
                     pilaSimbolos.Pop();
                     pilaSimbolos.Pop();
-                    pilaSimbolos.Push("Exprcomp");
+                    pilaSimbolos.Push("ExprComp");
                     return IrA(pilaAcciones.Peek(), lH);
                 case "this"://Reduccion 89 WhileStmt
                     pilaAcciones.Pop();
@@ -16816,7 +17152,7 @@ namespace ProyectoCompiladores2020
                     pilaSimbolos.Pop();
                     pilaSimbolos.Pop();
                     pilaSimbolos.Pop();
-                    pilaSimbolos.Push("Exprcomp");
+                    pilaSimbolos.Push("ExprComp");
                     return IrA(pilaAcciones.Peek(), lH);
                 case "New":  //Reduccion 89 New
                     pilaAcciones.Pop();
@@ -16830,7 +17166,7 @@ namespace ProyectoCompiladores2020
                     pilaSimbolos.Pop();
                     pilaSimbolos.Pop();
                     pilaSimbolos.Pop();
-                    pilaSimbolos.Push("Exprcomp");
+                    pilaSimbolos.Push("ExprComp");
                     return IrA(pilaAcciones.Peek(), lH);
                 case "null":  //Reduccion 89 null
                     pilaAcciones.Pop();
@@ -16844,7 +17180,7 @@ namespace ProyectoCompiladores2020
                     pilaSimbolos.Pop();
                     pilaSimbolos.Pop();
                     pilaSimbolos.Pop();
-                    pilaSimbolos.Push("Exprcomp");
+                    pilaSimbolos.Push("ExprComp");
                     return IrA(pilaAcciones.Peek(), lH);
                 default:
                     return error(lH);
@@ -17579,46 +17915,50 @@ namespace ProyectoCompiladores2020
                 case "ident":
                     pilaAcciones.Pop(); 
                     pilaAcciones.Pop();
-                    pilaAcciones.Pop();
+
                     pilaSimbolos.Pop();
                     pilaSimbolos.Pop();
-                    pilaSimbolos.Pop();
+
                     pilaSimbolos.Push("IfStmt_P");
                     return IrA(pilaAcciones.Peek(), lH);
                 case "int":
+
                     pilaAcciones.Pop();
                     pilaAcciones.Pop();
-                    pilaAcciones.Pop();
+
                     pilaSimbolos.Pop();
                     pilaSimbolos.Pop();
-                    pilaSimbolos.Pop();
+
                     pilaSimbolos.Push("IfStmt_P");
                     return IrA(pilaAcciones.Peek(), lH);
                 case "double":
+
                     pilaAcciones.Pop();
                     pilaAcciones.Pop();
-                    pilaAcciones.Pop();
+
                     pilaSimbolos.Pop();
                     pilaSimbolos.Pop();
-                    pilaSimbolos.Pop();
+
                     pilaSimbolos.Push("IfStmt_P");
                     return IrA(pilaAcciones.Peek(), lH);
                 case "bool":
+
                     pilaAcciones.Pop();
                     pilaAcciones.Pop();
-                    pilaAcciones.Pop();
+
                     pilaSimbolos.Pop();
                     pilaSimbolos.Pop();
-                    pilaSimbolos.Pop();
+
                     pilaSimbolos.Push("IfStmt_P");
                     return IrA(pilaAcciones.Peek(), lH);
                 case "string":
+
                     pilaAcciones.Pop();
                     pilaAcciones.Pop();
-                    pilaAcciones.Pop();
+
                     pilaSimbolos.Pop();
                     pilaSimbolos.Pop();
-                    pilaSimbolos.Pop();
+
                     pilaSimbolos.Push("IfStmt_P");
                     return IrA(pilaAcciones.Peek(), lH);
 
@@ -17626,147 +17966,163 @@ namespace ProyectoCompiladores2020
             switch (lH.contenido)
             {
                 case ";":
+
                     pilaAcciones.Pop();
                     pilaAcciones.Pop();
-                    pilaAcciones.Pop();
+
                     pilaSimbolos.Pop();
                     pilaSimbolos.Pop();
-                    pilaSimbolos.Pop();
+
                     pilaSimbolos.Push("IfStmt_P");
                     return IrA(pilaAcciones.Peek(), lH);
                 case "(":
+
                     pilaAcciones.Pop();
                     pilaAcciones.Pop();
-                    pilaAcciones.Pop();
+
                     pilaSimbolos.Pop();
                     pilaSimbolos.Pop();
-                    pilaSimbolos.Pop();
+
                     pilaSimbolos.Push("IfStmt_P");
                     return IrA(pilaAcciones.Peek(), lH);
                 case "{":
+
                     pilaAcciones.Pop();
                     pilaAcciones.Pop();
-                    pilaAcciones.Pop();
+
                     pilaSimbolos.Pop();
                     pilaSimbolos.Pop();
-                    pilaSimbolos.Pop();
+
                     pilaSimbolos.Push("IfStmt_P");
                     return IrA(pilaAcciones.Peek(), lH);
                 case "}":
+
                     pilaAcciones.Pop();
                     pilaAcciones.Pop();
-                    pilaAcciones.Pop();
+
                     pilaSimbolos.Pop();
                     pilaSimbolos.Pop();
-                    pilaSimbolos.Pop();
+
                     pilaSimbolos.Push("IfStmt_P");
                     return IrA(pilaAcciones.Peek(), lH);
                 case "if":
+
                     pilaAcciones.Pop();
                     pilaAcciones.Pop();
-                    pilaAcciones.Pop();
+
                     pilaSimbolos.Pop();
                     pilaSimbolos.Pop();
-                    pilaSimbolos.Pop();
+
                     pilaSimbolos.Push("IfStmt_P");
                     return IrA(pilaAcciones.Peek(), lH);
                 case "else":
+
                     pilaAcciones.Pop();
                     pilaAcciones.Pop();
-                    pilaAcciones.Pop();
+
                     pilaSimbolos.Pop();
                     pilaSimbolos.Pop();
-                    pilaSimbolos.Pop();
+
                     pilaSimbolos.Push("IfStmt_P");
                     return IrA(pilaAcciones.Peek(), lH);
                 case "while":
+
                     pilaAcciones.Pop();
                     pilaAcciones.Pop();
-                    pilaAcciones.Pop();
+
                     pilaSimbolos.Pop();
                     pilaSimbolos.Pop();
-                    pilaSimbolos.Pop();
+
                     pilaSimbolos.Push("IfStmt_P");
                     return IrA(pilaAcciones.Peek(), lH);
                 case "for":
+
                     pilaAcciones.Pop();
                     pilaAcciones.Pop();
-                    pilaAcciones.Pop();
+
                     pilaSimbolos.Pop();
                     pilaSimbolos.Pop();
-                    pilaSimbolos.Pop();
+
                     pilaSimbolos.Push("IfStmt_P");
                     return IrA(pilaAcciones.Peek(), lH);
                 case "return":
+
                     pilaAcciones.Pop();
                     pilaAcciones.Pop();
-                    pilaAcciones.Pop();
+
                     pilaSimbolos.Pop();
                     pilaSimbolos.Pop();
-                    pilaSimbolos.Pop();
+
                     pilaSimbolos.Push("IfStmt_P");
                     return IrA(pilaAcciones.Peek(), lH);
                 case "break":
+
                     pilaAcciones.Pop();
                     pilaAcciones.Pop();
-                    pilaAcciones.Pop();
+
                     pilaSimbolos.Pop();
                     pilaSimbolos.Pop();
-                    pilaSimbolos.Pop();
+
                     pilaSimbolos.Push("IfStmt_P");
                     return IrA(pilaAcciones.Peek(), lH);
                 case "Console":
+
                     pilaAcciones.Pop();
                     pilaAcciones.Pop();
-                    pilaAcciones.Pop();
+
                     pilaSimbolos.Pop();
                     pilaSimbolos.Pop();
-                    pilaSimbolos.Pop();
+
                     pilaSimbolos.Push("IfStmt_P");
                     return IrA(pilaAcciones.Peek(), lH);
                 case "-":
+
                     pilaAcciones.Pop();
                     pilaAcciones.Pop();
-                    pilaAcciones.Pop();
+
                     pilaSimbolos.Pop();
                     pilaSimbolos.Pop();
-                    pilaSimbolos.Pop();
+
                     pilaSimbolos.Push("IfStmt_P");
                     return IrA(pilaAcciones.Peek(), lH);
                 case "!":
+
                     pilaAcciones.Pop();
                     pilaAcciones.Pop();
-                    pilaAcciones.Pop();
+
                     pilaSimbolos.Pop();
                     pilaSimbolos.Pop();
-                    pilaSimbolos.Pop();
+
                     pilaSimbolos.Push("IfStmt_P");
                     return IrA(pilaAcciones.Peek(), lH);
                 case "this":
+
                     pilaAcciones.Pop();
                     pilaAcciones.Pop();
-                    pilaAcciones.Pop();
+
                     pilaSimbolos.Pop();
                     pilaSimbolos.Pop();
-                    pilaSimbolos.Pop();
+
                     pilaSimbolos.Push("IfStmt_P");
                     return IrA(pilaAcciones.Peek(), lH);
                 case "New":
+
                     pilaAcciones.Pop();
                     pilaAcciones.Pop();
-                    pilaAcciones.Pop();
+
                     pilaSimbolos.Pop();
                     pilaSimbolos.Pop();
-                    pilaSimbolos.Pop();
+
                     pilaSimbolos.Push("IfStmt_P");
                     return IrA(pilaAcciones.Peek(), lH);
                 case "null":
+
                     pilaAcciones.Pop();
                     pilaAcciones.Pop();
-                    pilaAcciones.Pop();
+
                     pilaSimbolos.Pop();
                     pilaSimbolos.Pop();
-                    pilaSimbolos.Pop();
+
                     pilaSimbolos.Push("IfStmt_P");
                     return IrA(pilaAcciones.Peek(), lH);
                 default:
