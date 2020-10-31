@@ -7,14 +7,14 @@
     <framework targetVersion="4.7.2" profile="Full" supportedRuntime="4.0.30319" />
   </compatibleFrameworks>
   <dependency>
-    <dependentAssembly dependencyType="install" codebase="ProyectoCompiladores2020.exe.manifest" size="3552">
+    <dependentAssembly dependencyType="install" codebase="ProyectoCompiladores2020.exe.manifest" size="3625">
       <assemblyIdentity name="ProyectoCompiladores2020.exe" version="1.0.0.2" publicKeyToken="0000000000000000" language="neutral" processorArchitecture="msil" type="win32" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>l9nVIvT1Liq0SvI+vIGiAFyEo+QYsPeTbs4Z4sotFhc=</dsig:DigestValue>
+        <dsig:DigestValue>/Ee1G/eh9YPxG9CdSuP+AHSgMOXi/0J14grAOYWCnt8=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
