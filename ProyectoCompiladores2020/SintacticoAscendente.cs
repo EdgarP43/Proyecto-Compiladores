@@ -2774,6 +2774,7 @@ namespace ProyectoCompiladores2020
                 case "}": //d71
                     pilaSimbolos.Push(cadenas.Dequeue().contenido);
                     pilaAcciones.Push(71);
+                    if(cadenas.Count > 0)
                     lH = cadenas.Peek();
                     return estado71(lH);
                 default:
@@ -4792,6 +4793,7 @@ namespace ProyectoCompiladores2020
         }
         private bool estado81(Token lH)
         {
+            contador87 = 0;
             switch(pilaSimbolos.Peek())
             {
                 case "StmtBlock" :
@@ -5744,6 +5746,10 @@ namespace ProyectoCompiladores2020
         }
         private bool estado88(Token lH)
         {
+            if(pilaSimbolos.Peek() == "Stmt")
+            {
+                contador87 = 1;
+            }
             switch (lH.tipo)
             {
                 case "ident": //REUCCION A 52 CON IDENT
@@ -16330,7 +16336,8 @@ namespace ProyectoCompiladores2020
                     pilaSimbolos.Pop();
                     pilaSimbolos.Pop();
                     pilaSimbolos.Pop();
-
+                    if (pilaSimbolos.Peek() == "Stmt")
+                        contador87 = 1;
                     pilaSimbolos.Push("WhileStmt");
                     return IrA(pilaAcciones.Peek(), lH);
                 case "int"://Reduccion 65intConstant
@@ -16345,7 +16352,8 @@ namespace ProyectoCompiladores2020
                     pilaSimbolos.Pop();
                     pilaSimbolos.Pop();
                     pilaSimbolos.Pop();
-
+                    if (pilaSimbolos.Peek() == "Stmt")
+                        contador87 = 1;
                     pilaSimbolos.Push("WhileStmt");
                     return IrA(pilaAcciones.Peek(), lH);
                 case "double"://Reduccion 65doubleConstant
@@ -16360,7 +16368,8 @@ namespace ProyectoCompiladores2020
                     pilaSimbolos.Pop();
                     pilaSimbolos.Pop();
                     pilaSimbolos.Pop();
-
+                    if (pilaSimbolos.Peek() == "Stmt")
+                        contador87 = 1;
                     pilaSimbolos.Push("WhileStmt");
                     return IrA(pilaAcciones.Peek(), lH);
                 case "bool"://Reduccion 65boolConstant
@@ -16374,7 +16383,9 @@ namespace ProyectoCompiladores2020
                     pilaSimbolos.Pop();
                     pilaSimbolos.Pop();
                     pilaSimbolos.Pop();
-                    pilaSimbolos.Pop();
+                    pilaSimbolos.Pop(); 
+                    if (pilaSimbolos.Peek() == "Stmt")
+                        contador87 = 1;
                     pilaSimbolos.Push("WhileStmt");
                     return IrA(pilaAcciones.Peek(), lH);
                 case "string"://Reduccion 65stringConstant
@@ -16389,6 +16400,8 @@ namespace ProyectoCompiladores2020
                     pilaSimbolos.Pop();
                     pilaSimbolos.Pop();
                     pilaSimbolos.Pop();
+                    if (pilaSimbolos.Peek() == "Stmt")
+                        contador87 = 1;
                     pilaSimbolos.Push("WhileStmt");
                     return IrA(pilaAcciones.Peek(), lH);
 
@@ -16407,7 +16420,8 @@ namespace ProyectoCompiladores2020
                     pilaSimbolos.Pop();
                     pilaSimbolos.Pop();
                     pilaSimbolos.Pop();
-
+                    if (pilaSimbolos.Peek() == "Stmt")
+                        contador87 = 1;
                     pilaSimbolos.Push("WhileStmt");
                     return IrA(pilaAcciones.Peek(), lH);
                 case "(": //Reduccion 65(
@@ -16422,6 +16436,8 @@ namespace ProyectoCompiladores2020
                     pilaSimbolos.Pop();
                     pilaSimbolos.Pop();
                     pilaSimbolos.Pop();
+                    if (pilaSimbolos.Peek() == "Stmt")
+                        contador87 = 1;
                     pilaSimbolos.Push("WhileStmt");
                     return IrA(pilaAcciones.Peek(), lH);
 
@@ -16437,6 +16453,8 @@ namespace ProyectoCompiladores2020
                     pilaSimbolos.Pop();
                     pilaSimbolos.Pop();
                     pilaSimbolos.Pop();
+                    if (pilaSimbolos.Peek() == "Stmt")
+                        contador87 = 1;
                     pilaSimbolos.Push("WhileStmt");
                     return IrA(pilaAcciones.Peek(), lH);
                 case "}":  //Reduccion 65}
@@ -16451,6 +16469,8 @@ namespace ProyectoCompiladores2020
                     pilaSimbolos.Pop();
                     pilaSimbolos.Pop();
                     pilaSimbolos.Pop();
+                    if (pilaSimbolos.Peek() == "Stmt")
+                        contador87 = 1;
                     pilaSimbolos.Push("WhileStmt");
                     return IrA(pilaAcciones.Peek(), lH);
                 case "if":  //Reduccion 65 if
@@ -16465,6 +16485,8 @@ namespace ProyectoCompiladores2020
                     pilaSimbolos.Pop();
                     pilaSimbolos.Pop();
                     pilaSimbolos.Pop();
+                    if (pilaSimbolos.Peek() == "Stmt")
+                        contador87 = 1;
                     pilaSimbolos.Push("WhileStmt");
                     return IrA(pilaAcciones.Peek(), lH);
                 case "else":  //Reduccion 65 else
@@ -16479,6 +16501,8 @@ namespace ProyectoCompiladores2020
                     pilaSimbolos.Pop();
                     pilaSimbolos.Pop();
                     pilaSimbolos.Pop();
+                    if (pilaSimbolos.Peek() == "Stmt")
+                        contador87 = 1;
                     pilaSimbolos.Push("WhileStmt");
                     return IrA(pilaAcciones.Peek(), lH);
                 case "while":  //Reduccion 65 while
@@ -16493,6 +16517,8 @@ namespace ProyectoCompiladores2020
                     pilaSimbolos.Pop();
                     pilaSimbolos.Pop();
                     pilaSimbolos.Pop();
+                    if (pilaSimbolos.Peek() == "Stmt")
+                        contador87 = 1;
                     pilaSimbolos.Push("WhileStmt");
                     return IrA(pilaAcciones.Peek(), lH);
                 case "for":  //Reduccion 65 for
@@ -16507,6 +16533,8 @@ namespace ProyectoCompiladores2020
                     pilaSimbolos.Pop();
                     pilaSimbolos.Pop();
                     pilaSimbolos.Pop();
+                    if (pilaSimbolos.Peek() == "Stmt")
+                        contador87 = 1;
                     pilaSimbolos.Push("WhileStmt");
                     return IrA(pilaAcciones.Peek(), lH);
                 case "return":  //Reduccion 65 return
@@ -16521,6 +16549,8 @@ namespace ProyectoCompiladores2020
                     pilaSimbolos.Pop();
                     pilaSimbolos.Pop();
                     pilaSimbolos.Pop();
+                    if (pilaSimbolos.Peek() == "Stmt")
+                        contador87 = 1;
                     pilaSimbolos.Push("WhileStmt");
                     return IrA(pilaAcciones.Peek(), lH);
                 case "break":  //Reduccion 65 brak
@@ -16535,6 +16565,8 @@ namespace ProyectoCompiladores2020
                     pilaSimbolos.Pop();
                     pilaSimbolos.Pop();
                     pilaSimbolos.Pop();
+                    if (pilaSimbolos.Peek() == "Stmt")
+                        contador87 = 1;
                     pilaSimbolos.Push("WhileStmt");
                     return IrA(pilaAcciones.Peek(), lH);
                 case "Console":  //Reduccion 65 Console
@@ -16549,6 +16581,8 @@ namespace ProyectoCompiladores2020
                     pilaSimbolos.Pop();
                     pilaSimbolos.Pop();
                     pilaSimbolos.Pop();
+                    if (pilaSimbolos.Peek() == "Stmt")
+                        contador87 = 1;
                     pilaSimbolos.Push("WhileStmt");
                     return IrA(pilaAcciones.Peek(), lH);
                 case "-":  //Reduccion 65 -
@@ -16563,6 +16597,8 @@ namespace ProyectoCompiladores2020
                     pilaSimbolos.Pop();
                     pilaSimbolos.Pop();
                     pilaSimbolos.Pop();
+                    if (pilaSimbolos.Peek() == "Stmt")
+                        contador87 = 1;
                     pilaSimbolos.Push("WhileStmt");
                     return IrA(pilaAcciones.Peek(), lH);
                 case "!":  //Reduccion 65 !
@@ -16577,6 +16613,8 @@ namespace ProyectoCompiladores2020
                     pilaSimbolos.Pop();
                     pilaSimbolos.Pop();
                     pilaSimbolos.Pop();
+                    if (pilaSimbolos.Peek() == "Stmt")
+                        contador87 = 1;
                     pilaSimbolos.Push("WhileStmt");
                     return IrA(pilaAcciones.Peek(), lH);
                 case "this"://Reduccion 65 WhileStmt
@@ -16591,6 +16629,8 @@ namespace ProyectoCompiladores2020
                     pilaSimbolos.Pop();
                     pilaSimbolos.Pop();
                     pilaSimbolos.Pop();
+                    if (pilaSimbolos.Peek() == "Stmt")
+                        contador87 = 1;
                     pilaSimbolos.Push("WhileStmt");
                     return IrA(pilaAcciones.Peek(), lH);
                 case "New":  //Reduccion 65 New
@@ -16605,6 +16645,8 @@ namespace ProyectoCompiladores2020
                     pilaSimbolos.Pop();
                     pilaSimbolos.Pop();
                     pilaSimbolos.Pop();
+                    if (pilaSimbolos.Peek() == "Stmt")
+                        contador87 = 1;
                     pilaSimbolos.Push("WhileStmt");
                     return IrA(pilaAcciones.Peek(), lH);
                 case "null":  //Reduccion 65 null
@@ -16619,6 +16661,8 @@ namespace ProyectoCompiladores2020
                     pilaSimbolos.Pop();
                     pilaSimbolos.Pop();
                     pilaSimbolos.Pop();
+                    if (pilaSimbolos.Peek() == "Stmt")
+                        contador87 = 1;
                     pilaSimbolos.Push("WhileStmt");
                     return IrA(pilaAcciones.Peek(), lH);
                 default:
@@ -17110,6 +17154,8 @@ namespace ProyectoCompiladores2020
         }
         private bool estado175(Token lH)
         {
+            if (pilaSimbolos.Peek() == "Stmt")
+                contador87 = 1;
             switch (lH.tipo)
             {
                 case "ident"://Reduccion 62ident
@@ -17126,7 +17172,10 @@ namespace ProyectoCompiladores2020
                     pilaSimbolos.Pop();
                     pilaSimbolos.Pop();
                     pilaSimbolos.Pop();
+                    if (pilaSimbolos.Peek() == "Stmt")
+                        contador87 = 1;
                     pilaSimbolos.Push("IfStmt");
+                    
                     return IrA(pilaAcciones.Peek(), lH);
                 case "int"://Reduccion 62intConstant
                     pilaAcciones.Pop();
@@ -17142,7 +17191,10 @@ namespace ProyectoCompiladores2020
                     pilaSimbolos.Pop();
                     pilaSimbolos.Pop();
                     pilaSimbolos.Pop();
+                    if (pilaSimbolos.Peek() == "Stmt")
+                        contador87 = 1;
                     pilaSimbolos.Push("IfStmt");
+                   
                     return IrA(pilaAcciones.Peek(), lH);
                 case "double"://Reduccion 62doubleConstant
                     pilaAcciones.Pop();
@@ -17158,7 +17210,10 @@ namespace ProyectoCompiladores2020
                     pilaSimbolos.Pop();
                     pilaSimbolos.Pop();
                     pilaSimbolos.Pop();
+                    if (pilaSimbolos.Peek() == "Stmt")
+                        contador87 = 1;
                     pilaSimbolos.Push("IfStmt");
+                    
                     return IrA(pilaAcciones.Peek(), lH);
                 case "bool"://Reduccion 62boolConstant
                     pilaAcciones.Pop();
@@ -17174,7 +17229,10 @@ namespace ProyectoCompiladores2020
                     pilaSimbolos.Pop();
                     pilaSimbolos.Pop();
                     pilaSimbolos.Pop();
+                    if (pilaSimbolos.Peek() == "Stmt")
+                        contador87 = 1;
                     pilaSimbolos.Push("IfStmt");
+                   
                     return IrA(pilaAcciones.Peek(), lH);
                 case "string"://Reduccion 62stringConstant
                     pilaAcciones.Pop();
@@ -17190,6 +17248,8 @@ namespace ProyectoCompiladores2020
                     pilaSimbolos.Pop();
                     pilaSimbolos.Pop();
                     pilaSimbolos.Pop();
+                    if (pilaSimbolos.Peek() == "Stmt")
+                        contador87 = 1;
                     pilaSimbolos.Push("IfStmt");
                     return IrA(pilaAcciones.Peek(), lH);
 
@@ -17210,7 +17270,10 @@ namespace ProyectoCompiladores2020
                     pilaSimbolos.Pop();
                     pilaSimbolos.Pop();
                     pilaSimbolos.Pop();
+                    if (pilaSimbolos.Peek() == "Stmt")
+                        contador87 = 1;
                     pilaSimbolos.Push("IfStmt");
+                   
                     return IrA(pilaAcciones.Peek(), lH);
                 case "(": //Reduccion 62(
                     pilaAcciones.Pop();
@@ -17226,7 +17289,10 @@ namespace ProyectoCompiladores2020
                     pilaSimbolos.Pop();
                     pilaSimbolos.Pop();
                     pilaSimbolos.Pop();
+                    if (pilaSimbolos.Peek() == "Stmt")
+                        contador87 = 1;
                     pilaSimbolos.Push("IfStmt");
+                   
                     return IrA(pilaAcciones.Peek(), lH);
                 case "{": //Reduccion 62{
                     pilaAcciones.Pop();
@@ -17242,7 +17308,10 @@ namespace ProyectoCompiladores2020
                     pilaSimbolos.Pop();
                     pilaSimbolos.Pop();
                     pilaSimbolos.Pop();
+                    if (pilaSimbolos.Peek() == "Stmt")
+                        contador87 = 1;
                     pilaSimbolos.Push("IfStmt");
+                   
                     return IrA(pilaAcciones.Peek(), lH);
                 case "}": //Reduccion 62}
                     pilaAcciones.Pop();
@@ -17258,7 +17327,10 @@ namespace ProyectoCompiladores2020
                     pilaSimbolos.Pop();
                     pilaSimbolos.Pop();
                     pilaSimbolos.Pop();
+                    if (pilaSimbolos.Peek() == "Stmt")
+                        contador87 = 1;
                     pilaSimbolos.Push("IfStmt");
+                    
                     return IrA(pilaAcciones.Peek(), lH);
                 case "if": //Reduccion 62 if
                     pilaAcciones.Pop();
@@ -17274,7 +17346,10 @@ namespace ProyectoCompiladores2020
                     pilaSimbolos.Pop();
                     pilaSimbolos.Pop();
                     pilaSimbolos.Pop();
+                    if (pilaSimbolos.Peek() == "Stmt")
+                        contador87 = 1;
                     pilaSimbolos.Push("IfStmt");
+                   
                     return IrA(pilaAcciones.Peek(), lH);
                 case "else": //Reduccion 62 else
                     pilaAcciones.Pop();
@@ -17290,7 +17365,10 @@ namespace ProyectoCompiladores2020
                     pilaSimbolos.Pop();
                     pilaSimbolos.Pop();
                     pilaSimbolos.Pop();
+                    if (pilaSimbolos.Peek() == "Stmt")
+                        contador87 = 1;
                     pilaSimbolos.Push("IfStmt");
+                   
                     return IrA(pilaAcciones.Peek(), lH);
                 case "while": //Reduccion 62 while
                     pilaAcciones.Pop();
@@ -17306,7 +17384,10 @@ namespace ProyectoCompiladores2020
                     pilaSimbolos.Pop();
                     pilaSimbolos.Pop();
                     pilaSimbolos.Pop();
+                    if (pilaSimbolos.Peek() == "Stmt")
+                        contador87 = 1;
                     pilaSimbolos.Push("IfStmt");
+                    
                     return IrA(pilaAcciones.Peek(), lH);
                 case "for": //Reduccion 62 for
                     pilaAcciones.Pop();
@@ -17322,7 +17403,10 @@ namespace ProyectoCompiladores2020
                     pilaSimbolos.Pop();
                     pilaSimbolos.Pop();
                     pilaSimbolos.Pop();
+                    if (pilaSimbolos.Peek() == "Stmt")
+                        contador87 = 1;
                     pilaSimbolos.Push("IfStmt");
+                   
                     return IrA(pilaAcciones.Peek(), lH);
                 case "return": //Reduccion 62 return
                     pilaAcciones.Pop();
@@ -17338,7 +17422,10 @@ namespace ProyectoCompiladores2020
                     pilaSimbolos.Pop();
                     pilaSimbolos.Pop();
                     pilaSimbolos.Pop();
+                    if (pilaSimbolos.Peek() == "Stmt")
+                        contador87 = 1;
                     pilaSimbolos.Push("IfStmt");
+                   
                     return IrA(pilaAcciones.Peek(), lH);
                 case "break": //Reduccion 62 break
                     pilaAcciones.Pop();
@@ -17354,7 +17441,10 @@ namespace ProyectoCompiladores2020
                     pilaSimbolos.Pop();
                     pilaSimbolos.Pop();
                     pilaSimbolos.Pop();
+                    if (pilaSimbolos.Peek() == "Stmt")
+                        contador87 = 1;
                     pilaSimbolos.Push("IfStmt");
+                   
                     return IrA(pilaAcciones.Peek(), lH);
                 case "Console": //Reduccion 62 console
                     pilaAcciones.Pop();
@@ -17370,7 +17460,10 @@ namespace ProyectoCompiladores2020
                     pilaSimbolos.Pop();
                     pilaSimbolos.Pop();
                     pilaSimbolos.Pop();
+                    if (pilaSimbolos.Peek() == "Stmt")
+                        contador87 = 1;
                     pilaSimbolos.Push("IfStmt");
+                   
                     return IrA(pilaAcciones.Peek(), lH);
                 case "-": //Reduccion 62 -
                     pilaAcciones.Pop();
@@ -17386,7 +17479,10 @@ namespace ProyectoCompiladores2020
                     pilaSimbolos.Pop();
                     pilaSimbolos.Pop();
                     pilaSimbolos.Pop();
+                    if (pilaSimbolos.Peek() == "Stmt")
+                        contador87 = 1;
                     pilaSimbolos.Push("IfStmt");
+                   
                     return IrA(pilaAcciones.Peek(), lH);
                 case "!": //Reduccion 62 !
                     pilaAcciones.Pop();
@@ -17402,7 +17498,10 @@ namespace ProyectoCompiladores2020
                     pilaSimbolos.Pop();
                     pilaSimbolos.Pop();
                     pilaSimbolos.Pop();
+                    if (pilaSimbolos.Peek() == "Stmt")
+                        contador87 = 1;
                     pilaSimbolos.Push("IfStmt");
+                   
                     return IrA(pilaAcciones.Peek(), lH);
                 case "this": //Reduccion 62 this
                     pilaAcciones.Pop();
@@ -17418,7 +17517,10 @@ namespace ProyectoCompiladores2020
                     pilaSimbolos.Pop();
                     pilaSimbolos.Pop();
                     pilaSimbolos.Pop();
+                    if (pilaSimbolos.Peek() == "Stmt")
+                        contador87 = 1;
                     pilaSimbolos.Push("IfStmt");
+                    
                     return IrA(pilaAcciones.Peek(), lH);
                 case "New": //Reduccion 62 New
                     pilaAcciones.Pop();
@@ -17434,7 +17536,10 @@ namespace ProyectoCompiladores2020
                     pilaSimbolos.Pop();
                     pilaSimbolos.Pop();
                     pilaSimbolos.Pop();
+                    if (pilaSimbolos.Peek() == "Stmt")
+                        contador87 = 1;
                     pilaSimbolos.Push("IfStmt");
+                   
                     return IrA(pilaAcciones.Peek(), lH);
                 case "null": //Reduccion 62 null
                     pilaAcciones.Pop();
@@ -17450,7 +17555,10 @@ namespace ProyectoCompiladores2020
                     pilaSimbolos.Pop();
                     pilaSimbolos.Pop();
                     pilaSimbolos.Pop();
+                    if (pilaSimbolos.Peek() == "Stmt")
+                        contador87 = 1;
                     pilaSimbolos.Push("IfStmt");
+                    
                     return IrA(pilaAcciones.Peek(), lH);
                 default:
                     return error(lH);

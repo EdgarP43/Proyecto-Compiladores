@@ -722,6 +722,78 @@ namespace ProyectoCompiladores2020
                         }
                         else if (linea.Peek() == '*')// si encontramos  un inidicio de fin de comentario de fin de comentario de varias lineas
                         {
+                            if(cadena != "")
+                            {
+                                salida.Add(validarCadena(cadena, llave, inicio, fin));//se manda a validar el double que se tiene
+                                if (validarCadena(cadena, llave, inicio, fin).Contains("****Error T_identificador muy largo: "))
+                                {
+                                    errores.Add("****Error T_identificador muy largo: " + cadena + " en linea " + llave.ToString() + "\n");//se manda a errores
+                                    correcto = false;
+
+                                }
+                                if (validarCadena(cadena, llave, inicio, fin).Contains("reservada"))
+                                {
+                                    var temp = new Token();
+                                    temp.contenido = cadena;
+                                    temp.tipo = "reservada";
+                                    temp.linea = llave;
+                                    temp.columnaInicio = inicio;
+                                    temp.columnaFin = fin;
+                                    tokens.Enqueue(temp);
+                                }
+                                else if (validarCadena(cadena, llave, inicio, fin).Contains("ident"))
+                                {
+                                    var temp = new Token();
+                                    temp.contenido = cadena;
+                                    temp.tipo = "ident";
+                                    temp.linea = llave;
+                                    temp.columnaInicio = inicio;
+                                    temp.columnaFin = fin;
+                                    tokens.Enqueue(temp);
+                                }
+                                else if (validarCadena(cadena, llave, inicio, fin).Contains("Operador"))
+                                {
+                                    var temp = new Token();
+                                    temp.contenido = cadena;
+                                    temp.tipo = "operador";
+                                    temp.linea = llave;
+                                    temp.columnaInicio = inicio;
+                                    temp.columnaFin = fin;
+                                    tokens.Enqueue(temp);
+                                }
+                                else if (validarCadena(cadena, llave, inicio, fin).Contains("Int"))
+                                {
+                                    var temp = new Token();
+                                    temp.contenido = cadena;
+                                    temp.tipo = "int";
+                                    temp.linea = llave;
+                                    temp.columnaInicio = inicio;
+                                    temp.columnaFin = fin;
+                                    tokens.Enqueue(temp);
+                                }
+                                else if (validarCadena(cadena, llave, inicio, fin).Contains("Double"))
+                                {
+                                    var temp = new Token();
+                                    temp.contenido = cadena;
+                                    temp.tipo = "double";
+                                    temp.linea = llave;
+                                    temp.columnaInicio = inicio;
+                                    temp.columnaFin = fin;
+                                    tokens.Enqueue(temp);
+                                }
+                                else if (validarCadena(cadena, llave, inicio, fin).Contains("Bool"))
+                                {
+                                    var temp = new Token();
+                                    temp.contenido = cadena;
+                                    temp.tipo = "bool";
+                                    temp.linea = llave;
+                                    temp.columnaInicio = inicio;
+                                    temp.columnaFin = fin;
+                                    tokens.Enqueue(temp);
+                                }
+                                inicio = fin;
+                                cadena = "";//vaciamos la cadena
+                            }
                             linea.Dequeue();
                             fin++;
                             inicio++;
