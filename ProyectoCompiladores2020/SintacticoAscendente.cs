@@ -47,8 +47,8 @@ namespace ProyectoCompiladores2020
         }
         private bool error (Token lH)
         {
-            errores.Add("Error en la linea " + lH.linea + ", Columnas de la " + lH.columnaInicio + "-" + lH.columnaFin + " con la cadena " + lH.contenido);
-            cadenas.Dequeue();
+           
+            
             if (cadenas.Count > 0)
             {
                 if (lH.tipo == "ident" || lH.contenido == "const" || lH.contenido == "int" || lH.contenido == "double" || lH.contenido == "string" || lH.contenido == "void" || lH.contenido == "class" || lH.contenido == "interface" )
@@ -56,11 +56,12 @@ namespace ProyectoCompiladores2020
                     pilaAcciones.Clear();
                     pilaSimbolos.Clear();
                     pilaAcciones.Push(0);
-                    lH = cadenas.Peek();
                     return IrA(pilaAcciones.Peek(), lH);
                 }
                 else
                 {
+                    errores.Add("Error en la linea " + lH.linea + ", Columnas de la " + lH.columnaInicio + "-" + lH.columnaFin + " con la cadena " + lH.contenido);
+                    cadenas.Dequeue();
                     lH = cadenas.Peek();
                     return IrA(pilaAcciones.Peek(), lH);
                 }
@@ -4767,7 +4768,7 @@ namespace ProyectoCompiladores2020
         }
         private bool estado79(Token lH)
         {
-            switch (lH.tipo)
+            switch (lH.contenido)
             {
                 case ")": //d84
                     pilaSimbolos.Push(cadenas.Dequeue().contenido);
@@ -9986,7 +9987,6 @@ namespace ProyectoCompiladores2020
                     pilaSimbolos.Push("StmtBlock");
 
                     return IrA(pilaAcciones.Peek(), lH);
-                    return IrA(pilaAcciones.Peek(), lH);
                 case "bool":  //Reduccion 100;
                     pilaAcciones.Pop();
                     pilaAcciones.Pop();
@@ -10016,7 +10016,6 @@ namespace ProyectoCompiladores2020
                     pilaSimbolos.Pop();
                     pilaSimbolos.Push("StmtBlock");
 
-                    return IrA(pilaAcciones.Peek(), lH);
                     return IrA(pilaAcciones.Peek(), lH);
                 case "(": //Reduccion 100(
                     pilaAcciones.Pop();
@@ -10227,7 +10226,6 @@ namespace ProyectoCompiladores2020
                     pilaSimbolos.Pop();
                     pilaSimbolos.Push("StmtBlock");
 
-                    return IrA(pilaAcciones.Peek(), lH);
                     return IrA(pilaAcciones.Peek(), lH);
                 case "!":  //Reduccion 100 !
                     pilaAcciones.Pop();
@@ -10873,8 +10871,7 @@ namespace ProyectoCompiladores2020
                     pilaSimbolos.Pop();
                     pilaSimbolos.Push("BreakStmt");
                     return IrA(pilaAcciones.Peek(), lH);
-                    return IrA(pilaAcciones.Peek(), lH);
-                case "break":  //Reduccion 100 brak
+                case "break":  //Reduccion 100 break
                     pilaAcciones.Pop();
                     pilaSimbolos.Pop();
                     pilaAcciones.Pop();

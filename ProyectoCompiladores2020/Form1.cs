@@ -16,7 +16,7 @@ namespace ProyectoCompiladores2020
         public Dictionary<int, string> lineas = new Dictionary<int, string>();
         analizador iraAnalizador = new analizador();
         SintacticoRecursivo sintacticoDes = new SintacticoRecursivo();
-        SintacticoAscendente sintacticoAs = new SintacticoAscendente();
+       // SintacticoAscendente sintacticoAs = new SintacticoAscendente();
         public Form1()
         {
             InitializeComponent();
@@ -25,6 +25,7 @@ namespace ProyectoCompiladores2020
         
         private void button1_Click(object sender, EventArgs e)
         {
+            iraAnalizador.tokens.Clear();
             int contlineas = 0;
             iraAnalizador.correcto = true;
             OpenFileDialog o = new OpenFileDialog();
@@ -107,6 +108,11 @@ namespace ProyectoCompiladores2020
 
         private void button3_Click(object sender, EventArgs e)
         {
+            if (listBox3.Items != null)
+            {
+                listBox3.Items.Clear();
+            }
+            SintacticoAscendente sintacticoAs = new SintacticoAscendente();
             sintacticoAs.cadenas = iraAnalizador.tokens;
             sintacticoAs.iniciar();
             if (sintacticoAs.errores.Count != 0)
@@ -122,7 +128,7 @@ namespace ProyectoCompiladores2020
                 listBox3.Items.Add("El archivo es correcto");
             }
             sintacticoAs.errores.Clear();
-
+            button3.Enabled = false;
         }
     }
 }
