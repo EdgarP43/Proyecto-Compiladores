@@ -112,6 +112,7 @@ namespace ProyectoCompiladores2020
             {
                 listBox3.Items.Clear();
             }
+            
             SintacticoAscendente sintacticoAs = new SintacticoAscendente();
             sintacticoAs.cadenas = iraAnalizador.tokens;
             sintacticoAs.iniciar();
@@ -129,6 +130,18 @@ namespace ProyectoCompiladores2020
             }
             sintacticoAs.errores.Clear();
             button3.Enabled = false;
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            TablaSimbolos tabla = new TablaSimbolos();
+            tabla.cadenas = iraAnalizador.tokens;
+            tabla.Inicar();
+        }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }

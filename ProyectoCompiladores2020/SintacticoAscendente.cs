@@ -1909,7 +1909,8 @@ namespace ProyectoCompiladores2020
                 case ";": //d43
                     pilaSimbolos.Push(cadenas.Dequeue().contenido);
                     pilaAcciones.Push(43);
-                    lH = cadenas.Peek();
+                    if(cadenas.Count > 0)
+                        lH = cadenas.Peek();
                     return estado43(lH);
                 default:
                     return error(lH);
@@ -2512,7 +2513,8 @@ namespace ProyectoCompiladores2020
                 case "}"://d63
                     pilaSimbolos.Push(cadenas.Dequeue().contenido);
                     pilaAcciones.Push(63);
-                    lH = cadenas.Peek();
+                    if(cadenas.Count>0)
+                        lH = cadenas.Peek();
                     return estado63(lH);
                 default:
                     return error(lH);

@@ -11,6 +11,7 @@ namespace ProyectoCompiladores2020
         public Queue<Token> cadenas = new Queue<Token>();
         public List<Variable> variables = new List<Variable>();
         public Dictionary<string, string> variablesPerAmbito = new Dictionary<string, string>();
+        public List<string> ambitos = new List<string>();
 
         public void Inicar()
         {
@@ -21,13 +22,28 @@ namespace ProyectoCompiladores2020
                 if (cadenas.Peek().contenido == "const")
                 {
                     var temp = new Variable();
-                    temp.ambito = cadenas.Dequeue().contenido + "Global";
-                    temp.tipo = cadenas.Dequeue().contenido;
+                    temp.ambito = "Global";
+                    temp.tipo = cadenas.Dequeue().contenido + " " + cadenas.Dequeue().contenido;
                     temp.identificador = cadenas.Dequeue().contenido;
                     temp.valor = "";
-                    variablesPerAmbito.Add(temp.identificador, temp.ambito);
-                    cadenas.Dequeue();
-                    variables.Add(temp);
+                    if (variablesPerAmbito.Count == 0)
+                    {
+                        variables.Add(temp);
+                        variablesPerAmbito.Add(temp.identificador, temp.ambito);
+                        ambitos.Add(temp.ambito);
+                        cadenas.Dequeue();
+                    }
+                    else if (!EvaluarRepetido(temp.ambito, temp.identificador))
+                    {
+                        variables.Add(temp);
+                        variablesPerAmbito.Add(temp.identificador, temp.ambito);
+                        cadenas.Dequeue();
+                    }
+                    else
+                    {
+                        string prueba = "Sa mierda ya la repetiste";
+                        cadenas.Dequeue();
+                    }
                 }
                 else if (cadenas.Peek().contenido == "int" || cadenas.Peek().contenido == "double" || cadenas.Peek().contenido == "bool" || cadenas.Peek().contenido == "string" || cadenas.Peek().tipo == "ident")
                 {
@@ -38,13 +54,28 @@ namespace ProyectoCompiladores2020
                     string auxIdentificador = cadenas.Dequeue().contenido;
                     if (cadenas.Peek().contenido == ";")
                     {
-                        temp.tipo = aux;
+                        temp.tipo = "Variable " + aux;
                         temp.identificador = auxIdentificador;
-                        temp.ambito = "Variable Global";
+                        temp.ambito = "Global";
                         temp.valor = "";
-                        variablesPerAmbito.Add(temp.identificador, temp.ambito);
-                        variables.Add(temp);
-                        cadenas.Dequeue();
+                        if (variablesPerAmbito.Count == 0)
+                        {
+                            variables.Add(temp);
+                            variablesPerAmbito.Add(temp.identificador, temp.ambito);
+                            ambitos.Add(temp.ambito);
+                            cadenas.Dequeue();
+                        }
+                        else if (!EvaluarRepetido(temp.ambito, temp.identificador))
+                        {
+                            variables.Add(temp);
+                            variablesPerAmbito.Add(temp.identificador, temp.ambito);
+                            cadenas.Dequeue();
+                        }
+                        else
+                        {
+                            string prueba = "Sa mierda ya la repetiste";
+                            cadenas.Dequeue();
+                        }
                     }
                     else if (cadenas.Peek().contenido == "(")
                     {
@@ -67,11 +98,23 @@ namespace ProyectoCompiladores2020
                     temp.identificador = cadenas.Dequeue().contenido;
                     temp.ambito = "Metodo" + temp.identificador;
                     temp.valor = "";
-                    variables.Add(temp);
-                    variablesPerAmbito.Add(temp.identificador, temp.ambito);
-                    cadenas.Dequeue();
-                    AnalizarParametros(temp.ambito);
-                    AnalizarFuncion(temp.ambito);
+
+
+                    if (!EvaluarRepetido(temp.ambito, temp.identificador))
+                    {
+                        variables.Add(temp);
+                        variablesPerAmbito.Add(temp.identificador, temp.ambito);
+                        cadenas.Dequeue();
+                        AnalizarParametros(temp.ambito);
+                        AnalizarFuncion(temp.ambito);
+
+                    }
+                    else
+                    {
+                        string prueba = "Sa mierda ya la repetiste";
+                        cadenas.Dequeue();
+                    }
+
                 }
                 else if (cadenas.Peek().contenido == "class")
                 {
@@ -83,7 +126,7 @@ namespace ProyectoCompiladores2020
                     temp.valor = "";
                     variables.Add(temp);
                     variablesPerAmbito.Add(temp.identificador, temp.ambito);
-                    if(cadenas.Peek().contenido == ":")
+                    if (cadenas.Peek().contenido == ":")
                     {
                         cadenas.Dequeue();
                         heredados();
@@ -98,9 +141,18 @@ namespace ProyectoCompiladores2020
                     temp.identificador = cadenas.Dequeue().contenido;
                     temp.ambito = "Interfaz" + temp.identificador;
                     temp.valor = "";
-                    variables.Add(temp);
-                    variablesPerAmbito.Add(temp.identificador, temp.ambito);
-                    interfaz(temp.ambito);
+                    if (!EvaluarRepetido(temp.ambito, temp.identificador))
+                    {
+                        variables.Add(temp);
+                        variablesPerAmbito.Add(temp.identificador, temp.ambito);
+                        interfaz(temp.ambito);
+
+                    }
+                    else
+                    {
+                        string prueba = "Sa mierda ya la repetiste";
+                        cadenas.Dequeue();
+                    }
                 }
             } while (cadenas.Count > 0);
         }
@@ -114,10 +166,10 @@ namespace ProyectoCompiladores2020
                 temp.identificador = cadenas.Dequeue().contenido;
                 temp.valor = "";
                 variables.Add(temp);
-                variablesPerAmbito.Add(temp.identificador, ambito);
+                //variablesPerAmbito.Add(temp.identificador, ambito);
                 if (cadenas.Peek().contenido == ",")
                     cadenas.Dequeue();
-            } while (cadenas.Peek().contenido == ")");
+            } while (cadenas.Peek().contenido != ")");
             cadenas.Dequeue();
         }
         public void AnalizarFuncion(string ambito)
@@ -132,11 +184,10 @@ namespace ProyectoCompiladores2020
                     temp.tipo = cadenas.Dequeue().contenido;
                     temp.identificador = cadenas.Dequeue().contenido;
                     temp.valor = "";
-                    if (variablesPerAmbito.ContainsKey(temp.identificador) && variablesPerAmbito[temp.identificador].Contains(ambito))
+                    if (!variablesPerAmbito.ContainsKey(temp.identificador) && !variablesPerAmbito[temp.identificador].Contains(ambito))
                     {
                         variables.Add(temp);
                         variablesPerAmbito.Add(temp.identificador, ambito);
-                        cadenas.Dequeue();
                     }
                     else
                     {
@@ -157,7 +208,7 @@ namespace ProyectoCompiladores2020
                         temp.identificador = auxIdentificador;
                         temp.ambito = "Variable " + ambito;
                         temp.valor = "";
-                        if (variablesPerAmbito.ContainsKey(temp.identificador) && variablesPerAmbito[temp.identificador].Contains(ambito))
+                        if (!variablesPerAmbito.ContainsKey(temp.identificador) && !variablesPerAmbito[temp.identificador].Contains(ambito))
                         {
                             variables.Add(temp);
                             variablesPerAmbito.Add(temp.identificador, ambito);
@@ -441,7 +492,7 @@ namespace ProyectoCompiladores2020
                 variablesPerAmbito.Add(temp.identificador, temp.ambito);
                 if (cadenas.Peek().contenido == ",")
                     cadenas.Dequeue();
-            } while (cadenas.Peek().contenido == "{");
+            } while (cadenas.Peek().contenido != "}");
         }
         public void interfaz(string ambito)
         {
@@ -458,13 +509,31 @@ namespace ProyectoCompiladores2020
                     if (cadenas.Peek().contenido == "(")
                     {
                         cadenas.Dequeue();
-                        temp.tipo = aux;
+                        temp.tipo = "Metodo " + aux;
                         temp.identificador = auxIdentificador;
-                        temp.ambito = ambito + "Metodo" + auxIdentificador;
+                        temp.ambito = ambito;
                         temp.valor = "";
-                        variables.Add(temp);
-                        variablesPerAmbito.Add(temp.identificador, temp.ambito);
-                        cadenas.Dequeue();
+                        if (variablesPerAmbito.Count == 0)
+                        {
+                            variables.Add(temp);
+                            variablesPerAmbito.Add(temp.identificador, temp.ambito + "Metodo " + aux + auxIdentificador);
+                            AnalizarParametros(temp.ambito + "Metodo " + aux + auxIdentificador);
+                            cadenas.Dequeue();
+                        }
+                        else if (!EvaluarRepetido(temp.ambito, temp.identificador))
+                        {
+                            variables.Add(temp);
+                            variablesPerAmbito.Add(temp.identificador, temp.ambito + "Metodo" + auxIdentificador);
+                            AnalizarParametros(temp.ambito + "Metodo " + aux + auxIdentificador);
+
+                            cadenas.Dequeue();
+                        }
+                        else
+                        {
+                            AnalizarParametros(temp.ambito + "Metodo " + aux + auxIdentificador);
+                            string prueba = "Sa mierda ya la repetiste";
+                            cadenas.Dequeue();
+                        }
                         AnalizarParametros(temp.ambito);
                         cadenas.Dequeue();//;
                     }
@@ -475,15 +544,15 @@ namespace ProyectoCompiladores2020
                     var temp = new Variable();
                     temp.tipo = "Funcion";
                     temp.identificador = cadenas.Dequeue().contenido;
-                    temp.ambito = ambito + "Metodo" + temp.identificador;
+                    temp.ambito = ambito ;
                     temp.valor = "";
                     variables.Add(temp);
                     variablesPerAmbito.Add(temp.identificador, temp.ambito);
                     cadenas.Dequeue();
-                    AnalizarParametros(temp.ambito);
+                    AnalizarParametros(temp.ambito + "Metodo" + temp.identificador);
                     cadenas.Dequeue();//
                 }
-            } while (cadenas.Peek().contenido == "}");
+            } while (cadenas.Peek().contenido != "}");
 
             cadenas.Dequeue();//}
         }
@@ -494,7 +563,27 @@ namespace ProyectoCompiladores2020
                 expresion(ambito);
                 if(cadenas.Peek().contenido == ",")
                     cadenas.Dequeue();
-            } while (cadenas.Peek().contenido == ")");
+            } while (cadenas.Peek().contenido != ")");
+        }
+        public bool EvaluarRepetido (string ambito, string identificador)
+        {
+            var temporal = new List<Variable>();
+            bool repetido = false;
+            foreach(var item in variables)
+            {
+                if(item.ambito == ambito)
+                {
+                    temporal.Add(item);
+                }
+            }
+            foreach (var item in temporal)
+            {
+                if (item.identificador == identificador)
+                {
+                    repetido = true;
+                }
+            }
+            return repetido;
         }
     }
 }
