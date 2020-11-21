@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.IO;
 
 namespace ProyectoCompiladores2020
 {
@@ -12,6 +13,7 @@ namespace ProyectoCompiladores2020
         public List<Variable> variables = new List<Variable>();
         public Dictionary<string, string> variablesPerAmbito = new Dictionary<string, string>();
         public List<string> ambitos = new List<string>();
+        public List<string> errores = new List<string>();
 
         public void Inicar()
         {
@@ -41,7 +43,8 @@ namespace ProyectoCompiladores2020
                     }
                     else
                     {
-                        string prueba = "Sa mierda ya la repetiste";
+                        
+                        errores.Add("constante ya existente en id " + temp.identificador);
                         cadenas.Dequeue();
                     }
                 }
@@ -73,7 +76,8 @@ namespace ProyectoCompiladores2020
                         }
                         else
                         {
-                            string prueba = "Sa mierda ya la repetiste";
+                            
+                            errores.Add("Variable ya existente en id " + temp.identificador);
                             cadenas.Dequeue();
                         }
                     }
@@ -110,7 +114,8 @@ namespace ProyectoCompiladores2020
                     }
                     else
                     {
-                        string prueba = "Sa mierda ya la repetiste";
+                       
+                        errores.Add("método ya existente en id " + temp.identificador);
                         cadenas.Dequeue();
                     }
 
@@ -130,7 +135,8 @@ namespace ProyectoCompiladores2020
                     }
                     else
                     {
-                        string prueba = "Sa mierda ya la repetiste";
+                       
+                        errores.Add("Variable ya existente en id " + temp.identificador);
                         cadenas.Dequeue();
                     }
 
@@ -158,12 +164,25 @@ namespace ProyectoCompiladores2020
                     }
                     else
                     {
-                        string prueba = "Sa mierda ya la repetiste";
+                       
+                        errores.Add("Interfaz ya declarada "+ temp.identificador);
                         cadenas.Dequeue();
                     }
                 }
             } while (cadenas.Count > 0);
             //archivo(variables);
+        }
+
+        public void archivo(string path)
+        {
+            using (StreamWriter sw = new StreamWriter(path))
+            {
+                foreach (var item in variables)
+                {
+                    sw.WriteLine("{" + "\n" + "\t" +"Id: "+item.identificador + "\n" + "\t" + "Tipo: " + item.tipo + "\n" + "\t" + "Valor: " + item.valor  + "\n" + "\t" + "Ambito: " + item.ambito+ "\n" + "}");
+                    sw.WriteLine("\n");
+                }
+            }
         }
         public void AnalizarParametros(string ambito)
         {
@@ -180,7 +199,8 @@ namespace ProyectoCompiladores2020
                 }
                 else
                 {
-                    string prueba = "Sa mierda ya la repetiste";
+                   
+                    errores.Add("Variable ya existente en id "+ temp.identificador);
                 }
                 if (cadenas.Peek().contenido == ",")
                 {
@@ -209,7 +229,8 @@ namespace ProyectoCompiladores2020
                     }
                     else
                     {
-                        string prueba = "Sa mierda ya la repetiste";
+                        errores.Add("Variable ya existente en id " + temp.identificador);
+                    
                         cadenas.Dequeue();
                     }
                 }
@@ -231,7 +252,8 @@ namespace ProyectoCompiladores2020
                         }
                         else
                         {
-                            string prueba = "Sa mierda ya la repetiste";
+                            errores.Add("Variable ya existente en id " + temp.identificador);
+                            
                         }
                     }
                     else if (cadenas.Peek().contenido == "=")
@@ -263,6 +285,7 @@ namespace ProyectoCompiladores2020
                                 cadenas.Dequeue();
                                 cadenas.Dequeue();
                                 //no esta sa mierda
+                                errores.Add("identificador no declarado " + aux);
                             }
                         }
                     }
@@ -458,7 +481,8 @@ namespace ProyectoCompiladores2020
                         }
                         else
                         {
-                            //Sa mierda no existe
+                           
+                            errores.Add("identificador no declarado "+cadenas.Peek().contenido);
                             cadenas.Dequeue();
                         }
                     }
@@ -560,7 +584,8 @@ namespace ProyectoCompiladores2020
                     }
                     else
                     {
-                        string prueba = "Sa mierda ya la repetiste";
+                      
+                         errores.Add("Variable ya existente en id: "+ temp.identificador);
                         cadenas.Dequeue();
                     }
                 }
@@ -584,7 +609,8 @@ namespace ProyectoCompiladores2020
                         }
                         else
                         {
-                            string prueba = "Sa mierda ya la repetiste";
+                           
+                            errores.Add("Variable ya existente en id " + temp.identificador);
                         }
                     }
                     else if (cadenas.Peek().contenido == "(")
@@ -600,7 +626,8 @@ namespace ProyectoCompiladores2020
                         }
                         else
                         {
-                            string prueba = "Sa mierda ya la repetiste";
+                            
+                            errores.Add("Variable ya existente en id " + temp.identificador);
                         }
                         cadenas.Dequeue();
                         AnalizarParametros(temp.identificador + "Metodo" + auxIdentificador);
@@ -621,7 +648,8 @@ namespace ProyectoCompiladores2020
                     }
                     else
                     {
-                        string prueba = "Sa mierda ya la repetiste";
+                       
+                        errores.Add("Variable ya existente en id " + temp.identificador);
                     }
                     cadenas.Dequeue();
                     AnalizarParametros(temp.ambito + "Metodo" + temp.identificador);
@@ -646,7 +674,8 @@ namespace ProyectoCompiladores2020
                 }
                 else
                 {
-                    string prueba = "Sa mierda ya la repetiste";
+                   
+                    errores.Add("Variable ya existente en id " + temp.identificador);
                 }
                 if (cadenas.Peek().contenido == ",")
                     cadenas.Dequeue();
@@ -688,8 +717,10 @@ namespace ProyectoCompiladores2020
                         }
                         else
                         {
-                            string prueba = "Sa mierda ya la repetiste";
+                           
+
                             AnalizarParametros(temp.ambito + "Metodo " + aux + auxIdentificador);
+                            errores.Add("método ya existente en id " + temp.identificador);
                             cadenas.Dequeue();
                         }
                     }

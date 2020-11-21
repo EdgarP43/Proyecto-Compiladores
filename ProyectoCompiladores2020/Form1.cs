@@ -15,8 +15,11 @@ namespace ProyectoCompiladores2020
     {
         public Dictionary<int, string> lineas = new Dictionary<int, string>();
         analizador iraAnalizador = new analizador();
+        analizador iraAnalizador2 = new analizador();
         SintacticoRecursivo sintacticoDes = new SintacticoRecursivo();
-       // SintacticoAscendente sintacticoAs = new SintacticoAscendente();
+        TablaSimbolos tabla = new TablaSimbolos();
+        string nombreArchivo2;
+        // SintacticoAscendente sintacticoAs = new SintacticoAscendente();
         public Form1()
         {
             InitializeComponent();
@@ -49,9 +52,11 @@ namespace ProyectoCompiladores2020
                    
                 }
                 iraAnalizador.guardarArchivo(lineas);
+                iraAnalizador2.guardarArchivo(lineas);
                 var mostrar = iraAnalizador.Reconocedor();
+                var listaTemp = iraAnalizador2.Reconocedor();
                 sintacticoDes.tokens = iraAnalizador.tokens;
-                
+                tabla.cadenas = iraAnalizador2.tokens;
                 if (iraAnalizador.correcto == false)
                 {
                     foreach (var item in iraAnalizador.errores)
@@ -69,6 +74,7 @@ namespace ProyectoCompiladores2020
 
                 }       
                 string nombreArchivo = Path.ChangeExtension(o.FileName,".out");
+                nombreArchivo2 = Path.ChangeExtension(o.FileName, ".tabla");
                 using (StreamWriter sw = new StreamWriter(nombreArchivo))
                 {
                     foreach (var item in mostrar)
@@ -127,6 +133,7 @@ namespace ProyectoCompiladores2020
             else
             {
                 listBox3.Items.Add("El archivo es correcto");
+                button4.Enabled = true;
             }
             sintacticoAs.errores.Clear();
             button3.Enabled = false;
@@ -134,9 +141,30 @@ namespace ProyectoCompiladores2020
 
         private void button4_Click(object sender, EventArgs e)
         {
+            if (listBox4.Items != null)
+            {
+                listBox4.Items.Clear();
+            }
+
             TablaSimbolos tabla = new TablaSimbolos();
-            tabla.cadenas = iraAnalizador.tokens;
+            tabla.cadenas = iraAnalizador2.tokens;
             tabla.Inicar();
+            tabla.archivo(nombreArchivo2);
+
+            if (tabla.errores.Count != 0)
+            {
+                foreach (var item in tabla.errores)
+                {
+                    listBox4.Items.Add(item);
+                    listBox4.Items.Add("\n");
+                }
+            }
+            else
+            {
+                listBox4.Items.Add("El archivo es correcto");
+            }
+            tabla.errores.Clear();
+            button4.Enabled = false;
         }
 
         private void Form1_Load(object sender, EventArgs e)
