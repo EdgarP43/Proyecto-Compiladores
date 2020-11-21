@@ -497,6 +497,105 @@ namespace ProyectoCompiladores2020
                                 ReasignarValor(temp.valor, varTemp.identificador, varTemp.ambito);
                                 cadenas.Dequeue();
                             }
+                            if(cadenas.Peek().contenido == "+")
+                            {
+                                cadenas.Dequeue();
+                                if ((EvaluarExistencia(ambito, cadenas.Peek().contenido) && (cadenas.Peek().tipo == "ident")))/*variablesPerAmbito.ContainsKey(cadenas.Peek().contenido) && variablesPerAmbito[cadenas.Peek().contenido].Contains(ambito)*/
+                                {
+                                    var temp2 = obtenerVariable(cadenas.Peek().contenido, ambito);
+                                    if (varTemp.tipo == temp2.tipo && varTemp.tipo == "string")
+                                    {
+                                        ReasignarValor(temp2.valor + varTemp.valor, varTemp.identificador, varTemp.ambito);
+                                        cadenas.Dequeue();
+                                    }
+                                    else if (varTemp.tipo == temp2.tipo && varTemp.tipo == "int")
+                                    {
+                                        ReasignarValor((Convert.ToInt32(temp2.valor) * Convert.ToInt32(varTemp.valor)).ToString(), varTemp.identificador, varTemp.ambito);
+                                        cadenas.Dequeue();
+                                    }
+                                    else if (varTemp.tipo == temp2.tipo && varTemp.tipo == "double")
+                                    {
+                                        ReasignarValor((Convert.ToDouble(temp2.valor) * Convert.ToDouble(varTemp.valor)).ToString(), varTemp.identificador, varTemp.ambito);
+                                        cadenas.Dequeue();
+                                    }
+                                    else
+                                    {
+                                        errores.Add("OPeracion con distintos tipos no es posible en " + varTemp.tipo);//Error
+                                    }
+
+
+                                }
+                                else if (cadenas.Peek().tipo == "int" || cadenas.Peek().tipo == "double")
+                                {
+                                    if (varTemp.tipo == cadenas.Peek().tipo)
+                                    {
+                                        ReasignarValor((Convert.ToInt32(cadenas.Dequeue().contenido) * Convert.ToInt32(varTemp.valor)).ToString(), varTemp.identificador, varTemp.ambito);
+
+                                    }
+                                }
+                                else if (cadenas.Peek().tipo == "string")
+                                {
+                                    if (varTemp.tipo == cadenas.Peek().tipo)
+                                    {
+                                        ReasignarValor(cadenas.Dequeue().contenido + varTemp.valor, varTemp.identificador, varTemp.ambito);
+
+                                    }
+                                }
+                            }
+                            else if (cadenas.Peek().contenido == "*")
+                            {
+                                cadenas.Dequeue();
+                                if ((EvaluarExistencia(ambito, cadenas.Peek().contenido) && (cadenas.Peek().tipo == "ident")))/*variablesPerAmbito.ContainsKey(cadenas.Peek().contenido) && variablesPerAmbito[cadenas.Peek().contenido].Contains(ambito)*/
+                                {
+                                    var temp2 = obtenerVariable(cadenas.Peek().contenido, ambito);
+                                    if (varTemp.tipo == temp2.tipo && varTemp.tipo == "string")
+                                    {
+                                        ReasignarValor(temp2.valor + varTemp.valor, varTemp.identificador, varTemp.ambito);
+                                        cadenas.Dequeue();
+                                    }
+                                    else if (varTemp.tipo == temp2.tipo && varTemp.tipo == "int" )
+                                    {
+                                        ReasignarValor((Convert.ToInt32(temp2.valor) * Convert.ToInt32(varTemp.valor)).ToString(), varTemp.identificador, varTemp.ambito);
+                                        cadenas.Dequeue();
+                                    }
+                                    else if (varTemp.tipo == temp2.tipo && varTemp.tipo == "double")
+                                    {
+                                        ReasignarValor((Convert.ToDouble(temp2.valor) * Convert.ToDouble(varTemp.valor)).ToString(), varTemp.identificador, varTemp.ambito);
+                                        cadenas.Dequeue();
+                                    }
+                                    else
+                                    {
+                                        errores.Add("OPeracion con distintos tipos no es posible en "+varTemp.tipo);//Error
+                                    }
+                                }
+                                else if (cadenas.Peek().tipo == "int")
+                                {
+                                    if (varTemp.tipo == cadenas.Peek().tipo)
+                                    {
+                                        ReasignarValor((Convert.ToInt32(cadenas.Dequeue().contenido) * Convert.ToInt32(varTemp.valor)).ToString(), varTemp.identificador, varTemp.ambito);
+
+                                    }
+                                }
+                                else if (cadenas.Peek().tipo == "double")
+                                {
+                                    if (varTemp.tipo == cadenas.Peek().tipo)
+                                    {
+                                        ReasignarValor((Convert.ToDouble(cadenas.Dequeue().contenido) * Convert.ToDouble(varTemp.valor)).ToString(), varTemp.identificador, varTemp.ambito);
+
+                                    }
+                                }
+                                else if (cadenas.Peek().tipo == "string" || cadenas.Peek().tipo == "bool")
+                                {
+                                    if (varTemp.tipo == cadenas.Peek().tipo)
+                                    {
+                                        errores.Add("Operacion invalida entre operando por conversion de tipos");
+                                    }
+                                }
+                            }
+                            else
+                            {
+                                errores.Add("OPeracion con distintos tipos no es posible en " + varTemp.tipo);//Error
+                            }
 
                         }
                         else if(cadenas.Peek().tipo == "int" || cadenas.Peek().tipo == "string" || cadenas.Peek().tipo == "bool" || cadenas.Peek().tipo == "double")
@@ -505,6 +604,93 @@ namespace ProyectoCompiladores2020
                             {
                                 ReasignarValor(cadenas.Dequeue().contenido, varTemp.identificador, varTemp.ambito);
                                 
+                            }
+                            if (cadenas.Peek().contenido == "+")
+                            {
+                                cadenas.Dequeue();
+                                if ((EvaluarExistencia(ambito, cadenas.Peek().contenido) && (cadenas.Peek().tipo == "ident")))/*variablesPerAmbito.ContainsKey(cadenas.Peek().contenido) && variablesPerAmbito[cadenas.Peek().contenido].Contains(ambito)*/
+                                {
+                                    var temp2 = obtenerVariable(cadenas.Peek().contenido, ambito);
+                                    if (varTemp.tipo == temp2.tipo)
+                                    {
+                                        ReasignarValor(temp2.valor + varTemp.valor, varTemp.identificador, varTemp.ambito);
+                                        cadenas.Dequeue();
+                                    }
+
+                                }
+                                else if (cadenas.Peek().tipo == "int" || cadenas.Peek().tipo == "double")
+                                {
+                                    if (varTemp.tipo == cadenas.Peek().tipo)
+                                    {
+                                        ReasignarValor((Convert.ToInt32(cadenas.Dequeue().contenido) * Convert.ToInt32(varTemp.valor)).ToString(), varTemp.identificador, varTemp.ambito);
+
+                                    }
+                                }
+                                else if (cadenas.Peek().tipo == "string")
+                                {
+                                    if (varTemp.tipo == cadenas.Peek().tipo)
+                                    {
+                                        ReasignarValor(cadenas.Dequeue().contenido + varTemp.valor, varTemp.identificador, varTemp.ambito);
+
+                                    }
+                                }
+                                else if (cadenas.Peek().tipo == "bool")
+                                {
+                                    if (varTemp.tipo == cadenas.Peek().tipo)
+                                    {
+                                        errores.Add("Operacion invalida entre operando por conversion de tipos");
+                                    }
+                                }
+                            }
+                            else if (cadenas.Peek().contenido == "*")
+                            {
+                                cadenas.Dequeue();
+                                if ((EvaluarExistencia(ambito, cadenas.Peek().contenido) && (cadenas.Peek().tipo == "ident")))/*variablesPerAmbito.ContainsKey(cadenas.Peek().contenido) && variablesPerAmbito[cadenas.Peek().contenido].Contains(ambito)*/
+                                {
+                                    var temp2 = obtenerVariable(cadenas.Peek().contenido, ambito);
+                                    if (varTemp.tipo == temp2.tipo && varTemp.tipo == "string")
+                                    {
+                                        ReasignarValor(temp2.valor + varTemp.valor, varTemp.identificador, varTemp.ambito);
+                                        cadenas.Dequeue();
+                                    }
+                                    else if (varTemp.tipo == temp2.tipo && varTemp.tipo == "int")
+                                    {
+                                        ReasignarValor((Convert.ToInt32(temp2.valor) * Convert.ToInt32(varTemp.valor)).ToString(), varTemp.identificador, varTemp.ambito);
+                                        cadenas.Dequeue();
+                                    }
+                                    else if (varTemp.tipo == temp2.tipo && varTemp.tipo == "double")
+                                    {
+                                        ReasignarValor((Convert.ToDouble(temp2.valor) * Convert.ToDouble(varTemp.valor)).ToString(), varTemp.identificador, varTemp.ambito);
+                                        cadenas.Dequeue();
+                                    }
+                                }
+                                else if (cadenas.Peek().tipo == "int")
+                                {
+                                    if (varTemp.tipo == cadenas.Peek().tipo)
+                                    {
+                                        ReasignarValor((Convert.ToInt32(cadenas.Dequeue().contenido) * Convert.ToInt32(varTemp.valor)).ToString(), varTemp.identificador, varTemp.ambito);
+
+                                    }
+                                }
+                                else if (cadenas.Peek().tipo == "double")
+                                {
+                                    if (varTemp.tipo == cadenas.Peek().tipo)
+                                    {
+                                        ReasignarValor((Convert.ToDouble(cadenas.Dequeue().contenido) * Convert.ToDouble(varTemp.valor)).ToString(), varTemp.identificador, varTemp.ambito);
+
+                                    }
+                                }
+                                else if (cadenas.Peek().tipo == "string" || cadenas.Peek().tipo == "bool")
+                                {
+                                    if (varTemp.tipo == cadenas.Peek().tipo)
+                                    {
+                                        errores.Add("Operacion invalida entre operando por conversion de tipos");
+                                    }
+                                }
+                            }
+                            else
+                            {
+                                errores.Add("OPeracion con distintos tipos no es posible en " + varTemp.tipo);//Error
                             }
                         }
                     }
