@@ -105,24 +105,37 @@ existentes en la cola despues de esa produccion reiniciar la gramatica y evaluar
 
 ## Tabla de Símbolos (Ultima Fase del curso asginada)
  ✦ Esta fase del compilador generado, se basa en la creación de una tabla la cual posee los símbolos  los tokens, los cuales han sido analizados en cada fase del proyecto, incluyendo que esta vez, se tiene la visibilidad de cada variable, su tipo, valor e incluyendo el ámbito en el cual se estan declarando y trabajando. 
- ✦ La tabla de símbolos permite: 
+ ✦ La tabla de símbolos permite:
+ 
  -Obtner por medio de una salida los datos mencionados en un archivo .tabla
+ 
  -el desgloce de estos se encuentra por cada analisi de tokens de entrada, excluyendo parentesis, llaves y entre otros caracteres que no son tomados incluso por el analizador léxico
+ 
  -Obervar operaciones como multiplicación, concateación y sumas , restas, validando siempre que el tipo que manejara, fuera el mismo, sin embargo la operacion de strings, no se realiza por conversión de tipos.
+ 
  -Se valida existencia de procesos, metodos, interfaces, entre otros, para evitar la existencia anterior, tomandola como error
+ 
  -De igual forma con variables no declaradas se valida, no asgina el valor y directamente se toma como error
  
  ## Implementación de la Tabla de símbolos
  ✦ Se usaron métodos recursivos para la validación de ambitos con estructuras similares
+ 
  ✦ Tokens desplegados extraídos desde la primera fase para validación de contenido, tipo y valor real
+ 
  ✦ Teniendo métodos que evluan exitencia, los que obteienen el valor real y las asginaciones de valores correspondientes, en caso las variables ya declaras tuvieran un  valor asignado.
+ 
  ✦ Tomando en cuenta siempre, la operación que se desea hacer segpun la tabla de símbolos
+ 
  
  ## Manejo Errores de la Tabla de Símbolos
  ✦ Son deplegados en la interfaz gráfica, y no son tomados en cuenta para el archivo 
+ 
  ✦ Las operaciones validan siempre que el tipo sea el mismo al operarse, de lo contario el error se desplegaría 
+ 
  ✦ Variables no declaradas
+ 
  ✦ Metodos, funciones anterioremente declarados 
+ 
  
 
 
